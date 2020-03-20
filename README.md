@@ -3,7 +3,7 @@
 A simple dashboard with a chart of the current italian trend
 based on the national data provided by the "Protezione Civile". 
 
-The app is deployed on Heroku &#8594; [here](https://covidashit.herokuapp.com/)
+##### The app is deployed on Heroku &#8594; [here](https://covidashit.herokuapp.com/)
 
 ##### Link to data &#8594; [here](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
 
