@@ -32,7 +32,6 @@ def get_data():
         hospitalized_w_symptoms.append(d["ricoverati_con_sintomi"])
         total_cases.append(d["deceduti"])
         healed.append(d["dimessi_guariti"])
-    dates = sorted(dates, reverse=True)
     series1 = {"name": "Intensive Care", "data": intensive_care}
     series2 = {"name": "Hospitalized with symptoms", "data": hospitalized_w_symptoms}
     series3 = {"name": "Dead", "data": total_cases}
