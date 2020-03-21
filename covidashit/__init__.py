@@ -7,7 +7,7 @@ URL = (
     "/pcm-dpc/COVID-19/master/dati-json/"
     "dpc-covid19-ita-andamento-nazionale.json"
 )
-DATE_FMT = "%Y-%m-%d %H:%m"
+DATE_FMT = "%Y-%m-%d %H:%M:%S"
 
 
 def get_data():
@@ -28,8 +28,7 @@ def get_data():
     total_cases = []
     healed = []
     for d in data:
-        date_str = d["data"]
-        date_dt = dt.datetime.strptime(date_str, DATE_FMT)
+        date_dt = dt.datetime.strptime(d["data"], DATE_FMT)
         date_str = date_dt.strftime("%d %b")
         dates.append(date_str)
         intensive_care.append(d["terapia_intensiva"])
