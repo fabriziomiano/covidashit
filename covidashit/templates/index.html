@@ -6,7 +6,6 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
     <meta charset="utf-8">
-
     <link rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <script src="//code.jquery.com/jquery-3.3.1.js"></script>
@@ -25,24 +24,24 @@
 </head>
 
 <body>
-<div class="text-center">
-    <img class="mb-4" src="../static/corona.png" alt="" width="64" height="64">
-</div>
-<div class="container fluid col-md-10" id={{ chartID|safe }} class="chart"
-     style=""></div>
-<p align="center"> Real-time data source: <a
-        href="https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json">
-    Protezione Civile </a></p>
-<script>
-    let chart_id = {{ chartID|safe }};
-    let series = {{ series|safe }};
-    let title = {{ title|safe }};
-    let xAxis = {{ xAxis|safe }};
-    let yAxis = {{ yAxis|safe }};
-    let chart = {{ chart|safe }};
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="../static/js/main.js"></script>
+
+<section class="jumbotron bg-white">
+    <div class="text-center">
+        <img class="mb-4" src="../static/corona.png" alt="" width="96" height="96">
+        <div id="{{ chartID|safe }}" class="chart" style=""></div>
+    </div>
+    <script>
+        let chart_id = {{ chartID|safe }};
+        let series = {{ series|safe }};
+        let title = {{ title|safe }};
+        let xAxis = {{ xAxis|safe }};
+        let yAxis = {{ yAxis|safe }};
+        let chart = {{ chart|safe }};
+    </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="../static/js/main.js"></script>
+</section>
 </body>
 </html>
