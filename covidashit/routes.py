@@ -5,7 +5,7 @@ from covidashit import app, get_data
 
 @app.route('/')
 @app.route('/index')
-def index(chart_id='chart_ID', chart_type='bar'):
+def index(chart_id='chart_ID', chart_type='column'):
     dates, series1, series2, series3, series4 = get_data()
     chart = {"renderTo": chart_id, "type": chart_type}
     series = [series1, series2, series3, series4]
