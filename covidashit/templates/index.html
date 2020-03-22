@@ -25,24 +25,26 @@
 </head>
 
 <body>
-<div class="text-center">
-    <img class="mb-4" src="../static/corona.png" alt="" width="64" height="64">
+<div class="container-fluid">
+    <main role="main" class="col-lg-12 ml-lg-auto pt-3 px-4">
+        <div class="text-center">
+            <img class="mb-4" src="../static/corona.png" alt="" width="64" height="64">
+
+            <div class="container fluid" id={{ chartID|safe }} class="chart" style=""></div>
+        </div>
+        <script>
+            let chart_id = {{ chartID|safe }};
+            let series = {{ series|safe }};
+            let title = {{ title|safe }};
+            let xAxis = {{ xAxis|safe }};
+            let yAxis = {{ yAxis|safe }};
+            let chart = {{ chart|safe }};
+        </script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/series-label.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="../static/js/main.js"></script>
+    </main>
 </div>
-<div class="container fluid col-md-10" id={{ chartID|safe }} class="chart"
-     style=""></div>
-<p align="center"> Real-time data source: <a
-        href="https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json">
-    Protezione Civile </a></p>
-<script>
-    let chart_id = {{ chartID|safe }};
-    let series = {{ series|safe }};
-    let title = {{ title|safe }};
-    let xAxis = {{ xAxis|safe }};
-    let yAxis = {{ yAxis|safe }};
-    let chart = {{ chart|safe }};
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="../static/js/main.js"></script>
 </body>
 </html>
