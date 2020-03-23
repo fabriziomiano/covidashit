@@ -6,6 +6,12 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
     <meta charset="utf-8">
+
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="pragma" content="no-cache">
+
     <link rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <script src="//code.jquery.com/jquery-3.3.1.js"></script>
@@ -18,18 +24,19 @@
     <link rel="icon" href="../static/corona.png">
     <meta name="theme-color" content="#563d7c">
 
-    {% block head %}
-        <title>{% block title %} COVID-19 Italian trend {% endblock %}</title>
-    {% endblock %}
+        <title>{{ pagetitle }}</title>
 </head>
 
 <body>
 
-<section class="jumbotron bg-white">
+<section class="jumbotron bg-light">
     <div class="text-center">
         <img class="mb-4" src="../static/corona.png" alt="" width="96" height="96">
+    </div>
+    <div class="shadow p-3 mb-5 bg-white rounded">
         <div id="{{ chartID|safe }}" class="chart" style=""></div>
     </div>
+
     <script>
         let chart_id = {{ chartID|safe }};
         let series = {{ series|safe }};
@@ -41,7 +48,8 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="../static/js/main.js"></script>
+    <script src="../static/js/main.js?ts={{ ts }}"></script>
 </section>
+
 </body>
 </html>
