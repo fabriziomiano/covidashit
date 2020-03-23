@@ -9,5 +9,9 @@ $(document).ready(function () {
         subtitle: {
             text: ('Source: <a href="' + url + '">Protezione Civile</a>')
         },
+        credits: {
+            href: "fabriziomiano.github.io",
+            text: "by Fabrizio Miano"
+        }
     });
 });
