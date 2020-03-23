@@ -1,18 +1,23 @@
 let url = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json";
 $(document).ready(function () {
     $(chart_id).highcharts({
+        chart: chart,
+        title: title,
+        xAxis: xAxis,
+        yAxis: yAxis,
+        series: series,
         exporting: {
             buttons: {
-                customButton: {
-                    text: 'Linear',
+                linScale: {
+                    text: 'Lin',
                     onclick: function () {
                         this.yAxis[0].update({
                             type: 'linear'
                         });
                     }
                 },
-                customButton2: {
-                    text: 'Logarithmic',
+                logScale: {
+                    text: 'Log',
                     onclick: function () {
                         this.yAxis[0].update({
                             type: 'logarithmic'
@@ -21,17 +26,13 @@ $(document).ready(function () {
                 },
             }
         },
-        chart: chart,
-        title: title,
-        xAxis: xAxis,
-        yAxis: yAxis,
-        series: series,
         subtitle: {
-            text: ('Source: <a href="' + url + '">Protezione Civile</a>')
+            text: ('Source: <a href="' + url + '">Protezione Civile</a>'),
+            align: "left"
         },
         credits: {
-            href: "fabriziomiano.github.io",
+            href: "https://fabriziomiano.github.io",
             text: "by Fabrizio Miano"
-        }
+        },
     });
 });
