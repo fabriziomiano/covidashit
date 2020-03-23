@@ -7,7 +7,7 @@ $(document).ready(function () {
         yAxis: yAxis,
         series: series,
         subtitle: {
-            text: ('Source: <a href='+ url +'> Protezione Civile </a>')
+            text: ('Source: <a href="' + url + '">Protezione Civile</a>')
         },
     });
 });
