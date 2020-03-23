@@ -11,7 +11,7 @@ def index(chart_id='chart_ID', chart_type='column'):
     series = [series1, series2, series3, series4]
     title = {"text": 'COVID-19 Italian trend'}
     x_axis = {"categories": dates}
-    y_axis = {"title": {"text": '# of people'}}
+    y_axis = {"title": {"text": '# of people'}, "type": "logarithmic"}
     return render_template(
         'index.html',
         chartID=chart_id,
