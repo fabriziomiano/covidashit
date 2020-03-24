@@ -34,5 +34,14 @@ $(document).ready(function () {
             href: "https://fabriziomiano.github.io",
             text: "by Fabrizio Miano"
         },
+        plotOptions: {
+            series: {
+                visible: false
+            }
+        }
     });
+});
+
+$(window).on('load', function () {
+    $('#welcomeModal').modal('show');
 });
