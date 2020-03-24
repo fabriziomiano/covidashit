@@ -24,10 +24,40 @@
     <link rel="icon" href="../static/corona.png">
     <meta name="theme-color" content="#563d7c">
 
-        <title>{{ pagetitle }}</title>
+    <title>{{ pagetitle }}</title>
 </head>
 
 <body>
+
+
+<!-- Modal -->
+<div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">How to use</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Click/tap on the series you want to show/hide.
+                <br>
+                The series available are those in the <a
+                    href="https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json"
+                    target="_blank">civil protection dataset</a>
+                <br>
+                <b>By default</b> only the "Intensive care" series is shown.
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Start</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <section class="jumbotron bg-light">
     <div class="text-center">
