@@ -1,30 +1,72 @@
-import time
-from flask import render_template
-from covidashit import app, get_data
-PAGE_TITLE = "COVID-19 Italian trend"
+import json
+import requests
+from flask import render_template, Response
+from covidashit import app, dataset
+from config import (
+    WEBSITE_TITLE, URL_REGIONAL_DATA, URL_NATIONAL_DATA, URL_PROVINCIAL_DATA,
+    PCM_DATE_KEY, NATIONAL_DATA_FILE, REGIONAL_DATA_FILE, PROVINCIAL_DATE_FILE
+)
 
 
-@app.route('/')
-@app.route('/index')
-def index(chart_id='chart_ID', chart_type='column'):
-    (dates, series1, series2, series3, series4, series5,
-     series6, series7, series8, series9, series10) = get_data()
-    chart = {"renderTo": chart_id, "type": chart_type}
-    series = [
-        series1, series2, series3, series4, series5,
-        series6, series7, series8, series9, series10
-    ]
-    title = {"text": 'COVID-19 Italian trend', "align": "left"}
-    x_axis = {"categories": dates}
-    y_axis = {"title": {"text": '# of people'}, "type": "logarithmic"}
-    return render_template(
-        'index.html',
-        pagetitle=PAGE_TITLE,
-        chartID=chart_id,
-        chart=chart,
-        series=series,
-        title=title,
-        xAxis=x_axis,
-        yAxis=y_axis,
-        ts=str(time.time())
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html", pagetitle=WEBSITE_TITLE), 404
+
+
+@app.errorhandler(500)
+def server_error(e):
+    return render_template("500.html", pagetitle=WEBSITE_TITLE), 500
+
+
+@app.route("/api/national")
+def get_national_data():
+    data = {}
+    response = requests.get(URL_NATIONAL_DATA)
+    status = response.status_code
+    if status == 200:
+        national_data = response.json()
+        data["national"] = sorted(national_data, key=lambda x: x[PCM_DATE_KEY])
+        dataset.cache_data(data["national"], NATIONAL_DATA_FILE)
+    else:
+        app.logger.error("Could not get data: ERROR {}".format(status))
+        data["national"] = dataset.read_cached_data(NATIONAL_DATA_FILE)
+        status = 200
+    return Response(
+        json.dumps(data), mimetype='application/json', status=status
+    )
+
+
+@app.route("/api/regional")
+def get_regional_data():
+    data = {}
+    response = requests.get(URL_REGIONAL_DATA)
+    status = response.status_code
+    if status == 200:
+        regional_data = response.json()
+        data["regional"] = sorted(regional_data, key=lambda x: x[PCM_DATE_KEY])
+        dataset.cache_data(data["regional"], REGIONAL_DATA_FILE)
+    else:
+        app.logger.error("Could not get data: ERROR {}".format(status))
+        data["regional"] = dataset.read_cached_data(REGIONAL_DATA_FILE)
+        status = 200
+    return Response(
+        json.dumps(data), mimetype='application/json', status=status
+    )
+
+
+@app.route("/api/provincial")
+def get_provincial_data():
+    data = {}
+    response = requests.get(URL_PROVINCIAL_DATA)
+    status = response.status_code
+    if status == 200:
+        prov_data = response.json()
+        data["provincial"] = sorted(prov_data, key=lambda x: x[PCM_DATE_KEY])
+        dataset.cache_data(data["provincial"], PROVINCIAL_DATE_FILE)
+    else:
+        app.logger.error("Could not get data: ERROR {}".format(status))
+        data["provincial"] = dataset.read_cached_data(PROVINCIAL_DATE_FILE)
+        status = 200
+    return Response(
+        json.dumps(data), mimetype='application/json', status=status
     )
