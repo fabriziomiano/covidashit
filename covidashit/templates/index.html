@@ -39,9 +39,15 @@
 <!-- Nav bar -->
 <div class="sticky-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">
-            <img src="../static/corona.png" alt="" width="32" height="32">
-        </a>
+        {% if region %}
+            <a class="navbar-brand" href="/{{ region }}">
+                <img src="../static/corona.png" alt="" width="32" height="32"> &nbsp; {{ region }}
+            </a>
+        {% else %}
+            <a class="navbar-brand" href="/">
+                <img src="../static/corona.png" alt="" width="32" height="32">
+            </a>
+        {% endif %}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
