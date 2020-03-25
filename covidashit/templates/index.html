@@ -28,7 +28,45 @@
     <title>{{ pagetitle }}</title>
 </head>
 
+<style>
+    .jumbotron {
+        border-radius: 0 !important;
+    }
+</style>
+
 <body>
+
+<!-- Nav bar -->
+<div class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+            <img src="../static/corona.png" alt="" width="32" height="32">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">National<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Regional
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% for region in regions %}
+                            <a class="dropdown-item" href="/{{ region }}">{{ region }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel"
@@ -61,11 +99,6 @@
 
 <!-- Jumbotron -->
 <section class="jumbotron bg-dark">
-{#    <div class="page-header mb-5">#}
-{#        <div class="text-center text-light">#}
-{#            <h1 class="h1">Daily report</h1>#}
-{#        </div>#}
-{#    </div>#}
     <!-- Cards container -->
     <div class="row">
 
