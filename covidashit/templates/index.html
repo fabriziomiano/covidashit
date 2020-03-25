@@ -14,6 +14,7 @@
 
     <link rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.css">
     <script src="//code.jquery.com/jquery-3.3.1.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <!-- Favicons -->
@@ -29,14 +30,13 @@
 
 <body>
 
-
 <!-- Modal -->
 <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">How to use</h5>
+                <h5 class="modal-title" id="exampleModalLabel">INFO</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -44,25 +44,66 @@
             <div class="modal-body">
                 Click/tap on the series you want to show/hide.
                 <br>
-                The series available are those in the <a
+                Data series are taken from the <a
                     href="https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json"
                     target="_blank">civil protection dataset</a>
                 <br>
-                <b>By default</b> only the "Intensive care" series is shown.
+                <hr>
+                <b>NOTE: </b>By default only the "Intensive care" series is shown.
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Start</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Got it!</button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Jumbotron -->
+<section class="jumbotron bg-dark">
+{#    <div class="page-header mb-5">#}
+{#        <div class="text-center text-light">#}
+{#            <h1 class="h1">Daily report</h1>#}
+{#        </div>#}
+{#    </div>#}
+    <!-- Cards container -->
+    <div class="row">
 
-<section class="jumbotron bg-light">
-    <div class="text-center">
-        <img class="mb-4" src="../static/corona.png" alt="" width="96" height="96">
+        {% for t in trend %}
+            <div class="col-sm">
+                <div class="shadow mb-5 bg-white rounded">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="card border-0">
+                                    <h5 class="card-title">{{ t.name }}</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="text-center">
+                                    <h1 class="card-title">
+                                        {{ t.count|tojson }}
+                                        {% if t.status== "happy" %}
+                                            <strong class="text-success"><i
+                                                    class="fas fa-long-arrow-alt-down"></i></strong>
+                                        {% elif t.status == "neutral" %}
+                                            <strong><i class="fas fa-minus"></i></strong>
+                                        {% else %}
+                                            <strong class="text-danger"><i
+                                                    class="fas fa-long-arrow-alt-up"></i></strong>
+                                        {% endif %}
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
     </div>
+
+    <!-- Chart -->
     <div class="shadow p-3 mb-5 bg-white rounded">
         <div id="{{ chartID|safe }}" class="chart" style=""></div>
     </div>
@@ -76,6 +117,7 @@
         let chart = {{ chart|safe }};
     </script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="../static/js/main.js?ts={{ ts }}"></script>
