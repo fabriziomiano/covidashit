@@ -5,6 +5,7 @@ PAGE_TITLE = "COVID-19 Italian trend"
 
 
 @app.route('/')
+@app.route('/national')
 @app.route('/<string:region>')
 def index(region=None, chart_id='chart_ID', chart_type='column'):
     app.logger.debug("Region {}".format(region))

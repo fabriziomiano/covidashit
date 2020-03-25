@@ -43,5 +43,10 @@ $(document).ready(function () {
 });
 
 $(window).on('load', function () {
-    $('#welcomeModal').modal('show');
+    if (location.pathname === "/") {
+        $('#welcomeModal').modal('show');
+    }
+    else {
+        $('#welcomeModal').modal('hide');
+    }
 });
