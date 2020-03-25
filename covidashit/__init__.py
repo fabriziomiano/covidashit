@@ -7,7 +7,7 @@ URL = (
     "/pcm-dpc/COVID-19/master/dati-json/"
     "dpc-covid19-ita-andamento-nazionale.json"
 )
-DATE_FMT = "%Y-%m-%d %H:%M:%S"
+DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 MAIN_TYPES = [
     "terapia_intensiva", "isolamento_domiciliare",
     "nuovi_attualmente_positivi", "ricoverati_con_sintomi"
