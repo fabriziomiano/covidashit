@@ -1,5 +1,5 @@
 import datetime as dt
-from flask import Flask
+from flask import Flask, abort
 import requests
 
 URL_NATIONAL_DATA = (
@@ -99,6 +99,8 @@ def get_data(region=None):
             tot_swabs.append(d["tamponi"])
             total_cases.append(d["totale_casi"])
     else:
+        if region not in regions:
+            abort(404)
         trend = get_trend(regional_data, region)
         for d in regional_data:
             if region == d[REGION_KEY]:
