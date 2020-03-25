@@ -4,6 +4,16 @@ from covidashit import app, get_data
 PAGE_TITLE = "COVID-19 Italian trend"
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html", title=PAGE_TITLE), 404
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template("500.html", title=PAGE_TITLE), 500
+
+
 @app.route('/')
 @app.route('/national')
 @app.route('/<string:region>')
@@ -21,6 +31,7 @@ def index(region=None, chart_id='chart_ID', chart_type='column'):
     y_axis = {"title": {"text": '# of people'}, "type": "logarithmic"}
     return render_template(
         'index.html',
+        region=region,
         regions=regions,
         trend=trend,
         pagetitle=PAGE_TITLE,
