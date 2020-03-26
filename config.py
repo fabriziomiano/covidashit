@@ -32,3 +32,4 @@ REGIONS = sorted(
     list(set(r[REGION_KEY]
              for r in requests.get(URL_REGIONAL_DATA).json()))
 )
+WEBSITE_TITLE = "COVID-19 Italian Dashboard"

@@ -1,20 +1,19 @@
 import time
 from flask import render_template, abort
-from config import REGIONS
+from config import REGIONS, WEBSITE_TITLE
 from covidashit import app, get_data
-PAGE_TITLE = "COVID-19 Italian Dashboard"
 
 
 @app.errorhandler(404)
 def page_not_found(e):
     app.logger.error("Error {}".format(e))
-    return render_template("404.html", title=PAGE_TITLE), 404
+    return render_template("404.html", title=WEBSITE_TITLE), 404
 
 
 @app.errorhandler(500)
 def page_not_found(e):
     app.logger.error("Error {}".format(e))
-    return render_template("500.html", title=PAGE_TITLE), 500
+    return render_template("500.html", title=WEBSITE_TITLE), 500
 
 
 @app.route('/')
@@ -38,7 +37,7 @@ def index(region=None, chart_id='chart_ID', chart_type='column'):
         region=region,
         regions=REGIONS,
         trend=trend,
-        pagetitle=PAGE_TITLE,
+        pagetitle=WEBSITE_TITLE,
         chartID=chart_id,
         chart=chart,
         series=series,
