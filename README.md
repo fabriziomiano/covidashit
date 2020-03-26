@@ -1,7 +1,8 @@
-# COVID-19 Dash-IT
+# Italian COVID Dashboard
 
-A dashboard of the current italian trend showing the national - and regional - data
- as per the dataset provided by the [Civil Protection (CP)](https://github.com/pcm-dpc).
+A Flask dashboard displaying the national - and regional - data,
+ as per the dataset provided by the [Civil Protection (CP)](https://github.com/pcm-dpc),
+ of the Italian COVID-19 outbreak.
 
 ##### The app is deployed on Heroku &#8594; [here](https://covidashit.herokuapp.com/)
 
