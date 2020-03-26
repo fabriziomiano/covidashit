@@ -37,3 +37,10 @@ $ python -m flask run
 ```
 $ gunicorn covidashit:app
 ```
+
+## Donation
+
+If you liked this project or if I saved you some time, feel free to buy me a beer. Cheers!
+
+
+[![paypal](https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PMW6C23XTQDWG)
