@@ -1,11 +1,13 @@
 # COVID-19 Dash-IT
 
-A simple dashboard with a chart of the current italian trend
-based on the national data provided by the "Protezione Civile". 
+A dashboard of the current italian trend showing the national - and regional - data
+ as per the dataset provided by the [Civil Protection (CP)](https://github.com/pcm-dpc).
 
 ##### The app is deployed on Heroku &#8594; [here](https://covidashit.herokuapp.com/)
 
-##### Link to data &#8594; [here](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
+##### The data is taken from the CP repo &#8594; [here](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
+
+Stay safe everbody!
 
 ## For developers
 
