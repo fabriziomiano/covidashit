@@ -18,8 +18,8 @@ ITEN_MAP = {
     "tamponi": "Swabs"
 }
 MAIN_TYPES = [
-    "terapia_intensiva", "isolamento_domiciliare",
-    "nuovi_attualmente_positivi", "ricoverati_con_sintomi"
+    "nuovi_attualmente_positivi", "terapia_intensiva",
+    "ricoverati_con_sintomi", "isolamento_domiciliare"
 ]
 REGION_KEY = "denominazione_regione"
 DATE_FMT = "%Y-%m-%dT%H:%M:%S"

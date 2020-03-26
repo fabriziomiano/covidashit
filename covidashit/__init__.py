@@ -1,6 +1,8 @@
 import datetime as dt
-from flask import Flask
+
 import requests
+from flask import Flask
+
 from config import (
     URL_NATIONAL_DATA, ITEN_MAP, MAIN_TYPES,
     REGION_KEY, DATE_FMT, URL_REGIONAL_DATA
@@ -19,19 +21,18 @@ def get_trend(data, region=None):
     last = data[-1]
     penultimate = data[-2]
     trend = []
-    for key in last.keys():
-        if key in MAIN_TYPES:
-            if penultimate[key] > last[key]:
-                status = "happy"
-            elif penultimate[key] == last[key]:
-                status = "neutral"
-            else:
-                status = "sad"
-            trend.append({
-                "name": ITEN_MAP[key],
-                "count": last[key],
-                "status": status
-            })
+    for key in MAIN_TYPES:
+        if penultimate[key] > last[key]:
+            status = "happy"
+        elif penultimate[key] == last[key]:
+            status = "neutral"
+        else:
+            status = "sad"
+        trend.append({
+            "name": ITEN_MAP[key],
+            "count": last[key],
+            "status": status
+        })
     return trend
 
 
