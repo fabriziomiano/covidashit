@@ -93,16 +93,16 @@ def get_data(region=None):
                 new_curr_pos.append(d["nuovi_attualmente_positivi"])
                 tot_swabs.append(d["tamponi"])
                 total_cases.append(d["totale_casi"])
-    series1 = {"name": "Intensive Care Unit", "data": intensive_care, "visible": "true"}
-    series2 = {"name": "New currently positive", "data": new_curr_pos}
+    series1 = {"name": "New currently positive", "data": new_curr_pos, "visible": "true"}
+    series2 = {"name": "Intensive Care Unit", "data": intensive_care}
     series3 = {"name": "Currently positive", "data": tot_curr_pos}
     series4 = {"name": "Hospitalized with symptoms", "data": hospitalized_w_symptoms}
-    series5 = {"name": "Dead", "data": tot_dead}
-    series6 = {"name": "Healed", "data": healed}
-    series7 = {"name": "Self Isolation", "data": isolated}
-    series8 = {"name": "Total Swabs", "data": tot_swabs}
-    series9 = {"name": "Total Hospitalized", "data": tot_hospitalized}
-    series10 = {"name": "Total cases", "data": total_cases}
+    series5 = {"name": "Self Isolation", "data": isolated}
+    series6 = {"name": "Total Healed", "data": healed}
+    series7 = {"name": "Total Hospitalized", "data": tot_hospitalized}
+    series8 = {"name": "Total Deaths", "data": tot_dead}
+    series9 = {"name": "Total Cases", "data": total_cases}
+    series10 = {"name": "Total Swabs", "data": tot_swabs}
     series = [
         series1, series2, series3, series4, series5,
         series6, series7, series8, series9, series10

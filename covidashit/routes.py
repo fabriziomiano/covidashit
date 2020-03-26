@@ -31,7 +31,7 @@ def index(region=None, chart_id='chart_ID', chart_type='column'):
         dates, series, trend = get_data(region)
     chart = {"renderTo": chart_id, "type": chart_type}
     x_axis = {"categories": dates}
-    y_axis = {"title": {"text": '# of people'}, "type": "logarithmic"}
+    y_axis = {"title": {"text": '# of people'}}
     return render_template(
         'index.html',
         region=region,
