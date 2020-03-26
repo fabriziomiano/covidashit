@@ -40,11 +40,11 @@
 <div class="sticky-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         {% if region %}
-            <a class="navbar-brand" href="/{{ region }}">
+            <a class="navbar-brand" href="/national">
                 <img src="../static/corona.png" alt="" width="32" height="32"> &nbsp; {{ region }}
             </a>
         {% else %}
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/national">
                 <img src="../static/corona.png" alt="" width="32" height="32">
             </a>
         {% endif %}
@@ -92,8 +92,11 @@
                     href="https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json"
                     target="_blank">civil protection dataset</a>
                 <br>
+                Red/green arrows indicate an increase/decrease w.r.t. yesterday
                 <hr>
                 <b>NOTE: </b>By default only the "Intensive care" series is shown.
+                <hr>
+                <b>Keep calm and stay in.
             </div>
 
             <div class="modal-footer">
