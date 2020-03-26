@@ -1,38 +1,19 @@
 import datetime as dt
-from flask import Flask, abort
+from flask import Flask
 import requests
-
-URL_NATIONAL_DATA = (
-    "https://raw.githubusercontent.com"
-    "/pcm-dpc/COVID-19/master/dati-json/"
-    "dpc-covid19-ita-andamento-nazionale.json"
+from config import (
+    URL_NATIONAL_DATA, ITEN_MAP, MAIN_TYPES,
+    REGION_KEY, DATE_FMT, URL_REGIONAL_DATA
 )
-URL_REGIONAL_DATA = (
-    "https://raw.githubusercontent.com/"
-    "pcm-dpc/COVID-19/master/dati-json/"
-    "dpc-covid19-ita-regioni.json"
-)
-DATE_FMT = "%Y-%m-%dT%H:%M:%S"
-REGION_KEY = "denominazione_regione"
-MAIN_TYPES = [
-    "terapia_intensiva", "isolamento_domiciliare",
-    "nuovi_attualmente_positivi", "ricoverati_con_sintomi"
-]
-ITEN_MAP = {
-    "ricoverati_con_sintomi": "Hospitalized with symptoms",
-    "terapia_intensiva": "Intensive Care Unit",
-    "totale_ospedalizzati": "Hospitalized",
-    "isolamento_domiciliare": "Self Isolation",
-    "totale_attualmente_positivi": "Currently positive",
-    "nuovi_attualmente_positivi": "New currently positive",
-    "dimessi_guariti": "Healed",
-    "deceduti": "Dead",
-    "totale_casi": "Tot cases",
-    "tamponi": "Swabs"
-}
 
 
 def get_trend(data, region=None):
+    """
+    Return a list of dicts of the daily trend wrt to the previous day
+    :param data: list
+    :param region: str
+    :return: list of dicts
+    """
     if region is not None:
         data = [d for d in data if d[REGION_KEY] == region]
     last = data[-1]
@@ -68,9 +49,6 @@ def get_data(region=None):
     regional_data = requests.get(URL_REGIONAL_DATA).json()
     national_data = sorted(national_data, key=lambda x: x["data"])
     regional_data = sorted(regional_data, key=lambda x: x["data"])
-    regions = sorted(
-        list(set(r[REGION_KEY] for r in regional_data))
-    )
     dates = []
     intensive_care = []
     hospitalized_w_symptoms = []
@@ -99,8 +77,6 @@ def get_data(region=None):
             tot_swabs.append(d["tamponi"])
             total_cases.append(d["totale_casi"])
     else:
-        if region not in regions:
-            abort(404)
         trend = get_trend(regional_data, region)
         for d in regional_data:
             if region == d[REGION_KEY]:
@@ -131,7 +107,7 @@ def get_data(region=None):
         series1, series2, series3, series4, series5,
         series6, series7, series8, series9, series10
     ]
-    return dates, series, trend, regions
+    return dates, series, trend
 
 
 app = Flask(__name__)
