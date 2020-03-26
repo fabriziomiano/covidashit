@@ -23,11 +23,11 @@ def index(region=None, chart_id='chart_ID', chart_type='column'):
     app.logger.debug("Region {}".format(region))
     if region is None:
         dates, series, trend = get_data()
-        title = {"text": 'COVID-19 Italian trend', "align": "left"}
+        title = {"text": "COVID-19 Trend | Italy", "align": "left"}
     else:
         if region not in REGIONS:
             abort(404)
-        title = {"text": region, "align": "left"}
+        title = {"text": "COVID-19 Trend | " + region, "align": "left"}
         dates, series, trend = get_data(region)
     chart = {"renderTo": chart_id, "type": chart_type}
     x_axis = {"categories": dates}
