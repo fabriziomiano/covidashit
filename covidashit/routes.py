@@ -23,6 +23,7 @@ def index(region=None, chart_id='chart_ID', chart_type='column'):
         dates, series, trend, regions = get_data()
         title = {"text": 'COVID-19 Italian trend', "align": "left"}
     else:
+        region = region.capitalize()
         title = {"text": region, "align": "left"}
         dates, series, trend, regions = get_data(region)
     app.logger.debug(regions)
