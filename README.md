@@ -14,8 +14,9 @@ Stay safe everbody!
 
 The WebApp uses a Flask server and gunicorn in front of it,
  and it only requires Python3.6+
-There's only one function in the back-end, `get_data()`, which retrieves 
-the data from the above-mentioned link and it serves to the front-end chart.
+There's only one function in the back-end, `get_data()`, which retrieves
+the data from the above-mentioned link and serves it to the front-end chart.
+I'm not using any db as, luckily enough, there isn't too much data to store, and hopfully there will not be, ever.
 
 The front-end is under `covidashit/templates` and it uses a simple JS to create
 the chart object, which is built using [HighCharts](https://www.highcharts.com/)
