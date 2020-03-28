@@ -1,5 +1,3 @@
-import requests
-
 URL_NATIONAL_DATA = (
     "https://raw.githubusercontent.com"
     "/pcm-dpc/COVID-19/master/dati-json/"
@@ -28,8 +26,5 @@ URL_REGIONAL_DATA = (
     "pcm-dpc/COVID-19/master/dati-json/"
     "dpc-covid19-ita-regioni.json"
 )
-REGIONS = sorted(
-    list(set(r[REGION_KEY]
-             for r in requests.get(URL_REGIONAL_DATA).json()))
-)
 WEBSITE_TITLE = "Italian COVID Tracker"
+PCM_DATE_KEY = "data"
