@@ -1,78 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
-    <meta charset="utf-8">
-
-    <meta http-equiv="cache-control" content="max-age=0">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="-1">
-    <meta http-equiv="pragma" content="no-cache">
-
-    <link rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.css">
-    <script src="//code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <!-- Favicons -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>{{ pagetitle }}</title>
     <link rel="apple-touch-icon" href="../static/corona.png" sizes="180x180">
     <link rel="icon" href="../static/corona.png" sizes="32x32" type="image/png">
     <link rel="icon" href="../static/corona.png" sizes="16x16" type="image/png">
     <link rel="mask-icon" href="../static/corona.png" color="#563d7c">
     <link rel="icon" href="../static/corona.png">
-    <meta name="theme-color" content="#563d7c">
-
-    <title>{{ pagetitle }}</title>
+    <link href="../static/css/styles.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+          crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+            crossorigin="anonymous"></script>
 </head>
 
-<style>
-    .jumbotron {
-        border-radius: 0 !important;
-    }
-</style>
-
-<body>
-
-<!-- Nav bar -->
-<div class="sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        {% if region %}
-            <a class="navbar-brand" href="/national">
-                <img src="../static/corona.png" alt="" width="32" height="32"> &nbsp; {{ region }}
-            </a>
-        {% else %}
-            <a class="navbar-brand" href="/national">
-                <img src="../static/corona.png" alt="" width="32" height="32">
-            </a>
-        {% endif %}
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/national">National<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Regional
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% for region in regions %}
-                            <a class="dropdown-item" href="/regional/{{ region }}">{{ region }}</a>
-                        {% endfor %}
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
-
+<body class="sb-nav-fixed">
 
 <!-- Modal -->
 <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel"
@@ -92,78 +39,172 @@
                     href="https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json"
                     target="_blank">civil protection dataset</a>
                 <br>
-                Red/green arrows indicate an increase/decrease w.r.t. yesterday
+                Red/green arrows indicate an increase/decrease w.r.t. yesterday<br>
+                <b>NOTE:</b> Only the total cases are provided for the provinces
                 <hr>
-                <b>DEFAULT: </b>Linear-scale "New currently positive" series is shown
+                <b>DEFAULT:</b> Linear-scale "New currently positive" series is shown
                 <hr>
                 <b>Keep calm and stay in</b>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Got it!</button>
+                <button class="btn btn-info" onclick=" window.open('https://fabriziomiano.github.io','_blank')">Who made this?</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Got it!</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Jumbotron -->
-<section class="jumbotron bg-dark">
-    <!-- Cards container -->
-    <div class="row">
 
-        {% for t in trend %}
-            <div class="col-sm">
-                <div class="shadow mb-5 bg-white rounded">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="card border-0">
-                                    <h5 class="card-title">{{ t.name }}</h5>
+<!-- Navbar -->
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <button class="btn btn-link btn-sm order-first order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
+    </button>
+    <a class="navbar-brand" href="/national"><img src="../static/corona.png" alt="" width="32" height="32">
+        &nbsp;
+        {% if not region %}
+            {{ pagetitle }}
+        {% else %}
+            {{ region }}
+        {% endif %} </a>
+</nav>
+
+<!-- Main layout -->
+<div id="layoutSidenav">
+
+    <!-- Sidebar nav -->
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Home</div>
+                    <a class="nav-link" href="/national">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Dashboard
+                    </a>
+
+                    <div class="sb-sidenav-menu-heading">Navigate</div>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRegionLayouts"
+                       aria-expanded="false" aria-controls="collapseRegionLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                        Regions
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseRegionLayouts" aria-labelledby="headingOne"
+                         data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested small nav">
+                            {% for region in regions %}
+                                <a class="nav-link" href="/regions/{{ region }}">{{ region }}</a>
+                            {% endfor %}
+                        </nav>
+                    </div>
+
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProvinceLayouts"
+                       aria-expanded="false" aria-controls="collapseProvinceLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                        Provinces
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseProvinceLayouts" aria-labelledby="headingOne"
+                         data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested small nav">
+                            {% for province in provinces %}
+                                <a class="nav-link" href="/provinces/{{ province }}">{{ province }}</a>
+                            {% endfor %}
+                        </nav>
+                    </div>
+
+                    <div class="sb-sidenav-menu-heading">Extra</div>
+                    <a class="nav-link"
+                       href="http://www.protezionecivile.gov.it/attivita-rischi/rischio-sanitario/emergenze/coronavirus"
+                       target="_blank">
+                        <div class="sb-nav-link-icon"><i class="far fa-newspaper"></i></div>
+                        CP News</a>
+                    <a class="nav-link" href="https://github.com/pcm-dpc/COVID-19" target="_blank">
+                        <div class="sb-nav-link-icon"><i class="fab fa-github"></i></div>
+                        CP Repo</a>
+                </div>
+            </div>
+            <div class="sb-sidenav-footer">
+                <div class="small">Days since lockdown: {{ lockdown_days }}</div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- page content -->
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+
+                <!-- Cards -->
+                <div class="row mt-4">
+                    {% for t in trend %}
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                {{ t.name }}
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ t.count }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            {#                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>#}
+                                            {% if t.status== "happy" %}
+                                                <strong class="text-success"><i
+                                                        class="fas fa-long-arrow-alt-down fa-4x"></i></strong>
+                                            {% elif t.status == "neutral" %}
+                                                <strong><i class="fas fa-minus fa-4x"></i></strong>
+                                            {% else %}
+                                                <strong class="text-danger"><i
+                                                        class="fas fa-long-arrow-alt-up fa-4x"></i></strong>
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm">
-                                <div class="text-center">
-                                    <h1 class="card-title">
-                                        {{ t.count|tojson }}
-                                        {% if t.status== "happy" %}
-                                            <strong class="text-success"><i
-                                                    class="fas fa-long-arrow-alt-down"></i></strong>
-                                        {% elif t.status == "neutral" %}
-                                            <strong><i class="fas fa-minus"></i></strong>
-                                        {% else %}
-                                            <strong class="text-danger"><i
-                                                    class="fas fa-long-arrow-alt-up"></i></strong>
-                                        {% endif %}
-                                    </h1>
-                                </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+
+                <!-- Chart -->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Trend | {% if region %}
+                                {{ region }} {% elif province %} {{ province }} {% else %} National {% endif %}</div>
+                            <div class="card-body">
+                                <div id="{{ chartID|safe }}" class="chart" style=""></div>
+                                <script>
+                                    let chart_id = {{ chartID|safe }};
+                                    let series = {{ series|safe }};
+                                    let title = {{ title|safe }};
+                                    let xAxis = {{ xAxis|safe }};
+                                    let yAxis = {{ yAxis|safe }};
+                                    let chart = {{ chart|safe }};
+                                </script>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-        {% endfor %}
-
+        </main>
     </div>
+</div>
 
-    <!-- Chart -->
-    <div class="shadow p-3 mb-5 bg-white rounded">
-        <div id="{{ chartID|safe }}" class="chart" style=""></div>
-    </div>
-
-    <script>
-        let chart_id = {{ chartID|safe }};
-        let series = {{ series|safe }};
-        let title = {{ title|safe }};
-        let xAxis = {{ xAxis|safe }};
-        let yAxis = {{ yAxis|safe }};
-        let chart = {{ chart|safe }};
-    </script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/series-label.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="../static/js/main.js?ts={{ ts }}"></script>
-</section>
-
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="../static/js/scripts.js?ts={{ ts }}"></script>
+<script src="../static/js/main.js?ts={{ ts }}"></script>
 </body>
 </html>

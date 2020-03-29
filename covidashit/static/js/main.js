@@ -27,12 +27,15 @@ $(document).ready(function () {
             }
         },
         subtitle: {
-            text: ('Source: <a href="' + url + '">Protezione Civile</a>'),
+            text: 'Source: <a href="' + url + '">Civil Protection dataset</a>',
             align: "left"
         },
         credits: {
             href: "https://fabriziomiano.github.io",
-            text: "by Fabrizio Miano"
+            text: "by Fabrizio Miano",
+            position: {
+                align: "center"
+            }
         },
         plotOptions: {
             series: {
@@ -45,8 +48,7 @@ $(document).ready(function () {
 $(window).on('load', function () {
     if (location.pathname === "/") {
         $('#welcomeModal').modal('show');
-    }
-    else {
+    } else {
         $('#welcomeModal').modal('hide');
     }
 });
