@@ -173,7 +173,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card border-left-primary shadow mb-4">
-                            <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Trend | {% if region %}
+                            <div class="card-header"><i class="fas fa-chart-line mr-2"></i>Trend | {% if region %}
                                 {{ region }} {% elif province %} {{ province }} {% else %} National {% endif %}</div>
                             <div class="card-body">
                                 <div id="{{ chartID|safe }}" class="chart" style=""></div>
