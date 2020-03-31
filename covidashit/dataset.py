@@ -1,6 +1,6 @@
 import datetime as dt
 from config import (
-    REGION_KEY, MAIN_TYPES, ITEN_MAP, DATE_FMT, PROVINCE_KEY
+    REGION_KEY, CARD_TYPES, ITEN_MAP, DATE_FMT, PROVINCE_KEY
 )
 
 DATES = []
@@ -42,7 +42,7 @@ def get_trend(data, province=False):
     :return: list of dicts
     """
     if not province:
-        main_types = MAIN_TYPES
+        main_types = CARD_TYPES
     else:
         main_types = ["totale_casi"]
     last = data[-1]

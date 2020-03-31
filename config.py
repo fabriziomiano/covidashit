@@ -34,7 +34,7 @@ ITEN_MAP = {
     },
     "totale_positivi": {
         "title": "Total positive",
-        "desc": ""
+        "desc": "Hospitalized w/ symptoms + ICU + Self Isolation"
     },
     "variazione_totale_positivi": {
         "title": "Total positive variation",
@@ -54,15 +54,16 @@ ITEN_MAP = {
     },
     "totale_casi": {
         "title": "Total cases",
-        "desc": ""
+        "desc": "Self isolation + Tot Hospitalized + Tot Healed + Tot Deaths"
     },
     "tamponi": {
         "title": "Total Swabs",
         "desc": ""
     }
 }
-MAIN_TYPES = [
-    "nuovi_positivi", "variazione_totale_positivi",
+CARD_TYPES = [
+    "totale_casi", "nuovi_positivi",
+    "totale_positivi", "variazione_totale_positivi",
     "terapia_intensiva", "totale_ospedalizzati"
 ]
 REGION_KEY = "denominazione_regione"
