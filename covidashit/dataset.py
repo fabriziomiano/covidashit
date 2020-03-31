@@ -10,11 +10,12 @@ HOSP_W_SYMPTS = []
 TOT_DEATHS = []
 TOT_HOSP = []
 SELF_ISOL = []
-TOT_CURR_POS = []
-NEW_CURR_POS = []
+TOT_POS = []
+NEW_POS = []
 TOT_SWABS = []
 HEALED = []
 TOT_CASES = []
+TOT_POS_VAR = []
 
 
 def get_provinces(provincial_data):
@@ -70,22 +71,24 @@ def build_series(province=False):
     """
     if not province:
         series1 = {
-            "name": "New currently positive",
-            "data": NEW_CURR_POS,
+            "name": ITEN_MAP["nuovi_positivi"],
+            "data": NEW_POS,
             "visible": "true"
         }
-        series2 = {"name": "Intensive Care Unit", "data": ICU}
-        series3 = {"name": "Currently positive", "data": TOT_CURR_POS}
-        series4 = {"name": "Hospitalized with symptoms", "data": HOSP_W_SYMPTS}
-        series5 = {"name": "Self Isolation", "data": SELF_ISOL}
-        series6 = {"name": "Total Healed", "data": HEALED}
-        series7 = {"name": "Total Hospitalized", "data": TOT_HOSP}
-        series8 = {"name": "Total Deaths", "data": TOT_DEATHS}
-        series9 = {"name": "Total Cases", "data": TOT_CASES}
-        series10 = {"name": "Total Swabs", "data": TOT_SWABS}
+        series2 = {"name": ITEN_MAP["variazione_totale_positivi"], "data": TOT_POS_VAR}
+        series3 = {"name": ITEN_MAP["terapia_intensiva"], "data": ICU}
+        series4 = {"name": ITEN_MAP["totale_positivi"], "data": TOT_POS}
+        series5 = {"name": ITEN_MAP["ricoverati_con_sintomi"], "data": HOSP_W_SYMPTS}
+        series6 = {"name": ITEN_MAP["isolamento_domiciliare"], "data": SELF_ISOL}
+        series7 = {"name": ITEN_MAP["dimessi_guariti"], "data": HEALED}
+        series8 = {"name": ITEN_MAP["totale_ospedalizzati"], "data": TOT_HOSP}
+        series9 = {"name": ITEN_MAP["deceduti"], "data": TOT_DEATHS}
+        series10 = {"name": ITEN_MAP["totale_casi"], "data": TOT_CASES}
+        series11 = {"name": ITEN_MAP["tamponi"], "data": TOT_SWABS}
         series = [
             series1, series2, series3, series4, series5,
-            series6, series7, series8, series9, series10
+            series6, series7, series8, series9, series10,
+            series11
         ]
     else:
         series = [{
@@ -152,9 +155,10 @@ def fill_data(datum, province=False):
         HEALED.append(datum["dimessi_guariti"])
         TOT_HOSP.append(datum["totale_ospedalizzati"])
         SELF_ISOL.append(datum["isolamento_domiciliare"])
-        TOT_CURR_POS.append(datum["totale_attualmente_positivi"])
-        NEW_CURR_POS.append(datum["nuovi_attualmente_positivi"])
+        TOT_POS.append(datum["totale_positivi"])
+        NEW_POS.append(datum["nuovi_positivi"])
         TOT_SWABS.append(datum["tamponi"])
+        TOT_POS_VAR.append(datum["variazione_totale_positivi"])
     date_dt = dt.datetime.strptime(datum["data"], DATE_FMT)
     date_str = date_dt.strftime("%d %b")
     DATES.append(date_str)
@@ -172,11 +176,12 @@ def init_data():
     TOT_DEATHS.clear()
     TOT_HOSP.clear()
     SELF_ISOL.clear()
-    TOT_CURR_POS.clear()
-    NEW_CURR_POS.clear()
+    TOT_POS.clear()
+    NEW_POS.clear()
     TOT_SWABS.clear()
     HEALED.clear()
     TOT_CASES.clear()
+    TOT_POS_VAR.clear()
 
 
 def init_chart(chart_id, chart_type, dates):

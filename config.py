@@ -21,16 +21,17 @@ ITEN_MAP = {
     "terapia_intensiva": "Intensive Care Unit",
     "totale_ospedalizzati": "Hospitalized",
     "isolamento_domiciliare": "Self Isolation",
-    "totale_attualmente_positivi": "Currently positive",
-    "nuovi_attualmente_positivi": "New currently positive",
-    "dimessi_guariti": "Healed",
-    "deceduti": "Deaths",
+    "totale_positivi": "Total positive",
+    "variazione_totale_positivi": "Total positive variation",
+    "nuovi_positivi": "New positive",
+    "dimessi_guariti": "Total Healed",
+    "deceduti": "Total Deaths",
     "totale_casi": "Total cases",
-    "tamponi": "Swabs"
+    "tamponi": "Total Swabs"
 }
 MAIN_TYPES = [
-    "nuovi_attualmente_positivi", "terapia_intensiva",
-    "ricoverati_con_sintomi", "isolamento_domiciliare"
+    "nuovi_positivi", "variazione_totale_positivi",
+    "terapia_intensiva", "ricoverati_con_sintomi"
 ]
 REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
