@@ -3,7 +3,6 @@ from config import (
     REGION_KEY, MAIN_TYPES, ITEN_MAP, DATE_FMT, PROVINCE_KEY
 )
 
-
 DATES = []
 ICU = []
 HOSP_W_SYMPTS = []
@@ -57,7 +56,8 @@ def get_trend(data, province=False):
         else:
             status = "sad"
         trend.append({
-            "name": ITEN_MAP[key],
+            "title": ITEN_MAP[key]["title"],
+            "desc": ITEN_MAP[key]["desc"],
             "count": last[key],
             "status": status
         })
@@ -71,20 +71,52 @@ def build_series(province=False):
     """
     if not province:
         series1 = {
-            "name": ITEN_MAP["nuovi_positivi"],
+            "name": ITEN_MAP["nuovi_positivi"]["title"],
             "data": NEW_POS,
             "visible": "true"
         }
-        series2 = {"name": ITEN_MAP["variazione_totale_positivi"], "data": TOT_POS_VAR}
-        series3 = {"name": ITEN_MAP["terapia_intensiva"], "data": ICU}
-        series4 = {"name": ITEN_MAP["totale_positivi"], "data": TOT_POS}
-        series5 = {"name": ITEN_MAP["ricoverati_con_sintomi"], "data": HOSP_W_SYMPTS}
-        series6 = {"name": ITEN_MAP["isolamento_domiciliare"], "data": SELF_ISOL}
-        series7 = {"name": ITEN_MAP["dimessi_guariti"], "data": HEALED}
-        series8 = {"name": ITEN_MAP["totale_ospedalizzati"], "data": TOT_HOSP}
-        series9 = {"name": ITEN_MAP["deceduti"], "data": TOT_DEATHS}
-        series10 = {"name": ITEN_MAP["totale_casi"], "data": TOT_CASES}
-        series11 = {"name": ITEN_MAP["tamponi"], "data": TOT_SWABS}
+        series2 = {
+            "name": ITEN_MAP["variazione_totale_positivi"]["title"],
+            "data": TOT_POS_VAR,
+            "visible": "true"
+        }
+        series3 = {
+            "name": ITEN_MAP["terapia_intensiva"]["title"],
+            "data": ICU,
+            "visible": "true"
+        }
+        series4 = {
+            "name": ITEN_MAP["totale_positivi"]["title"],
+            "data": TOT_POS
+        }
+        series5 = {
+            "name": ITEN_MAP["ricoverati_con_sintomi"]["title"],
+            "data": HOSP_W_SYMPTS
+        }
+        series6 = {
+            "name": ITEN_MAP["isolamento_domiciliare"]["title"],
+            "data": SELF_ISOL
+        }
+        series7 = {
+            "name": ITEN_MAP["dimessi_guariti"]["title"],
+            "data": HEALED
+        }
+        series8 = {
+            "name": ITEN_MAP["totale_ospedalizzati"]["title"],
+            "data": TOT_HOSP
+        }
+        series9 = {
+            "name": ITEN_MAP["deceduti"]["title"],
+            "data": TOT_DEATHS
+        }
+        series10 = {
+            "name": ITEN_MAP["totale_casi"]["title"],
+            "data": TOT_CASES
+        }
+        series11 = {
+            "name": ITEN_MAP["tamponi"]["title"],
+            "data": TOT_SWABS
+        }
         series = [
             series1, series2, series3, series4, series5,
             series6, series7, series8, series9, series10,
@@ -92,7 +124,7 @@ def build_series(province=False):
         ]
     else:
         series = [{
-            "name": "Total Cases",
+            "name": ITEN_MAP["totale_casi"],
             "data": TOT_CASES,
             "visible": "true"
         }]
