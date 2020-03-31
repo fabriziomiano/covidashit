@@ -40,25 +40,34 @@
                 </button>
             </div>
             <div class="modal-body">
-                Click/tap on the series you want to show/hide.
-                <br>
-                Data series are taken from the <a
-                    href="https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json"
-                    target="_blank">civil protection dataset</a>
-                <br>
-                Red/green arrows indicate an increase/decrease w.r.t. yesterday<br>
-                <b>NOTE:</b> Only the total cases are provided for the provinces
+                <p class="h6 text-uppercase">How to use</p>
+                <p class="text-justify small">
+                    Toggle on/off series (bottom of the chart)
+                </p>
                 <hr>
-                <b>DEFAULT:</b> Linear-scale "New currently positive" series is shown
+                <p class="h6 text-uppercase" id="exampleModalLabel">How to read</p>
+                <p class="text-justify small">
+                    <b>DEFAULT:</b> Linear-scale of
+                    <br>"New positive", "Total positive variation", and "Intensive care unit".
+                <ul class="list-group small">
+                    <li class="list-group-item">The "Total positive" series is the cumulative sum of:
+                        <br>"Hospitalized with symptoms" + "Intensive care unit" + "Self isolation"
+                    </li>
+                    <li class="list-group-item">Red/green arrows indicate an increase/decrease w.r.t. yesterday</li>
+                </ul>
+                </p>
                 <hr>
-                <b>Keep calm and stay at home!</b>
+                <p class="text-lg-center text-uppercase text-danger">
+                    <b>Keep calm and stay at home</b>
+                </p>
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-info" onclick=" window.open('https://fabriziomiano.github.io','_blank')">Who made
-                    this?
+                <button class="btn btn-info" onclick=" window.open('https://fabriziomiano.github.io','_blank')">
+                    Who made this?
                 </button>
                 <button type="button" class="btn btn-success" data-dismiss="modal">Got it!</button>
+                <p class="small text-center"><b>NOTE:</b> Only the "Total cases" series is provided for the provinces.</p>
             </div>
         </div>
     </div>
@@ -144,39 +153,41 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-
                 <!-- Cards -->
                 <div class="row mt-4">
                     {% for t in trend %}
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card border-left-primary shadow h-100 ">
+                                <div class="card-header font-weight-bold text-primary text-uppercase mb-1">
+                                    {{ t.title }}
+                                </div>
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                {{ t.name }}
-                                            </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ t.count }}</div>
+                                        <div class="col auto">
+                                            <div class="h1 mb-0 font-weight-bold text-gray-800">{{ t.count }}</div>
                                         </div>
                                         <div class="col-auto">
-                                            {#                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>#}
                                             {% if t.status== "happy" %}
-                                                <strong class="text-success"><i
-                                                        class="fas fa-long-arrow-alt-down fa-4x"></i></strong>
+                                                <strong class="text-success">
+                                                    <i class="fas fa-long-arrow-alt-down fa-5x"></i>
+                                                </strong>
                                             {% elif t.status == "neutral" %}
-                                                <strong><i class="fas fa-minus fa-4x"></i></strong>
+                                                <strong><i class="fas fa-minus fa-5x"></i></strong>
                                             {% else %}
-                                                <strong class="text-danger"><i
-                                                        class="fas fa-long-arrow-alt-up fa-4x"></i></strong>
+                                                <strong class="text-danger">
+                                                    <i class="fas fa-long-arrow-alt-up fa-5x"></i>
+                                                </strong>
                                             {% endif %}
                                         </div>
                                     </div>
+                                </div>
+                                <div class="card-footer">
+                                    <h6 class="small text-info text-capitalize">{{ t.desc }}</h6>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-
 
                 <!-- Chart -->
                 <div class="row">
@@ -198,14 +209,14 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -214,6 +225,7 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="../static/js/scripts.js?ts={{ ts }}"></script>
 <script src="../static/js/main.js?ts={{ ts }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
-            crossorigin="anonymous"></script></body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+        crossorigin="anonymous"></script>
+</body>
 </html>
