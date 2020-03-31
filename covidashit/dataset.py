@@ -20,7 +20,8 @@ TOT_CASES = []
 def get_provinces(provincial_data):
     return sorted({
         d[PROVINCE_KEY]
-        for d in provincial_data if d[PROVINCE_KEY] != ""
+        for d in provincial_data
+        if d[PROVINCE_KEY] != "In fase di definizione/aggiornamento"
     })
 
 
