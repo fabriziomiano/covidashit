@@ -124,7 +124,7 @@ def build_series(province=False):
         ]
     else:
         series = [{
-            "name": ITEN_MAP["totale_casi"],
+            "name": ITEN_MAP["totale_casi"]["title"],
             "data": TOT_CASES,
             "visible": "true"
         }]
