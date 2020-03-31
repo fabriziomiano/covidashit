@@ -26,7 +26,7 @@ ITEN_MAP = {
     },
     "totale_ospedalizzati": {
         "title": "Total Hospitalized",
-        "desc": "Tot # of people hospitalized (today)"
+        "desc": "# of people hospitalized (today)"
     },
     "isolamento_domiciliare": {
         "title": "Self Isolation",
