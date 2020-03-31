@@ -11,13 +11,13 @@ from config import (
 @app.errorhandler(404)
 def page_not_found(e):
     app.logger.error("Error {}".format(e))
-    return render_template("404.html", title=WEBSITE_TITLE), 404
+    return render_template("404.html", pagetitle=WEBSITE_TITLE), 404
 
 
 @app.errorhandler(500)
 def server_error(e):
     app.logger.error("Error {}".format(e))
-    return render_template("500.html", title=WEBSITE_TITLE), 500
+    return render_template("500.html", pagetitle=WEBSITE_TITLE), 500
 
 
 @app.route("/api/national")
