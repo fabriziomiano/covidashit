@@ -1,6 +1,7 @@
+import json
 import datetime as dt
 from config import (
-    REGION_KEY, CARD_TYPES, ITEN_MAP, DATE_FMT, PROVINCE_KEY
+    REGION_KEY, CARD_TYPES, ITEN_MAP, DATE_FMT, PROVINCE_KEY, PROVINCES_TOAVOID
 )
 
 DATES = []
@@ -17,11 +18,33 @@ TOT_CASES = []
 TOT_POS_VAR = []
 
 
+def read_cached_data(data_filepath):
+    """
+    Read .json file
+    :param data_filepath:
+    :return: JSON-serialised object
+    """
+    with open(data_filepath, 'r') as data_file:
+        data = json.load(data_file)
+    return data
+
+
+def cache_data(data, data_filepath):
+    """
+    Save JSON-serialized object to file
+    :param data:
+    :param data_filepath:
+    :return: None
+    """
+    with open(data_filepath, 'w') as data_file:
+        json.dump(data, data_file)
+
+
 def get_provinces(provincial_data):
     return sorted({
         d[PROVINCE_KEY]
         for d in provincial_data
-        if d[PROVINCE_KEY] != "In fase di definizione/aggiornamento"
+        if d[PROVINCE_KEY] not in PROVINCES_TOAVOID
     })
 
 
@@ -64,7 +87,7 @@ def get_trend(data, province=False):
     return trend
 
 
-def build_series(province=False):
+def fill_series(province=False):
     """
     Return the series array to be used in the chart
     :return: list
@@ -167,9 +190,9 @@ def parse_data(data, region=None, province=None):
                 if province == d[PROVINCE_KEY]:
                     fill_data(d, province=True)
     if province is None:
-        series = build_series()
+        series = fill_series()
     else:
-        series = build_series(province=True)
+        series = fill_series(province=True)
     return DATES, series, trend, regions, provinces
 
 

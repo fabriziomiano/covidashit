@@ -1,20 +1,16 @@
 import datetime as dt
+import os
 
-URL_NATIONAL_DATA = (
+NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
+REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni.json"
+PROVINCIAL_DATE_FILE = "dpc-covid19-ita-province.json"
+BASE_URL_DATA = (
     "https://raw.githubusercontent.com"
     "/pcm-dpc/COVID-19/master/dati-json/"
-    "dpc-covid19-ita-andamento-nazionale.json"
 )
-URL_REGIONAL_DATA = (
-    "https://raw.githubusercontent.com/"
-    "pcm-dpc/COVID-19/master/dati-json/"
-    "dpc-covid19-ita-regioni.json"
-)
-URL_PROVINCIAL_DATA = (
-    "https://raw.githubusercontent.com/"
-    "pcm-dpc/COVID-19/master/dati-json/"
-    "dpc-covid19-ita-province.json"
-)
+URL_NATIONAL_DATA = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
+URL_REGIONAL_DATA = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
+URL_PROVINCIAL_DATA = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
 ITEN_MAP = {
     "ricoverati_con_sintomi": {
         "title": "Hospitalized with symptoms",
@@ -68,6 +64,7 @@ CARD_TYPES = [
 ]
 REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
+PROVINCES_TOAVOID = ["In fase di definizione/aggiornamento"]
 DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 WEBSITE_TITLE = "Italian COVID Tracker"
 PCM_DATE_KEY = "data"
