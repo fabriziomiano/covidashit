@@ -31,8 +31,8 @@
 <!-- Modal -->
 <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content bg-light">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">INFO</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -41,25 +41,28 @@
             </div>
             <div class="modal-body">
                 <p class="h6 text-uppercase">How to use</p>
-                <p class="text-justify small">
+                <p class="text-left small">
                     Toggle on/off series (bottom of the chart)
                 </p>
                 <hr>
-                <p class="h6 text-uppercase" id="exampleModalLabel">How to read</p>
-                <p class="text-justify small">
-                    <b>DEFAULT:</b> Linear-scale of
-                    <br>"New positive", "Total positive variation", and "Intensive care unit".
-                <ul class="list-group small">
-                    <li class="list-group-item">The "Total positive" series is the cumulative sum of:
-                        <br>"Hospitalized with symptoms" + "Intensive care unit" + "Self isolation"
-                    </li>
-                    <li class="list-group-item">Red/green arrows indicate an increase/decrease w.r.t. yesterday</li>
-                </ul>
-                </p>
+                <p class="h6 text-uppercase">How to read</p>
+                <div class="text-left small">
+                    <b>DEFAULT CHART:</b> Linear-scale of
+                    <br>"New positive"<br>"Total positive variation"<br>"Intensive care unit".
+                    <ul class="list-group small">
+                        <li class="list-group-item">The "Total positive" series is the cumulative sum of:
+                            <br>"Hospitalized with symptoms"<br>"Intensive care unit"<br>"Self isolation"
+                        </li>
+                        <li class="list-group-item">Red/green arrows: increase/decrease w.r.t. yesterday</li>
+                    </ul>
+                </div>
                 <hr>
-                <p class="text-lg-center text-uppercase text-danger">
+                <div class="text-center text-uppercase text-danger">
                     <b>Keep calm and stay at home</b>
-                </p>
+                </div>
+                <div class="text-center text-uppercase text-info">
+                    <div class="text-center small">Days since lockdown: {{ lockdown_days }}</div>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -67,7 +70,7 @@
                     Who made this?
                 </button>
                 <button type="button" class="btn btn-success" data-dismiss="modal">Got it!</button>
-                <p class="small text-center"><b>NOTE:</b> Only the "Total cases" series is provided for the provinces.</p>
+                <div class="small"><b>NOTE:</b> Only "Total cases" is provided provinces.</div>
             </div>
         </div>
     </div>
@@ -200,7 +203,7 @@
                                 <script>
                                     let chart_id = {{ chartID|safe }};
                                     let series = {{ series|safe }};
-                                    let title = {{ title|safe }};
+                                    let title = {{ chart_title|safe }};
                                     let xAxis = {{ xAxis|safe }};
                                     let yAxis = {{ yAxis|safe }};
                                     let chart = {{ chart|safe }};
