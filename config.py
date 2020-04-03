@@ -1,5 +1,6 @@
-import datetime as dt
 import os
+import datetime as dt
+from flask_babel import gettext
 
 NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
 REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni.json"
@@ -13,48 +14,73 @@ URL_REGIONAL_DATA = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
 URL_PROVINCIAL_DATA = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
 ITEN_MAP = {
     "ricoverati_con_sintomi": {
-        "title": "Hospitalized with symptoms",
-        "desc": ""
+        "title": gettext("Hospitalized with symptoms"),
+        "desc": "",
+        "longdesc": ""
     },
     "terapia_intensiva": {
-        "title": "Intensive Care Unit",
-        "desc": "# of people in ICU"
+        "title": gettext("Intensive Care Unit"),
+        "desc": gettext("# of people in ICU"),
+        "longdesc": gettext("Counts the number of people in ICU as of today")
     },
     "totale_ospedalizzati": {
-        "title": "Total Hospitalized",
-        "desc": "# of people hospitalized (today)"
+        "title": gettext("Total Hospitalized"),
+        "desc": gettext("# of people hospitalized (today)"),
+        "longdesc": gettext("Counts the number of hospitalized people as of today")
     },
     "isolamento_domiciliare": {
-        "title": "Self Isolation",
-        "desc": ""
+        "title": gettext("Self Isolation"),
+        "desc": "",
+        "longdesc": ""
     },
     "totale_positivi": {
-        "title": "Total positive",
-        "desc": "Hospitalized w/ symptoms + ICU + Self Isolation"
+        "title": gettext("Total positive"),
+        "desc": gettext("Hospitalized w/ symptoms + ICU + Self Isolation"),
+        "longdesc": gettext(
+            "The sum of the number of hospitalized with symptoms plus "
+            "the number of people in ICU plus the number of people "
+            "in self Isolation as of today"
+        )
     },
     "variazione_totale_positivi": {
-        "title": "Total positive variation",
-        "desc": "Tot Positive (Today) - Tot Positive (Yesterday)"
+        "title": gettext("Total positive variation"),
+        "desc": gettext("Tot Positive (Today) - Tot Positive (Yesterday)"),
+        "longdesc": gettext(
+            "The difference of the total number of positive found today minus "
+            "the Total number of positive found yesterday"
+        )
     },
     "nuovi_positivi": {
-        "title": "New positive",
-        "desc": "Tot Cases (Today) - Tot cases (Yesterday)"
+        "title": gettext("New positive"),
+        "desc": gettext("Tot Cases (Today) - Tot cases (Yesterday)"),
+        "longdesc": gettext(
+            "The difference of the total cases found today minus "
+            "the total cases found yesterday"
+        )
     },
     "dimessi_guariti": {
-        "title": "Total Healed",
-        "desc": ""
+        "title": gettext("Total Healed"),
+        "desc": "",
+        "longdesc": ""
     },
     "deceduti": {
-        "title": "Total Deaths",
-        "desc": ""
+        "title": gettext("Total Deaths"),
+        "desc": "",
+        "longdesc": ""
     },
     "totale_casi": {
-        "title": "Total cases",
-        "desc": "Self isolation + Tot Hospitalized + Tot Healed + Tot Deaths"
+        "title": gettext("Total cases"),
+        "desc": gettext("Self isolation + Tot Hospitalized + Tot Healed + Tot Deaths"),
+        "longdesc": gettext(
+            "The sum of people in self isolation plus the total number of "
+            "people hospitalized plus the total number of people healed plus "
+            "the total deaths"
+        )
     },
     "tamponi": {
-        "title": "Total Swabs",
-        "desc": ""
+        "title": gettext("Total Swabs"),
+        "desc": "",
+        "longdesc": ""
     }
 }
 CARD_TYPES = [
@@ -66,6 +92,10 @@ REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
 PROVINCES_TOAVOID = ["In fase di definizione/aggiornamento"]
 DATE_FMT = "%Y-%m-%dT%H:%M:%S"
-WEBSITE_TITLE = "Italian COVID Tracker"
+WEBSITE_TITLE = gettext("Italian COVID Tracker")
 PCM_DATE_KEY = "data"
 LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
+LANGUAGES = {
+    'en': 'English',
+    'it_IT': 'Italiano'
+}
