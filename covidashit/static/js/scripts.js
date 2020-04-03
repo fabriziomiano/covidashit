@@ -3,20 +3,27 @@
     * Copyright 2013-2020 Start Bootstrap
     * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-sb-admin/blob/master/LICENSE)
     */
-    (function($) {
+(function ($) {
     "use strict";
 
     // Add active state to sidbar nav links
-    var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
-        $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
-            if (this.href === path) {
-                $(this).addClass("active");
-            }
-        });
+    const path = window.location.href; // because the 'href' property of the DOM element is the absolute path
+    $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
+        if (this.href === path) {
+            $(this).addClass("active");
+        }
+    });
 
     // Toggle the side navigation
-    $("#sidebarToggle").on("click", function(e) {
+    $("#sidebarToggle").on("click", function (e) {
         e.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
     });
 })(jQuery);
+
+// load tooltips
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+
+//  TODO: Find a way to resize the chart to full width when the sidebar is toggled

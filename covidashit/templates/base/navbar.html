@@ -1,0 +1,12 @@
+<!-- Navbar -->
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <img class="ml-2" src="../../static/img/virussketch.png" alt="" width="32" height="32">
+    <a class="navbar-brand">
+        {% if not navtitle %}
+            {{ _("Italy") }} | Dashboard
+        {% else %}
+            {{ navtitle }} | Dashboard
+        {% endif %}
+    </a>
+    <button class="btn btn-link btn-sm order-first" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+</nav>
