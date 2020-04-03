@@ -52,3 +52,8 @@ $(window).on('load', function () {
         $('#welcomeModal').modal('hide');
     }
 });
+
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
