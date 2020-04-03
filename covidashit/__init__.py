@@ -1,6 +1,18 @@
-from flask import Flask
+import os
+from flask import Flask, request
+from flask_babel import Babel
+from config import LANGUAGES
+
 
 app = Flask(__name__)
+babel = Babel(app)
+app.config['BABEL_TRANSLATION_DIRECTORIES'] = os.path.join(
+    app.root_path, "translations")
+
+
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(LANGUAGES.keys())
 
 
 @app.after_request

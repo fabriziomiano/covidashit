@@ -1,5 +1,6 @@
 import json
 import datetime as dt
+from flask_babel import gettext
 from config import (
     REGION_KEY, CARD_TYPES, ITEN_MAP, DATE_FMT, PROVINCE_KEY, PROVINCES_TOAVOID
 )
@@ -81,6 +82,7 @@ def get_trend(data, province=False):
         trend.append({
             "title": ITEN_MAP[key]["title"],
             "desc": ITEN_MAP[key]["desc"],
+            "longdesc": ITEN_MAP[key]["longdesc"],
             "count": last[key],
             "status": status
         })
@@ -94,50 +96,50 @@ def fill_series(province=False):
     """
     if not province:
         series1 = {
-            "name": ITEN_MAP["nuovi_positivi"]["title"],
+            "name": gettext(ITEN_MAP["nuovi_positivi"]["title"]),
             "data": NEW_POS,
             "visible": "true"
         }
         series2 = {
-            "name": ITEN_MAP["variazione_totale_positivi"]["title"],
+            "name": gettext(ITEN_MAP["variazione_totale_positivi"]["title"]),
             "data": TOT_POS_VAR,
             "visible": "true"
         }
         series3 = {
-            "name": ITEN_MAP["terapia_intensiva"]["title"],
+            "name": gettext(ITEN_MAP["terapia_intensiva"]["title"]),
             "data": ICU,
             "visible": "true"
         }
         series4 = {
-            "name": ITEN_MAP["totale_positivi"]["title"],
+            "name": gettext(ITEN_MAP["totale_positivi"]["title"]),
             "data": TOT_POS
         }
         series5 = {
-            "name": ITEN_MAP["ricoverati_con_sintomi"]["title"],
+            "name": gettext(ITEN_MAP["ricoverati_con_sintomi"]["title"]),
             "data": HOSP_W_SYMPTS
         }
         series6 = {
-            "name": ITEN_MAP["isolamento_domiciliare"]["title"],
+            "name": gettext(ITEN_MAP["isolamento_domiciliare"]["title"]),
             "data": SELF_ISOL
         }
         series7 = {
-            "name": ITEN_MAP["dimessi_guariti"]["title"],
+            "name": gettext(ITEN_MAP["dimessi_guariti"]["title"]),
             "data": HEALED
         }
         series8 = {
-            "name": ITEN_MAP["totale_ospedalizzati"]["title"],
+            "name": gettext(ITEN_MAP["totale_ospedalizzati"]["title"]),
             "data": TOT_HOSP
         }
         series9 = {
-            "name": ITEN_MAP["deceduti"]["title"],
+            "name": gettext(ITEN_MAP["deceduti"]["title"]),
             "data": TOT_DEATHS
         }
         series10 = {
-            "name": ITEN_MAP["totale_casi"]["title"],
+            "name": gettext(ITEN_MAP["totale_casi"]["title"]),
             "data": TOT_CASES
         }
         series11 = {
-            "name": ITEN_MAP["tamponi"]["title"],
+            "name": gettext(ITEN_MAP["tamponi"]["title"]),
             "data": TOT_SWABS
         }
         series = [
@@ -147,7 +149,7 @@ def fill_series(province=False):
         ]
     else:
         series = [{
-            "name": ITEN_MAP["totale_casi"]["title"],
+            "name": gettext(ITEN_MAP["totale_casi"]["title"]),
             "data": TOT_CASES,
             "visible": "true"
         }]
@@ -252,5 +254,5 @@ def init_chart(chart_id, chart_type, dates):
     """
     chart = {"renderTo": chart_id, "type": chart_type}
     x_axis = {"categories": dates}
-    y_axis = {"title": {"text": '# of people'}}
+    y_axis = {"title": {"text": gettext('# of people')}}
     return chart, x_axis, y_axis

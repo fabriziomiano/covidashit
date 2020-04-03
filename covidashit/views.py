@@ -2,6 +2,7 @@ import time
 import json
 import datetime as dt
 from flask import render_template
+from flask_babel import gettext
 from config import WEBSITE_TITLE, LOCKDOWN_DAY
 from covidashit import app
 from covidashit.dataset import init_data, parse_data, init_chart
@@ -27,7 +28,7 @@ def provincial(region=None, province=None, chart_id='chart_ID', chart_type='line
         chart_title = {"text": region, "align": "left"}
     else:
         dates, series, trend, regions, provinces = parse_data(data)
-        chart_title = {"text": "Italy", "align": "left"}
+        chart_title = {"text": gettext("Italy"), "align": "left"}
     chart, x_axis, y_axis = init_chart(chart_id, chart_type, dates)
     return render_template(
         'dashboard.html',
@@ -36,7 +37,7 @@ def provincial(region=None, province=None, chart_id='chart_ID', chart_type='line
         region=region,
         provinces=provinces,
         province=province,
-        pagetitle=WEBSITE_TITLE,
+        pagetitle=gettext(WEBSITE_TITLE),
         chartID=chart_id,
         chart=chart,
         series=series,

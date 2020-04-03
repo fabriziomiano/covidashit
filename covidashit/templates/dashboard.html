@@ -4,11 +4,11 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content="COVID-19 Italian outbreak data visualization">
+    <meta name="description" content={{ _("COVID-19 Italy outbreak data visualization") }}>
     <meta name="author" content=""/>
     <meta property="og:title" content="COVIdash-it"/>
     <meta property="og:url" content="https://covidashit.herokuapp.com/"/>
-    <meta property="og:description" content="COVID-19 Italy outbreak data visualization">
+    <meta property="og:description" content={{ _("COVID-19 Italy outbreak data visualization") }}>
     <meta property="og:image" content="https://covidashit.herokuapp.com/static/corona.png"/>
     <meta property="og:image:type" content="image/png"/>
     <meta property="og:image:width" content="1200"/>
@@ -17,7 +17,7 @@
     <meta property="og:image:type" content="image/png"/>
     <meta property="og:image:width" content="400"/>
     <meta property="og:image:height" content="400"/>
-    <title>{{ pagetitle }}</title>
+    <title>{{ _(pagetitle) }}</title>
     <link rel="apple-touch-icon" href="../static/corona.png" sizes="180x180">
     <link rel="icon" href="../static/corona.png" sizes="32x32" type="image/png">
     <link rel="icon" href="../static/corona.png" sizes="16x16" type="image/png">
@@ -40,20 +40,20 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="h6 text-uppercase">How to use</p>
+                <p class="h6 text-uppercase">{{ _("How to use") }}</p>
                 <p class="text-left small">
-                    Toggle on/off series (bottom of the chart)
+                    {{ _('Toggle on/off series (bottom of the chart)') }}
                 </p>
                 <hr>
-                <p class="h6 text-uppercase">How to read</p>
+                <p class="h6 text-uppercase">{{ _("How to read") }}</p>
                 <div class="text-left small">
-                    <b>DEFAULT CHART:</b> Linear-scale of
-                    <br>"New positive"<br>"Total positive variation"<br>"Intensive care unit".
+                    <b>{{ _('DEFAULT CHART') }}:</b> {{ _('Linear-scale of') }}
+                    <br>{{ _('"New positive"') }}<br>{{ _('"Total positive variation"') }}<br>{{ _('"Intensive care unit".') }}
                     <ul class="list-group small">
-                        <li class="list-group-item">The "Total positive" series is the cumulative sum of:
-                            <br>"Hospitalized with symptoms"<br>"Intensive care unit"<br>"Self isolation"
+                        <li class="list-group-item">{{ _('The "Total positive" series is the cumulative sum of:') }}
+                            <br>{{ _('"Hospitalized with symptoms"') }}<br>{{ _('"Intensive care unit"') }}<br>{{ _('"Self isolation"') }}
                         </li>
-                        <li class="list-group-item">Red/green arrows: increase/decrease w.r.t. yesterday</li>
+                        <li class="list-group-item">{{ _('Red/green arrows: increase/decrease w.r.t. yesterday') }}</li>
                     </ul>
                 </div>
                 <hr>
@@ -61,16 +61,16 @@
                     <b>Keep calm and stay at home</b>
                 </div>
                 <div class="text-center text-uppercase text-info">
-                    <div class="text-center small">Days since lockdown: {{ lockdown_days }}</div>
+                    <div class="text-center small">{{ _('Days since lockdown:') }} {{ _(lockdown_days) }}</div>
                 </div>
             </div>
 
             <div class="modal-footer">
                 <button class="btn btn-info" onclick=" window.open('https://fabriziomiano.github.io','_blank')">
-                    Who made this?
+                    {{ _('Who made this?') }}
                 </button>
-                <button type="button" class="btn btn-success" data-dismiss="modal">Got it!</button>
-                <div class="small"><b>NOTE:</b> Only "Total cases" is provided provinces.</div>
+                <button type="button" class="btn btn-success" data-dismiss="modal">{{ _("Got it!") }}</button>
+                <div class="small"><b>{{ _("NOTE:") }}</b> {{ _('Only "Total cases" is provided provinces.') }}</div>
             </div>
         </div>
     </div>
@@ -79,12 +79,12 @@
 
 <!-- Navbar -->
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <button class="btn btn-link btn-sm order-first order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
+    <button class="btn btn-link" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
     </button>
     <a class="navbar-brand" href="/national"><img src="../static/corona.png" alt="" width="32" height="32">
         &nbsp;
         {% if not region %}
-            {{ pagetitle }}
+            {{ _(pagetitle) }}
         {% else %}
             {{ region }}
         {% endif %} </a>
@@ -104,11 +104,11 @@
                         Dashboard
                     </a>
 
-                    <div class="sb-sidenav-menu-heading">Navigate</div>
+                    <div class="sb-sidenav-menu-heading">{{ _('Navigate') }}</div>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRegionLayouts"
                        aria-expanded="false" aria-controls="collapseRegionLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
-                        Regions
+                        {{ _('Regions') }}
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="collapseRegionLayouts" aria-labelledby="headingOne"
@@ -123,7 +123,7 @@
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProvinceLayouts"
                        aria-expanded="false" aria-controls="collapseProvinceLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
-                        Provinces
+                        {{ _('Provinces') }}
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="collapseProvinceLayouts" aria-labelledby="headingOne"
@@ -140,14 +140,14 @@
                        href="http://www.protezionecivile.gov.it/"
                        target="_blank">
                         <div class="sb-nav-link-icon"><i class="far fa-newspaper"></i></div>
-                        CP News</a>
+                        {{ _('CP News') }}</a>
                     <a class="nav-link" href="https://github.com/pcm-dpc/COVID-19" target="_blank">
                         <div class="sb-nav-link-icon"><i class="fab fa-github"></i></div>
-                        CP Repo</a>
+                        {{ _('CP Repo') }}</a>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                <div class="small">Days since lockdown: {{ lockdown_days }}</div>
+                <div class="small">{{ _('Days since lockdown') }}: {{ lockdown_days }}</div>
             </div>
         </nav>
     </div>
@@ -162,7 +162,10 @@
                         <div class="col-xl-4 mb-4">
                             <div class="card border-left-primary shadow h-100 ">
                                 <div class="card-header font-weight-bold text-primary text-uppercase mb-1">
-                                    {{ t.title }}
+                                    {{ _(t.title) }}
+                                    <i class="fas fa-info-circle text-black-50" data-toggle="tooltip" data-placement="auto"
+                                       title="{{ _(t.longdesc) }}" data-trigger="hover focus">
+                                    </i>
                                 </div>
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -185,7 +188,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <h6 class="small text-info text-capitalize">{{ t.desc }}</h6>
+                                    <h6 class="small text-info text-capitalize">{{ _(t.desc) }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -197,7 +200,7 @@
                     <div class="col-xl-12">
                         <div class="card border-left-primary shadow mb-4">
                             <div class="card-header"><i class="fas fa-chart-line mr-2"></i>Trend | {% if region %}
-                                {{ region }} {% elif province %} {{ province }} {% else %} National {% endif %}</div>
+                                {{ region }} {% elif province %} {{ province }} {% else %} {{ _("National") }} {% endif %}</div>
                             <div class="card-body">
                                 <div id="{{ chartID|safe }}" class="chart" style=""></div>
                                 <script>
