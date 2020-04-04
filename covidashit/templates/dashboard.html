@@ -94,6 +94,13 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
+                    <div class="sb-sidenav-menu-heading">{{ _("Usage and credits") }}</div>
+                    <div class="container-fluid">
+                        <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#welcomeModal">
+                            <i class="fas fa-info-circle"></i> {{ _("How to") }}
+                        </button>
+                    </div>
+
                     <div class="sb-sidenav-menu-heading">Home</div>
                     <a class="nav-link" href="/national">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
