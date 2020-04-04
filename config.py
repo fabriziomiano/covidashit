@@ -15,18 +15,23 @@ URL_PROVINCIAL_DATA = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
 ITEN_MAP = {
     "ricoverati_con_sintomi": {
         "title": gettext("Hospitalized with symptoms"),
-        "desc": "",
-        "longdesc": ""
+        "desc": gettext("# of People currently in hospital with symptoms"),
+        "longdesc": gettext(
+            "Daily count of people currently in hospital with symptoms")
     },
     "terapia_intensiva": {
         "title": gettext("Intensive Care Unit"),
         "desc": gettext("# of people in ICU"),
-        "longdesc": gettext("Counts the number of people in ICU as of today")
+        "longdesc": gettext(
+            "Daily county of people currently in ICU  and positive to COVID-19"
+        )
     },
     "totale_ospedalizzati": {
         "title": gettext("Total Hospitalized"),
         "desc": gettext("# of people hospitalized (today)"),
-        "longdesc": gettext("Counts the number of hospitalized people as of today")
+        "longdesc": gettext(
+            "Daily count of people currently positive who are in hospital. "
+            "It takes into account ICU")
     },
     "isolamento_domiciliare": {
         "title": gettext("Self Isolation"),
@@ -35,28 +40,28 @@ ITEN_MAP = {
     },
     "totale_positivi": {
         "title": gettext("Total positive"),
-        "desc": gettext("Hospitalized w/ symptoms + ICU + Self Isolation"),
+        "desc": gettext("Hospitalized with symptoms + ICU + Self Isolation"),
         "longdesc": gettext(
-            "The sum of the number of hospitalized with symptoms plus "
-            "the number of people in ICU plus the number of people "
-            "in self Isolation as of today"
+            "Daily count of people currently found positive. "
+            "Unlike 'Total Cases' it does not take into account "
+            "'healed' and 'deaths'. By the end of the outbreak "
+            "this should tend to zero. In particular, it is "
+            "total positive = total cases - totale healed - totale deaths"
         )
     },
     "variazione_totale_positivi": {
         "title": gettext("Total positive variation"),
         "desc": gettext("Tot Positive (Today) - Tot Positive (Yesterday)"),
         "longdesc": gettext(
-            "The difference of the total number of positive found today minus "
-            "the Total number of positive found yesterday"
+            "Variation of the number of people found positive "
+            "with respect to the previous day. It is negative when the number "
+            "of daily healed and deaths is larger than 'New positive'"
         )
     },
     "nuovi_positivi": {
         "title": gettext("New positive"),
         "desc": gettext("Tot Cases (Today) - Tot cases (Yesterday)"),
-        "longdesc": gettext(
-            "The difference of the total cases found today minus "
-            "the total cases found yesterday"
-        )
+        "longdesc": gettext("New positve cases found today")
     },
     "dimessi_guariti": {
         "title": gettext("Total Healed"),
@@ -72,9 +77,7 @@ ITEN_MAP = {
         "title": gettext("Total cases"),
         "desc": gettext("Self isolation + Tot Hospitalized + Tot Healed + Tot Deaths"),
         "longdesc": gettext(
-            "The sum of people in self isolation plus the total number of "
-            "people hospitalized plus the total number of people healed plus "
-            "the total deaths"
+            "Sum of the positive tests since the beginning of the outbreak"
         )
     },
     "tamponi": {
@@ -96,6 +99,6 @@ WEBSITE_TITLE = gettext("Italian COVID Tracker")
 PCM_DATE_KEY = "data"
 LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
 LANGUAGES = {
-    'en': 'English',
-    'it_IT': 'Italiano'
+    "en": "English",
+    "it_IT": "Italiano"
 }

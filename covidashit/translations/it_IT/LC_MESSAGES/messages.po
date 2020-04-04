@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-04 00:41+0200\n"
-"PO-Revision-Date: 2020-04-04 00:45+0200\n"
+"Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
+"POT-Creation-Date: 2020-04-04 12:50+0200\n"
+"PO-Revision-Date: 2020-04-04 12:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -23,160 +23,173 @@ msgstr ""
 msgid "Hospitalized with symptoms"
 msgstr "Ricoverati con sintomi"
 
+#: config.py:18
+msgid "# of People currently in hospital with symptoms"
+msgstr "# Persone attualmente in ospedale con sintomi"
+
+#: config.py:19
+msgid "Daily count of people currently in hospital with symptoms"
+msgstr ""
+"Conteggio giornaliero del numero di persone attualmente in ospedale con "
+"sintomi"
+
 #: config.py:23
 msgid "Intensive Care Unit"
 msgstr "Terapia intensiva"
 
 #: config.py:24
 msgid "# of people in ICU"
-msgstr "# Persone in Terapia Intensiva"
+msgstr "# Persone in Terapia Intensiva (oggi)"
 
 #: config.py:25
-msgid "Counts the number of people in ICU as of today"
-msgstr "Conta il numero di persone in terapia intensiva ad oggi"
+msgid "Daily county of people currently in ICU  and positive to COVID-19"
+msgstr ""
+"Conteggio giornaliero del numero di persone attualmente in terapia intensiva "
+"e positive al COVID-19"
 
-#: config.py:28
+#: config.py:30
 msgid "Total Hospitalized"
 msgstr "Totale ospedalizzati"
 
-#: config.py:29
+#: config.py:31
 msgid "# of people hospitalized (today)"
-msgstr "# persone ospedalizzate (oggi)"
+msgstr "# Persone ospedalizzate (oggi)"
 
-#: config.py:30
-msgid "Counts the number of hospitalized people as of today"
-msgstr "Conta il numero di persone ospedalizzate ad oggi"
+#: config.py:32
+msgid ""
+"Daily count of people currently positive who are in hospital. It takes into "
+"account ICU"
+msgstr ""
+"Conteggio giornaliero del numero di persone attualmente positive e "
+"ricoverate. Tiene conto di quelle in terapia intensiva"
 
-#: config.py:33
+#: config.py:37
 msgid "Self Isolation"
 msgstr "Isolamento autonomo"
 
-#: config.py:38
+#: config.py:42
 msgid "Total positive"
 msgstr "Totale positivi"
 
-#: config.py:39
-msgid "Hospitalized w/ symptoms + ICU + Self Isolation"
-msgstr "Ospedalizzati con sintomi + terapia intensiva + isolamento"
+#: config.py:43
+msgid "Hospitalized with symptoms + ICU + Self Isolation"
+msgstr "Ricoverati con sintomi + terapia intensiva + isolamento"
 
-#: config.py:40
+#: config.py:44
 msgid ""
-"The sum of the number of hospitalized with symptoms plus the number of "
-"people in ICU plus the number of people in self Isolation as of today"
+"Daily count of people currently found positive. Unlike 'Total Cases' it does "
+"not take into account 'healed' and 'deaths'. By the end of the outbreak this "
+"should tend to zero. In particular, it is total positive = total cases - "
+"totale healed - totale deaths"
 msgstr ""
-"La somma del numero doi ospedalizzati con sintomi più il numero di persone "
-"di terapia intensiva più il numero di persone in isolamento domestico ad oggi"
+"Conteggio giornaliero del numero di persone attualmente positive. A "
+"differenza di 'Totale casi', non tiene in considerazione i guariti e le "
+"morti. Alla fine dell'epidemia tenderà a zero. In particolare, è definito "
+"totale positivi = totale casi - totale guariti - totale morti"
 
-#: config.py:47
+#: config.py:53
 msgid "Total positive variation"
 msgstr "Variazione totale positivi"
 
-#: config.py:48
+#: config.py:54
 msgid "Tot Positive (Today) - Tot Positive (Yesterday)"
 msgstr "Tot positivi (oggi) - Tot positivi (ieri)"
 
-#: config.py:49
-msgid ""
-"The difference of the total number of positive found today minus the Total "
-"number of positive found yesterday"
-msgstr ""
-"La differenza del numero totale di positivi ad oggi meno il numero totale di "
-"positivi a ieri"
-
 #: config.py:55
+msgid ""
+"Variation of the number of people found positive with respect to the "
+"previous day. It is negative when the number of daily healed and deaths is "
+"larger than 'New positive'"
+msgstr ""
+"Variazione del numero di persone trovate positive rispetto al giorno "
+"precedente. È negativo se il numero di deceduti e guariti quotidiani supera "
+"il numero 'Nuovi positivi'"
+
+#: config.py:62
 msgid "New positive"
 msgstr "Nuovi positivi"
 
-#: config.py:56
+#: config.py:63
 msgid "Tot Cases (Today) - Tot cases (Yesterday)"
 msgstr "Tot Casi (oggi) - Tot Casi (ieri)"
 
-#: config.py:57
-msgid ""
-"The difference of the total cases found today minus the total cases found "
-"yesterday"
-msgstr ""
-"La differenza dei casi totali ad oggi ad oggi meno i casi totali a ieri"
+#: config.py:64
+msgid "New positve cases found today"
+msgstr "Conteggio giornaliero dei nuovi casi positivi"
 
-#: config.py:63
+#: config.py:67
 msgid "Total Healed"
 msgstr "Totale guariti"
 
-#: config.py:68
+#: config.py:72
 msgid "Total Deaths"
 msgstr "Totale deceduti"
 
-#: config.py:73
+#: config.py:77
 msgid "Total cases"
 msgstr "Totale casi"
 
-#: config.py:74
+#: config.py:78
 msgid "Self isolation + Tot Hospitalized + Tot Healed + Tot Deaths"
-msgstr ""
-"Isolamento domestico + totale ospedalizzati + totale guariti + totali "
-"deceduti"
+msgstr "Isolamento domestico + tot ospedalizzati + tot guariti + tot deceduti"
 
-#: config.py:75
-msgid ""
-"The sum of people in self isolation plus the total number of people "
-"hospitalized plus the total number of people healed plus the total deaths"
-msgstr ""
-"Somma delle persone in isolamento domestico più il totale di ospedalizzati "
-"più il totale di guariti più il totale dei deceduti"
+#: config.py:79
+msgid "Sum of the positive tests since the beginning of the outbreak"
+msgstr "Somma dei tamponi positivi dall'inizio dell'epidemia"
 
-#: config.py:82
+#: config.py:84
 msgid "Total Swabs"
 msgstr "Totale tamponi"
 
-#: config.py:96
+#: config.py:98
 msgid "Italian COVID Tracker"
 msgstr "Monitoraggio COVID Italia"
 
-#: covidashit/dataset.py:98
+#: covidashit/dataset.py:99
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:103
+#: covidashit/dataset.py:104
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:108
+#: covidashit/dataset.py:109
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: covidashit/dataset.py:113
+#: covidashit/dataset.py:114
 msgid "totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:117
+#: covidashit/dataset.py:118
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: covidashit/dataset.py:121
+#: covidashit/dataset.py:122
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: covidashit/dataset.py:125
+#: covidashit/dataset.py:126
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: covidashit/dataset.py:129
+#: covidashit/dataset.py:130
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: covidashit/dataset.py:133
+#: covidashit/dataset.py:134
 msgid "decedutititle"
 msgstr ""
 
-#: covidashit/dataset.py:137
+#: covidashit/dataset.py:138 covidashit/dataset.py:152
 msgid "totale_casititle"
 msgstr ""
 
-#: covidashit/dataset.py:141
+#: covidashit/dataset.py:142
 msgid "tamponititle"
 msgstr ""
 
-#: covidashit/dataset.py:256
+#: covidashit/dataset.py:257
 msgid "# of people"
 msgstr "# persone"
 
@@ -188,103 +201,144 @@ msgstr "Italia"
 msgid "COVID-19 Italy outbreak data visualization"
 msgstr "Visualizzazione dei dati dell'epidemia di COVID-19 in Italia"
 
-#: covidashit/templates/dashboard.html:43
-msgid "How to use"
-msgstr "Come si usa"
+#: covidashit/templates/dashboard.html:37
+msgid "HOW TO USE"
+msgstr "COME SI USA"
 
 #: covidashit/templates/dashboard.html:45
-msgid "Toggle on/off series (bottom of the chart)"
-msgstr "Attiva/Disattiva serie di dati (in basso al grafico)"
+msgid ""
+"Use the name of the series at the bottom of the chart to Toggle them on/off"
+msgstr ""
+"Utilizza i nomi delle serie sotto al grafico per attivare/disattivare la "
+"visualizzazione di quella serie"
 
 #: covidashit/templates/dashboard.html:48
-msgid "How to read"
-msgstr "Come si interpreta"
+msgid "Hover or tap the icon"
+msgstr "Passa sopra col mouse o tocca"
 
-#: covidashit/templates/dashboard.html:50
-msgid "DEFAULT CHART"
-msgstr "GRAFICO DI DEFAULT"
+#: covidashit/templates/dashboard.html:49
+msgid "next to the card title to read the description of the data"
+msgstr "accanto al titolo della scheda per leggere la descrizione del dato"
 
-#: covidashit/templates/dashboard.html:50
-msgid "Linear-scale of"
-msgstr "Scala lineare di"
-
-#: covidashit/templates/dashboard.html:51
-msgid "\"New positive\""
-msgstr "\"Nuovi positivi\""
-
-#: covidashit/templates/dashboard.html:51
-msgid "\"Total positive variation\""
-msgstr "\"Variazione totale positivi\""
-
-#: covidashit/templates/dashboard.html:51
-msgid "\"Intensive care unit\"."
-msgstr "\"Terapia intensiva\"."
-
-#: covidashit/templates/dashboard.html:53
-msgid "The \"Total positive\" series is the cumulative sum of:"
-msgstr "La serie \"Totale positivi\" è la somma di:"
-
-#: covidashit/templates/dashboard.html:54
-msgid "\"Hospitalized with symptoms\""
-msgstr "\"Ricoverati con sintomi\""
-
-#: covidashit/templates/dashboard.html:54
-msgid "\"Intensive care unit\""
-msgstr "\"Terapia intensiva\"."
-
-#: covidashit/templates/dashboard.html:54
-msgid "\"Self isolation\""
-msgstr "\"Isolamento domestico\""
-
-#: covidashit/templates/dashboard.html:56
+#: covidashit/templates/dashboard.html:52
 msgid "Red/green arrows: increase/decrease w.r.t. yesterday"
 msgstr ""
 "Le frecce verdi/rosse indicano un decremento/incremento rispetto a ieri"
 
-#: covidashit/templates/dashboard.html:64
+#: covidashit/templates/dashboard.html:60
 msgid "Days since lockdown:"
 msgstr "Giorni trascorsi dal blocco:"
 
-#: covidashit/templates/dashboard.html:70
+#: covidashit/templates/dashboard.html:66
 msgid "Who made this?"
 msgstr "Chi è l'autore?"
 
-#: covidashit/templates/dashboard.html:72
+#: covidashit/templates/dashboard.html:68
 msgid "Got it!"
 msgstr "Ricevuto!"
 
-#: covidashit/templates/dashboard.html:73
+#: covidashit/templates/dashboard.html:69
 msgid "NOTE:"
 msgstr "NOTA:"
 
-#: covidashit/templates/dashboard.html:73
+#: covidashit/templates/dashboard.html:69
 msgid "Only \"Total cases\" is provided provinces."
 msgstr "Solo i \"Casi  totali\" vengono forniti per le province."
 
-#: covidashit/templates/dashboard.html:107
+#: covidashit/templates/dashboard.html:103
 msgid "Navigate"
 msgstr "Esplora"
 
-#: covidashit/templates/dashboard.html:111
+#: covidashit/templates/dashboard.html:107
 msgid "Regions"
 msgstr "Regioni"
 
-#: covidashit/templates/dashboard.html:126
+#: covidashit/templates/dashboard.html:122
 msgid "Provinces"
 msgstr "Province"
 
-#: covidashit/templates/dashboard.html:143
+#: covidashit/templates/dashboard.html:139
 msgid "CP News"
 msgstr "News Protezione Civile"
 
-#: covidashit/templates/dashboard.html:146
+#: covidashit/templates/dashboard.html:142
 msgid "CP Repo"
 msgstr "Repository Protezione Civile"
 
-#: covidashit/templates/dashboard.html:150
+#: covidashit/templates/dashboard.html:146
 msgid "Days since lockdown"
 msgstr "Giorni trascorsi dal blocco"
 
-#: covidashit/templates/dashboard.html:200
+#: covidashit/templates/dashboard.html:199
 msgid "National"
 msgstr "Nazionale"
+
+#~ msgid "How to use"
+#~ msgstr "Come si usa"
+
+#~ msgid "Toggle on/off series (bottom of the chart)"
+#~ msgstr "Attiva/Disattiva serie di dati (in basso al grafico)"
+
+#~ msgid "How to read"
+#~ msgstr "Come si interpreta"
+
+#~ msgid "DEFAULT CHART"
+#~ msgstr "GRAFICO DI DEFAULT"
+
+#~ msgid "Linear-scale of"
+#~ msgstr "Scala lineare di"
+
+#~ msgid "\"New positive\""
+#~ msgstr "\"Nuovi positivi\""
+
+#~ msgid "\"Total positive variation\""
+#~ msgstr "\"Variazione totale positivi\""
+
+#~ msgid "\"Intensive care unit\"."
+#~ msgstr "\"Terapia intensiva\"."
+
+#~ msgid "The \"Total positive\" series is the cumulative sum of:"
+#~ msgstr "La serie \"Totale positivi\" è la somma di:"
+
+#~ msgid "\"Hospitalized with symptoms\""
+#~ msgstr "\"Ricoverati con sintomi\""
+
+#~ msgid "\"Intensive care unit\""
+#~ msgstr "\"Terapia intensiva\"."
+
+#~ msgid "\"Self isolation\""
+#~ msgstr "\"Isolamento domestico\""
+
+#~ msgid "Counts the number of people in ICU as of today"
+#~ msgstr "Conta il numero di persone in terapia intensiva ad oggi"
+
+#~ msgid "Counts the number of hospitalized people as of today"
+#~ msgstr "Conta il numero di persone ospedalizzate ad oggi"
+
+#~ msgid ""
+#~ "The sum of the number of hospitalized with symptoms plus the number of "
+#~ "people in ICU plus the number of people in self Isolation as of today"
+#~ msgstr ""
+#~ "La somma del numero doi ospedalizzati con sintomi più il numero di "
+#~ "persone di terapia intensiva più il numero di persone in isolamento "
+#~ "domestico ad oggi"
+
+#~ msgid ""
+#~ "The difference of the total number of positive found today minus the "
+#~ "Total number of positive found yesterday"
+#~ msgstr ""
+#~ "La differenza del numero totale di positivi ad oggi meno il numero totale "
+#~ "di positivi a ieri"
+
+#~ msgid ""
+#~ "The difference of the total cases found today minus the total cases found "
+#~ "yesterday"
+#~ msgstr ""
+#~ "La differenza dei casi totali ad oggi ad oggi meno i casi totali a ieri"
+
+#~ msgid ""
+#~ "The sum of people in self isolation plus the total number of people "
+#~ "hospitalized plus the total number of people healed plus the total deaths"
+#~ msgstr ""
+#~ "Somma delle persone in isolamento domestico più il totale di "
+#~ "ospedalizzati più il totale di guariti più il totale dei deceduti"
