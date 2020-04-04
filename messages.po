@@ -1,0 +1,290 @@
+# Translations template for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-04-04 00:41+0200\n"
+"PO-Revision-Date: 2020-04-04 00:45+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+"X-Generator: Poedit 2.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: config.py:17
+msgid "Hospitalized with symptoms"
+msgstr "Ricoverati con sintomi"
+
+#: config.py:23
+msgid "Intensive Care Unit"
+msgstr "Terapia intensiva"
+
+#: config.py:24
+msgid "# of people in ICU"
+msgstr "# Persone in Terapia Intensiva"
+
+#: config.py:25
+msgid "Counts the number of people in ICU as of today"
+msgstr "Conta il numero di persone in terapia intensiva ad oggi"
+
+#: config.py:28
+msgid "Total Hospitalized"
+msgstr "Totale ospedalizzati"
+
+#: config.py:29
+msgid "# of people hospitalized (today)"
+msgstr "# persone ospedalizzate (oggi)"
+
+#: config.py:30
+msgid "Counts the number of hospitalized people as of today"
+msgstr "Conta il numero di persone ospedalizzate ad oggi"
+
+#: config.py:33
+msgid "Self Isolation"
+msgstr "Isolamento autonomo"
+
+#: config.py:38
+msgid "Total positive"
+msgstr "Totale positivi"
+
+#: config.py:39
+msgid "Hospitalized w/ symptoms + ICU + Self Isolation"
+msgstr "Ospedalizzati con sintomi + terapia intensiva + isolamento"
+
+#: config.py:40
+msgid ""
+"The sum of the number of hospitalized with symptoms plus the number of "
+"people in ICU plus the number of people in self Isolation as of today"
+msgstr ""
+"La somma del numero doi ospedalizzati con sintomi più il numero di persone "
+"di terapia intensiva più il numero di persone in isolamento domestico ad oggi"
+
+#: config.py:47
+msgid "Total positive variation"
+msgstr "Variazione totale positivi"
+
+#: config.py:48
+msgid "Tot Positive (Today) - Tot Positive (Yesterday)"
+msgstr "Tot positivi (oggi) - Tot positivi (ieri)"
+
+#: config.py:49
+msgid ""
+"The difference of the total number of positive found today minus the Total "
+"number of positive found yesterday"
+msgstr ""
+"La differenza del numero totale di positivi ad oggi meno il numero totale di "
+"positivi a ieri"
+
+#: config.py:55
+msgid "New positive"
+msgstr "Nuovi positivi"
+
+#: config.py:56
+msgid "Tot Cases (Today) - Tot cases (Yesterday)"
+msgstr "Tot Casi (oggi) - Tot Casi (ieri)"
+
+#: config.py:57
+msgid ""
+"The difference of the total cases found today minus the total cases found "
+"yesterday"
+msgstr ""
+"La differenza dei casi totali ad oggi ad oggi meno i casi totali a ieri"
+
+#: config.py:63
+msgid "Total Healed"
+msgstr "Totale guariti"
+
+#: config.py:68
+msgid "Total Deaths"
+msgstr "Totale deceduti"
+
+#: config.py:73
+msgid "Total cases"
+msgstr "Totale casi"
+
+#: config.py:74
+msgid "Self isolation + Tot Hospitalized + Tot Healed + Tot Deaths"
+msgstr ""
+"Isolamento domestico + totale ospedalizzati + totale guariti + totali "
+"deceduti"
+
+#: config.py:75
+msgid ""
+"The sum of people in self isolation plus the total number of people "
+"hospitalized plus the total number of people healed plus the total deaths"
+msgstr ""
+"Somma delle persone in isolamento domestico più il totale di ospedalizzati "
+"più il totale di guariti più il totale dei deceduti"
+
+#: config.py:82
+msgid "Total Swabs"
+msgstr "Totale tamponi"
+
+#: config.py:96
+msgid "Italian COVID Tracker"
+msgstr "Monitoraggio COVID Italia"
+
+#: covidashit/dataset.py:98
+msgid "nuovi_positivititle"
+msgstr ""
+
+#: covidashit/dataset.py:103
+msgid "variazione_totale_positivititle"
+msgstr ""
+
+#: covidashit/dataset.py:108
+msgid "terapia_intensivatitle"
+msgstr ""
+
+#: covidashit/dataset.py:113
+msgid "totale_positivititle"
+msgstr ""
+
+#: covidashit/dataset.py:117
+msgid "ricoverati_con_sintomititle"
+msgstr ""
+
+#: covidashit/dataset.py:121
+msgid "isolamento_domiciliaretitle"
+msgstr ""
+
+#: covidashit/dataset.py:125
+msgid "dimessi_guaritititle"
+msgstr ""
+
+#: covidashit/dataset.py:129
+msgid "totale_ospedalizzatititle"
+msgstr ""
+
+#: covidashit/dataset.py:133
+msgid "decedutititle"
+msgstr ""
+
+#: covidashit/dataset.py:137
+msgid "totale_casititle"
+msgstr ""
+
+#: covidashit/dataset.py:141
+msgid "tamponititle"
+msgstr ""
+
+#: covidashit/dataset.py:256
+msgid "# of people"
+msgstr "# persone"
+
+#: covidashit/views.py:31
+msgid "Italy"
+msgstr "Italia"
+
+#: covidashit/templates/dashboard.html:7 covidashit/templates/dashboard.html:11
+msgid "COVID-19 Italy outbreak data visualization"
+msgstr "Visualizzazione dei dati dell'epidemia di COVID-19 in Italia"
+
+#: covidashit/templates/dashboard.html:43
+msgid "How to use"
+msgstr "Come si usa"
+
+#: covidashit/templates/dashboard.html:45
+msgid "Toggle on/off series (bottom of the chart)"
+msgstr "Attiva/Disattiva serie di dati (in basso al grafico)"
+
+#: covidashit/templates/dashboard.html:48
+msgid "How to read"
+msgstr "Come si interpreta"
+
+#: covidashit/templates/dashboard.html:50
+msgid "DEFAULT CHART"
+msgstr "GRAFICO DI DEFAULT"
+
+#: covidashit/templates/dashboard.html:50
+msgid "Linear-scale of"
+msgstr "Scala lineare di"
+
+#: covidashit/templates/dashboard.html:51
+msgid "\"New positive\""
+msgstr "\"Nuovi positivi\""
+
+#: covidashit/templates/dashboard.html:51
+msgid "\"Total positive variation\""
+msgstr "\"Variazione totale positivi\""
+
+#: covidashit/templates/dashboard.html:51
+msgid "\"Intensive care unit\"."
+msgstr "\"Terapia intensiva\"."
+
+#: covidashit/templates/dashboard.html:53
+msgid "The \"Total positive\" series is the cumulative sum of:"
+msgstr "La serie \"Totale positivi\" è la somma di:"
+
+#: covidashit/templates/dashboard.html:54
+msgid "\"Hospitalized with symptoms\""
+msgstr "\"Ricoverati con sintomi\""
+
+#: covidashit/templates/dashboard.html:54
+msgid "\"Intensive care unit\""
+msgstr "\"Terapia intensiva\"."
+
+#: covidashit/templates/dashboard.html:54
+msgid "\"Self isolation\""
+msgstr "\"Isolamento domestico\""
+
+#: covidashit/templates/dashboard.html:56
+msgid "Red/green arrows: increase/decrease w.r.t. yesterday"
+msgstr ""
+"Le frecce verdi/rosse indicano un decremento/incremento rispetto a ieri"
+
+#: covidashit/templates/dashboard.html:64
+msgid "Days since lockdown:"
+msgstr "Giorni trascorsi dal blocco:"
+
+#: covidashit/templates/dashboard.html:70
+msgid "Who made this?"
+msgstr "Chi è l'autore?"
+
+#: covidashit/templates/dashboard.html:72
+msgid "Got it!"
+msgstr "Ricevuto!"
+
+#: covidashit/templates/dashboard.html:73
+msgid "NOTE:"
+msgstr "NOTA:"
+
+#: covidashit/templates/dashboard.html:73
+msgid "Only \"Total cases\" is provided provinces."
+msgstr "Solo i \"Casi  totali\" vengono forniti per le province."
+
+#: covidashit/templates/dashboard.html:107
+msgid "Navigate"
+msgstr "Esplora"
+
+#: covidashit/templates/dashboard.html:111
+msgid "Regions"
+msgstr "Regioni"
+
+#: covidashit/templates/dashboard.html:126
+msgid "Provinces"
+msgstr "Province"
+
+#: covidashit/templates/dashboard.html:143
+msgid "CP News"
+msgstr "News Protezione Civile"
+
+#: covidashit/templates/dashboard.html:146
+msgid "CP Repo"
+msgstr "Repository Protezione Civile"
+
+#: covidashit/templates/dashboard.html:150
+msgid "Days since lockdown"
+msgstr "Giorni trascorsi dal blocco"
+
+#: covidashit/templates/dashboard.html:200
+msgid "National"
+msgstr "Nazionale"
