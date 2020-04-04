@@ -5,7 +5,7 @@ from flask import render_template
 from flask_babel import gettext
 from config import WEBSITE_TITLE, LOCKDOWN_DAY
 from covidashit import app
-from covidashit.dataset import init_data, parse_data, init_chart
+from covidashit.dataset import init_data, parse_data, init_chart, latest_update
 from covidashit.routes import (
     get_national_data, get_regional_data, get_provincial_data
 )
@@ -22,14 +22,16 @@ def provincial(region=None, province=None, chart_id='chart_ID', chart_type='line
     if province is not None:
         dates, series, trend, regions, provinces = parse_data(data, province=province)
         chart_title = {"text": province, "align": "left"}
+        updated_at = latest_update(data["provincial"])
     elif region is not None:
         dates, series, trend, regions, provinces = parse_data(data, region=region)
         chart_title = {"text": region, "align": "left"}
+        updated_at = latest_update(data["regional"])
     else:
         dates, series, trend, regions, provinces = parse_data(data)
         chart_title = {"text": gettext("Italy"), "align": "left"}
+        updated_at = latest_update(data["national"])
     chart, x_axis, y_axis = init_chart(chart_id, chart_type, dates)
-    latest_update = dates[-1]
     return render_template(
         'dashboard.html',
         trend=trend,
@@ -46,5 +48,5 @@ def provincial(region=None, province=None, chart_id='chart_ID', chart_type='line
         yAxis=y_axis,
         ts=str(time.time()),
         lockdown_days=(dt.datetime.today()-LOCKDOWN_DAY).days,
-        latest_update=latest_update
+        latest_update=updated_at
     )

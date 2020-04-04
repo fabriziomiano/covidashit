@@ -2,7 +2,8 @@ import json
 import datetime as dt
 from flask_babel import gettext
 from config import (
-    REGION_KEY, CARD_TYPES, ITEN_MAP, PCM_DATE_FMT, PROVINCE_KEY, PROVINCES_TOAVOID
+    REGION_KEY, CARD_TYPES, ITEN_MAP, PCM_DATE_FMT, PROVINCE_KEY,
+    PROVINCES_TOAVOID, CHART_DATE_FMT, PCM_DATE_KEY, UPDATE_FMT
 )
 
 DATES = []
@@ -217,7 +218,7 @@ def fill_data(datum, province=False):
         TOT_SWABS.append(datum["tamponi"])
         TOT_POS_VAR.append(datum["variazione_totale_positivi"])
     date_dt = dt.datetime.strptime(datum["data"], PCM_DATE_FMT)
-    date_str = date_dt.strftime("%d %b")
+    date_str = date_dt.strftime(CHART_DATE_FMT)
     DATES.append(date_str)
     TOT_CASES.append(datum["totale_casi"])
 
@@ -256,3 +257,13 @@ def init_chart(chart_id, chart_type, dates):
     x_axis = {"categories": dates}
     y_axis = {"title": {"text": gettext('# of people')}}
     return chart, x_axis, y_axis
+
+
+def latest_update(data):
+    """
+    Return the value of the key PCM_DATE_KEY of the last dict in data
+    :param data: list
+    :return: str
+    """
+    date_dt = dt.datetime.strptime(data[-1][PCM_DATE_KEY], PCM_DATE_FMT)
+    return date_dt.strftime(UPDATE_FMT)
