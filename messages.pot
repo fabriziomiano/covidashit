@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-04 14:41+0200\n"
+"POT-Creation-Date: 2020-04-04 19:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,55 +124,55 @@ msgstr ""
 msgid "Total Swabs"
 msgstr ""
 
-#: config.py:98
+#: config.py:99
 msgid "Italian COVID Tracker"
 msgstr ""
 
-#: covidashit/dataset.py:99
+#: covidashit/dataset.py:100
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:104
+#: covidashit/dataset.py:105
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:109
+#: covidashit/dataset.py:110
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: covidashit/dataset.py:114
+#: covidashit/dataset.py:115
 msgid "totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:118
+#: covidashit/dataset.py:119
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: covidashit/dataset.py:122
+#: covidashit/dataset.py:123
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: covidashit/dataset.py:126
+#: covidashit/dataset.py:127
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: covidashit/dataset.py:130
+#: covidashit/dataset.py:131
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: covidashit/dataset.py:134
+#: covidashit/dataset.py:135
 msgid "decedutititle"
 msgstr ""
 
-#: covidashit/dataset.py:138 covidashit/dataset.py:152
+#: covidashit/dataset.py:139 covidashit/dataset.py:153
 msgid "totale_casititle"
 msgstr ""
 
-#: covidashit/dataset.py:142
+#: covidashit/dataset.py:143
 msgid "tamponititle"
 msgstr ""
 
-#: covidashit/dataset.py:257
+#: covidashit/dataset.py:258
 msgid "# of people"
 msgstr ""
 
@@ -258,11 +258,15 @@ msgstr ""
 msgid "Days since lockdown"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:205
+#: covidashit/templates/dashboard.html:166
+msgid "Latest Update:"
+msgstr ""
+
+#: covidashit/templates/dashboard.html:213
 msgid "Trend"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:206
+#: covidashit/templates/dashboard.html:214
 msgid "National"
 msgstr ""
 
