@@ -34,34 +34,30 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content bg-light">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">INFO</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ _('HOW TO USE') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p class="h6 text-uppercase">{{ _("How to use") }}</p>
-                <p class="text-left small">
-                    {{ _('Toggle on/off series (bottom of the chart)') }}
+
+                <p class="text-left">
+                    {{ _('Use the name of the series at the bottom of the chart to Toggle them on/off') }}
                 </p>
-                <hr>
-                <p class="h6 text-uppercase">{{ _("How to read") }}</p>
-                <div class="text-left small">
-                    <b>{{ _('DEFAULT CHART') }}:</b> {{ _('Linear-scale of') }}
-                    <br>{{ _('"New positive"') }}<br>{{ _('"Total positive variation"') }}<br>{{ _('"Intensive care unit".') }}
-                    <ul class="list-group small">
-                        <li class="list-group-item">{{ _('The "Total positive" series is the cumulative sum of:') }}
-                            <br>{{ _('"Hospitalized with symptoms"') }}<br>{{ _('"Intensive care unit"') }}<br>{{ _('"Self isolation"') }}
-                        </li>
-                        <li class="list-group-item">{{ _('Red/green arrows: increase/decrease w.r.t. yesterday') }}</li>
-                    </ul>
-                </div>
+                <p class="text-left">
+                    {{ _('Hover or tap the icon') }} <i class="fas fa-info-circle text-black-50"></i>
+                    {{ _('next to the card title to read the description of the data') }}
+                </p>
+                <p class="text-left">
+                    {{ _('Red/green arrows: increase/decrease w.r.t. yesterday') }}
+                </p>
+
                 <hr>
                 <div class="text-center text-uppercase text-danger">
                     <b>Keep calm and stay at home</b>
                 </div>
                 <div class="text-center text-uppercase text-info">
-                    <div class="text-center small">{{ _('Days since lockdown:') }} {{ _(lockdown_days) }}</div>
+                    {{ _('Days since lockdown:') }} {{ _(lockdown_days) }}
                 </div>
             </div>
 
@@ -164,7 +160,7 @@
                                 <div class="card-header font-weight-bold text-primary text-uppercase mb-1">
                                     {{ _(t.title) }}
                                     <i class="fas fa-info-circle text-black-50" data-toggle="tooltip" data-placement="auto"
-                                       title="{{ _(t.longdesc) }}" data-trigger="hover focus">
+                                       data-original-title="{{ _(t.longdesc) }}">
                                     </i>
                                 </div>
                                 <div class="card-body">
