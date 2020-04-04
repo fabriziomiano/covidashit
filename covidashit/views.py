@@ -12,7 +12,6 @@ from covidashit.routes import (
 
 
 @app.route('/')
-@app.route('/national')
 @app.route('/regions/<string:region>')
 @app.route('/provinces/<string:province>')
 def provincial(region=None, province=None, chart_id='chart_ID', chart_type='line'):
@@ -30,6 +29,7 @@ def provincial(region=None, province=None, chart_id='chart_ID', chart_type='line
         dates, series, trend, regions, provinces = parse_data(data)
         chart_title = {"text": gettext("Italy"), "align": "left"}
     chart, x_axis, y_axis = init_chart(chart_id, chart_type, dates)
+    latest_update = dates[-1]
     return render_template(
         'dashboard.html',
         trend=trend,
@@ -45,5 +45,6 @@ def provincial(region=None, province=None, chart_id='chart_ID', chart_type='line
         xAxis=x_axis,
         yAxis=y_axis,
         ts=str(time.time()),
-        lockdown_days=(dt.datetime.today()-LOCKDOWN_DAY).days
+        lockdown_days=(dt.datetime.today()-LOCKDOWN_DAY).days,
+        latest_update=latest_update
     )
