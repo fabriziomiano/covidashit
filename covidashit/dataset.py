@@ -2,7 +2,7 @@ import json
 import datetime as dt
 from flask_babel import gettext
 from config import (
-    REGION_KEY, CARD_TYPES, ITEN_MAP, DATE_FMT, PROVINCE_KEY, PROVINCES_TOAVOID
+    REGION_KEY, CARD_TYPES, ITEN_MAP, PCM_DATE_FMT, PROVINCE_KEY, PROVINCES_TOAVOID
 )
 
 DATES = []
@@ -216,7 +216,7 @@ def fill_data(datum, province=False):
         NEW_POS.append(datum["nuovi_positivi"])
         TOT_SWABS.append(datum["tamponi"])
         TOT_POS_VAR.append(datum["variazione_totale_positivi"])
-    date_dt = dt.datetime.strptime(datum["data"], DATE_FMT)
+    date_dt = dt.datetime.strptime(datum["data"], PCM_DATE_FMT)
     date_str = date_dt.strftime("%d %b")
     DATES.append(date_str)
     TOT_CASES.append(datum["totale_casi"])
