@@ -1,4 +1,4 @@
-let url = "https://github.com/pcm-dpc/COVID-19/tree/master/dati-json";
+let url = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json";
 $(document).ready(function () {
     $(chart_id).highcharts({
         chart: chart,
@@ -51,4 +51,9 @@ $(window).on('load', function () {
     } else {
         $('#welcomeModal').modal('hide');
     }
+});
+
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
 });
