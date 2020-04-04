@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-04 13:40+0200\n"
-"PO-Revision-Date: 2020-04-04 13:42+0200\n"
+"POT-Creation-Date: 2020-04-04 14:08+0200\n"
+"PO-Revision-Date: 2020-04-04 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -241,43 +241,48 @@ msgstr "NOTA:"
 msgid "Only \"Total cases\" is provided provinces."
 msgstr "Solo i \"Casi  totali\" vengono forniti per le province."
 
-#: covidashit/templates/dashboard.html:103
+#: covidashit/templates/dashboard.html:97
+msgid "Usage and credits"
+msgstr "Utilizzo e crediti"
+
+#: covidashit/templates/dashboard.html:100
+msgid "How to"
+msgstr "Istruzioni"
+
+#: covidashit/templates/dashboard.html:110
 msgid "Navigate"
 msgstr "Esplora"
 
-#: covidashit/templates/dashboard.html:107
+#: covidashit/templates/dashboard.html:114
 msgid "Regions"
 msgstr "Regioni"
 
-#: covidashit/templates/dashboard.html:122
+#: covidashit/templates/dashboard.html:129
 msgid "Provinces"
 msgstr "Province"
 
-#: covidashit/templates/dashboard.html:139
+#: covidashit/templates/dashboard.html:146
 msgid "CP News"
 msgstr "News Protezione Civile"
 
-#: covidashit/templates/dashboard.html:142
+#: covidashit/templates/dashboard.html:149
 msgid "CP Repo"
 msgstr "Repository Protezione Civile"
 
-#: covidashit/templates/dashboard.html:146
+#: covidashit/templates/dashboard.html:153
 msgid "Days since lockdown"
 msgstr "Giorni trascorsi dal blocco"
 
-#: covidashit/templates/dashboard.html:198
+#: covidashit/templates/dashboard.html:205
 msgid "Trend"
 msgstr "Andamento"
 
-#: covidashit/templates/dashboard.html:199
+#: covidashit/templates/dashboard.html:206
 msgid "National"
 msgstr "Nazionale"
 
 #~ msgid "New positve cases found today"
 #~ msgstr "Conteggio giornaliero dei nuovi casi positivi"
-
-#~ msgid "How to use"
-#~ msgstr "Come si usa"
 
 #~ msgid "Toggle on/off series (bottom of the chart)"
 #~ msgstr "Attiva/Disattiva serie di dati (in basso al grafico)"

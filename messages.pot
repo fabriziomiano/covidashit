@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-04 13:42+0200\n"
+"POT-Creation-Date: 2020-04-04 14:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -226,35 +226,43 @@ msgstr ""
 msgid "Only \"Total cases\" is provided provinces."
 msgstr ""
 
-#: covidashit/templates/dashboard.html:103
+#: covidashit/templates/dashboard.html:97
+msgid "Usage and credits"
+msgstr ""
+
+#: covidashit/templates/dashboard.html:100
+msgid "How to"
+msgstr ""
+
+#: covidashit/templates/dashboard.html:110
 msgid "Navigate"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:107
+#: covidashit/templates/dashboard.html:114
 msgid "Regions"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:122
+#: covidashit/templates/dashboard.html:129
 msgid "Provinces"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:139
+#: covidashit/templates/dashboard.html:146
 msgid "CP News"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:142
+#: covidashit/templates/dashboard.html:149
 msgid "CP Repo"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:146
+#: covidashit/templates/dashboard.html:153
 msgid "Days since lockdown"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:198
+#: covidashit/templates/dashboard.html:205
 msgid "Trend"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:199
+#: covidashit/templates/dashboard.html:206
 msgid "National"
 msgstr ""
 
