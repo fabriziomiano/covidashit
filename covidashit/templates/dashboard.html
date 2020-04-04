@@ -77,7 +77,7 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <button class="btn btn-link" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
     </button>
-    <a class="navbar-brand" href="/national"><img src="../static/corona.png" alt="" width="32" height="32">
+    <a class="navbar-brand" href="/"><img src="../static/corona.png" alt="" width="32" height="32">
         &nbsp;
         {% if not region %}
             {{ _(pagetitle) }}
@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="sb-sidenav-menu-heading">Home</div>
-                    <a class="nav-link" href="/national">
+                    <a class="nav-link" href="/">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
@@ -149,8 +149,12 @@
                         {{ _('CP Repo') }}</a>
                 </div>
             </div>
+
+            <!-- footer sidebar-->
             <div class="sb-sidenav-footer">
-                <div class="small">{{ _('Days since lockdown') }}: {{ lockdown_days }}</div>
+                <div class="small">{{ _('Days since lockdown') }}: {{ lockdown_days }}
+                    <a href="https://twitter.com/hashtag/italiachiusa" target="_blank"> {{ _("#italiachiusa on Twitter") }}</a>
+                </div>
             </div>
         </nav>
     </div>
@@ -159,10 +163,18 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
+
+                <!-- Breadcrumb -->
+                <div class="breadcrumb bg-info mt-3">
+                    <div class="breadcrumb-item text-capitalize text-white">
+                        <i class="far fa-calendar-alt mr-1"></i> {{ _("Latest Update:") }} {{ latest_update }}
+                    </div>
+                </div>
+
                 <!-- Cards -->
-                <div class="row mt-4">
+                <div class="row">
                     {% for t in trend %}
-                        <div class="col-xl-4 mb-4">
+                        <div class="col-xl-4 mb-3">
                             <div class="card border-left-primary shadow h-100 ">
                                 <div class="card-header font-weight-bold text-primary text-uppercase mb-1">
                                     {{ _(t.title) }}
@@ -201,7 +213,7 @@
                 <!-- Chart -->
                 <div class="row">
                     <div class="col-xl-12">
-                        <div class="card border-left-primary shadow mb-4">
+                        <div class="card border-left-primary shadow mb-3">
                             <div class="card-header"><i class="fas fa-chart-line mr-2"></i>{{ _("Trend") }} | {% if region %}
                                 {{ region }} {% elif province %} {{ province }} {% else %} {{ _("National") }} {% endif %}</div>
                             <div class="card-body">
