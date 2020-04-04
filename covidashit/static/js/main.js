@@ -1,4 +1,6 @@
 let url = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json";
+
+// load chart
 $(document).ready(function () {
     $(chart_id).highcharts({
         chart: chart,
@@ -45,14 +47,7 @@ $(document).ready(function () {
     });
 });
 
-$(window).on('load', function () {
-    if (location.pathname === "/") {
-        $('#welcomeModal').modal('show');
-    } else {
-        $('#welcomeModal').modal('hide');
-    }
-});
-
+// load tooltips
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
