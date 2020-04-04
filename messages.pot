@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-04 19:39+0200\n"
+"POT-Creation-Date: 2020-04-04 20:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,7 +176,7 @@ msgstr ""
 msgid "# of people"
 msgstr ""
 
-#: covidashit/views.py:31
+#: covidashit/views.py:30
 msgid "Italy"
 msgstr ""
 
@@ -254,19 +254,23 @@ msgstr ""
 msgid "CP Repo"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:153
+#: covidashit/templates/dashboard.html:155
 msgid "Days since lockdown"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:166
+#: covidashit/templates/dashboard.html:156
+msgid "#italiachiusa on Twitter"
+msgstr ""
+
+#: covidashit/templates/dashboard.html:170
 msgid "Latest Update:"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:213
+#: covidashit/templates/dashboard.html:217
 msgid "Trend"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:214
+#: covidashit/templates/dashboard.html:218
 msgid "National"
 msgstr ""
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-04 19:39+0200\n"
-"PO-Revision-Date: 2020-04-04 19:39+0200\n"
+"POT-Creation-Date: 2020-04-04 20:20+0200\n"
+"PO-Revision-Date: 2020-04-04 20:21+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -189,7 +189,7 @@ msgstr ""
 msgid "# of people"
 msgstr "# persone"
 
-#: covidashit/views.py:31
+#: covidashit/views.py:30
 msgid "Italy"
 msgstr "Italia"
 
@@ -269,19 +269,23 @@ msgstr "News Protezione Civile"
 msgid "CP Repo"
 msgstr "Repository Protezione Civile"
 
-#: covidashit/templates/dashboard.html:153
+#: covidashit/templates/dashboard.html:155
 msgid "Days since lockdown"
 msgstr "Giorni trascorsi dal blocco"
 
-#: covidashit/templates/dashboard.html:166
+#: covidashit/templates/dashboard.html:156
+msgid "#italiachiusa on Twitter"
+msgstr "#italiachiusa su Twitter"
+
+#: covidashit/templates/dashboard.html:170
 msgid "Latest Update:"
 msgstr "Ultimo aggiornamento:"
 
-#: covidashit/templates/dashboard.html:213
+#: covidashit/templates/dashboard.html:217
 msgid "Trend"
 msgstr "Andamento"
 
-#: covidashit/templates/dashboard.html:214
+#: covidashit/templates/dashboard.html:218
 msgid "National"
 msgstr "Nazionale"
 
