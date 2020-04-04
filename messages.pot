@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-04 13:05+0200\n"
+"POT-Creation-Date: 2020-04-04 13:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid "# of People currently in hospital with symptoms"
 msgstr ""
 
 #: config.py:19
-msgid "Daily count of people currently in hospital with symptoms"
+msgid "Total count of people currently in hospital with symptoms"
 msgstr ""
 
 #: config.py:23
@@ -38,7 +38,7 @@ msgid "# of people in ICU"
 msgstr ""
 
 #: config.py:25
-msgid "Daily county of people currently in ICU  and positive to COVID-19"
+msgid "Total count of people currently in ICU  and positive to COVID-19"
 msgstr ""
 
 #: config.py:30
@@ -50,9 +50,7 @@ msgid "# of people hospitalized (today)"
 msgstr ""
 
 #: config.py:32
-msgid ""
-"Daily count of people currently positive who are in hospital. It takes "
-"into account ICU"
+msgid "Total count of people who have been hospital. It takes into account ICU"
 msgstr ""
 
 #: config.py:37
@@ -69,10 +67,10 @@ msgstr ""
 
 #: config.py:44
 msgid ""
-"Daily count of people currently found positive. Unlike 'Total Cases' it "
-"does not take into account 'healed' and 'deaths'. By the end of the "
-"outbreak this should tend to zero. In particular, it is total positive = "
-"total cases - totale healed - totale deaths"
+"People currently positive. Unlike 'Total Cases' it does not take into "
+"account 'healed' and 'deaths'. By the end of the outbreak this should "
+"tend to zero. In particular, it is total positive = total cases - totale "
+"healed - totale deaths"
 msgstr ""
 
 #: config.py:53
@@ -85,7 +83,7 @@ msgstr ""
 
 #: config.py:55
 msgid ""
-"Variation of the number of people found positive with respect to the "
+"Variation of the number of people being positive with respect to the "
 "previous day. It is negative when the number of daily healed and deaths "
 "is larger than 'New positive'"
 msgstr ""
@@ -99,7 +97,7 @@ msgid "Tot Cases (Today) - Tot cases (Yesterday)"
 msgstr ""
 
 #: config.py:64
-msgid "New positve cases found today"
+msgid "Daily count of new positve cases"
 msgstr ""
 
 #: config.py:67
@@ -119,7 +117,7 @@ msgid "Self isolation + Tot Hospitalized + Tot Healed + Tot Deaths"
 msgstr ""
 
 #: config.py:79
-msgid "Sum of the positive tests since the beginning of the outbreak"
+msgid "Total count of the positive tests since the beginning of the outbreak"
 msgstr ""
 
 #: config.py:84
@@ -250,6 +248,10 @@ msgstr ""
 
 #: covidashit/templates/dashboard.html:146
 msgid "Days since lockdown"
+msgstr ""
+
+#: covidashit/templates/dashboard.html:198
+msgid "Trend"
 msgstr ""
 
 #: covidashit/templates/dashboard.html:199
