@@ -30,7 +30,7 @@ ITEN_MAP = {
         "title": gettext("Total Hospitalized"),
         "desc": gettext("# of people hospitalized (today)"),
         "longdesc": gettext(
-            "Total count of people who have been hospital. "
+            "Total count of people currently hospitalized. "
             "It takes into account ICU")
     },
     "isolamento_domiciliare": {
@@ -46,14 +46,14 @@ ITEN_MAP = {
             "Unlike 'Total Cases' it does not take into account "
             "'healed' and 'deaths'. By the end of the outbreak "
             "this should tend to zero. In particular, it is "
-            "total positive = total cases - totale healed - totale deaths"
+            "total positive = total cases - total healed - total deaths"
         )
     },
     "variazione_totale_positivi": {
         "title": gettext("Total positive variation"),
         "desc": gettext("Tot Positive (Today) - Tot Positive (Yesterday)"),
         "longdesc": gettext(
-            "Variation of the number of people being positive "
+            "Variation of the number of people currently positive "
             "with respect to the previous day. It is negative when the number "
             "of daily healed and deaths is larger than 'New positive'"
         )

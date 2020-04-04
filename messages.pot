@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-04 14:08+0200\n"
+"POT-Creation-Date: 2020-04-04 14:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,7 +50,7 @@ msgid "# of people hospitalized (today)"
 msgstr ""
 
 #: config.py:32
-msgid "Total count of people who have been hospital. It takes into account ICU"
+msgid "Total count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 
 #: config.py:37
@@ -69,8 +69,8 @@ msgstr ""
 msgid ""
 "People currently positive. Unlike 'Total Cases' it does not take into "
 "account 'healed' and 'deaths'. By the end of the outbreak this should "
-"tend to zero. In particular, it is total positive = total cases - totale "
-"healed - totale deaths"
+"tend to zero. In particular, it is total positive = total cases - total "
+"healed - total deaths"
 msgstr ""
 
 #: config.py:53
@@ -83,7 +83,7 @@ msgstr ""
 
 #: config.py:55
 msgid ""
-"Variation of the number of people being positive with respect to the "
+"Variation of the number of people currently positive with respect to the "
 "previous day. It is negative when the number of daily healed and deaths "
 "is larger than 'New positive'"
 msgstr ""
