@@ -1,9 +1,11 @@
-import json
 import datetime as dt
+import json
+
 from flask_babel import gettext
+
 from config import (
     REGION_KEY, CARD_TYPES, ITEN_MAP, PCM_DATE_FMT, PROVINCE_KEY,
-    PROVINCES_TOAVOID, CHART_DATE_FMT, PCM_DATE_KEY, UPDATE_FMT
+    CHART_DATE_FMT, PCM_DATE_KEY, UPDATE_FMT, PROVINCES, REGIONS
 )
 
 DATES = []
@@ -40,23 +42,6 @@ def cache_data(data, data_filepath):
     """
     with open(data_filepath, 'w') as data_file:
         json.dump(data, data_file)
-
-
-def get_provinces(provincial_data):
-    return sorted({
-        d[PROVINCE_KEY]
-        for d in provincial_data
-        if d[PROVINCE_KEY] not in PROVINCES_TOAVOID
-    })
-
-
-def get_regions(regional_data):
-    """
-    Return a sorted list of regions in regional_data
-    :param regional_data: lisrt
-    :return: list
-    """
-    return sorted({d[REGION_KEY] for d in regional_data})
 
 
 def get_trend(data, province=False):
@@ -157,46 +142,42 @@ def fill_series(province=False):
     return series
 
 
-def parse_data(data, region=None, province=None):
+def parse_data(data, territory=None):
     """
-    Return dates, series, trend, and regions
+    Return dates, series, trend
     :param data: dict
-    :param region: str
-    :param province: str
+    :param territory: str
     :return:
         DATES: list,
         series: list,
-        trend: list,
-        regions: list
-        province: list
+        trend: list
     """
-    regional_data = data["regional"]
-    regions = get_regions(regional_data)
-    provincial_data = data["provincial"]
-    provinces = get_provinces(provincial_data)
-    if region is None and province is None:
+    series = []
+    trend = []
+    if territory is None:
         national_data = data["national"]
         trend = get_trend(national_data)
         for d in national_data:
             fill_data(d)
-    else:
-        if province is None and region is not None:
-            subset = [r for r in regional_data if r[REGION_KEY] == region]
-            trend = get_trend(subset)
-            for d in regional_data:
-                if region == d[REGION_KEY]:
-                    fill_data(d)
-        else:
-            subset = [r for r in provincial_data if r[PROVINCE_KEY] == province]
-            trend = get_trend(subset, province=True)
-            for d in provincial_data:
-                if province == d[PROVINCE_KEY]:
-                    fill_data(d, province=True)
-    if province is None:
         series = fill_series()
     else:
-        series = fill_series(province=True)
-    return DATES, series, trend, regions, provinces
+        if territory in PROVINCES:
+            provincial_data = data["provincial"]
+            subset = [r for r in provincial_data if r[PROVINCE_KEY] == territory]
+            trend = get_trend(subset, province=True)
+            for d in provincial_data:
+                if territory == d[PROVINCE_KEY]:
+                    fill_data(d, province=True)
+            series = fill_series(province=True)
+        elif territory in REGIONS:
+            regional_data = data["regional"]
+            subset = [r for r in regional_data if r[REGION_KEY] == territory]
+            trend = get_trend(subset)
+            for d in regional_data:
+                if territory == d[REGION_KEY]:
+                    fill_data(d)
+            series = fill_series()
+    return DATES, series, trend
 
 
 def fill_data(datum, province=False):
