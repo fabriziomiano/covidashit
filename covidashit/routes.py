@@ -1,11 +1,11 @@
 import json
 import requests
 from flask import render_template, Response
-from covidashit import app, dataset
 from config import (
     WEBSITE_TITLE, URL_REGIONAL_DATA, URL_NATIONAL_DATA, URL_PROVINCIAL_DATA,
     PCM_DATE_KEY, NATIONAL_DATA_FILE, REGIONAL_DATA_FILE, PROVINCIAL_DATE_FILE
 )
+from covidashit import app, dataset
 
 
 @app.errorhandler(404)
