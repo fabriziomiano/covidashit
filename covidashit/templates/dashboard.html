@@ -75,14 +75,13 @@
 
 <!-- Navbar -->
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <button class="btn btn-link" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
-    </button>
+    <div class="ml-2 navbar-toggler-icon" id="sidebarToggle" type="button"></div>
     <a class="navbar-brand" href="/"><img src="../static/corona.png" alt="" width="32" height="32">
         &nbsp;
-        {% if not region %}
-            {{ _(pagetitle) }}
+        {% if territory %}
+            {{ territory }}
         {% else %}
-            {{ region }}
+            {{ _(pagetitle) }}
         {% endif %} </a>
 </nav>
 
@@ -96,7 +95,8 @@
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">{{ _("Usage and credits") }}</div>
                     <div class="container-fluid">
-                        <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#welcomeModal">
+                        <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal"
+                                data-target="#welcomeModal">
                             <i class="fas fa-info-circle"></i> {{ _("How to") }}
                         </button>
                     </div>
@@ -153,7 +153,8 @@
             <!-- footer sidebar-->
             <div class="sb-sidenav-footer">
                 <div class="small">{{ _('Days since lockdown') }}: {{ lockdown_days }}
-                    <a href="https://twitter.com/hashtag/italiachiusa" target="_blank"> {{ _("#italiachiusa on Twitter") }}</a>
+                    <a href="https://twitter.com/hashtag/italiachiusa"
+                       target="_blank"> {{ _("#italiachiusa on Twitter") }}</a>
                 </div>
             </div>
         </nav>
@@ -178,7 +179,8 @@
                             <div class="card border-left-primary shadow h-100 ">
                                 <div class="card-header font-weight-bold text-primary text-uppercase mb-1">
                                     {{ _(t.title) }}
-                                    <i class="fas fa-info-circle text-black-50" data-toggle="tooltip" data-placement="auto"
+                                    <i class="fas fa-info-circle text-black-50" data-toggle="tooltip"
+                                       data-placement="auto"
                                        data-original-title="{{ _(t.longdesc) }}">
                                     </i>
                                 </div>
@@ -214,19 +216,18 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card border-left-primary shadow mb-3">
-                            <div class="card-header"><i class="fas fa-chart-line mr-2"></i>{{ _("Trend") }} | {% if region %}
-                                {{ region }} {% elif province %} {{ province }} {% else %} {{ _("National") }} {% endif %}</div>
-                            <div class="card-body">
-                                <div id="{{ chartID|safe }}" class="chart" style=""></div>
-                                <script>
-                                    let chart_id = {{ chartID|safe }};
-                                    let series = {{ series|safe }};
-                                    let title = {{ chart_title|safe }};
-                                    let xAxis = {{ xAxis|safe }};
-                                    let yAxis = {{ yAxis|safe }};
-                                    let chart = {{ chart|safe }};
-                                </script>
-                            </div>
+                            <div class="card-header"><i class="fas fa-chart-line mr-2"></i>{{ _("Trend") }} |
+                                {% if territory %}
+                                    {{ territory }} {% else %} {{ _("National") }} {% endif %}</div>
+                            <div id="{{ chartID|safe }}" class="chart" style=""></div>
+                            <script>
+                                let chart_id = {{ chartID|safe }};
+                                let series = {{ series|safe }};
+                                let title = {{ chart_title|safe }};
+                                let xAxis = {{ xAxis|safe }};
+                                let yAxis = {{ yAxis|safe }};
+                                let chart = {{ chart|safe }};
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -246,7 +247,6 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="../static/js/scripts.js?ts={{ ts }}"></script>
 <script src="../static/js/main.js?ts={{ ts }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
