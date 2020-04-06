@@ -75,14 +75,15 @@
 
 <!-- Navbar -->
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <div class="ml-2 navbar-toggler-icon" id="sidebarToggle" type="button"></div>
-    <a class="navbar-brand" href="/"><img src="../static/corona.png" alt="" width="32" height="32">
-        &nbsp;
+    <img class="ml-2" src="../static/corona.png" alt="" width="32" height="32">
+    <a class="navbar-brand" href="/">
         {% if territory %}
             {{ territory }}
         {% else %}
             {{ _(pagetitle) }}
-        {% endif %} </a>
+        {% endif %}
+    </a>
+    <button class="btn btn-link btn-sm order-first" id="sidebarToggle"><i class="fas fa-bars"></i></button>
 </nav>
 
 <!-- Main layout -->
