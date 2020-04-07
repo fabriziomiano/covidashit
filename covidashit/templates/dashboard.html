@@ -39,33 +39,37 @@
                 </button>
             </div>
             <div class="modal-body">
-
-                <p class="text-left">
-                    {{ _('Use the name of the series at the bottom of the chart to Toggle them on/off') }}
-                </p>
-                <p class="text-left">
-                    {{ _('Hover or tap') }} <i class="fas fa-info-circle text-black-50"></i>
-                    {{ _('next to the card title to read the description of the data') }}
-                </p>
-                <p class="text-left">
-                    {{ _('Red/green arrows: increase/decrease w.r.t. yesterday') }}
-                </p>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {{ _('Use the name of the series at the bottom of the chart to Toggle them on/off') }}
+                    </li>
+                    <li class="list-group-item">
+                        {{ _('Hover or tap') }} <i class="fas fa-info-circle text-black-50"></i>
+                        {{ _('next to the card title to read the description of the data') }}
+                    </li>
+                </ul>
 
                 <hr>
-                <div class="text-center text-uppercase text-danger">
-                    <b>Keep calm and stay at home</b>
+                <div class="container">
+                    <div class="text-center text-uppercase text-danger">
+                        <b>Keep calm and stay at home </b>
+                    </div>
                 </div>
-                <div class="text-center text-uppercase text-info">
-                    {{ _('Days since lockdown:') }} {{ _(lockdown_days) }}
+                <div class="container">
+                    <div class="text-center text-uppercase font-weight-bold text-info">
+                        {{ _('Days since lockdown:') }} {{ _(lockdown_days) }}
+                    </div>
                 </div>
             </div>
 
             <div class="modal-footer">
                 <button class="btn btn-info" onclick=" window.open('https://fabriziomiano.github.io','_blank')">
-                    {{ _('Who made this?') }}
+                    <i class="fas fa-child mr-2"></i>{{ _('Who made this?') }}
                 </button>
-                <button type="button" class="btn btn-success" data-dismiss="modal">{{ _("Got it!") }}</button>
-                <div class="small"><b>{{ _("NOTE:") }}</b> {{ _('Only "Total cases" is provided provinces.') }}</div>
+                <button type="button" class="btn btn-success" data-dismiss="modal">
+                    <i class="far fa-thumbs-up mr-2"></i>{{ _("Got it!") }}
+                </button>
+                <div class="small"><b>{{ _("NOTE:") }}</b> {{ _('Only "Total cases" is provided for the provinces.') }}</div>
             </div>
         </div>
     </div>
@@ -191,13 +195,21 @@
                                         <div class="col-auto">
                                             {% if t.status== "happy" %}
                                                 <strong class="text-success">
-                                                    <i class="fas fa-long-arrow-alt-down fa-5x"></i>
+                                                    <i class="fas fa-long-arrow-alt-down fa-5x" data-toggle="tooltip" data-placement="auto"
+                                                       data-original-title="{{ _('Decreased with respect to yesterday') }}">
+                                                    </i>
                                                 </strong>
                                             {% elif t.status == "neutral" %}
-                                                <strong><i class="fas fa-minus fa-5x"></i></strong>
+                                                <strong>
+                                                    <i class="fas fa-minus fa-5x" data-toggle="tooltip" data-placement="auto"
+                                                       data-original-title="{{ _('Stable with respect to yesterday') }}">
+                                                    </i>
+                                                </strong>
                                             {% else %}
                                                 <strong class="text-danger">
-                                                    <i class="fas fa-long-arrow-alt-up fa-5x"></i>
+                                                    <i class="fas fa-long-arrow-alt-up fa-5x" data-toggle="tooltip" data-placement="auto"
+                                                       data-original-title="{{ _('Increased with respect to yesterday') }}">
+                                                    </i>
                                                 </strong>
                                             {% endif %}
                                         </div>
