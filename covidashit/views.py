@@ -62,7 +62,7 @@ def provincial(territory):
         territory=territory,
         provinces=PROVINCES,
         regions=REGIONS,
-        pagatitle=gettext(WEBSITE_TITLE),
+        pagetitle=gettext(WEBSITE_TITLE),
         chartID=CHART_ID,
         chart=chart,
         series=series,
