@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-04 20:20+0200\n"
-"PO-Revision-Date: 2020-04-04 20:21+0200\n"
+"POT-Creation-Date: 2020-04-07 02:08+0200\n"
+"PO-Revision-Date: 2020-04-07 02:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -141,55 +141,55 @@ msgstr "Totale tamponi"
 msgid "Italian COVID Tracker"
 msgstr "Monitoraggio COVID Italia"
 
-#: covidashit/dataset.py:100
+#: covidashit/dataset.py:85
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:105
+#: covidashit/dataset.py:90
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:110
+#: covidashit/dataset.py:95
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: covidashit/dataset.py:115
+#: covidashit/dataset.py:100
 msgid "totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:119
+#: covidashit/dataset.py:104
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: covidashit/dataset.py:123
+#: covidashit/dataset.py:108
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: covidashit/dataset.py:127
+#: covidashit/dataset.py:112
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: covidashit/dataset.py:131
+#: covidashit/dataset.py:116
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: covidashit/dataset.py:135
+#: covidashit/dataset.py:120
 msgid "decedutititle"
 msgstr ""
 
-#: covidashit/dataset.py:139 covidashit/dataset.py:153
+#: covidashit/dataset.py:124 covidashit/dataset.py:138
 msgid "totale_casititle"
 msgstr ""
 
-#: covidashit/dataset.py:143
+#: covidashit/dataset.py:128
 msgid "tamponititle"
 msgstr ""
 
-#: covidashit/dataset.py:258
+#: covidashit/dataset.py:239
 msgid "# of people"
 msgstr "# persone"
 
-#: covidashit/views.py:30
+#: covidashit/views.py:23
 msgid "Italy"
 msgstr "Italia"
 
@@ -245,47 +245,51 @@ msgstr "Solo i \"Casi  totali\" vengono forniti per le province."
 msgid "Usage and credits"
 msgstr "Utilizzo e crediti"
 
-#: covidashit/templates/dashboard.html:100
+#: covidashit/templates/dashboard.html:101
 msgid "How to"
 msgstr "Istruzioni"
 
-#: covidashit/templates/dashboard.html:110
+#: covidashit/templates/dashboard.html:106
 msgid "Navigate"
 msgstr "Esplora"
 
-#: covidashit/templates/dashboard.html:114
+#: covidashit/templates/dashboard.html:109
+msgid "National Trend"
+msgstr "Trend Nazionale"
+
+#: covidashit/templates/dashboard.html:116
 msgid "Regions"
 msgstr "Regioni"
 
-#: covidashit/templates/dashboard.html:129
+#: covidashit/templates/dashboard.html:131
 msgid "Provinces"
 msgstr "Province"
 
-#: covidashit/templates/dashboard.html:146
+#: covidashit/templates/dashboard.html:148
 msgid "CP News"
 msgstr "News Protezione Civile"
 
-#: covidashit/templates/dashboard.html:149
+#: covidashit/templates/dashboard.html:151
 msgid "CP Repo"
 msgstr "Repository Protezione Civile"
 
-#: covidashit/templates/dashboard.html:155
+#: covidashit/templates/dashboard.html:157
 msgid "Days since lockdown"
 msgstr "Giorni trascorsi dal blocco"
 
-#: covidashit/templates/dashboard.html:156
+#: covidashit/templates/dashboard.html:159
 msgid "#italiachiusa on Twitter"
 msgstr "#italiachiusa su Twitter"
 
-#: covidashit/templates/dashboard.html:170
+#: covidashit/templates/dashboard.html:173
 msgid "Latest Update:"
 msgstr "Ultimo aggiornamento:"
 
-#: covidashit/templates/dashboard.html:217
+#: covidashit/templates/dashboard.html:221
 msgid "Trend"
 msgstr "Andamento"
 
-#: covidashit/templates/dashboard.html:218
+#: covidashit/templates/dashboard.html:224
 msgid "National"
 msgstr "Nazionale"
 
