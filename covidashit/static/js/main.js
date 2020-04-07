@@ -51,3 +51,14 @@ $(document).ready(function () {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
+
+//  TODO: Find a way to resize the chart to full width when the sidebar is toggled
+// $(function () {
+//     $("#sidebarToggle").bind('click', function () {
+//         $(Highcharts.charts).each(function (i, chart) {
+//             var height = chart.renderTo.clientHeight;
+//             var width = chart.renderTo.clientWidth;
+//             chart.setSize(width, height);
+//         });
+//     });
+// });
