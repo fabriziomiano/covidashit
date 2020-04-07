@@ -16,6 +16,7 @@ from covidashit.routes import (
 
 
 @app.route("/")
+@app.route("/national")
 def national():
     data = json.loads(get_national_data().data)
     init_data()
