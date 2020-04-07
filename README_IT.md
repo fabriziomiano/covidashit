@@ -11,7 +11,7 @@ che usa i dati forniti dalla [Protezione Civile](https://github.com/pcm-dpc)
 
 ##### La WebApp è pubblicata su Heroku &#8594; [qui](https://covidashit.herokuapp.com/)
 
-##### I dati della proezione civile vengono presi da github &#8594; [here](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
+##### I dati della proezione civile vengono presi da github &#8594; [qui](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
 
 ## Per i developers
 
