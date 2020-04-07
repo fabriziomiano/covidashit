@@ -2,7 +2,7 @@ import datetime as dt
 import json
 import time
 
-from flask import render_template
+from flask import render_template, redirect
 from flask_babel import gettext
 
 from config import (
@@ -15,9 +15,13 @@ from covidashit.routes import (
 )
 
 
-@app.route("/")
 @app.route("/national")
 def national():
+    return redirect('/')
+
+
+@app.route("/")
+def index():
     data = json.loads(get_national_data().data)
     init_data()
     dates, series, trend = parse_data(data)
