@@ -4,25 +4,24 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content={{ _("COVID-19 Italy outbreak data visualization") }}>
-    <meta name="author" content=""/>
-    <meta property="og:title" content="COVIdash-it"/>
+    <meta name="description" content="{{ _("COVID-19 Italy outbreak data visualization") }}">
+    <meta name="author" content="Fabrizio Miano"/>
+    <meta property="og:title" content="{{ _("COVID-19 Italy Tracker") }}"/>
     <meta property="og:url" content="https://covidashit.herokuapp.com/"/>
-    <meta property="og:description" content={{ _("COVID-19 Italy outbreak data visualization") }}>
-    <meta property="og:image" content="https://covidashit.herokuapp.com/static/corona.png"/>
+    <meta property="og:description" content="{{ _("COVID-19 Italy outbreak data visualization") }}">
+    <meta property="og:image" content="https://covidashit.herokuapp.com/static/coronasketch.png"/>
     <meta property="og:image:type" content="image/png"/>
     <meta property="og:image:width" content="1200"/>
     <meta property="og:image:height" content="630"/>
-    <meta property="og:image" content="https://covidashit.herokuapp.com/static/corona.png"/>
-    <meta property="og:image:type" content="image/png"/>
-    <meta property="og:image:width" content="400"/>
-    <meta property="og:image:height" content="400"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:locale:alternate" content="it_IT"/>
     <title>{{ _(pagetitle) }}</title>
-    <link rel="apple-touch-icon" href="../static/corona.png" sizes="180x180">
-    <link rel="icon" href="../static/corona.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="../static/corona.png" sizes="16x16" type="image/png">
-    <link rel="mask-icon" href="../static/corona.png" color="#563d7c">
-    <link rel="icon" href="../static/corona.png">
+    <link rel="apple-touch-icon" href="../static/coronasketch.png" sizes="180x180">
+    <link rel="icon" href="../static/coronasketch.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="../static/coronasketch.png" sizes="16x16" type="image/png">
+    <link rel="mask-icon" href="../static/coronasketch.png" color="#563d7c">
+    <link rel="icon" href="../static/coronasketch.png">
     <link href="../static/css/styles.css" rel="stylesheet"/>
 </head>
 
@@ -75,7 +74,7 @@
 
 <!-- Navbar -->
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <img class="ml-2" src="../static/corona.png" alt="" width="32" height="32">
+    <img class="ml-2" src="../static/coronasketch.png" alt="" width="32" height="32">
     <a class="navbar-brand" href="/">
         {% if territory %}
             {{ territory }}
@@ -102,14 +101,12 @@
                         </button>
                     </div>
 
-{#                    <div class="sb-sidenav-menu-heading">Home</div>#}
-                <div class="sb-sidenav-menu-heading">{{ _('Navigate') }}</div>
+                    <div class="sb-sidenav-menu-heading">{{ _('Navigate') }}</div>
                     <a class="nav-link" href="/">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         {{ _('National Trend') }}
                     </a>
 
-{#                    <div class="sb-sidenav-menu-heading">{{ _('Navigate') }}</div>#}
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRegionLayouts"
                        aria-expanded="false" aria-controls="collapseRegionLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
