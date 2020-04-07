@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-07 02:08+0200\n"
-"PO-Revision-Date: 2020-04-07 02:10+0200\n"
+"POT-Creation-Date: 2020-04-07 10:01+0200\n"
+"PO-Revision-Date: 2020-04-07 10:02+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -138,8 +138,8 @@ msgid "Total Swabs"
 msgstr "Totale tamponi"
 
 #: config.py:99
-msgid "Italian COVID Tracker"
-msgstr "Monitoraggio COVID Italia"
+msgid "Italy COVID-19 Tracker"
+msgstr "Monitoraggio COVID-19 Italia"
 
 #: covidashit/dataset.py:85
 msgid "nuovi_positivititle"
@@ -196,6 +196,10 @@ msgstr "Italia"
 #: covidashit/templates/dashboard.html:7 covidashit/templates/dashboard.html:11
 msgid "COVID-19 Italy outbreak data visualization"
 msgstr "Visualizzazione dei dati dell'epidemia di COVID-19 in Italia"
+
+#: covidashit/templates/dashboard.html:9
+msgid "COVID-19 Italy Tracker"
+msgstr "Monitoraggio COVID-19 Italia"
 
 #: covidashit/templates/dashboard.html:37
 msgid "HOW TO USE"
