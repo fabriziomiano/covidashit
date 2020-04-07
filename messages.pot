@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-07 10:01+0200\n"
+"POT-Creation-Date: 2020-04-07 17:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,97 +188,105 @@ msgstr ""
 msgid "COVID-19 Italy Tracker"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:37
+#: covidashit/templates/dashboard.html:36
 msgid "HOW TO USE"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:45
+#: covidashit/templates/dashboard.html:44
 msgid ""
 "Use the name of the series at the bottom of the chart to Toggle them "
 "on/off"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:48
+#: covidashit/templates/dashboard.html:47
 msgid "Hover or tap"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:49
+#: covidashit/templates/dashboard.html:48
 msgid "next to the card title to read the description of the data"
-msgstr ""
-
-#: covidashit/templates/dashboard.html:52
-msgid "Red/green arrows: increase/decrease w.r.t. yesterday"
 msgstr ""
 
 #: covidashit/templates/dashboard.html:60
 msgid "Days since lockdown:"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:66
+#: covidashit/templates/dashboard.html:67
 msgid "Who made this?"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:68
+#: covidashit/templates/dashboard.html:70
 msgid "Got it!"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:69
+#: covidashit/templates/dashboard.html:72
 msgid "NOTE:"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:69
-msgid "Only \"Total cases\" is provided provinces."
+#: covidashit/templates/dashboard.html:72
+msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
-#: covidashit/templates/dashboard.html:97
+#: covidashit/templates/dashboard.html:100
 msgid "Usage and credits"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:101
+#: covidashit/templates/dashboard.html:104
 msgid "How to"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:106
+#: covidashit/templates/dashboard.html:108
 msgid "Navigate"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:109
+#: covidashit/templates/dashboard.html:111
 msgid "National Trend"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:116
+#: covidashit/templates/dashboard.html:117
 msgid "Regions"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:131
+#: covidashit/templates/dashboard.html:132
 msgid "Provinces"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:148
+#: covidashit/templates/dashboard.html:149
 msgid "CP News"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:151
+#: covidashit/templates/dashboard.html:152
 msgid "CP Repo"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:157
+#: covidashit/templates/dashboard.html:158
 msgid "Days since lockdown"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:159
+#: covidashit/templates/dashboard.html:160
 msgid "#italiachiusa on Twitter"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:173
+#: covidashit/templates/dashboard.html:174
 msgid "Latest Update:"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:221
+#: covidashit/templates/dashboard.html:199
+msgid "Decreased with respect to yesterday"
+msgstr ""
+
+#: covidashit/templates/dashboard.html:205
+msgid "Stable with respect to yesterday"
+msgstr ""
+
+#: covidashit/templates/dashboard.html:211
+msgid "Increased with respect to yesterday"
+msgstr ""
+
+#: covidashit/templates/dashboard.html:230
 msgid "Trend"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:224
+#: covidashit/templates/dashboard.html:233
 msgid "National"
 msgstr ""
 
