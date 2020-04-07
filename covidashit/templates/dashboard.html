@@ -102,13 +102,14 @@
                         </button>
                     </div>
 
-                    <div class="sb-sidenav-menu-heading">Home</div>
+{#                    <div class="sb-sidenav-menu-heading">Home</div>#}
+                <div class="sb-sidenav-menu-heading">{{ _('Navigate') }}</div>
                     <a class="nav-link" href="/">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
 
-                    <div class="sb-sidenav-menu-heading">{{ _('Navigate') }}</div>
+{#                    <div class="sb-sidenav-menu-heading">{{ _('Navigate') }}</div>#}
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRegionLayouts"
                        aria-expanded="false" aria-controls="collapseRegionLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
@@ -167,11 +168,11 @@
             <div class="container-fluid">
 
                 <!-- Breadcrumb -->
-                <div class="breadcrumb bg-info mt-3">
-                    <div class="breadcrumb-item text-capitalize text-white">
+                <ol class="breadcrumb mt-3">
+                    <li class="breadcrumb-item text-capitalize active">
                         <i class="far fa-calendar-alt mr-1"></i> {{ _("Latest Update:") }} {{ latest_update }}
-                    </div>
-                </div>
+                    </li>
+                </ol>
 
                 <!-- Cards -->
                 <div class="row">
@@ -206,7 +207,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <h6 class="small text-info text-capitalize">{{ _(t.desc) }}</h6>
+                                    <span class="small text-info text-capitalize">{{ _(t.desc) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -216,11 +217,16 @@
                 <!-- Chart -->
                 <div class="row">
                     <div class="col-xl-12">
-                        <div class="card border-left-primary shadow mb-3">
+                        <div class="card border-left-primary shadow mb-3" id="chartCard">
                             <div class="card-header"><i class="fas fa-chart-line mr-2"></i>{{ _("Trend") }} |
                                 {% if territory %}
-                                    {{ territory }} {% else %} {{ _("National") }} {% endif %}</div>
-                            <div id="{{ chartID|safe }}" class="chart" style=""></div>
+                                    {{ territory }}
+                                {% else %} {{ _("National") }}
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <div id="{{ chartID|safe }}" class="container-fluid" style="width:100%;margin: 0 auto"></div>
+                            </div>
                             <script>
                                 let chart_id = {{ chartID|safe }};
                                 let series = {{ series|safe }};
@@ -238,10 +244,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
