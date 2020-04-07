@@ -29,20 +29,22 @@ creata con [HighCharts](https://www.highcharts.com/)
 * creazione di un virtual environment [(seguire questi passaggi)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 * installare i requirements in `requirements.txt`
 
-##### Developmnent (on 5000)
+##### Sviluppo
+Clonare la repo e nella home directory di questa
 ```
 $ export FLASK_ENV=development
 $ export FLASK_DEBUG=1
 $ python -m flask run
 ```
 
-##### Production (on 8000)
-
+##### Produzione
+Il `Procfile` è pronto per essere utilizzato su Heroku. 
+Per testare l'abmiente di produzione in locale:
 ```
 $ gunicorn covidashit:app
 ```
 
-## Donation
+## Donazione
 
 Se il progetto ti piace o se ti ho fatto risparmiare qualche linea di codice, sentiti libero di offrirmi un caffé. Grazie!
 

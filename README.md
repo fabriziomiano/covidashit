@@ -31,15 +31,17 @@ the chart object, which is built using [HighCharts](https://www.highcharts.com/)
 * create a virtual environment [(follow this)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 * install the requirements in `requirements.txt`
 
-##### Development (on 5000)
+##### Development
+Clone the repo, `cd` into it, and  
 ```
 $ export FLASK_ENV=development
 $ export FLASK_DEBUG=1
 $ python -m flask run
 ```
 
-##### Production (on 8000)
-
+##### Production
+The `Profile` can be used to deploy the app on Heroku.
+To test the production environment locally, simply run
 ```
 $ gunicorn covidashit:app
 ```
