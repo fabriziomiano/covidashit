@@ -1,4 +1,4 @@
-let url = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json";
+let url = "https://github.com/pcm-dpc/COVID-19/tree/master/dati-json";
 
 // load chart
 $(document).ready(function () {
