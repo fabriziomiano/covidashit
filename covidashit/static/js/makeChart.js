@@ -44,7 +44,7 @@ $(document).ready(function () {
         },
         credits: {
             href: "https://fabriziomiano.github.io",
-            text: "by Fabrizio MianoMade with Highcharts.com",
+            text: "by Fabrizio Miano | Made with Highcharts.com",
         },
         plotOptions: {
             series: {
