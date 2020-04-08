@@ -9,6 +9,11 @@ $(document).ready(function () {
         yAxis: yAxis,
         series: series,
         tooltip: {
+            crosshairs: {
+                width: 1,
+                color: 'gray',
+                dashStyle: 'ShortDashDot'
+            },
             shared: true,
             split: false,
             enabled: true
@@ -39,10 +44,7 @@ $(document).ready(function () {
         },
         credits: {
             href: "https://fabriziomiano.github.io",
-            text: "by Fabrizio Miano",
-            position: {
-                align: "center"
-            }
+            text: "by Fabrizio MianoMade with Highcharts.com",
         },
         plotOptions: {
             series: {
@@ -51,19 +53,3 @@ $(document).ready(function () {
         }
     });
 });
-
-// load tooltips
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-});
-
-//  TODO: Find a way to resize the chart to full width when the sidebar is toggled
-// $(function () {
-//     $("#sidebarToggle").bind('click', function () {
-//         $(Highcharts.charts).each(function (i, chart) {
-//             var height = chart.renderTo.clientHeight;
-//             var width = chart.renderTo.clientWidth;
-//             chart.setSize(width, height);
-//         });
-//     });
-// });

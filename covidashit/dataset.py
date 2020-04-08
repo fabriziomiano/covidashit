@@ -97,28 +97,28 @@ def fill_series(province=False):
             "visible": "true"
         }
         series4 = {
-            "name": gettext(ITEN_MAP["totale_positivi"]["title"]),
-            "data": TOT_POS
+            "name": gettext(ITEN_MAP["deceduti"]["title"]),
+            "data": TOT_DEATHS
         }
         series5 = {
-            "name": gettext(ITEN_MAP["ricoverati_con_sintomi"]["title"]),
-            "data": HOSP_W_SYMPTS
-        }
-        series6 = {
-            "name": gettext(ITEN_MAP["isolamento_domiciliare"]["title"]),
-            "data": SELF_ISOL
-        }
-        series7 = {
             "name": gettext(ITEN_MAP["dimessi_guariti"]["title"]),
             "data": HEALED
         }
-        series8 = {
+        series6 = {
+            "name": gettext(ITEN_MAP["ricoverati_con_sintomi"]["title"]),
+            "data": HOSP_W_SYMPTS
+        }
+        series7 = {
             "name": gettext(ITEN_MAP["totale_ospedalizzati"]["title"]),
             "data": TOT_HOSP
         }
+        series8 = {
+            "name": gettext(ITEN_MAP["isolamento_domiciliare"]["title"]),
+            "data": SELF_ISOL
+        }
         series9 = {
-            "name": gettext(ITEN_MAP["deceduti"]["title"]),
-            "data": TOT_DEATHS
+            "name": gettext(ITEN_MAP["totale_positivi"]["title"]),
+            "data": TOT_POS
         }
         series10 = {
             "name": gettext(ITEN_MAP["totale_casi"]["title"]),

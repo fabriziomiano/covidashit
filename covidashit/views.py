@@ -29,7 +29,7 @@ def index():
     updated_at = latest_update(data["national"])
     chart, x_axis, y_axis = init_chart(CHART_ID, CHART_TYPE, dates)
     return render_template(
-        "dashboard.html",
+        "index.html",
         trend=trend,
         regions=REGIONS,
         provinces=PROVINCES,
@@ -62,7 +62,7 @@ def provincial(territory):
     chart_title = {"text": territory, "align": "left"}
     chart, x_axis, y_axis = init_chart(CHART_ID, CHART_TYPE, dates)
     return render_template(
-        "dashboard.html",
+        "index.html",
         trend=trend,
         territory=territory,
         provinces=PROVINCES,
