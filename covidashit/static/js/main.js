@@ -8,6 +8,11 @@ $(document).ready(function () {
         xAxis: xAxis,
         yAxis: yAxis,
         series: series,
+        tooltip: {
+            shared: true,
+            split: false,
+            enabled: true
+        },
         exporting: {
             buttons: {
                 linScale: {
