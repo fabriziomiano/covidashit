@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-07 17:07+0200\n"
+"POT-Creation-Date: 2020-04-09 03:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,7 +125,7 @@ msgid "Total Swabs"
 msgstr ""
 
 #: config.py:99
-msgid "Italy COVID-19 Tracker"
+msgid "COVID-19 Italy Monitor"
 msgstr ""
 
 #: covidashit/dataset.py:85
@@ -141,27 +141,27 @@ msgid "terapia_intensivatitle"
 msgstr ""
 
 #: covidashit/dataset.py:100
-msgid "totale_positivititle"
+msgid "decedutititle"
 msgstr ""
 
 #: covidashit/dataset.py:104
-msgid "ricoverati_con_sintomititle"
-msgstr ""
-
-#: covidashit/dataset.py:108
-msgid "isolamento_domiciliaretitle"
-msgstr ""
-
-#: covidashit/dataset.py:112
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: covidashit/dataset.py:116
+#: covidashit/dataset.py:108
+msgid "ricoverati_con_sintomititle"
+msgstr ""
+
+#: covidashit/dataset.py:112
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
+#: covidashit/dataset.py:116
+msgid "isolamento_domiciliaretitle"
+msgstr ""
+
 #: covidashit/dataset.py:120
-msgid "decedutititle"
+msgid "totale_positivititle"
 msgstr ""
 
 #: covidashit/dataset.py:124 covidashit/dataset.py:138
@@ -176,117 +176,117 @@ msgstr ""
 msgid "# of people"
 msgstr ""
 
-#: covidashit/views.py:23
+#: covidashit/views.py:28
 msgid "Italy"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:7 covidashit/templates/dashboard.html:11
+#: covidashit/templates/index.html:7 covidashit/templates/index.html:11
 msgid "COVID-19 Italy outbreak data visualization"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:9
+#: covidashit/templates/index.html:9
 msgid "COVID-19 Italy Tracker"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:36
+#: covidashit/templates/index.html:36
 msgid "HOW TO USE"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:44
+#: covidashit/templates/index.html:44
 msgid ""
 "Use the name of the series at the bottom of the chart to Toggle them "
 "on/off"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:47
+#: covidashit/templates/index.html:47
 msgid "Hover or tap"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:48
+#: covidashit/templates/index.html:48
 msgid "next to the card title to read the description of the data"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:60
+#: covidashit/templates/index.html:60
 msgid "Days since lockdown:"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:67
+#: covidashit/templates/index.html:67
 msgid "Who made this?"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:70
+#: covidashit/templates/index.html:70
 msgid "Got it!"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:72
+#: covidashit/templates/index.html:72
 msgid "NOTE:"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:72
+#: covidashit/templates/index.html:72
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
-#: covidashit/templates/dashboard.html:100
+#: covidashit/templates/index.html:100
 msgid "Usage and credits"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:104
+#: covidashit/templates/index.html:104
 msgid "How to"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:108
+#: covidashit/templates/index.html:108
 msgid "Navigate"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:111
+#: covidashit/templates/index.html:111
 msgid "National Trend"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:117
+#: covidashit/templates/index.html:117
 msgid "Regions"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:132
+#: covidashit/templates/index.html:132
 msgid "Provinces"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:149
+#: covidashit/templates/index.html:149
 msgid "CP News"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:152
+#: covidashit/templates/index.html:152
 msgid "CP Repo"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:158
+#: covidashit/templates/index.html:158
 msgid "Days since lockdown"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:160
+#: covidashit/templates/index.html:160
 msgid "#italiachiusa on Twitter"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:174
+#: covidashit/templates/index.html:174
 msgid "Latest Update:"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:199
+#: covidashit/templates/index.html:199
 msgid "Decreased with respect to yesterday"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:205
+#: covidashit/templates/index.html:205
 msgid "Stable with respect to yesterday"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:211
+#: covidashit/templates/index.html:211
 msgid "Increased with respect to yesterday"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:230
+#: covidashit/templates/index.html:230
 msgid "Trend"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:233
+#: covidashit/templates/index.html:233
 msgid "National"
 msgstr ""
 
