@@ -20,7 +20,7 @@ TOT_SWABS = []
 HEALED = []
 TOT_CASES = []
 TOT_POS_VAR = []
-SCATTER_IACOPO = []
+SCATTER_DATA = []
 
 
 def read_cached_data(data_filepath):
@@ -199,7 +199,7 @@ def fill_data(datum, province=False):
         NEW_POS.append(datum["nuovi_positivi"])
         TOT_SWABS.append(datum["tamponi"])
         TOT_POS_VAR.append(datum["variazione_totale_positivi"])
-        SCATTER_IACOPO.append([datum["totale_positivi"], datum["nuovi_positivi"]])
+        SCATTER_DATA.append([datum["totale_positivi"], datum["nuovi_positivi"]])
     date_dt = dt.datetime.strptime(datum["data"], PCM_DATE_FMT)
     date_str = date_dt.strftime(CHART_DATE_FMT)
     DATES.append(date_str)
@@ -223,24 +223,20 @@ def init_data():
     HEALED.clear()
     TOT_CASES.clear()
     TOT_POS_VAR.clear()
-    SCATTER_IACOPO.clear()
+    SCATTER_DATA.clear()
 
 
-def init_chart(chart_id, chart_type, dates):
+def init_chart(dates):
     """
     Return chart, x_axis, y_axis dicts to be served to the frontend
-    :param chart_id: str
-    :param chart_type: str
     :param dates: list
     :return:
-        chart: dict,
         x_axis: dict,
         y_axis:  dict
     """
-    chart = {"renderTo": chart_id, "type": chart_type}
     x_axis = {"categories": dates}
     y_axis = {"title": {"text": gettext('# of people')}}
-    return chart, x_axis, y_axis
+    return x_axis, y_axis
 
 
 def latest_update(data):

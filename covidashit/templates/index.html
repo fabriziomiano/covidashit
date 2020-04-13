@@ -233,19 +233,19 @@
                                 {% else %} {{ _("National") }}
                                 {% endif %}
                             </div>
-                            <div id="{{ chartID|safe }}" class="container-fluid" style="border: none; width:100%; margin: 0 auto"></div>
+                            <div id="chart-trend" class="container-fluid" style="border: none; width:100%; margin: 0 auto"></div>
                             <script>
-                                let chart_id = {{ chartID|safe }};
                                 let series = {{ series|safe }};
                                 let title = {{ chart_title|safe }};
                                 let xAxis = {{ xAxis|safe }};
                                 let yAxis = {{ yAxis|safe }};
-                                let chart = {{ chart|safe }};
+                                let credits = {{ credits_data|safe }};
+                                let subtitle = {{ source_subtitle|safe }};
                             </script>
                         </div>
                     </div>
 
-                {% if territory not in provinces %}
+                    {% if territory not in provinces %}
                         <div class="col-xl-6">
                             <div class="card border-left-primary shadow mb-3" id="chartCard">
                                 <div class="card-header"><i class="fas fa-chart-line mr-2"></i>{{ _("Still on the exponential?") }} |
@@ -256,13 +256,17 @@
                                 </div>
                                 <div id="chart-iacopo" class="container-fluid" style="border: none; width:100%; margin: 0 auto"></div>
                                 <script>
-                                    let data = {{ scatterplot_data }};
+                                    let scatterData = {{ scatterplot_series|safe }};
+                                    let scatterTitle = {{ scatter_title|safe }};
+                                    let scatterXAxis = {{ scatter_xaxis|safe }};
+                                    let scatterYAxis = {{ scatter_yaxis|safe }};
+                                    credits = {{ credits_data|safe }};
+                                    subtitle = {{ source_subtitle|safe }};
                                 </script>
                             </div>
                         </div>
-                {% endif %}
-            </div>
-
+                    {% endif %}
+                </div>
 
             </div>
         </main>
@@ -278,5 +282,6 @@
 <script src="../static/js/scripts.js?ts={{ ts }}"></script>
 <script src="../static/js/makeChart.js?ts={{ ts }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+
 </body>
 </html>

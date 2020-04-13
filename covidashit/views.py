@@ -6,11 +6,12 @@ from flask import render_template, redirect
 from flask_babel import gettext
 
 from config import (
-    WEBSITE_TITLE, LOCKDOWN_DAY, CHART_TYPE, CHART_ID, REGIONS, PROVINCES
+    WEBSITE_TITLE, LOCKDOWN_DAY, REGIONS, PROVINCES, SCATTER_TITLE, CREDITS,
+    SCATTER_XAXIS, SCATTER_YAXIS, SOURCE_SUBTITLE
 )
 from covidashit import app
 from covidashit.dataset import (
-    init_data, parse_data, init_chart, latest_update, SCATTER_IACOPO
+    init_data, parse_data, init_chart, latest_update, SCATTER_DATA
 )
 from covidashit.routes import (
     get_national_data, get_regional_data, get_provincial_data
@@ -29,15 +30,22 @@ def index():
     dates, series, trend = parse_data(data)
     chart_title = {"text": gettext("Italy"), "align": "left"}
     updated_at = latest_update(data["national"])
-    chart, x_axis, y_axis = init_chart(CHART_ID, CHART_TYPE, dates)
+    x_axis, y_axis = init_chart(dates)
+    SCATTER_TITLE["text"] = gettext(SCATTER_TITLE["text"])
+    scatterplot_series = {
+        "name": gettext(SCATTER_TITLE["text"]),
+        "data": SCATTER_DATA
+    }
+    CREDITS["text"] = gettext(CREDITS["text"])
+    SOURCE_SUBTITLE["text"] = gettext(SOURCE_SUBTITLE["text"])
+    SCATTER_XAXIS["title"]["text"] = gettext(SCATTER_XAXIS["title"]["text"])
+    SCATTER_YAXIS["title"]["text"] = gettext(SCATTER_YAXIS["title"]["text"])
     return render_template(
         "index.html",
         trend=trend,
         regions=REGIONS,
         provinces=PROVINCES,
         pagetitle=gettext(WEBSITE_TITLE),
-        chartID=CHART_ID,
-        chart=chart,
         series=series,
         chart_title=chart_title,
         xAxis=x_axis,
@@ -45,7 +53,12 @@ def index():
         ts=str(time.time()),
         lockdown_days=(dt.datetime.today() - LOCKDOWN_DAY).days,
         latest_update=updated_at,
-        scatterplot_data=SCATTER_IACOPO
+        scatterplot_series=scatterplot_series,
+        scatter_title=SCATTER_TITLE,
+        credits_data=CREDITS,
+        scatter_xaxis=SCATTER_XAXIS,
+        scatter_yaxis=SCATTER_YAXIS,
+        source_subtitle=SOURCE_SUBTITLE
     )
 
 
@@ -63,7 +76,12 @@ def provincial(territory):
     init_data()
     dates, series, trend = parse_data(data, territory=territory)
     chart_title = {"text": territory, "align": "left"}
-    chart, x_axis, y_axis = init_chart(CHART_ID, CHART_TYPE, dates)
+    x_axis, y_axis = init_chart(dates)
+    scatterplot_series = {
+        "name": gettext(SCATTER_TITLE["text"]),
+        "data": SCATTER_DATA
+    }
+    CREDITS["text"] = gettext(CREDITS["text"])
     return render_template(
         "index.html",
         trend=trend,
@@ -71,8 +89,6 @@ def provincial(territory):
         provinces=PROVINCES,
         regions=REGIONS,
         pagetitle=gettext(WEBSITE_TITLE),
-        chartID=CHART_ID,
-        chart=chart,
         series=series,
         chart_title=chart_title,
         xAxis=x_axis,
@@ -80,5 +96,10 @@ def provincial(territory):
         ts=str(time.time()),
         lockdown_days=(dt.datetime.today()-LOCKDOWN_DAY).days,
         latest_update=updated_at,
-        scatterplot_data=SCATTER_IACOPO
+        scatterplot_series=scatterplot_series,
+        scatter_title=SCATTER_TITLE,
+        credits_data=CREDITS,
+        scatter_xaxis=SCATTER_XAXIS,
+        scatter_yaxis=SCATTER_YAXIS,
+        source_subtitle=SOURCE_SUBTITLE
     )

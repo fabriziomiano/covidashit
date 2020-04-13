@@ -133,5 +133,32 @@ PROVINCES = [
     'Udine', 'Varese', 'Venezia', 'Verbano-Cusio-Ossola', 'Vercelli',
     'Verona', 'Vibo Valentia', 'Vicenza', 'Viterbo'
 ]
-CHART_TYPE = "line"
-CHART_ID = 'trend_chart'
+SCATTER_TITLE = {
+    "text": gettext("New Positive VS Total Cases"),
+    "align": "left"
+}
+CREDITS = {
+    "href": "https://fabriziomiano.github.io",
+    "text": gettext("by Fabrizio Miano | Made with Highcharts.com")
+}
+SCATTER_XAXIS = {
+    "title": {
+        "enabled": "true",
+        "text": gettext("# Total cases")
+    },
+    "showLastLabel": "true"
+}
+SCATTER_YAXIS = {
+    "type": "logarithmic",
+    "title": {
+        "text": gettext("# New positive")
+    }
+}
+SOURCE_SUBTITLE = {
+    "text": gettext(
+        "Source: <a "
+        "href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-json'"
+        ">Civil Protection dataset</a>"
+    ),
+    "align": "left"
+}
