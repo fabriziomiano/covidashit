@@ -85,7 +85,7 @@ $(document).ready(function () {
             plotOptions: {
                 scatter: {
                     marker: {
-                        radius: 5,
+                        radius: 7,
                         states: {
                             hover: {
                                 enabled: true,
@@ -93,7 +93,7 @@ $(document).ready(function () {
                             }
                         }
                     },
-                    lineWidth: 2,
+                    // lineWidth: 2,
                     states: {
                         hover: {
                             marker: {
