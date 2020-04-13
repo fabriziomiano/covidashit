@@ -245,6 +245,27 @@
                         </div>
                     </div>
                 </div>
+
+                {% if territory not in provinces %}
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card border-left-primary shadow mb-3" id="chartCard">
+                                <div class="card-header"><i class="fas fa-chart-line mr-2"></i>{{ _("Still on the exponential?") }} |
+                                    {% if territory %}
+                                        {{ territory }}
+                                    {% else %} {{ _("National") }}
+                                    {% endif %}
+                                </div>
+                                <div id="chart-iacopo" class="container-fluid" style="border: none; width:100%; margin: 0 auto"></div>
+                                <script>
+                                    let data = {{ scatterplot_data }};
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+
             </div>
         </main>
     </div>

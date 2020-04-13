@@ -9,7 +9,9 @@ from config import (
     WEBSITE_TITLE, LOCKDOWN_DAY, CHART_TYPE, CHART_ID, REGIONS, PROVINCES
 )
 from covidashit import app
-from covidashit.dataset import init_data, parse_data, init_chart, latest_update
+from covidashit.dataset import (
+    init_data, parse_data, init_chart, latest_update, SCATTER_IACOPO
+)
 from covidashit.routes import (
     get_national_data, get_regional_data, get_provincial_data
 )
@@ -42,7 +44,8 @@ def index():
         yAxis=y_axis,
         ts=str(time.time()),
         lockdown_days=(dt.datetime.today() - LOCKDOWN_DAY).days,
-        latest_update=updated_at
+        latest_update=updated_at,
+        scatterplot_data=SCATTER_IACOPO
     )
 
 
@@ -76,5 +79,6 @@ def provincial(territory):
         yAxis=y_axis,
         ts=str(time.time()),
         lockdown_days=(dt.datetime.today()-LOCKDOWN_DAY).days,
-        latest_update=updated_at
+        latest_update=updated_at,
+        scatterplot_data=SCATTER_IACOPO
     )

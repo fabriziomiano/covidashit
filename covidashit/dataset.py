@@ -20,6 +20,7 @@ TOT_SWABS = []
 HEALED = []
 TOT_CASES = []
 TOT_POS_VAR = []
+SCATTER_IACOPO = []
 
 
 def read_cached_data(data_filepath):
@@ -198,6 +199,7 @@ def fill_data(datum, province=False):
         NEW_POS.append(datum["nuovi_positivi"])
         TOT_SWABS.append(datum["tamponi"])
         TOT_POS_VAR.append(datum["variazione_totale_positivi"])
+        SCATTER_IACOPO.append([datum["totale_positivi"], datum["nuovi_positivi"]])
     date_dt = dt.datetime.strptime(datum["data"], PCM_DATE_FMT)
     date_str = date_dt.strftime(CHART_DATE_FMT)
     DATES.append(date_str)
@@ -221,6 +223,7 @@ def init_data():
     HEALED.clear()
     TOT_CASES.clear()
     TOT_POS_VAR.clear()
+    SCATTER_IACOPO.clear()
 
 
 def init_chart(chart_id, chart_type, dates):
