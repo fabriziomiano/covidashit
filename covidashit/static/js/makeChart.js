@@ -1,9 +1,9 @@
-let url = "https://github.com/pcm-dpc/COVID-19/tree/master/dati-json";
-
-// load chart
 $(document).ready(function () {
-    $(chart_id).highcharts({
-        chart: chart,
+    $("#chart-trend").highcharts({
+        chart: {
+            type: 'line',
+            zoomType: 'xy'
+        },
         title: title,
         xAxis: xAxis,
         yAxis: yAxis,
@@ -38,14 +38,8 @@ $(document).ready(function () {
                 },
             }
         },
-        subtitle: {
-            text: 'Source: <a href="' + url + '">Civil Protection dataset</a>',
-            align: "left"
-        },
-        credits: {
-            href: "https://fabriziomiano.github.io",
-            text: "by Fabrizio Miano | Made with Highcharts.com",
-        },
+        subtitle: subtitle,
+        credits: credits,
         plotOptions: {
             series: {
                 visible: false
@@ -59,29 +53,10 @@ $(document).ready(function () {
                 type: 'scatter',
                 zoomType: 'xy'
             },
-            title: {
-                text: 'New Positive VS Total positive',
-                align: "left"
-            },
-            subtitle: {
-                text: 'Source: <a href="' + url + '">Civil Protection dataset</a>',
-                align: "left"
-            },
-            xAxis: {
-                title: {
-                    enabled: true,
-                    text: '# Total cases'
-                },
-                startOnTick: true,
-                endOnTick: true,
-                showLastLabel: true
-            },
-            yAxis: {
-                type: "logarithmic",
-                title: {
-                    text: '# New positives'
-                }
-            },
+            title: scatterTitle,
+            subtitle: subtitle,
+            xAxis: scatterXAxis,
+            yAxis: scatterYAxis,
             plotOptions: {
                 scatter: {
                     marker: {
@@ -93,7 +68,6 @@ $(document).ready(function () {
                             }
                         }
                     },
-                    // lineWidth: 2,
                     states: {
                         hover: {
                             marker: {
@@ -101,10 +75,6 @@ $(document).ready(function () {
                             }
                         }
                     },
-                    tooltip: {
-                        headerFormat: '<b>{series.name}</b><br>',
-                        pointFormat: '{point.x} New positive cases, {point.y} Total cases'
-                    }
                 }
             },
             exporting: {
@@ -127,14 +97,8 @@ $(document).ready(function () {
                     },
                 }
             },
-            series: [{
-                name: "New positive VS Total positive",
-                data: data
-            }],
-            credits: {
-                href: "https://fabriziomiano.github.io",
-                text: "by Fabrizio Miano | Made with Highcharts.com",
-            },
+            series: [scatterData],
+            credits: credits,
         });
     }
 });
