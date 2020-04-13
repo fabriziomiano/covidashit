@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-09 03:26+0200\n"
-"PO-Revision-Date: 2020-04-09 03:27+0200\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2020-04-13 20:33+0200\n"
+"PO-Revision-Date: 2020-04-13 20:33+0200\n"
+"Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
@@ -141,57 +141,91 @@ msgstr "Totale tamponi"
 msgid "COVID-19 Italy Monitor"
 msgstr "Monitoraggio COVID-19 Italia"
 
-#: covidashit/dataset.py:85
+#: config.py:137
+msgid "New Positive VS Total Cases"
+msgstr "Nuovi Positivi VS Totale Casi"
+
+#: config.py:142
+msgid "by Fabrizio Miano | Made with Highcharts.com"
+msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
+
+#: config.py:147
+msgid "# Total cases"
+msgstr "# Totale casi"
+
+#: config.py:154
+msgid "# New positive"
+msgstr "# Nuovi positivi"
+
+#: config.py:158
+msgid ""
+"Source: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
+"json'>Civil Protection dataset</a>"
+msgstr ""
+"Fonte: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
+"json'>Dati Protezione Civile</a>"
+
+#: covidashit/dataset.py:86
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:90
+#: covidashit/dataset.py:91
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:95
+#: covidashit/dataset.py:96
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: covidashit/dataset.py:100
+#: covidashit/dataset.py:101
 msgid "decedutititle"
 msgstr ""
 
-#: covidashit/dataset.py:104
+#: covidashit/dataset.py:105
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: covidashit/dataset.py:108
+#: covidashit/dataset.py:109
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: covidashit/dataset.py:112
+#: covidashit/dataset.py:113
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: covidashit/dataset.py:116
+#: covidashit/dataset.py:117
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: covidashit/dataset.py:120
+#: covidashit/dataset.py:121
 msgid "totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:124 covidashit/dataset.py:138
+#: covidashit/dataset.py:125 covidashit/dataset.py:139
 msgid "totale_casititle"
 msgstr ""
 
-#: covidashit/dataset.py:128
+#: covidashit/dataset.py:129
 msgid "tamponititle"
 msgstr ""
 
-#: covidashit/dataset.py:239
+#: covidashit/dataset.py:238
 msgid "# of people"
 msgstr "# persone"
 
-#: covidashit/views.py:28
+#: covidashit/views.py:31
 msgid "Italy"
 msgstr "Italia"
+
+#: covidashit/views.py:34 covidashit/views.py:36 covidashit/views.py:39
+#: covidashit/views.py:40 covidashit/views.py:80 covidashit/views.py:82
+#: covidashit/views.py:85
+msgid "text"
+msgstr ""
+
+#: covidashit/views.py:41 covidashit/views.py:42
+msgid "titletext"
+msgstr ""
 
 #: covidashit/templates/index.html:7 covidashit/templates/index.html:11
 msgid "COVID-19 Italy outbreak data visualization"
@@ -300,9 +334,22 @@ msgstr "In aumento rispetto a ieri"
 msgid "Trend"
 msgstr "Andamento"
 
-#: covidashit/templates/index.html:233
+#: covidashit/templates/index.html:233 covidashit/templates/index.html:254
 msgid "National"
 msgstr "Nazionale"
+
+#: covidashit/templates/index.html:251
+msgid "Still on the exponential?"
+msgstr "Ancora sull'esponenziale?"
+
+#~ msgid "ORCODI"
+#~ msgstr "POPPETE"
+
+#~ msgid "New positive VS Total cases"
+#~ msgstr "Nuovi positivi VS Totale casi"
+
+#~ msgid "New positive VS Total positive"
+#~ msgstr "Nuovi positivi VS Totale casi"
 
 #~ msgid "Italy COVID-19 Tracker"
 #~ msgstr "Monitoraggio COVID-19 Italia"
