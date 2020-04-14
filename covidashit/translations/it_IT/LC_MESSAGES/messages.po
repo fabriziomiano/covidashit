@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-13 21:11+0200\n"
-"PO-Revision-Date: 2020-04-13 21:11+0200\n"
+"POT-Creation-Date: 2020-04-14 10:16+0200\n"
+"PO-Revision-Date: 2020-04-14 10:17+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -137,7 +137,8 @@ msgstr "Conteggio dei tamponi positivi dall'inizio dell'epidemia"
 msgid "Total Swabs"
 msgstr "Totale tamponi"
 
-#: config.py:99 covidashit/templates/index.html:9
+#: config.py:99 covidashit/templates/404.html:9 covidashit/templates/500.html:9
+#: covidashit/templates/index.html:9
 msgid "COVID-19 Italy Monitor"
 msgstr "Monitoraggio COVID-19 Italia"
 
@@ -226,6 +227,8 @@ msgstr ""
 msgid "titletext"
 msgstr ""
 
+#: covidashit/templates/404.html:7 covidashit/templates/404.html:11
+#: covidashit/templates/500.html:7 covidashit/templates/500.html:11
 #: covidashit/templates/index.html:7 covidashit/templates/index.html:11
 msgid "COVID-19 Italy outbreak data visualization"
 msgstr "Visualizzazione dei dati dell'epidemia di COVID-19 in Italia"

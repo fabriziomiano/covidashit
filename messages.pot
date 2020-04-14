@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-13 21:11+0200\n"
+"POT-Creation-Date: 2020-04-14 10:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,8 @@ msgstr ""
 msgid "Total Swabs"
 msgstr ""
 
-#: config.py:99 covidashit/templates/index.html:9
+#: config.py:99 covidashit/templates/404.html:9 covidashit/templates/500.html:9
+#: covidashit/templates/index.html:9
 msgid "COVID-19 Italy Monitor"
 msgstr ""
 
@@ -211,6 +212,8 @@ msgstr ""
 msgid "titletext"
 msgstr ""
 
+#: covidashit/templates/404.html:7 covidashit/templates/404.html:11
+#: covidashit/templates/500.html:7 covidashit/templates/500.html:11
 #: covidashit/templates/index.html:7 covidashit/templates/index.html:11
 msgid "COVID-19 Italy outbreak data visualization"
 msgstr ""
