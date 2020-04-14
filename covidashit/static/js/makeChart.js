@@ -53,7 +53,7 @@ $(document).ready(function () {
                 type: 'scatter',
                 zoomType: 'xy'
             },
-            title: scatterTitle,
+            title: title,
             subtitle: subtitle,
             xAxis: scatterXAxis,
             yAxis: scatterYAxis,

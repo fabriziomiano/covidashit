@@ -31,9 +31,8 @@ def index():
     chart_title = {"text": gettext("Italy"), "align": "left"}
     updated_at = latest_update(data["national"])
     x_axis, y_axis = init_chart(dates)
-    SCATTER_TITLE["text"] = gettext(SCATTER_TITLE["text"])
     scatterplot_series = {
-        "name": gettext(SCATTER_TITLE["text"]),
+        "name": gettext("New Positive VS Total Cases"),
         "data": EXP_STATUS
     }
     CREDITS["text"] = gettext(CREDITS["text"])
@@ -76,12 +75,11 @@ def provincial(territory):
     init_data()
     dates, series, trend = parse_data(data, territory=territory)
     chart_title = {"text": territory, "align": "left"}
-    x_axis, y_axis = init_chart(dates)
     scatterplot_series = {
-        "name": gettext(SCATTER_TITLE["text"]),
+        "name": gettext("New Positive VS Total Cases"),
         "data": EXP_STATUS
     }
-    CREDITS["text"] = gettext(CREDITS["text"])
+    x_axis, y_axis = init_chart(dates)
     return render_template(
         "index.html",
         trend=trend,
