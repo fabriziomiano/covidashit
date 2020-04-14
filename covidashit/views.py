@@ -11,7 +11,7 @@ from config import (
 )
 from covidashit import app
 from covidashit.dataset import (
-    init_data, parse_data, init_chart, latest_update, SCATTER_DATA
+    init_data, parse_data, init_chart, latest_update, EXP_STATUS
 )
 from covidashit.routes import (
     get_national_data, get_regional_data, get_provincial_data
@@ -34,7 +34,7 @@ def index():
     SCATTER_TITLE["text"] = gettext(SCATTER_TITLE["text"])
     scatterplot_series = {
         "name": gettext(SCATTER_TITLE["text"]),
-        "data": SCATTER_DATA
+        "data": EXP_STATUS
     }
     CREDITS["text"] = gettext(CREDITS["text"])
     SOURCE_SUBTITLE["text"] = gettext(SOURCE_SUBTITLE["text"])
@@ -79,7 +79,7 @@ def provincial(territory):
     x_axis, y_axis = init_chart(dates)
     scatterplot_series = {
         "name": gettext(SCATTER_TITLE["text"]),
-        "data": SCATTER_DATA
+        "data": EXP_STATUS
     }
     CREDITS["text"] = gettext(CREDITS["text"])
     return render_template(
