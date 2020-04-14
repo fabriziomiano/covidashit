@@ -17,16 +17,24 @@ che usa i dati forniti dalla [Protezione Civile](https://github.com/pcm-dpc)
 
 La WebApp gira su Python3.6+ ed usa un server Flask e gunicorn davanti.
 Inoltre, viene usato Flask-babel per la traduzione italiana dell'app. Lo script `make_pot.sh` crea i file necessari.
+Una versione `Batch` è fornita per gli utenti Windows. 
 La lingua di visualizzazione dipende dalla richiesta effettuata dal client.
 Il back-end riceve i dati e li serve al frontend per le cards e la chart.
 Non uso alcun database poiché per il momento, e speriamo neance in futuro, non si parla di molti dati.
+
+Ci sono 3 APIs:
+* `GET /api/national` response `{"national": [...]}`
+* `GET /api/regional` response `{"regional": [...]}`
+* `GET /api/provincial` response `{"provincial": [...]}`
+
+dove l'array contiene i dati originali come forniti dalla protezione civile.
 
 Il front-end sta in `covidashit/templates` ed usa JavaScript per costruire la chart che è 
 creata con [HighCharts](https://www.highcharts.com/)
 
 #### Setup locale
 
-* creazione di un virtual environment [(seguire questi passaggi)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+* creazione ed attivazione di un virtual environment [(seguire questi passaggi)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 * installare i requirements in `requirements.txt`
 
 ##### Sviluppo
