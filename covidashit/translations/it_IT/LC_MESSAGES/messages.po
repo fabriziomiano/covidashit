@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-14 10:16+0200\n"
-"PO-Revision-Date: 2020-04-14 10:17+0200\n"
+"POT-Creation-Date: 2020-04-14 11:27+0200\n"
+"PO-Revision-Date: 2020-04-14 11:27+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -142,7 +142,7 @@ msgstr "Totale tamponi"
 msgid "COVID-19 Italy Monitor"
 msgstr "Monitoraggio COVID-19 Italia"
 
-#: config.py:137
+#: config.py:137 covidashit/views.py:35 covidashit/views.py:79
 msgid "New Positive VS Total Cases"
 msgstr "Nuovi Positivi VS Totale Casi"
 
@@ -218,12 +218,11 @@ msgstr "# persone"
 msgid "Italy"
 msgstr "Italia"
 
-#: covidashit/views.py:34 covidashit/views.py:36 covidashit/views.py:39
-#: covidashit/views.py:40 covidashit/views.py:81 covidashit/views.py:84
+#: covidashit/views.py:38 covidashit/views.py:39
 msgid "text"
 msgstr ""
 
-#: covidashit/views.py:41 covidashit/views.py:42
+#: covidashit/views.py:40 covidashit/views.py:41
 msgid "titletext"
 msgstr ""
 
