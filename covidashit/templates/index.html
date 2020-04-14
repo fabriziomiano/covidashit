@@ -205,7 +205,7 @@
 
                 <!-- Breadcrumb -->
                 <ol class="breadcrumb mt-3">
-                    <li class="breadcrumb-item text-capitalize active">
+                    <li class="breadcrumb-item active">
                         <i class="fas fa-bullhorn mr-2"></i>{{ _("Latest Update:") }} {{ latest_update }}
                     </li>
                 </ol>
@@ -251,7 +251,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <span class="small text-info text-capitalize">{{ _(t.desc) }}</span>
+                                    <span class="small text-info">{{ _(t.desc) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -294,8 +294,8 @@
                                     let scatterData = {{ scatterplot_series|safe }};
                                     let scatterXAxis = {{ scatter_xaxis|safe }};
                                     let scatterYAxis = {{ scatter_yaxis|safe }};
-                                    title = {{ chart_title|safe }}
-                                        credits = {{ credits_data|safe }};
+                                    title = {{ chart_title|safe }};
+                                    credits = {{ credits_data|safe }};
                                     subtitle = {{ source_subtitle|safe }};
                                 </script>
                             </div>
