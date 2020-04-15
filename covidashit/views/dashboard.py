@@ -1,31 +1,29 @@
 import datetime as dt
-import json
 import time
 
-from flask import render_template, redirect
+from flask import render_template, redirect, Blueprint
 from flask_babel import gettext
 
 from config import (
     WEBSITE_TITLE, LOCKDOWN_DAY, REGIONS, PROVINCES, SCATTER_TITLE, CREDITS,
     SCATTER_XAXIS, SCATTER_YAXIS, SOURCE_SUBTITLE
 )
-from covidashit import app
 from covidashit.dataset import (
-    init_data, parse_data, init_chart, latest_update, EXP_STATUS
-)
-from covidashit.routes import (
+    init_data, parse_data, init_chart, latest_update, EXP_STATUS,
     get_national_data, get_regional_data, get_provincial_data
 )
 
+dashboard = Blueprint("dashboard", __name__)
 
-@app.route("/national")
+
+@dashboard.route("/national")
 def national():
     return redirect('/')
 
 
-@app.route("/")
+@dashboard.route("/")
 def index():
-    data = json.loads(get_national_data().data)
+    data = get_national_data()
     init_data()
     dates, series, trend = parse_data(data)
     chart_title = {"text": gettext("Italy"), "align": "left"}
@@ -61,14 +59,14 @@ def index():
     )
 
 
-@app.route("/regions/<string:territory>")
-@app.route("/provinces/<string:territory>")
+@dashboard.route("/regions/<string:territory>")
+@dashboard.route("/provinces/<string:territory>")
 def provincial(territory):
     if territory in REGIONS:
-        data = json.loads(get_regional_data().data)
+        data = get_regional_data()
         updated_at = latest_update(data["regional"])
     elif territory in PROVINCES:
-        data = json.loads(get_provincial_data().data)
+        data = get_provincial_data()
         updated_at = latest_update(data["provincial"])
     else:
         return render_template("404.html", pagetitle=WEBSITE_TITLE)
@@ -92,7 +90,7 @@ def provincial(territory):
         xAxis=x_axis,
         yAxis=y_axis,
         ts=str(time.time()),
-        lockdown_days=(dt.datetime.today()-LOCKDOWN_DAY).days,
+        lockdown_days=(dt.datetime.today() - LOCKDOWN_DAY).days,
         latest_update=updated_at,
         scatterplot_series=scatterplot_series,
         scatter_title=SCATTER_TITLE,

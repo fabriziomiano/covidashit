@@ -1,11 +1,15 @@
 import datetime as dt
 import json
 
+import requests
+from flask import current_app
 from flask_babel import gettext
 
 from config import (
     REGION_KEY, CARD_TYPES, ITEN_MAP, PCM_DATE_FMT, PROVINCE_KEY,
-    CHART_DATE_FMT, PCM_DATE_KEY, UPDATE_FMT, PROVINCES, REGIONS
+    CHART_DATE_FMT, PCM_DATE_KEY, UPDATE_FMT, PROVINCES, REGIONS,
+    URL_NATIONAL_DATA, NATIONAL_DATA_FILE, URL_REGIONAL_DATA,
+    REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE
 )
 
 DATES = []
@@ -21,6 +25,11 @@ HEALED = []
 TOT_CASES = []
 TOT_POS_VAR = []
 EXP_STATUS = []
+
+ALL_DATA = [
+    DATES, ICU, HOSP_W_SYMPTS, TOT_DEATHS, TOT_HOSP, SELF_ISOL, TOT_POS,
+    NEW_POS, TOT_SWABS, HEALED, TOT_CASES, TOT_POS_VAR, EXP_STATUS
+]
 
 
 def read_cached_data(data_filepath):
@@ -208,22 +217,11 @@ def fill_data(datum, province=False):
 
 def init_data():
     """
-    Empty data series lists
+    Empty data series in DATA
     :return: None
     """
-    DATES.clear()
-    ICU.clear()
-    HOSP_W_SYMPTS.clear()
-    TOT_DEATHS.clear()
-    TOT_HOSP.clear()
-    SELF_ISOL.clear()
-    TOT_POS.clear()
-    NEW_POS.clear()
-    TOT_SWABS.clear()
-    HEALED.clear()
-    TOT_CASES.clear()
-    TOT_POS_VAR.clear()
-    EXP_STATUS.clear()
+    for data_type in ALL_DATA:
+        data_type.clear()
 
 
 def init_chart(dates):
@@ -247,3 +245,69 @@ def latest_update(data):
     """
     date_dt = dt.datetime.strptime(data[-1][PCM_DATE_KEY], PCM_DATE_FMT)
     return date_dt.strftime(UPDATE_FMT)
+
+
+def get_national_data():
+    """
+    Return the national data from the "Protezione Civile" repository
+    :return: dict
+    """
+    data = {}
+    try:
+        response = requests.get(URL_NATIONAL_DATA)
+        status = response.status_code
+        if status == 200:
+            national_data = response.json()
+            data["national"] = sorted(national_data, key=lambda x: x[PCM_DATE_KEY])
+            cache_data(data["national"], NATIONAL_DATA_FILE)
+        else:
+            current_app.logger.error("Could not get data: ERROR {}".format(status))
+            data["national"] = read_cached_data(NATIONAL_DATA_FILE)
+    except Exception as e:
+        current_app.logger.error("Request Error {}".format(e))
+        data["national"] = read_cached_data(NATIONAL_DATA_FILE)
+    return data
+
+
+def get_regional_data():
+    """
+    Return the regional data from the "Protezione Civile" repository
+    :return: dict
+    """
+    data = {}
+    try:
+        response = requests.get(URL_REGIONAL_DATA)
+        status = response.status_code
+        if status == 200:
+            regional_data = response.json()
+            data["regional"] = sorted(regional_data, key=lambda x: x[PCM_DATE_KEY])
+            cache_data(data["regional"], REGIONAL_DATA_FILE)
+        else:
+            current_app.logger.error("Could not get data: ERROR {}".format(status))
+            data["regional"] = read_cached_data(REGIONAL_DATA_FILE)
+    except Exception as e:
+        current_app.logger.error("Request Error {}".format(e))
+        data["regional"] = read_cached_data(REGIONAL_DATA_FILE)
+    return data
+
+
+def get_provincial_data():
+    """
+    Return the provincial data from the "Protezione Civile" repository
+    :return: dict
+    """
+    data = {}
+    try:
+        response = requests.get(URL_PROVINCIAL_DATA)
+        status = response.status_code
+        if status == 200:
+            prov_data = response.json()
+            data["provincial"] = sorted(prov_data, key=lambda x: x[PCM_DATE_KEY])
+            cache_data(data["provincial"], PROVINCIAL_DATE_FILE)
+        else:
+            current_app.logger.error("Could not get data: ERROR {}".format(status))
+            data["provincial"] = read_cached_data(PROVINCIAL_DATE_FILE)
+    except Exception as e:
+        current_app.logger.error("Request Error {}".format(e))
+        data["provincial"] = read_cached_data(PROVINCIAL_DATE_FILE)
+    return data

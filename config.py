@@ -1,5 +1,6 @@
-import os
 import datetime as dt
+import os
+
 from flask_babel import gettext
 
 NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
