@@ -2,7 +2,7 @@ $(document).ready(function () {
     $("#chart-trend").highcharts({
         chart: {
             type: 'line',
-            zoomType: 'xy'
+            zoomType: 'x'
         },
         title: title,
         xAxis: xAxis,
@@ -51,7 +51,7 @@ $(document).ready(function () {
         $("#chart-iacopo").highcharts({
             chart: {
                 type: 'scatter',
-                zoomType: 'xy'
+                zoomType: 'x'
             },
             title: title,
             subtitle: subtitle,
