@@ -1,4 +1,4 @@
-# Monitoraggio COVID-19 Italia
+# Monitoraggio COVID-19 Italia | [\#IoRestoACasa](https://twitter.com/hashtag/iorestoacasa)
 
 English Version [here](https://github.com/fabriziomiano/covidashit/blob/master/README.md)
 
@@ -13,7 +13,7 @@ che usa i dati forniti dalla [Protezione Civile](https://github.com/pcm-dpc)
 
 ##### I dati della proezione civile vengono presi da github &#8594; [qui](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
 
-## Per i developers
+## Per gli sviluppatori
 
 La WebApp gira su Python3.6+ ed usa un server Flask e gunicorn davanti.
 Inoltre, viene usato Flask-babel per la traduzione italiana dell'app. Lo script `make_pot.sh` crea i file necessari.
@@ -51,6 +51,12 @@ Per testare l'abmiente di produzione in locale:
 ```
 $ gunicorn covidashit:app
 ```
+
+Alternativamente, è possibile fare il build del container Docker:
+```
+docker-compose up -d
+```
+Se è andato tutto bene, la WebApp sarà in ascolto [http://127.0.0.1](http://127.0.0.1)
 
 ## Donazione
 

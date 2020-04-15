@@ -1,4 +1,4 @@
-# COVID-19 Italy Monitor
+# COVID-19 Italy Monitor | [\#StayAtHome](https://twitter.com/hashtag/StayAtHome)
 
 Versione Italiana [qui](https://github.com/fabriziomiano/covidashit/blob/master/README_IT.md)
 
@@ -13,7 +13,6 @@ provided by the [Civil Protection (CP)](https://github.com/pcm-dpc)
 
 ##### The data is taken from the CP repo &#8594; [here](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
 
-Stay safe everbody!
 
 ## For developers
 
@@ -53,6 +52,13 @@ To test the production environment locally, simply run
 ```
 $ gunicorn covidashit:app
 ```
+
+Alternatively, it is possible to build a Docker image and deploy the container locally with 
+```
+docker-compose up -d
+```
+
+If all went down well, the WebApp will be listening at [http://127.0.0.1](http://127.0.0.1)
 
 ## Donation
 
