@@ -85,10 +85,9 @@ ITEN_MAP = {
     },
     "deceduti": {
         "title": gettext("Total Deaths"),
-        "desc": gettext("Cumulative # of deaths"),
+        "desc": gettext("Total deaths count"),
         "longdesc": gettext(
-            "Total number of people who have died due to coronavirus"
-            " since the beginnin of the outbreak"
+            "Total deaths count since the beginning of the outbreak"
         )
     },
     "totale_casi": {
@@ -108,13 +107,22 @@ ITEN_MAP = {
         "longdesc": gettext(
             "Total number of swabs performed since the beginning of the outbreak"
         )
+    },
+    "deceduti_giornalieri": {
+        "title": gettext("Daily deaths"),
+        "desc": gettext("Daily deaths count"),
+        "longdesc": gettext("Daily deaths count")
     }
 }
 CARD_TYPES = [
-    "totale_casi", "nuovi_positivi",
-    "totale_positivi", "variazione_totale_positivi",
-    "terapia_intensiva", "totale_ospedalizzati"
+    "nuovi_positivi", "variazione_totale_positivi", "terapia_intensiva",
+    "totale_positivi", "totale_casi",
+    "totale_ospedalizzati", "deceduti"
 ]
+CUSTOM_CARD = ["deceduti_giornalieri"]
+CARD_MAP = {
+    "deceduti_giornalieri": "deceduti"
+}
 REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
 PCM_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
@@ -157,32 +165,3 @@ PROVINCES = [
     'Udine', 'Varese', 'Venezia', 'Verbano-Cusio-Ossola', 'Vercelli',
     'Verona', 'Vibo Valentia', 'Vicenza', 'Viterbo'
 ]
-SCATTER_TITLE = {
-    "text": gettext("New Positive VS Total Cases"),
-    "align": "left"
-}
-CREDITS = {
-    "href": "https://fabriziomiano.github.io",
-    "text": gettext("by Fabrizio Miano | Made with Highcharts.com")
-}
-SCATTER_XAXIS = {
-    "title": {
-        "enabled": "true",
-        "text": gettext("# of Total cases")
-    },
-    "showLastLabel": "true"
-}
-SCATTER_YAXIS = {
-    "type": "logarithmic",
-    "title": {
-        "text": gettext("# of New positive")
-    }
-}
-SOURCE_SUBTITLE = {
-    "text": gettext(
-        "Source: <a "
-        "href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-json'"
-        ">Civil Protection dataset</a>"
-    ),
-    "align": "left"
-}

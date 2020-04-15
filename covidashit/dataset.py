@@ -9,7 +9,8 @@ from config import (
     REGION_KEY, CARD_TYPES, ITEN_MAP, PCM_DATE_FMT, PROVINCE_KEY,
     CHART_DATE_FMT, PCM_DATE_KEY, UPDATE_FMT, PROVINCES, REGIONS,
     URL_NATIONAL_DATA, NATIONAL_DATA_FILE, URL_REGIONAL_DATA,
-    REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE
+    REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE, CUSTOM_CARD,
+    CARD_MAP
 )
 
 DATES = []
@@ -62,26 +63,41 @@ def get_trend(data, province=False):
     :return: list of dicts
     """
     if not province:
-        main_types = CARD_TYPES
+        card_types = CARD_TYPES + CUSTOM_CARD
     else:
-        main_types = ["totale_casi"]
+        card_types = ["totale_casi"]
     last = data[-1]
     penultimate = data[-2]
     trend = []
-    for key in main_types:
-        if penultimate[key] > last[key]:
-            status = "happy"
-        elif penultimate[key] == last[key]:
-            status = "neutral"
+    for key in card_types:
+        if key not in CUSTOM_CARD:
+            if penultimate[key] > last[key]:
+                status = "happy"
+            elif penultimate[key] == last[key]:
+                status = "neutral"
+            else:
+                status = "sad"
+            trend.append({
+                "title": ITEN_MAP[key]["title"],
+                "desc": ITEN_MAP[key]["desc"],
+                "longdesc": ITEN_MAP[key]["longdesc"],
+                "count": last[key],
+                "status": status
+            })
         else:
-            status = "sad"
-        trend.append({
-            "title": ITEN_MAP[key]["title"],
-            "desc": ITEN_MAP[key]["desc"],
-            "longdesc": ITEN_MAP[key]["longdesc"],
-            "count": last[key],
-            "status": status
-        })
+            if penultimate[CARD_MAP[key]] > last[CARD_MAP[key]]:
+                status = "happy"
+            elif penultimate[CARD_MAP[key]] == last[CARD_MAP[key]]:
+                status = "neutral"
+            else:
+                status = "sad"
+            trend.append({
+                "title": ITEN_MAP[key]["title"],
+                "desc": ITEN_MAP[key]["desc"],
+                "longdesc": ITEN_MAP[key]["longdesc"],
+                "count": last[CARD_MAP[key]] - penultimate[CARD_MAP[key]],
+                "status": status
+            })
     return trend
 
 
@@ -222,19 +238,6 @@ def init_data():
     """
     for data_type in ALL_DATA:
         data_type.clear()
-
-
-def init_chart(dates):
-    """
-    Return chart, x_axis, y_axis dicts to be served to the frontend
-    :param dates: list
-    :return:
-        x_axis: dict,
-        y_axis:  dict
-    """
-    x_axis = {"categories": dates}
-    y_axis = {"title": {"text": gettext('# of people')}}
-    return x_axis, y_axis
 
 
 def latest_update(data):
