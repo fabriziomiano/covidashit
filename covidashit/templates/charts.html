@@ -2,43 +2,74 @@
 <div class="row">
     <div class="col-xl-6">
         <div class="card border-left-primary shadow mb-3" id="chartCard">
-            <div class="card-header"><i class="fas fa-chart-line mr-2"></i>{{ _("Trend") }} |
-                {% if territory %}
-                    {{ territory }}
+            <div class="card-header">
+                <i class="fas fa-chart-line mr-2"></i>{{ _("Trend") }} |
+                {% if territory %} {{ territory }}
                 {% else %} {{ _("National") }}
                 {% endif %}
             </div>
             <div id="chart-trend" class="container-fluid" style="border: none; width:100%; margin: 0 auto"></div>
-            <script>
-                let series = {{ series|safe }};
-                let title = {{ chart_title|safe }};
-                let xAxis = {{ xAxis|safe }};
-                let yAxis = {{ yAxis|safe }};
-                let credits = {{ credits_data|safe }};
-                let subtitle = {{ source_subtitle|safe }};
-            </script>
         </div>
     </div>
 
     {% if territory not in provinces %}
         <div class="col-xl-6">
             <div class="card border-left-primary shadow mb-3" id="chartCard">
-                <div class="card-header"><i class="fas fa-chart-line mr-2"></i>{{ _("Still on the exponential?") }} |
+                <div class="card-header"><i class="fas fa-chart-line mr-2"></i>{{ _("New Positive VS Total Cases") }} |
                     {% if territory %}
                         {{ territory }}
                     {% else %} {{ _("National") }}
                     {% endif %}
                 </div>
                 <div id="chart-iacopo" class="container-fluid" style="border: none; width:100%; margin: 0 auto"></div>
-                <script>
-                    let scatterData = {{ scatterplot_series|safe }};
-                    let scatterXAxis = {{ scatter_xaxis|safe }};
-                    let scatterYAxis = {{ scatter_yaxis|safe }};
-                    title = {{ chart_title|safe }};
-                    credits = {{ credits_data|safe }};
-                    subtitle = {{ source_subtitle|safe }};
-                </script>
             </div>
         </div>
     {% endif %}
 </div>
+
+<script>
+    let series = {{ series|safe }};
+    let xAxis = {
+        categories: {{ dates|safe }}
+    };
+    let yAxis = {
+        title: {
+            text: "{{ gettext("# of people") }}"
+        }
+    };
+    let title;
+    {% if not territory %}
+        title = {
+            text: "{{ gettext("Italy") }}",
+            align: "left"
+        };
+    {% else %}
+        title = {
+            text: "{{ territory }}",
+            align: "left"
+        };
+    {% endif %}
+    let subtitle = {
+        text: "{{ gettext("Source <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-json'>Civil Protection dataset</a>") }}",
+        align: "left"
+    };
+    let credits = {
+        href: "https://fabriziomiano.github.io",
+        text: "{{ gettext("by Fabrizio Miano | Made with Highcharts.com") }}"
+    };
+
+    let scatterData = {{ scatterplot_series|safe }};
+    let scatterXAxis = {
+        title: {
+            enabled: true,
+            text: "{{ gettext("# Total Cases") }}"
+        },
+        showLastLabel: true
+    };
+    let scatterYAxis = {
+        type: "logarithmic",
+        title: {
+            text: "{{ gettext("# New Positive") }}"
+        }
+    }
+</script>
