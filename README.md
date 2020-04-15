@@ -23,13 +23,6 @@ The website's language is decided upon the client request.
 The back-end retrieves the data and it serves it to the front-end chart and cards.
 I'm not using any db as, luckily enough, there isn't too much data to store, and hopfully there will not be, ever.
 
-3 APIs are provided:
-* `GET /api/national` response `{"national": [...]}`
-* `GET /api/regional` response `{"regional": [...]}`
-* `GET /api/provincial` response `{"provincial": [...]}`
-
-where the array is the data provided by the original source.
-
 The front-end is under `covidashit/templates` and it uses a simple JS to create
 the chart object, which is built using [HighCharts](https://www.highcharts.com/)
 
