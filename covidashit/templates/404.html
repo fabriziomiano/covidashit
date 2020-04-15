@@ -1,67 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({
-            'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-        });
-        var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src =
-            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-KXKPK5T');</script>
-    <!-- End Google Tag Manager -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9Y0V0RXJNN"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+{% include 'head.html' %}
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-
-        gtag('config', 'G-9Y0V0RXJNN');
-    </script>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content="{{ _("COVID-19 Italy outbreak data visualization") }}">
-    <meta name="author" content="Fabrizio Miano"/>
-    <meta property="og:title" content="{{ _("COVID-19 Italy Monitor") }}"/>
-    <meta property="og:url" content="https://covidashit.herokuapp.com/"/>
-    <meta property="og:description" content="{{ _("COVID-19 Italy outbreak data visualization") }}">
-    <meta property="og:image" content="https://covidashit.herokuapp.com/static/coronasketch.png"/>
-    <meta property="og:image:type" content="image/png"/>
-    <meta property="og:image:width" content="1200"/>
-    <meta property="og:image:height" content="630"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:locale" content="en_US"/>
-    <meta property="og:locale:alternate" content="it_IT"/>
-    <title>{{ pagetitle }}</title>
-    <link rel="apple-touch-icon" href="../static/virussketch.png" sizes="180x180">
-    <link rel="icon" href="../static/virussketch.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="../static/virussketch.png" sizes="16x16" type="image/png">
-    <link rel="mask-icon" href="../static/virussketch.png" color="#563d7c">
-    <link rel="icon" href="../static/virussketch.png">
-    <link href="../static/css/styles.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
-            crossorigin="anonymous"></script>
-</head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXKPK5T"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End Google Tag Manager (noscript) -->
 
 <div id="layoutError">
     <div id="layoutError_content">
@@ -78,20 +20,6 @@
                 </div>
             </div>
         </main>
-    </div>
-    <div id="layoutError_footer">
-        <footer class="py-4 bg-light mt-auto">
-            <div class="container-fluid">
-                <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Your Website 2019</div>
-                    <div>
-                        <a href="#">Privacy Policy</a>
-                        &middot;
-                        <a href="#">Terms &amp; Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>

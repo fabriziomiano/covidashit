@@ -1,0 +1,47 @@
+<!-- Cards -->
+<div class="row">
+    {% for t in trend %}
+        <div class="col-xl-4 mb-3">
+            <div class="card border-left-primary shadow h-100 ">
+                <div class="card-header font-weight-bold text-primary text-uppercase mb-1">
+                    {{ _(t.title) }}
+                    <i class="fas fa-info-circle text-black-50" data-toggle="tooltip"
+                       data-placement="auto"
+                       data-original-title="{{ _(t.longdesc) }}">
+                    </i>
+                </div>
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col auto">
+                            <div class="h1 mb-0 font-weight-bold text-gray-800">{{ t.count }}</div>
+                        </div>
+                        <div class="col-auto">
+                            {% if t.status== "happy" %}
+                                <strong class="text-success">
+                                    <i class="fas fa-long-arrow-alt-down fa-5x" data-toggle="tooltip" data-placement="auto"
+                                       data-original-title="{{ _('Decreased with respect to yesterday') }}">
+                                    </i>
+                                </strong>
+                            {% elif t.status == "neutral" %}
+                                <strong>
+                                    <i class="fas fa-minus fa-5x" data-toggle="tooltip" data-placement="auto"
+                                       data-original-title="{{ _('Stable with respect to yesterday') }}">
+                                    </i>
+                                </strong>
+                            {% else %}
+                                <strong class="text-danger">
+                                    <i class="fas fa-long-arrow-alt-up fa-5x" data-toggle="tooltip" data-placement="auto"
+                                       data-original-title="{{ _('Increased with respect to yesterday') }}">
+                                    </i>
+                                </strong>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="small text-info">{{ _(t.desc) }}</span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
