@@ -1,1 +1,1 @@
-web: gunicorn covidashit:app
+web: gunicorn wsgi:app
