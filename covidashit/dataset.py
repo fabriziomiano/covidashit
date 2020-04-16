@@ -63,11 +63,12 @@ def get_trend(data, province=False):
     :return: list of dicts
     """
     if not province:
-        card_types = CARD_TYPES + CUSTOM_CARD
+        card_types = CARD_TYPES
     else:
         card_types = ["totale_casi"]
     last = data[-1]
     penultimate = data[-2]
+    third_tolast = data[-3]
     trend = []
     for key in card_types:
         if key not in CUSTOM_CARD:
@@ -82,12 +83,15 @@ def get_trend(data, province=False):
                 "desc": ITEN_MAP[key]["desc"],
                 "longdesc": ITEN_MAP[key]["longdesc"],
                 "count": last[key],
-                "status": status
+                "status": status,
+                "fa": ITEN_MAP[key]["fa"]
             })
         else:
-            if penultimate[CARD_MAP[key]] > last[CARD_MAP[key]]:
+            today_diff = last[CARD_MAP[key]] - penultimate[CARD_MAP[key]]
+            yesterday_diff = penultimate[CARD_MAP[key]] - third_tolast[CARD_MAP[key]]
+            if today_diff < yesterday_diff:
                 status = "happy"
-            elif penultimate[CARD_MAP[key]] == last[CARD_MAP[key]]:
+            elif today_diff == yesterday_diff:
                 status = "neutral"
             else:
                 status = "sad"
@@ -96,7 +100,8 @@ def get_trend(data, province=False):
                 "desc": ITEN_MAP[key]["desc"],
                 "longdesc": ITEN_MAP[key]["longdesc"],
                 "count": last[CARD_MAP[key]] - penultimate[CARD_MAP[key]],
-                "status": status
+                "status": status,
+                "fa": ITEN_MAP[key]["fa"]
             })
     return trend
 
