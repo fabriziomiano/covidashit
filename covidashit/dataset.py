@@ -10,7 +10,7 @@ from config import (
     CHART_DATE_FMT, PCM_DATE_KEY, UPDATE_FMT, PROVINCES, REGIONS,
     URL_NATIONAL_DATA, NATIONAL_DATA_FILE, URL_REGIONAL_DATA,
     REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE, CUSTOM_CARD,
-    CARD_MAP
+    CARD_MAP, INVERTED_LOGIC_TYPES
 )
 
 DATES = []
@@ -72,37 +72,33 @@ def get_trend(data, province=False):
     trend = []
     for key in card_types:
         if key not in CUSTOM_CARD:
+            count = last[key]
             if penultimate[key] > last[key]:
-                status = "happy"
+                status = "decrease"
             elif penultimate[key] == last[key]:
-                status = "neutral"
+                status = "stable"
             else:
-                status = "sad"
-            trend.append({
-                "title": ITEN_MAP[key]["title"],
-                "desc": ITEN_MAP[key]["desc"],
-                "longdesc": ITEN_MAP[key]["longdesc"],
-                "count": last[key],
-                "status": status,
-                "fa": ITEN_MAP[key]["fa"]
-            })
+                status = "increase"
         else:
+            count = last[CARD_MAP[key]] - penultimate[CARD_MAP[key]]
             today_diff = last[CARD_MAP[key]] - penultimate[CARD_MAP[key]]
             yesterday_diff = penultimate[CARD_MAP[key]] - third_tolast[CARD_MAP[key]]
             if today_diff < yesterday_diff:
-                status = "happy"
+                status = "decrease"
             elif today_diff == yesterday_diff:
-                status = "neutral"
+                status = "stable"
             else:
-                status = "sad"
-            trend.append({
-                "title": ITEN_MAP[key]["title"],
-                "desc": ITEN_MAP[key]["desc"],
-                "longdesc": ITEN_MAP[key]["longdesc"],
-                "count": last[CARD_MAP[key]] - penultimate[CARD_MAP[key]],
-                "status": status,
-                "fa": ITEN_MAP[key]["fa"]
-            })
+                status = "increase"
+        logic = "inverted" if key in INVERTED_LOGIC_TYPES else "normal"
+        trend.append({
+            "title": ITEN_MAP[key]["title"],
+            "desc": ITEN_MAP[key]["desc"],
+            "longdesc": ITEN_MAP[key]["longdesc"],
+            "count": count,
+            "status": status,
+            "fa": ITEN_MAP[key]["fa"],
+            "logic": logic
+        })
     return trend
 
 
