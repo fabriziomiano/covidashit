@@ -22,7 +22,7 @@ def national():
 def index():
     data = get_national_data()
     init_data()
-    dates, series, trend = parse_data(data)
+    dates, series, trend_cards = parse_data(data)
     updated_at = latest_update(data["national"])
     scatterplot_series = {
         "name": gettext("New Positive VS Total Cases"),
@@ -31,7 +31,7 @@ def index():
     return render_template(
         "index.html",
         dates=dates,
-        trend=trend,
+        trend_cards=trend_cards,
         regions=REGIONS,
         provinces=PROVINCES,
         pagetitle=gettext(WEBSITE_TITLE),
@@ -55,7 +55,7 @@ def provincial(territory):
     else:
         return render_template("404.html", pagetitle=WEBSITE_TITLE)
     init_data()
-    dates, series, trend = parse_data(data, territory=territory)
+    dates, series, trend_cards = parse_data(data, territory=territory)
     scatterplot_series = {
         "name": gettext("New Positive VS Total Cases"),
         "data": EXP_STATUS
@@ -63,7 +63,7 @@ def provincial(territory):
     return render_template(
         "index.html",
         dates=dates,
-        trend=trend,
+        trend_cards=trend_cards,
         territory=territory,
         provinces=PROVINCES,
         regions=REGIONS,

@@ -55,7 +55,7 @@ def cache_data(data, data_filepath):
         json.dump(data, data_file)
 
 
-def get_trend(data, province=False):
+def get_trends(data, province=False):
     """
     Return a list of dicts of the daily trend wrt to the previous day
     :param data: ascending sorted list of daily dicts
@@ -69,7 +69,7 @@ def get_trend(data, province=False):
     last = data[-1]
     penultimate = data[-2]
     third_tolast = data[-3]
-    trend = []
+    trend_cards = []
     for key in card_types:
         if key not in CUSTOM_CARD:
             count = last[key]
@@ -90,7 +90,7 @@ def get_trend(data, province=False):
             else:
                 status = "increase"
         logic = "inverted" if key in INVERTED_LOGIC_TYPES else "normal"
-        trend.append({
+        trend_cards.append({
             "title": ITEN_MAP[key]["title"],
             "desc": ITEN_MAP[key]["desc"],
             "longdesc": ITEN_MAP[key]["longdesc"],
@@ -99,7 +99,7 @@ def get_trend(data, province=False):
             "fa": ITEN_MAP[key]["fa"],
             "logic": logic
         })
-    return trend
+    return trend_cards
 
 
 def fill_series(province=False):
@@ -171,19 +171,19 @@ def fill_series(province=False):
 
 def parse_data(data, territory=None):
     """
-    Return dates, series, trend
+    Return dates, series, trend_cards
     :param data: dict
     :param territory: str
     :return:
         DATES: list,
         series: list,
-        trend: list
+        trend_cards: list
     """
     series = []
-    trend = []
+    trend_cards = []
     if territory is None:
         national_data = data["national"]
-        trend = get_trend(national_data)
+        trend_cards = get_trends(national_data)
         for d in national_data:
             fill_data(d)
         series = fill_series()
@@ -191,7 +191,7 @@ def parse_data(data, territory=None):
         if territory in PROVINCES:
             provincial_data = data["provincial"]
             subset = [r for r in provincial_data if r[PROVINCE_KEY] == territory]
-            trend = get_trend(subset, province=True)
+            trend_cards = get_trends(subset, province=True)
             for d in provincial_data:
                 if territory == d[PROVINCE_KEY]:
                     fill_data(d, province=True)
@@ -199,12 +199,12 @@ def parse_data(data, territory=None):
         elif territory in REGIONS:
             regional_data = data["regional"]
             subset = [r for r in regional_data if r[REGION_KEY] == territory]
-            trend = get_trend(subset)
+            trend_cards = get_trends(subset)
             for d in regional_data:
                 if territory == d[REGION_KEY]:
                     fill_data(d)
             series = fill_series()
-    return DATES, series, trend
+    return DATES, series, trend_cards
 
 
 def fill_data(datum, province=False):
