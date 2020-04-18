@@ -1,6 +1,6 @@
 <!-- Cards -->
 <div class="row">
-    {% for t in trend %}
+    {% for t in trend_cards %}
         <div class="col-xl-3 col-md-6 mb-2">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
@@ -20,59 +20,43 @@
 
                         <div class="col-auto">
                             <div class="text-xs">
-                                {# Check logic to decide the color of the arrows wrt to increase/decrease#}
-                                {% if t.logic == "normal" %}
-
-                                    {% if t.status == "decrease" %}
-                                        <strong class="text-success">
-                                            <i class="fas fa-long-arrow-alt-down fa-4x" data-toggle="tooltip"
-                                               data-placement="auto"
-                                               data-original-title="{{ _('Decreased with respect to yesterday') }}">
-                                            </i>
-                                        </strong>
-                                    {% elif t.status == "increase" %}
-                                        <strong class="text-danger">
-                                            <i class="fas fa-long-arrow-alt-up fa-4x" data-toggle="tooltip"
-                                               data-placement="auto"
-                                               data-original-title="{{ _('Increased with respect to yesterday') }}">
-                                            </i>
-                                        </strong>
-                                    {% else %}
-                                        <strong class="text-info">
-                                            <i class="fas fa-minus fa-4x" data-toggle="tooltip" data-placement="auto"
-                                               data-original-title="{{ _('Stable with respect to yesterday') }}">
-                                            </i>
-                                        </strong>
-                                    {% endif %}
-
+                                {% if t.logic == "normal" and t.status == "decrease" %}
+                                    <strong class="text-success">
+                                        <i class="fas fa-long-arrow-alt-down fa-4x" data-toggle="tooltip"
+                                           data-placement="auto"
+                                           data-original-title="{{ _('Decreased with respect to yesterday') }}">
+                                        </i>
+                                    </strong>
+                                {% elif t.logic == "normal" and t.status == "increase" %}
+                                    <strong class="text-danger">
+                                        <i class="fas fa-long-arrow-alt-up fa-4x" data-toggle="tooltip"
+                                           data-placement="auto"
+                                           data-original-title="{{ _('Increased with respect to yesterday') }}">
+                                        </i>
+                                    </strong>
+                                {% elif t.logic == "inverted" and t.status == "decrease" %}
+                                    <strong class="text-danger">
+                                        <i class="fas fa-long-arrow-alt-down fa-4x" data-toggle="tooltip"
+                                           data-placement="auto"
+                                           data-original-title="{{ _('Decreased with respect to yesterday') }}">
+                                        </i>
+                                    </strong>
+                                {% elif t.logic == "inverted" and t.status == "increase" %}
+                                    <strong class="text-success">
+                                        <i class="fas fa-long-arrow-alt-up fa-4x" data-toggle="tooltip"
+                                           data-placement="auto"
+                                           data-original-title="{{ _('Increased with respect to yesterday') }}">
+                                        </i>
+                                    </strong>
                                 {% else %}
-
-                                    {% if t.status == "decrease" %}
-                                        <strong class="text-danger">
-                                            <i class="fas fa-long-arrow-alt-down fa-4x" data-toggle="tooltip"
-                                               data-placement="auto"
-                                               data-original-title="{{ _('Decreased with respect to yesterday') }}">
-                                            </i>
-                                        </strong>
-                                    {% elif t.status == "increase" %}
-                                        <strong class="text-success">
-                                            <i class="fas fa-long-arrow-alt-up fa-4x" data-toggle="tooltip"
-                                               data-placement="auto"
-                                               data-original-title="{{ _('Increased with respect to yesterday') }}">
-                                            </i>
-                                        </strong>
-                                    {% else %}
-                                        <strong class="text-info">
-                                            <i class="fas fa-minus fa-4x" data-toggle="tooltip" data-placement="auto"
-                                               data-original-title="{{ _('Stable with respect to yesterday') }}">
-                                            </i>
-                                        </strong>
-                                    {% endif %}
-
+                                    <strong class="text-info">
+                                        <i class="fas fa-minus fa-4x" data-toggle="tooltip" data-placement="auto"
+                                           data-original-title="{{ _('Stable with respect to yesterday') }}">
+                                        </i>
+                                    </strong>
                                 {% endif %}
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
