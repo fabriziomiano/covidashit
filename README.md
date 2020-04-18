@@ -43,7 +43,7 @@ $ python -m flask run
 The `Profile` can be used to deploy the app on Heroku.
 To test the production environment locally, simply run
 ```
-$ gunicorn covidashit:app
+$ gunicorn wsgi:app
 ```
 
 Alternatively, it is possible to build a Docker image and deploy the container locally with 

@@ -42,7 +42,7 @@ $ python -m flask run
 Il `Procfile` è pronto per essere utilizzato su Heroku. 
 Per testare l'abmiente di produzione in locale:
 ```
-$ gunicorn covidashit:app
+$ gunicorn wsgi:app
 ```
 
 Alternativamente, è possibile fare il build del container Docker:
