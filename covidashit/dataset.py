@@ -10,7 +10,7 @@ from config import (
     CHART_DATE_FMT, PCM_DATE_KEY, UPDATE_FMT, PROVINCES, REGIONS,
     URL_NATIONAL_DATA, NATIONAL_DATA_FILE, URL_REGIONAL_DATA,
     REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE, CUSTOM_CARD,
-    CARD_MAP, INVERTED_LOGIC_TYPES
+    CARD_MAP
 )
 
 DATES = []
@@ -89,15 +89,15 @@ def get_trends(data, province=False):
                 status = "stable"
             else:
                 status = "increase"
-        logic = "inverted" if key in INVERTED_LOGIC_TYPES else "normal"
         trend_cards.append({
             "title": ITEN_MAP[key]["title"],
             "desc": ITEN_MAP[key]["desc"],
             "longdesc": ITEN_MAP[key]["longdesc"],
             "count": count,
-            "status": status,
-            "fa": ITEN_MAP[key]["fa"],
-            "logic": logic
+            "colour": ITEN_MAP[key][status]["colour"],
+            "icon": ITEN_MAP[key]["icon"],
+            "status_icon": ITEN_MAP[key][status]["icon"],
+            "tooltip": ITEN_MAP[key][status]["tooltip"]
         })
     return trend_cards
 

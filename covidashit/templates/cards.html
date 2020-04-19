@@ -8,7 +8,7 @@
 
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                <i class="{{ t.fa }} fa-2x mr-2"></i>
+                                <i class="{{ t.icon }} fa-2x mr-2"></i>
                                 {{ _(t.title) }}
                                 <i class="fas fa-info-circle text-black-50" data-toggle="tooltip"
                                    data-placement="auto"
@@ -20,43 +20,14 @@
 
                         <div class="col-auto">
                             <div class="text-xs">
-                                {% if t.logic == "normal" and t.status == "decrease" %}
-                                    <strong class="text-success">
-                                        <i class="fas fa-long-arrow-alt-down fa-4x" data-toggle="tooltip"
-                                           data-placement="auto"
-                                           data-original-title="{{ _('Decreased with respect to yesterday') }}">
-                                        </i>
-                                    </strong>
-                                {% elif t.logic == "normal" and t.status == "increase" %}
-                                    <strong class="text-danger">
-                                        <i class="fas fa-long-arrow-alt-up fa-4x" data-toggle="tooltip"
-                                           data-placement="auto"
-                                           data-original-title="{{ _('Increased with respect to yesterday') }}">
-                                        </i>
-                                    </strong>
-                                {% elif t.logic == "inverted" and t.status == "decrease" %}
-                                    <strong class="text-danger">
-                                        <i class="fas fa-long-arrow-alt-down fa-4x" data-toggle="tooltip"
-                                           data-placement="auto"
-                                           data-original-title="{{ _('Decreased with respect to yesterday') }}">
-                                        </i>
-                                    </strong>
-                                {% elif t.logic == "inverted" and t.status == "increase" %}
-                                    <strong class="text-success">
-                                        <i class="fas fa-long-arrow-alt-up fa-4x" data-toggle="tooltip"
-                                           data-placement="auto"
-                                           data-original-title="{{ _('Increased with respect to yesterday') }}">
-                                        </i>
-                                    </strong>
-                                {% else %}
-                                    <strong class="text-info">
-                                        <i class="fas fa-minus fa-4x" data-toggle="tooltip" data-placement="auto"
-                                           data-original-title="{{ _('Stable with respect to yesterday') }}">
-                                        </i>
-                                    </strong>
-                                {% endif %}
+                                <strong class="{{ t.colour }}">
+                                    <i class="{{ t.status_icon }} fa-4x" data-toggle="tooltip" data-placement="auto"
+                                       data-original-title="{{ t.tooltip }}">
+                                    </i>
+                                </strong>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

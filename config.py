@@ -23,7 +23,22 @@ ITEN_MAP = {
             "Total count of people currently in hospital "
             "due to coronavirus with symptoms"
         ),
-        "fa": "fas fa-hospital-user"
+        "icon": "fas fa-hospital-user",
+        "increase": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     },
     "terapia_intensiva": {
         "title": gettext("Intensive Care Unit"),
@@ -31,7 +46,22 @@ ITEN_MAP = {
         "longdesc": gettext(
             "Total count of people currently in ICU and positive to COVID-19"
         ),
-        "fa": "fas fa-procedures"
+        "icon": "fas fa-procedures",
+        "increase": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     },
     "totale_ospedalizzati": {
         "title": gettext("Total Hospitalized"),
@@ -39,7 +69,22 @@ ITEN_MAP = {
         "longdesc": gettext(
             "Total count of people currently hospitalized. "
             "It takes into account ICU"),
-        "fa": "fas fa-hospital-user"
+        "icon": "fas fa-hospital-user",
+        "increase": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     },
     "isolamento_domiciliare": {
         "title": gettext("Self Isolation"),
@@ -47,7 +92,22 @@ ITEN_MAP = {
         "longdesc": gettext(
             "People currently positive but who don't need hospitalization"
         ),
-        "fa": "fas fa-house-user"
+        "icon": "fas fa-house-user",
+        "increase": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     },
     "totale_positivi": {
         "title": gettext("Total Positive"),
@@ -62,7 +122,22 @@ ITEN_MAP = {
             "this should tend to zero. In particular, it is: "
             "total positive = total cases - total healed - total deaths"
         ),
-        "fa": "fas fa-viruses"
+        "icon": "fas fa-viruses",
+        "increase": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     },
     "variazione_totale_positivi": {
         "title": gettext("Total Positive Variation"),
@@ -75,13 +150,43 @@ ITEN_MAP = {
             "with respect to the previous day. It is negative when the number "
             "of daily healed and deaths is larger than 'New positive'"
         ),
-        "fa": "fas fa-chart-area"
+        "icon": "fas fa-chart-area",
+        "increase": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     },
     "nuovi_positivi": {
         "title": gettext("New Positive"),
         "desc": gettext("Daily count of new positve cases"),
         "longdesc": gettext("Daily count of new positve cases"),
-        "fa": "fas fa-virus"
+        "icon": "fas fa-virus",
+        "increase": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     },
     "dimessi_guariti": {
         "title": gettext("Total Healed"),
@@ -89,7 +194,22 @@ ITEN_MAP = {
         "longdesc": gettext(
             "Total number of people healed since the beginning of the outbreak"
         ),
-        "fa": "far fa-smile"
+        "icon": "far fa-smile",
+        "increase": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     },
     "deceduti": {
         "title": gettext("Total Deaths"),
@@ -97,7 +217,22 @@ ITEN_MAP = {
         "longdesc": gettext(
             "Total deaths count since the beginning of the outbreak"
         ),
-        "fa": "fas fa-cross"
+        "icon": "fas fa-cross",
+        "increase": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     },
     "totale_casi": {
         "title": gettext("Total Cases"),
@@ -109,7 +244,22 @@ ITEN_MAP = {
             "Total count of the positive tests since the"
             " beginning of the outbreak"
         ),
-        "fa": "fas fa-viruses"
+        "icon": "fas fa-viruses",
+        "increase": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     },
     "tamponi": {
         "title": gettext("Total Swabs"),
@@ -117,13 +267,43 @@ ITEN_MAP = {
         "longdesc": gettext(
             "Total number of swabs performed since the beginning of the outbreak"
         ),
-        "fa": "fas fa-vial"
+        "icon": "fas fa-vial",
+        "increase": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     },
     "deceduti_giornalieri": {
         "title": gettext("Daily deaths"),
         "desc": gettext("Daily deaths count"),
         "longdesc": gettext("Daily deaths count"),
-        "fa": "fas fa-cross"
+        "icon": "fas fa-cross",
+        "increase": {
+            "colour": "text-danger",
+            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "tooltip": gettext("Increased with respect to yesterday")
+        },
+        "decrease": {
+            "colour": "text-success",
+            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "tooltip": gettext("Decreased with respect to yesterday")
+        },
+        "stable": {
+            "colour": "text-info",
+            "icon": "fas fa-minus fa-4x",
+            "tooltip": gettext("Stable with respect to yesterday")
+        }
     }
 }
 #  The order here matters as it will be reflected in the webpage
@@ -133,7 +313,6 @@ CARD_TYPES = [
     "variazione_totale_positivi", "totale_casi", "isolamento_domiciliare",
     "dimessi_guariti", "deceduti", "tamponi"
 ]
-INVERTED_LOGIC_TYPES = ["dimessi_guariti"]
 CUSTOM_CARD = ["deceduti_giornalieri"]
 CARD_MAP = {
     "deceduti_giornalieri": "deceduti"
