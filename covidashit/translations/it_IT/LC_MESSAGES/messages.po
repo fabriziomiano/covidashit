@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-16 21:45+0200\n"
-"PO-Revision-Date: 2020-04-16 21:46+0200\n"
+"POT-Creation-Date: 2020-04-19 20:10+0200\n"
+"PO-Revision-Date: 2020-04-19 20:12+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -164,7 +164,7 @@ msgstr "# di tamponi eseguiti"
 
 #: config.py:117
 msgid "Total number of swabs performed since the beginning of the outbreak"
-msgstr "Conteggio dei tamponi positivi dall'inizio dell'epidemia"
+msgstr "Conteggio dei tamponi effettuati dall'inizio dell'epidemia"
 
 #: config.py:123
 msgid "Daily deaths"
@@ -174,63 +174,63 @@ msgstr "Decessi odierni"
 msgid "Daily deaths count"
 msgstr "Conteggio decessi odierni"
 
-#: config.py:145 covidashit/templates/head.html:20
+#: config.py:146 covidashit/templates/head.html:20
 msgid "COVID-19 Italy Monitor"
 msgstr "Monitoraggio COVID-19 Italia"
 
-#: covidashit/dataset.py:116
+#: covidashit/dataset.py:112
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:121
+#: covidashit/dataset.py:117
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:126
+#: covidashit/dataset.py:122
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: covidashit/dataset.py:131
+#: covidashit/dataset.py:127
 msgid "decedutititle"
 msgstr ""
 
-#: covidashit/dataset.py:135
+#: covidashit/dataset.py:131
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: covidashit/dataset.py:139
+#: covidashit/dataset.py:135
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: covidashit/dataset.py:143
+#: covidashit/dataset.py:139
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: covidashit/dataset.py:147
+#: covidashit/dataset.py:143
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: covidashit/dataset.py:151
+#: covidashit/dataset.py:147
 msgid "totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:155 covidashit/dataset.py:169
+#: covidashit/dataset.py:151 covidashit/dataset.py:165
 msgid "totale_casititle"
 msgstr ""
 
-#: covidashit/dataset.py:159
+#: covidashit/dataset.py:155
 msgid "tamponititle"
 msgstr ""
 
-#: covidashit/templates/cards.html:26
+#: covidashit/templates/cards.html:27 covidashit/templates/cards.html:41
 msgid "Decreased with respect to yesterday"
 msgstr "In calo rispetto a ieri"
 
-#: covidashit/templates/cards.html:33
+#: covidashit/templates/cards.html:34 covidashit/templates/cards.html:48
 msgid "Increased with respect to yesterday"
 msgstr "In aumento rispetto a ieri"
 
-#: covidashit/templates/cards.html:39
+#: covidashit/templates/cards.html:54
 msgid "Stable with respect to yesterday"
 msgstr "Stabile rispetto a ieri"
 
@@ -267,11 +267,11 @@ msgstr ""
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
-#: covidashit/templates/charts.html:65
+#: covidashit/templates/charts.html:64
 msgid "# Total Cases"
 msgstr "# Totale casi"
 
-#: covidashit/templates/charts.html:72
+#: covidashit/templates/charts.html:71
 msgid "# New Positive"
 msgstr "# Nuovi Positivi"
 
