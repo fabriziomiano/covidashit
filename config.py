@@ -26,17 +26,17 @@ ITEN_MAP = {
         "icon": "fas fa-hospital-user",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
@@ -49,17 +49,17 @@ ITEN_MAP = {
         "icon": "fas fa-procedures",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
@@ -72,17 +72,17 @@ ITEN_MAP = {
         "icon": "fas fa-hospital-user",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
@@ -95,17 +95,17 @@ ITEN_MAP = {
         "icon": "fas fa-house-user",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
@@ -125,17 +125,17 @@ ITEN_MAP = {
         "icon": "fas fa-viruses",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
@@ -153,17 +153,17 @@ ITEN_MAP = {
         "icon": "fas fa-chart-area",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
@@ -174,17 +174,17 @@ ITEN_MAP = {
         "icon": "fas fa-virus",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
@@ -197,17 +197,17 @@ ITEN_MAP = {
         "icon": "far fa-smile",
         "increase": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
@@ -220,17 +220,17 @@ ITEN_MAP = {
         "icon": "fas fa-cross",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
@@ -247,17 +247,17 @@ ITEN_MAP = {
         "icon": "fas fa-viruses",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
@@ -270,17 +270,17 @@ ITEN_MAP = {
         "icon": "fas fa-vial",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
@@ -291,17 +291,17 @@ ITEN_MAP = {
         "icon": "fas fa-cross",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up fa-4x",
+            "icon": "fas fa-long-arrow-alt-up",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down fa-4x",
+            "icon": "fas fa-long-arrow-alt-down",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus fa-4x",
+            "icon": "fas fa-minus",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     }
