@@ -3,7 +3,7 @@ import os
 from flask import Flask, request, render_template
 from flask_babel import Babel
 
-from config import LANGUAGES, WEBSITE_TITLE
+from config import LANGUAGES
 from .views.dashboard import dashboard
 
 
@@ -39,8 +39,8 @@ def create_app():
 def set_error_handlers(app):
     @app.errorhandler(404)
     def page_not_found(e):
-        return render_template("404.html", pagetitle=WEBSITE_TITLE), 404
+        return render_template("errors/404.html"), 404
 
     @app.errorhandler(500)
     def server_error(e):
-        return render_template("500.html", pagetitle=WEBSITE_TITLE), 500
+        return render_template("errors/500.html"), 500

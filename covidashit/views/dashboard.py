@@ -4,7 +4,7 @@ import time
 from flask import render_template, redirect, Blueprint
 from flask_babel import gettext
 
-from config import WEBSITE_TITLE, LOCKDOWN_DAY, REGIONS, PROVINCES
+from config import LOCKDOWN_DAY, REGIONS, PROVINCES
 from covidashit.dataset import (
     init_data, parse_data, latest_update, EXP_STATUS,
     get_national_data, get_regional_data, get_provincial_data
@@ -29,12 +29,11 @@ def index():
         "data": EXP_STATUS
     }
     return render_template(
-        "index.html",
+        "dashboard.html",
         dates=dates,
         trend_cards=trend_cards,
         regions=REGIONS,
         provinces=PROVINCES,
-        pagetitle=gettext(WEBSITE_TITLE),
         series=series,
         ts=str(time.time()),
         lockdown_days=(dt.datetime.today() - LOCKDOWN_DAY).days,
@@ -53,7 +52,7 @@ def provincial(territory):
         data = get_provincial_data()
         updated_at = latest_update(data["provincial"])
     else:
-        return render_template("404.html", pagetitle=WEBSITE_TITLE)
+        return render_template("errors/404.html")
     init_data()
     dates, series, trend_cards = parse_data(data, territory=territory)
     scatterplot_series = {
@@ -61,13 +60,13 @@ def provincial(territory):
         "data": EXP_STATUS
     }
     return render_template(
-        "index.html",
+        "dashboard.html",
+        navtitle=territory,
         dates=dates,
         trend_cards=trend_cards,
         territory=territory,
         provinces=PROVINCES,
         regions=REGIONS,
-        pagetitle=gettext(WEBSITE_TITLE),
         series=series,
         ts=str(time.time()),
         lockdown_days=(dt.datetime.today() - LOCKDOWN_DAY).days,
