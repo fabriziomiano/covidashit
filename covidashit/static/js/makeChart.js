@@ -77,6 +77,16 @@ $(document).ready(function () {
                     },
                 }
             },
+            tooltip: {
+                crosshairs: {
+                    width: 1,
+                    color: 'gray',
+                    dashStyle: 'ShortDashDot'
+                },
+                shared: true,
+                split: false,
+                enabled: true
+            },
             exporting: {
                 buttons: {
                     linScale: {
