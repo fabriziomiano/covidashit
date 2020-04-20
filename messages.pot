@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-16 21:45+0200\n"
+"POT-Creation-Date: 2020-04-20 18:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,51 +31,69 @@ msgid ""
 "symptoms"
 msgstr ""
 
-#: config.py:29
+#: config.py:30 config.py:53 config.py:76 config.py:99 config.py:129
+#: config.py:157 config.py:178 config.py:201 config.py:224 config.py:251
+#: config.py:274 config.py:295
+msgid "Increased with respect to yesterday"
+msgstr ""
+
+#: config.py:35 config.py:58 config.py:81 config.py:104 config.py:134
+#: config.py:162 config.py:183 config.py:206 config.py:229 config.py:256
+#: config.py:279 config.py:300
+msgid "Decreased with respect to yesterday"
+msgstr ""
+
+#: config.py:40 config.py:63 config.py:86 config.py:109 config.py:139
+#: config.py:167 config.py:188 config.py:211 config.py:234 config.py:261
+#: config.py:284 config.py:305
+msgid "Stable with respect to yesterday"
+msgstr ""
+
+#: config.py:44
 msgid "Intensive Care Unit"
 msgstr ""
 
-#: config.py:30
+#: config.py:45
 msgid "# of people currently in ICU"
 msgstr ""
 
-#: config.py:31
+#: config.py:46
 msgid "Total count of people currently in ICU and positive to COVID-19"
 msgstr ""
 
-#: config.py:37
+#: config.py:67
 msgid "Total Hospitalized"
 msgstr ""
 
-#: config.py:38
+#: config.py:68
 msgid "# of people currently hospitalized"
 msgstr ""
 
-#: config.py:39
+#: config.py:69
 msgid "Total count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 
-#: config.py:45
+#: config.py:90
 msgid "Self Isolation"
 msgstr ""
 
-#: config.py:46
+#: config.py:91
 msgid "# of people currently in self isolation"
 msgstr ""
 
-#: config.py:47
+#: config.py:92
 msgid "People currently positive but who don't need hospitalization"
 msgstr ""
 
-#: config.py:53
+#: config.py:113
 msgid "Total Positive"
 msgstr ""
 
-#: config.py:54
+#: config.py:114
 msgid "# of people currently hospitalized with symptoms + ICU + self isolation"
 msgstr ""
 
-#: config.py:58
+#: config.py:118
 msgid ""
 "People currently positive. Unlike 'Total Cases' it does not take into "
 "account 'healed' and 'deaths'. By the end of the outbreak this should "
@@ -83,271 +101,264 @@ msgid ""
 "healed - total deaths"
 msgstr ""
 
-#: config.py:68
+#: config.py:143
 msgid "Total Positive Variation"
 msgstr ""
 
-#: config.py:69
+#: config.py:144
 msgid "Variation of # of people currently positive with respect to yesterday"
 msgstr ""
 
-#: config.py:73
+#: config.py:148
 msgid ""
 "Variation of the number of people currently positive with respect to the "
 "previous day. It is negative when the number of daily healed and deaths "
 "is larger than 'New positive'"
 msgstr ""
 
-#: config.py:81
+#: config.py:171
 msgid "New Positive"
 msgstr ""
 
-#: config.py:82 config.py:83
+#: config.py:172 config.py:173
 msgid "Daily count of new positve cases"
 msgstr ""
 
-#: config.py:87
+#: config.py:192
 msgid "Total Healed"
 msgstr ""
 
-#: config.py:88
+#: config.py:193
 msgid "Cumulative # of people healed"
 msgstr ""
 
-#: config.py:89
+#: config.py:194
 msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:95
+#: config.py:215
 msgid "Total Deaths"
 msgstr ""
 
-#: config.py:96
+#: config.py:216
 msgid "Total deaths count"
 msgstr ""
 
-#: config.py:97
+#: config.py:217
 msgid "Total deaths count since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:103
+#: config.py:238
 msgid "Total Cases"
 msgstr ""
 
-#: config.py:104 config.py:108
+#: config.py:239 config.py:243
 msgid "Total count of the positive tests since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:115
+#: config.py:265
 msgid "Total Swabs"
 msgstr ""
 
-#: config.py:116
+#: config.py:266
 msgid "# of swabs performed"
 msgstr ""
 
-#: config.py:117
+#: config.py:267
 msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:123
+#: config.py:288
 msgid "Daily deaths"
 msgstr ""
 
-#: config.py:124 config.py:125
+#: config.py:289 config.py:290
 msgid "Daily deaths count"
 msgstr ""
 
-#: config.py:145 covidashit/templates/head.html:20
-msgid "COVID-19 Italy Monitor"
-msgstr ""
-
-#: covidashit/dataset.py:116
+#: covidashit/dataset.py:112
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:121
+#: covidashit/dataset.py:117
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:126
+#: covidashit/dataset.py:122
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: covidashit/dataset.py:131
+#: covidashit/dataset.py:127
 msgid "decedutititle"
 msgstr ""
 
-#: covidashit/dataset.py:135
+#: covidashit/dataset.py:131
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: covidashit/dataset.py:139
+#: covidashit/dataset.py:135
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: covidashit/dataset.py:143
+#: covidashit/dataset.py:139
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: covidashit/dataset.py:147
+#: covidashit/dataset.py:143
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: covidashit/dataset.py:151
+#: covidashit/dataset.py:147
 msgid "totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:155 covidashit/dataset.py:169
+#: covidashit/dataset.py:151 covidashit/dataset.py:165
 msgid "totale_casititle"
 msgstr ""
 
-#: covidashit/dataset.py:159
+#: covidashit/dataset.py:155
 msgid "tamponititle"
 msgstr ""
 
-#: covidashit/templates/cards.html:26
-msgid "Decreased with respect to yesterday"
+#: covidashit/templates/layout.html:23
+msgid "Latest Update:"
 msgstr ""
 
-#: covidashit/templates/cards.html:33
-msgid "Increased with respect to yesterday"
-msgstr ""
-
-#: covidashit/templates/cards.html:39
-msgid "Stable with respect to yesterday"
-msgstr ""
-
-#: covidashit/templates/charts.html:6
+#: covidashit/templates/includes/charts.html:6
 msgid "Trend"
 msgstr ""
 
-#: covidashit/templates/charts.html:8 covidashit/templates/charts.html:21
+#: covidashit/templates/includes/charts.html:8
+#: covidashit/templates/includes/charts.html:21
+#: covidashit/views/dashboard.py:33
 msgid "National"
 msgstr ""
 
-#: covidashit/templates/charts.html:18 covidashit/views/dashboard.py:28
-#: covidashit/views/dashboard.py:60
+#: covidashit/templates/includes/charts.html:18
+#: covidashit/views/dashboard.py:28 covidashit/views/dashboard.py:60
 msgid "New Positive VS Total Cases"
 msgstr ""
 
-#: covidashit/templates/charts.html:37
+#: covidashit/templates/includes/charts.html:37
 msgid "# of people"
 msgstr ""
 
-#: covidashit/templates/charts.html:43
+#: covidashit/templates/includes/charts.html:43
 msgid "Italy"
 msgstr ""
 
-#: covidashit/templates/charts.html:53
+#: covidashit/templates/includes/charts.html:53
 msgid ""
-"Source <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
+"Source: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
 "json'>Civil Protection dataset</a>"
 msgstr ""
 
-#: covidashit/templates/charts.html:58
+#: covidashit/templates/includes/charts.html:58
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr ""
 
-#: covidashit/templates/charts.html:65
+#: covidashit/templates/includes/charts.html:64
 msgid "# Total Cases"
 msgstr ""
 
-#: covidashit/templates/charts.html:72
+#: covidashit/templates/includes/charts.html:71
 msgid "# New Positive"
 msgstr ""
 
-#: covidashit/templates/head.html:18 covidashit/templates/head.html:22
+#: covidashit/templates/includes/head.html:18
+#: covidashit/templates/includes/head.html:22
 msgid "COVID-19 Italy outbreak data visualization"
 msgstr ""
 
-#: covidashit/templates/modal.html:7
+#: covidashit/templates/includes/head.html:20
+#: covidashit/templates/includes/head.html:31
+#: covidashit/templates/includes/head.html:33
+msgid "COVID-19 Italy Monitor"
+msgstr ""
+
+#: covidashit/templates/includes/modal.html:7
 msgid "HOW TO USE"
 msgstr ""
 
-#: covidashit/templates/modal.html:15
+#: covidashit/templates/includes/modal.html:15
 msgid ""
 "Use the name of the series at the bottom of the chart to Toggle them "
 "on/off"
 msgstr ""
 
-#: covidashit/templates/modal.html:18
+#: covidashit/templates/includes/modal.html:18
 msgid "Hover or tap"
 msgstr ""
 
-#: covidashit/templates/modal.html:19
+#: covidashit/templates/includes/modal.html:19
 msgid "next to the card title to read the description of the data"
 msgstr ""
 
-#: covidashit/templates/modal.html:31
+#: covidashit/templates/includes/modal.html:31
 msgid "Days since lockdown:"
 msgstr ""
 
-#: covidashit/templates/modal.html:38
+#: covidashit/templates/includes/modal.html:38
 msgid "Who made this?"
 msgstr ""
 
-#: covidashit/templates/modal.html:41
+#: covidashit/templates/includes/modal.html:41
 msgid "Got it!"
 msgstr ""
 
-#: covidashit/templates/modal.html:43
+#: covidashit/templates/includes/modal.html:43
 msgid "NOTE:"
 msgstr ""
 
-#: covidashit/templates/modal.html:43
+#: covidashit/templates/includes/modal.html:43
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
-#: covidashit/templates/pagecontent.html:13
-msgid "Latest Update:"
-msgstr ""
-
-#: covidashit/templates/sidebar.html:6
+#: covidashit/templates/includes/sidebar.html:6
 msgid "Usage"
 msgstr ""
 
-#: covidashit/templates/sidebar.html:10
+#: covidashit/templates/includes/sidebar.html:10
 msgid "How to"
 msgstr ""
 
-#: covidashit/templates/sidebar.html:14
+#: covidashit/templates/includes/sidebar.html:14
 msgid "Visualization"
 msgstr ""
 
-#: covidashit/templates/sidebar.html:17
+#: covidashit/templates/includes/sidebar.html:17
 msgid "National Data"
 msgstr ""
 
-#: covidashit/templates/sidebar.html:23
+#: covidashit/templates/includes/sidebar.html:23
 msgid "Regional Data"
 msgstr ""
 
-#: covidashit/templates/sidebar.html:38
+#: covidashit/templates/includes/sidebar.html:38
 msgid "Provincial Data (Total cases only)"
 msgstr ""
 
-#: covidashit/templates/sidebar.html:50
+#: covidashit/templates/includes/sidebar.html:50
 msgid "Credits"
 msgstr ""
 
-#: covidashit/templates/sidebar.html:55
+#: covidashit/templates/includes/sidebar.html:55
 msgid "Author"
 msgstr ""
 
-#: covidashit/templates/sidebar.html:62
+#: covidashit/templates/includes/sidebar.html:62
 msgid "CP News"
 msgstr ""
 
-#: covidashit/templates/sidebar.html:65
+#: covidashit/templates/includes/sidebar.html:65
 msgid "CP Repo"
 msgstr ""
 
-#: covidashit/templates/sidebar.html:71
+#: covidashit/templates/includes/sidebar.html:71
 msgid "Days since lockdown"
 msgstr ""
 
-#: covidashit/templates/sidebar.html:73
+#: covidashit/templates/includes/sidebar.html:73
 msgid "#italiachiusa on Twitter"
 msgstr ""
 
