@@ -270,17 +270,17 @@ ITEN_MAP = {
         "icon": "fas fa-vial",
         "increase": {
             "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up",
+            "icon": "",
             "tooltip": gettext("Increased with respect to yesterday")
         },
         "decrease": {
             "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down",
+            "icon": "",
             "tooltip": gettext("Decreased with respect to yesterday")
         },
         "stable": {
             "colour": "text-info",
-            "icon": "fas fa-minus",
+            "icon": "",
             "tooltip": gettext("Stable with respect to yesterday")
         }
     },
