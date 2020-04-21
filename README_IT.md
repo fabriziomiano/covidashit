@@ -51,7 +51,7 @@ Alternativamente, è possibile fare il build del container Docker:
 ```
 docker-compose up -d
 ```
-Flask sarà in ascolto all'url [http://127.0.0.1](http://127.0.0.1), stavolta sulla 80
+Flask sarà in ascolto all'url [http://127.0.0.1](http://127.0.0.1) 
 
 ## Donazione
 

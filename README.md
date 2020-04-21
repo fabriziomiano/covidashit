@@ -52,7 +52,7 @@ Alternatively, it is possible to build a Docker image and deploy the container l
 docker-compose up -d
 ```
 
-Flask will be listening at [http://127.0.0.1](http://127.0.0.1) (this time at the port 80)
+Flask will be listening at [http://127.0.0.1](http://127.0.0.1)
 
 ## Donation
 
