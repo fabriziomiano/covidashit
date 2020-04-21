@@ -38,6 +38,8 @@ $ export FLASK_DEBUG=1
 $ python -m flask run
 ```
 
+Flask sarà in ascolto all'url [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
 ##### Produzione
 Il `Procfile` è pronto per essere utilizzato su Heroku. 
 Per testare l'abmiente di produzione in locale:
@@ -49,7 +51,7 @@ Alternativamente, è possibile fare il build del container Docker:
 ```
 docker-compose up -d
 ```
-Se è andato tutto bene, la WebApp sarà in ascolto [http://127.0.0.1](http://127.0.0.1)
+Flask sarà in ascolto all'url [http://127.0.0.1](http://127.0.0.1), stavolta sulla 80
 
 ## Donazione
 

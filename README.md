@@ -38,6 +38,7 @@ $ export FLASK_ENV=development
 $ export FLASK_DEBUG=1
 $ python -m flask run
 ```
+Flask will be listening at [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ##### Production
 The `Profile` can be used to deploy the app on Heroku.
@@ -51,7 +52,7 @@ Alternatively, it is possible to build a Docker image and deploy the container l
 docker-compose up -d
 ```
 
-If all went down well, the WebApp will be listening at [http://127.0.0.1](http://127.0.0.1)
+Flask will be listening at [http://127.0.0.1](http://127.0.0.1) (this time at the port 80)
 
 ## Donation
 
