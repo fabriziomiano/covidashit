@@ -121,18 +121,15 @@ def fill_series(province=False):
     if not province:
         series1 = {
             "name": gettext(ITEN_MAP["nuovi_positivi"]["title"]),
-            "data": NEW_POS,
-            "visible": "true"
+            "data": NEW_POS
         }
         series2 = {
             "name": gettext(ITEN_MAP["variazione_totale_positivi"]["title"]),
-            "data": TOT_POS_VAR,
-            "visible": "true"
+            "data": TOT_POS_VAR
         }
         series3 = {
             "name": gettext(ITEN_MAP["terapia_intensiva"]["title"]),
-            "data": ICU,
-            "visible": "true"
+            "data": ICU
         }
         series4 = {
             "name": gettext(ITEN_MAP["deceduti"]["title"]),
