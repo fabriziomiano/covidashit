@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-23 18:57+0200\n"
+"POT-Creation-Date: 2020-04-23 20:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -212,11 +212,11 @@ msgstr ""
 msgid "totale_positivititle"
 msgstr ""
 
-#: covidashit/datatools.py:159 covidashit/datatools.py:173
+#: covidashit/datatools.py:160 covidashit/datatools.py:174
 msgid "totale_casititle"
 msgstr ""
 
-#: covidashit/datatools.py:163
+#: covidashit/datatools.py:164
 msgid "tamponititle"
 msgstr ""
 
@@ -274,7 +274,7 @@ msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
 #: covidashit/templates/base/navbar.html:6
-#: covidashit/templates/dashboard/charts.html:65
+#: covidashit/templates/dashboard/charts.html:68
 msgid "Italy"
 msgstr ""
 
@@ -330,47 +330,47 @@ msgstr ""
 msgid "Trend"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:9
-#: covidashit/templates/dashboard/charts.html:43
+#: covidashit/templates/dashboard/charts.html:11
+#: covidashit/templates/dashboard/charts.html:46
 msgid "National"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:15
+#: covidashit/templates/dashboard/charts.html:17
 msgid "Single Selection"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:19
+#: covidashit/templates/dashboard/charts.html:21
 msgid "Multiple Selection"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:23
-msgid "Select data"
+#: covidashit/templates/dashboard/charts.html:25
+msgid "Select data (default Total Positive)"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:40
-#: covidashit/views/dashboard.py:28 covidashit/views/dashboard.py:60
+#: covidashit/templates/dashboard/charts.html:43
+#: covidashit/views/dashboard.py:32 covidashit/views/dashboard.py:64
 msgid "New Positive VS Total Cases"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:59
+#: covidashit/templates/dashboard/charts.html:62
 msgid "# of people"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:75
+#: covidashit/templates/dashboard/charts.html:78
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
 "json'>Civil Protection dataset</a>"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:80
+#: covidashit/templates/dashboard/charts.html:83
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:86
+#: covidashit/templates/dashboard/charts.html:89
 msgid "# Total Cases"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:93
+#: covidashit/templates/dashboard/charts.html:96
 msgid "# New Positive"
 msgstr ""
 
