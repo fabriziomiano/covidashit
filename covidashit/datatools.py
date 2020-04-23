@@ -5,13 +5,8 @@ import requests
 from flask import current_app
 from flask_babel import gettext
 
-from config import (
-    REGION_KEY, CARD_TYPES, ITEN_MAP, PCM_DATE_FMT, PROVINCE_KEY,
-    CHART_DATE_FMT, PCM_DATE_KEY, UPDATE_FMT, PROVINCES, REGIONS,
-    URL_NATIONAL_DATA, NATIONAL_DATA_FILE, URL_REGIONAL_DATA,
-    REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE, CUSTOM_CARD,
-    CARD_MAP
-)
+from config import CUSTOM_CARDS, CARD_MAP, CARD_TYPES, ITEN_MAP, PROVINCES, PROVINCE_KEY, REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT, PCM_DATE_KEY, UPDATE_FMT, URL_NATIONAL_DATA, \
+    NATIONAL_DATA_FILE, URL_REGIONAL_DATA, REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE
 
 DATES = []
 ICU = []
@@ -26,7 +21,6 @@ HEALED = []
 TOT_CASES = []
 TOT_POS_VAR = []
 EXP_STATUS = []
-
 ALL_DATA = [
     DATES, ICU, HOSP_W_SYMPTS, TOT_DEATHS, TOT_HOSP, SELF_ISOL, TOT_POS,
     NEW_POS, TOT_SWABS, HEALED, TOT_CASES, TOT_POS_VAR, EXP_STATUS
@@ -55,6 +49,40 @@ def cache_data(data, data_filepath):
         json.dump(data, data_file)
 
 
+def get_stats(key, last, penultimate, third_tolast):
+    """
+    Return count and status of a given data type
+    :param key: str
+    :param last: dict
+    :param penultimate: dict
+    :param third_tolast: dict
+    :return: dict
+    """
+    if key not in CUSTOM_CARDS:
+        count = last[key]
+        if penultimate[key] > last[key]:
+            status = "decrease"
+        elif penultimate[key] == last[key]:
+            status = "stable"
+        else:
+            status = "increase"
+    else:
+        count = last[CARD_MAP[key]] - penultimate[CARD_MAP[key]]
+        today_diff = last[CARD_MAP[key]] - penultimate[CARD_MAP[key]]
+        yesterday_diff = penultimate[CARD_MAP[key]] - third_tolast[CARD_MAP[key]]
+        if today_diff < yesterday_diff:
+            status = "decrease"
+        elif today_diff == yesterday_diff:
+            status = "stable"
+        else:
+            status = "increase"
+    stats = {
+        "count": count,
+        "status": status
+    }
+    return stats
+
+
 def get_trends(data, province=False):
     """
     Return a list of dicts of the daily trend wrt to the previous day
@@ -71,33 +99,16 @@ def get_trends(data, province=False):
     third_tolast = data[-3]
     trend_cards = []
     for key in card_types:
-        if key not in CUSTOM_CARD:
-            count = last[key]
-            if penultimate[key] > last[key]:
-                status = "decrease"
-            elif penultimate[key] == last[key]:
-                status = "stable"
-            else:
-                status = "increase"
-        else:
-            count = last[CARD_MAP[key]] - penultimate[CARD_MAP[key]]
-            today_diff = last[CARD_MAP[key]] - penultimate[CARD_MAP[key]]
-            yesterday_diff = penultimate[CARD_MAP[key]] - third_tolast[CARD_MAP[key]]
-            if today_diff < yesterday_diff:
-                status = "decrease"
-            elif today_diff == yesterday_diff:
-                status = "stable"
-            else:
-                status = "increase"
+        stats = get_stats(key, last, penultimate, third_tolast)
         trend_cards.append({
             "title": ITEN_MAP[key]["title"],
             "desc": ITEN_MAP[key]["desc"],
             "longdesc": ITEN_MAP[key]["longdesc"],
-            "count": count,
-            "colour": ITEN_MAP[key][status]["colour"],
+            "count": stats["count"],
+            "colour": ITEN_MAP[key][stats["status"]]["colour"],
             "icon": ITEN_MAP[key]["icon"],
-            "status_icon": ITEN_MAP[key][status]["icon"],
-            "tooltip": ITEN_MAP[key][status]["tooltip"]
+            "status_icon": ITEN_MAP[key][stats["status"]]["icon"],
+            "tooltip": ITEN_MAP[key][stats["status"]]["tooltip"]
         })
     return trend_cards
 
@@ -258,7 +269,7 @@ def get_national_data():
     """
     data = {}
     try:
-        response = requests.get(URL_NATIONAL_DATA)
+        response = requests.get(URL_NATIONAL_DATA, timeout=5)
         status = response.status_code
         if status == 200:
             national_data = response.json()
@@ -280,7 +291,7 @@ def get_regional_data():
     """
     data = {}
     try:
-        response = requests.get(URL_REGIONAL_DATA)
+        response = requests.get(URL_REGIONAL_DATA, timeout=5)
         status = response.status_code
         if status == 200:
             regional_data = response.json()
@@ -302,7 +313,7 @@ def get_provincial_data():
     """
     data = {}
     try:
-        response = requests.get(URL_PROVINCIAL_DATA)
+        response = requests.get(URL_PROVINCIAL_DATA, timeout=5)
         status = response.status_code
         if status == 200:
             prov_data = response.json()

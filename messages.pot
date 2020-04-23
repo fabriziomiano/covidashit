@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-20 18:01+0200\n"
+"POT-Creation-Date: 2020-04-23 16:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,47 +176,47 @@ msgstr ""
 msgid "Daily deaths count"
 msgstr ""
 
-#: covidashit/dataset.py:112
+#: covidashit/datatools.py:123
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:117
+#: covidashit/datatools.py:128
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:122
+#: covidashit/datatools.py:133
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: covidashit/dataset.py:127
+#: covidashit/datatools.py:138
 msgid "decedutititle"
 msgstr ""
 
-#: covidashit/dataset.py:131
+#: covidashit/datatools.py:142
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: covidashit/dataset.py:135
+#: covidashit/datatools.py:146
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: covidashit/dataset.py:139
+#: covidashit/datatools.py:150
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: covidashit/dataset.py:143
+#: covidashit/datatools.py:154
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: covidashit/dataset.py:147
+#: covidashit/datatools.py:158
 msgid "totale_positivititle"
 msgstr ""
 
-#: covidashit/dataset.py:151 covidashit/dataset.py:165
+#: covidashit/datatools.py:162 covidashit/datatools.py:176
 msgid "totale_casititle"
 msgstr ""
 
-#: covidashit/dataset.py:155
+#: covidashit/datatools.py:166
 msgid "tamponititle"
 msgstr ""
 
@@ -224,141 +224,141 @@ msgstr ""
 msgid "Latest Update:"
 msgstr ""
 
-#: covidashit/templates/includes/charts.html:6
-msgid "Trend"
-msgstr ""
-
-#: covidashit/templates/includes/charts.html:8
-#: covidashit/templates/includes/charts.html:21
-#: covidashit/views/dashboard.py:33
-msgid "National"
-msgstr ""
-
-#: covidashit/templates/includes/charts.html:18
-#: covidashit/views/dashboard.py:28 covidashit/views/dashboard.py:60
-msgid "New Positive VS Total Cases"
-msgstr ""
-
-#: covidashit/templates/includes/charts.html:37
-msgid "# of people"
-msgstr ""
-
-#: covidashit/templates/includes/charts.html:43
-msgid "Italy"
-msgstr ""
-
-#: covidashit/templates/includes/charts.html:53
-msgid ""
-"Source: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
-"json'>Civil Protection dataset</a>"
-msgstr ""
-
-#: covidashit/templates/includes/charts.html:58
-msgid "by Fabrizio Miano | Made with Highcharts.com"
-msgstr ""
-
-#: covidashit/templates/includes/charts.html:64
-msgid "# Total Cases"
-msgstr ""
-
-#: covidashit/templates/includes/charts.html:71
-msgid "# New Positive"
-msgstr ""
-
-#: covidashit/templates/includes/head.html:18
-#: covidashit/templates/includes/head.html:22
+#: covidashit/templates/base/head.html:18
+#: covidashit/templates/base/head.html:22
 msgid "COVID-19 Italy outbreak data visualization"
 msgstr ""
 
-#: covidashit/templates/includes/head.html:20
-#: covidashit/templates/includes/head.html:31
-#: covidashit/templates/includes/head.html:33
+#: covidashit/templates/base/head.html:20
+#: covidashit/templates/base/head.html:31
+#: covidashit/templates/base/head.html:33
 msgid "COVID-19 Italy Monitor"
 msgstr ""
 
-#: covidashit/templates/includes/modal.html:7
+#: covidashit/templates/base/modal.html:7
 msgid "HOW TO USE"
 msgstr ""
 
-#: covidashit/templates/includes/modal.html:15
+#: covidashit/templates/base/modal.html:16
 msgid ""
 "Use the name of the series at the bottom of the chart to Toggle them "
 "on/off"
 msgstr ""
 
-#: covidashit/templates/includes/modal.html:18
+#: covidashit/templates/base/modal.html:19
 msgid "Hover or tap"
 msgstr ""
 
-#: covidashit/templates/includes/modal.html:19
+#: covidashit/templates/base/modal.html:20
 msgid "next to the card title to read the description of the data"
 msgstr ""
 
-#: covidashit/templates/includes/modal.html:31
+#: covidashit/templates/base/modal.html:31
 msgid "Days since lockdown:"
 msgstr ""
 
-#: covidashit/templates/includes/modal.html:38
+#: covidashit/templates/base/modal.html:38
 msgid "Who made this?"
 msgstr ""
 
-#: covidashit/templates/includes/modal.html:41
+#: covidashit/templates/base/modal.html:41
 msgid "Got it!"
 msgstr ""
 
-#: covidashit/templates/includes/modal.html:43
+#: covidashit/templates/base/modal.html:43
 msgid "NOTE:"
 msgstr ""
 
-#: covidashit/templates/includes/modal.html:43
+#: covidashit/templates/base/modal.html:43
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:6
+#: covidashit/templates/base/navbar.html:6
+#: covidashit/templates/dashboard/charts.html:43
+msgid "Italy"
+msgstr ""
+
+#: covidashit/templates/base/sidebar.html:6
 msgid "Usage"
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:10
+#: covidashit/templates/base/sidebar.html:10
 msgid "How to"
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:14
+#: covidashit/templates/base/sidebar.html:14
 msgid "Visualization"
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:17
+#: covidashit/templates/base/sidebar.html:17
 msgid "National Data"
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:23
+#: covidashit/templates/base/sidebar.html:23
 msgid "Regional Data"
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:38
+#: covidashit/templates/base/sidebar.html:38
 msgid "Provincial Data (Total cases only)"
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:50
+#: covidashit/templates/base/sidebar.html:50
 msgid "Credits"
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:55
+#: covidashit/templates/base/sidebar.html:55
 msgid "Author"
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:62
+#: covidashit/templates/base/sidebar.html:62
 msgid "CP News"
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:65
+#: covidashit/templates/base/sidebar.html:65
 msgid "CP Repo"
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:71
+#: covidashit/templates/base/sidebar.html:71
 msgid "Days since lockdown"
 msgstr ""
 
-#: covidashit/templates/includes/sidebar.html:73
+#: covidashit/templates/base/sidebar.html:73
 msgid "#italiachiusa on Twitter"
+msgstr ""
+
+#: covidashit/templates/dashboard/charts.html:6
+msgid "Trend"
+msgstr ""
+
+#: covidashit/templates/dashboard/charts.html:8
+#: covidashit/templates/dashboard/charts.html:21
+msgid "National"
+msgstr ""
+
+#: covidashit/templates/dashboard/charts.html:18
+#: covidashit/views/dashboard.py:28 covidashit/views/dashboard.py:59
+msgid "New Positive VS Total Cases"
+msgstr ""
+
+#: covidashit/templates/dashboard/charts.html:37
+msgid "# of people"
+msgstr ""
+
+#: covidashit/templates/dashboard/charts.html:53
+msgid ""
+"Source: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
+"json'>Civil Protection dataset</a>"
+msgstr ""
+
+#: covidashit/templates/dashboard/charts.html:58
+msgid "by Fabrizio Miano | Made with Highcharts.com"
+msgstr ""
+
+#: covidashit/templates/dashboard/charts.html:64
+msgid "# Total Cases"
+msgstr ""
+
+#: covidashit/templates/dashboard/charts.html:71
+msgid "# New Positive"
 msgstr ""
 

@@ -5,9 +5,9 @@ from flask import render_template, redirect, Blueprint
 from flask_babel import gettext
 
 from config import LOCKDOWN_DAY, REGIONS, PROVINCES
-from covidashit.dataset import (
-    init_data, parse_data, latest_update, EXP_STATUS,
-    get_national_data, get_regional_data, get_provincial_data
+from covidashit.datatools import (
+    EXP_STATUS, parse_data, init_data, latest_update, get_national_data,
+    get_regional_data, get_provincial_data
 )
 
 dashboard = Blueprint("dashboard", __name__)

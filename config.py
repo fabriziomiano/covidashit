@@ -313,7 +313,7 @@ CARD_TYPES = [
     "variazione_totale_positivi", "totale_casi", "isolamento_domiciliare",
     "dimessi_guariti", "deceduti", "tamponi"
 ]
-CUSTOM_CARD = ["deceduti_giornalieri"]
+CUSTOM_CARDS = ["deceduti_giornalieri"]
 CARD_MAP = {
     "deceduti_giornalieri": "deceduti"
 }
