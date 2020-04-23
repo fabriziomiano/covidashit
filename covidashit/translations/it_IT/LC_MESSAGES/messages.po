@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-23 16:20+0200\n"
-"PO-Revision-Date: 2020-04-23 16:20+0200\n"
+"POT-Creation-Date: 2020-04-23 18:57+0200\n"
+"PO-Revision-Date: 2020-04-23 18:59+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -196,43 +196,43 @@ msgstr "Conteggio decessi odierni"
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: covidashit/datatools.py:128
+#: covidashit/datatools.py:127
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: covidashit/datatools.py:133
+#: covidashit/datatools.py:131
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: covidashit/datatools.py:138
+#: covidashit/datatools.py:135
 msgid "decedutititle"
 msgstr ""
 
-#: covidashit/datatools.py:142
+#: covidashit/datatools.py:139
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: covidashit/datatools.py:146
+#: covidashit/datatools.py:143
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: covidashit/datatools.py:150
+#: covidashit/datatools.py:147
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: covidashit/datatools.py:154
+#: covidashit/datatools.py:151
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: covidashit/datatools.py:158
+#: covidashit/datatools.py:155
 msgid "totale_positivititle"
 msgstr ""
 
-#: covidashit/datatools.py:162 covidashit/datatools.py:176
+#: covidashit/datatools.py:159 covidashit/datatools.py:173
 msgid "totale_casititle"
 msgstr ""
 
-#: covidashit/datatools.py:166
+#: covidashit/datatools.py:163
 msgid "tamponititle"
 msgstr ""
 
@@ -291,7 +291,7 @@ msgid "Only \"Total cases\" is provided for the provinces."
 msgstr "Solo i \"Casi totali\" vengono forniti per le province."
 
 #: covidashit/templates/base/navbar.html:6
-#: covidashit/templates/dashboard/charts.html:43
+#: covidashit/templates/dashboard/charts.html:65
 msgid "Italy"
 msgstr "Italia"
 
@@ -343,25 +343,37 @@ msgstr "Giorni trascorsi dal blocco"
 msgid "#italiachiusa on Twitter"
 msgstr "#italiachiusa su Twitter"
 
-#: covidashit/templates/dashboard/charts.html:6
+#: covidashit/templates/dashboard/charts.html:7
 msgid "Trend"
 msgstr "Andamento"
 
-#: covidashit/templates/dashboard/charts.html:8
-#: covidashit/templates/dashboard/charts.html:21
+#: covidashit/templates/dashboard/charts.html:9
+#: covidashit/templates/dashboard/charts.html:43
 msgid "National"
 msgstr "Nazionale"
 
-#: covidashit/templates/dashboard/charts.html:18
-#: covidashit/views/dashboard.py:28 covidashit/views/dashboard.py:59
+#: covidashit/templates/dashboard/charts.html:15
+msgid "Single Selection"
+msgstr "Seleziona Unica"
+
+#: covidashit/templates/dashboard/charts.html:19
+msgid "Multiple Selection"
+msgstr "Selezione Multipla"
+
+#: covidashit/templates/dashboard/charts.html:23
+msgid "Select data"
+msgstr "Seleziona una serie"
+
+#: covidashit/templates/dashboard/charts.html:40
+#: covidashit/views/dashboard.py:28 covidashit/views/dashboard.py:60
 msgid "New Positive VS Total Cases"
 msgstr "Nuovi Positivi VS Totale Casi"
 
-#: covidashit/templates/dashboard/charts.html:37
+#: covidashit/templates/dashboard/charts.html:59
 msgid "# of people"
 msgstr "# persone"
 
-#: covidashit/templates/dashboard/charts.html:53
+#: covidashit/templates/dashboard/charts.html:75
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
 "json'>Civil Protection dataset</a>"
@@ -369,15 +381,15 @@ msgstr ""
 "Fonte: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
 "json'>Dati Protezione Civile</a>"
 
-#: covidashit/templates/dashboard/charts.html:58
+#: covidashit/templates/dashboard/charts.html:80
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
-#: covidashit/templates/dashboard/charts.html:64
+#: covidashit/templates/dashboard/charts.html:86
 msgid "# Total Cases"
 msgstr "# Totale casi"
 
-#: covidashit/templates/dashboard/charts.html:71
+#: covidashit/templates/dashboard/charts.html:93
 msgid "# New Positive"
 msgstr "# Nuovi Positivi"
 
