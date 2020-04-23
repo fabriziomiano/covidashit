@@ -11,25 +11,9 @@
 {% include 'base/navbar.html' %}
 
 <div id="layoutSidenav">
-
     {% include 'base/sidebar.html' %}
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid">
-
-                <!-- Breadcrumb -->
-                <ol class="breadcrumb mt-3">
-                    <li class="breadcrumb-item active">
-                        <i class="fas fa-bullhorn mr-2"></i>{{ _("Latest Update:") }} {{ latest_update }}
-                    </li>
-                </ol>
-
-                {% block content %}
-                {% endblock %}
-
-            </div>
-        </main>
-    </div>
+    {% block content %}
+    {% endblock %}
 </div>
 
 

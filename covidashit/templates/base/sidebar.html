@@ -5,8 +5,7 @@
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">{{ _("Usage") }}</div>
                 <div class="container-fluid">
-                    <button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal"
-                            data-target="#welcomeModal">
+                    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#welcomeModal">
                         <i class="fas fa-info-circle"></i> {{ _("How to") }}
                     </button>
                 </div>
@@ -35,12 +34,12 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProvinceLayouts"
                    aria-expanded="false" aria-controls="collapseProvinceLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
-                    {{ _('Provincial Data (Total cases only)') }}
+                    {{ _('Provincial Data') }}
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseProvinceLayouts" aria-labelledby="headingOne"
                      data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested small nav">
+                    <nav class="sb-sidenav-menu-nested nav small">
                         {% for province in provinces %}
                             <a class="nav-link" href="/provinces/{{ province }}">{{ province }}</a>
                         {% endfor %}
@@ -59,12 +58,13 @@
                    href="http://www.protezionecivile.gov.it/"
                    target="_blank">
                     <div class="sb-nav-link-icon"><i class="far fa-newspaper"></i></div>
-                    {{ _('CP News') }}</a>
+                    {{ _('CPD News') }}</a>
                 <a class="nav-link" href="https://github.com/pcm-dpc/COVID-19" target="_blank">
                     <div class="sb-nav-link-icon"><i class="fab fa-github"></i></div>
-                    {{ _('CP Repo') }}</a>
+                    {{ _('CPD Repository') }}</a>
             </div>
         </div>
+
 
         <!-- footer sidebar-->
         <div class="sb-sidenav-footer">

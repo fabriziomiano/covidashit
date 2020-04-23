@@ -3,9 +3,6 @@ let chartTrendOptions = {
         type: 'line',
         zoomType: 'x'
     },
-    legend: {
-        enabled: false
-    },
     title: title,
     xAxis: xAxis,
     yAxis: yAxis,
@@ -64,7 +61,7 @@ let chartIacopoOptions = {
     plotOptions: {
         scatter: {
             marker: {
-                radius: 7,
+                radius: 3,
                 states: {
                     hover: {
                         enabled: true,
@@ -121,25 +118,15 @@ $(document).ready(function () {
     if (!window.location.href.includes("provinces")) {
         $("#chart-iacopo").highcharts(chartIacopoOptions);
     }
-    if (!document.getElementById("radioSingleSel").checked) {
-
-    }
 });
 
 function dataTypeSelector(value) {
-    if (document.getElementById("radioSingleSel").checked) {
+    if (value !== "default") {
         for (let i = 0; i < chartTrend.series.length; i++) {
             if (chartTrend.series[i].name === value) {
                 chartTrend.series[i].show()
             } else {
                 chartTrend.series[i].hide()
-            }
-        }
-    }
-    if (document.getElementById("radioMultSel").checked) {
-        for (let i = 0; i < chartTrend.series.length; i++) {
-            if (chartTrend.series[i].name === value) {
-                chartTrend.series[i].show()
             }
         }
     }

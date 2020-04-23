@@ -60,16 +60,18 @@ def get_stats(key, last, penultimate, third_tolast):
     """
     if key not in CUSTOM_CARDS:
         count = last[key]
-        if penultimate[key] > last[key]:
+        if int(penultimate[key]) > int(last[key]):
             status = "decrease"
         elif penultimate[key] == last[key]:
             status = "stable"
         else:
             status = "increase"
     else:
-        count = last[CARD_MAP[key]] - penultimate[CARD_MAP[key]]
-        today_diff = last[CARD_MAP[key]] - penultimate[CARD_MAP[key]]
-        yesterday_diff = penultimate[CARD_MAP[key]] - third_tolast[CARD_MAP[key]]
+        count = int(last[CARD_MAP[key]]) - int(penultimate[CARD_MAP[key]])
+        today_diff = int(last[CARD_MAP[key]]) - int(penultimate[CARD_MAP[key]])
+        yesterday_count = int(penultimate[CARD_MAP[key]])
+        day_before_yesterday_count = int(third_tolast[CARD_MAP[key]])
+        yesterday_diff = yesterday_count - day_before_yesterday_count
         if today_diff < yesterday_diff:
             status = "decrease"
         elif today_diff == yesterday_diff:
@@ -153,7 +155,8 @@ def fill_series(province=False):
         }
         series9 = {
             "name": gettext(ITEN_MAP["totale_positivi"]["title"]),
-            "data": TOT_POS
+            "data": TOT_POS,
+            "visible": "true"
         }
         series10 = {
             "name": gettext(ITEN_MAP["totale_casi"]["title"]),

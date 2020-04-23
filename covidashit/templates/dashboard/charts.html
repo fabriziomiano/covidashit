@@ -5,32 +5,28 @@
             <div class="card-header">
                 <i class="fas fa-chart-line mr-2"></i>
                 {{ _("Trend") }} |
-                {% if territory %} {{ territory }}
-                {% else %} {{ _("National") }}
+                {% if territory %}
+                    {{ territory }}
+                {% else %}
+                    {{ _("National") }}
                 {% endif %}
                 {% if territory not in provinces %}
-                    <span class="badge badge-danger">New</span>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioSingleSel" value="option1" checked>
-                        <label class="form-check-label" for="radioSingleSel">{{ _("Single Selection") }}</label>
+                    <div class="float-sm-right small">
+                        <label for="dataTypeSelector">
+                            <select class="form-control form-control-sm" name="dataTypeSelector" onmousedown="this.value='';" onchange="dataTypeSelector(this.value);">
+                                <option value="default" selected>{{ _("Select data (default Total Positive)") }}</option>
+                                {% for ds in data_series %}
+                                    <option value="{{ gettext(ds) }}">
+                                        {{ gettext(ds) }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <small class="form-text text-muted">{{ _("Visualize one series at a time") }}</small>
+                        </label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioMultSel" value="option2">
-                        <label class="form-check-label" for="radioMultSel">{{ _("Multiple Selection") }}</label>
-                    </div>
-                    <label for="dataTypeSelector">
-                        <select class="form-control form-control-sm ml-2" name="dataTypeSelector" onmousedown="this.value='';" onchange="dataTypeSelector(this.value);">
-                            <option value="default" selected>{{ _("Select data") }}</option>
-                            {% for key in datatype_dict %}
-                                <option value="{{ gettext(datatype_dict[key]["title"]) }}">
-                                    {{ gettext(datatype_dict[key]["title"]) }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </label>
                 {% endif %}
             </div>
-            <div id="chart-trend" class="container-fluid" style="border: none; width:100%; margin: 0 auto"></div>
+            <div id="chart-trend" class="container-fluid px-2" style="border: none; width:100%; margin: 0 auto"></div>
         </div>
     </div>
 
@@ -43,7 +39,7 @@
                     {% else %} {{ _("National") }}
                     {% endif %}
                 </div>
-                <div id="chart-iacopo" class="container-fluid" style="border: none; width:100%; margin: 0 auto"></div>
+                <div id="chart-iacopo" class="container-fluid px-2" style="border: none; width:100%; margin: 0 auto"></div>
             </div>
         </div>
     {% endif %}
