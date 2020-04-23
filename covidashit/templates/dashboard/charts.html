@@ -11,17 +11,9 @@
                     {{ _("National") }}
                 {% endif %}
                 {% if territory not in provinces %}
-                    <div class="float-sm-right">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioSingleSel" value="option1" checked>
-                            <label class="form-check-label" for="radioSingleSel">{{ _("Single Selection") }}</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioMultSel" value="option2">
-                            <label class="form-check-label" for="radioMultSel">{{ _("Multiple Selection") }}</label>
-                        </div>
+                    <div class="float-sm-right small">
                         <label for="dataTypeSelector">
-                            <select class="form-control form-control-sm ml-2" name="dataTypeSelector" onmousedown="this.value='';" onchange="dataTypeSelector(this.value);">
+                            <select class="form-control form-control-sm" name="dataTypeSelector" onmousedown="this.value='';" onchange="dataTypeSelector(this.value);">
                                 <option value="default" selected>{{ _("Select data (default Total Positive)") }}</option>
                                 {% for ds in data_series %}
                                     <option value="{{ gettext(ds) }}">
@@ -29,11 +21,12 @@
                                     </option>
                                 {% endfor %}
                             </select>
+                            <small class="form-text text-muted">{{ _("Visualize one series at a time") }}</small>
                         </label>
                     </div>
                 {% endif %}
             </div>
-            <div id="chart-trend" class="container-fluid px-0" style="border: none; width:100%; margin: 0 auto"></div>
+            <div id="chart-trend" class="container-fluid px-2" style="border: none; width:100%; margin: 0 auto"></div>
         </div>
     </div>
 
@@ -46,7 +39,7 @@
                     {% else %} {{ _("National") }}
                     {% endif %}
                 </div>
-                <div id="chart-iacopo" class="container-fluid px-0" style="border: none; width:100%; margin: 0 auto"></div>
+                <div id="chart-iacopo" class="container-fluid px-2" style="border: none; width:100%; margin: 0 auto"></div>
             </div>
         </div>
     {% endif %}

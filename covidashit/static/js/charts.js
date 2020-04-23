@@ -122,22 +122,12 @@ $(document).ready(function () {
 
 function dataTypeSelector(value) {
     if (value !== "default") {
-        if (document.getElementById("radioSingleSel").checked) {
-            for (let i = 0; i < chartTrend.series.length; i++) {
-                if (chartTrend.series[i].name === value) {
-                    chartTrend.series[i].show()
-                } else {
-                    chartTrend.series[i].hide()
-                }
+        for (let i = 0; i < chartTrend.series.length; i++) {
+            if (chartTrend.series[i].name === value) {
+                chartTrend.series[i].show()
+            } else {
+                chartTrend.series[i].hide()
             }
-        } else if (document.getElementById("radioMultSel").checked) {
-            for (let i = 0; i < chartTrend.series.length; i++) {
-                if (chartTrend.series[i].name === value) {
-                    chartTrend.series[i].show()
-                }
-            }
-        } else {
-            alert("Please select single or multiple selection")
         }
     }
 }
