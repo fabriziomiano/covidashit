@@ -18,12 +18,11 @@
     $("#sidebarToggle").on("click", function (e) {
         e.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
+        $(window).resize();
     });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+
 })(jQuery);
-
-// load tooltips
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-});
-
-//  TODO: Find a way to resize the chart to full width when the sidebar is toggled
