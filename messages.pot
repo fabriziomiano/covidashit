@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-23 20:42+0200\n"
+"POT-Creation-Date: 2020-04-23 21:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -274,7 +274,7 @@ msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
 #: covidashit/templates/base/navbar.html:6
-#: covidashit/templates/dashboard/charts.html:68
+#: covidashit/templates/dashboard/charts.html:61
 msgid "Italy"
 msgstr ""
 
@@ -331,46 +331,42 @@ msgid "Trend"
 msgstr ""
 
 #: covidashit/templates/dashboard/charts.html:11
-#: covidashit/templates/dashboard/charts.html:46
+#: covidashit/templates/dashboard/charts.html:39
 msgid "National"
 msgstr ""
 
 #: covidashit/templates/dashboard/charts.html:17
-msgid "Single Selection"
-msgstr ""
-
-#: covidashit/templates/dashboard/charts.html:21
-msgid "Multiple Selection"
-msgstr ""
-
-#: covidashit/templates/dashboard/charts.html:25
 msgid "Select data (default Total Positive)"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:43
+#: covidashit/templates/dashboard/charts.html:24
+msgid "Visualize one series at a time"
+msgstr ""
+
+#: covidashit/templates/dashboard/charts.html:36
 #: covidashit/views/dashboard.py:32 covidashit/views/dashboard.py:64
 msgid "New Positive VS Total Cases"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:62
+#: covidashit/templates/dashboard/charts.html:55
 msgid "# of people"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:78
+#: covidashit/templates/dashboard/charts.html:71
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
 "json'>Civil Protection dataset</a>"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:83
+#: covidashit/templates/dashboard/charts.html:76
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:89
+#: covidashit/templates/dashboard/charts.html:82
 msgid "# Total Cases"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:96
+#: covidashit/templates/dashboard/charts.html:89
 msgid "# New Positive"
 msgstr ""
 

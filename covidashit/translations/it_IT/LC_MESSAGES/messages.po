@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-23 19:22+0200\n"
-"PO-Revision-Date: 2020-04-23 19:23+0200\n"
+"POT-Creation-Date: 2020-04-23 21:54+0200\n"
+"PO-Revision-Date: 2020-04-23 21:54+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -291,7 +291,7 @@ msgid "Only \"Total cases\" is provided for the provinces."
 msgstr "Solo i \"Casi totali\" vengono forniti per le province."
 
 #: covidashit/templates/base/navbar.html:6
-#: covidashit/templates/dashboard/charts.html:65
+#: covidashit/templates/dashboard/charts.html:61
 msgid "Italy"
 msgstr "Italia"
 
@@ -347,33 +347,29 @@ msgstr "#italiachiusa su Twitter"
 msgid "Trend"
 msgstr "Andamento"
 
-#: covidashit/templates/dashboard/charts.html:9
-#: covidashit/templates/dashboard/charts.html:43
+#: covidashit/templates/dashboard/charts.html:11
+#: covidashit/templates/dashboard/charts.html:39
 msgid "National"
 msgstr "Nazionale"
 
-#: covidashit/templates/dashboard/charts.html:15
-msgid "Single Selection"
-msgstr "Seleziona Unica"
-
-#: covidashit/templates/dashboard/charts.html:19
-msgid "Multiple Selection"
-msgstr "Selezione Multipla"
-
-#: covidashit/templates/dashboard/charts.html:23
+#: covidashit/templates/dashboard/charts.html:17
 msgid "Select data (default Total Positive)"
 msgstr "Seleziona dati (default Totale Positivi)"
 
-#: covidashit/templates/dashboard/charts.html:40
+#: covidashit/templates/dashboard/charts.html:24
+msgid "Visualize one series at a time"
+msgstr "Visualizza una serie alla volta"
+
+#: covidashit/templates/dashboard/charts.html:36
 #: covidashit/views/dashboard.py:32 covidashit/views/dashboard.py:64
 msgid "New Positive VS Total Cases"
 msgstr "Nuovi Positivi VS Totale Casi"
 
-#: covidashit/templates/dashboard/charts.html:59
+#: covidashit/templates/dashboard/charts.html:55
 msgid "# of people"
 msgstr "# persone"
 
-#: covidashit/templates/dashboard/charts.html:75
+#: covidashit/templates/dashboard/charts.html:71
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
 "json'>Civil Protection dataset</a>"
@@ -381,17 +377,28 @@ msgstr ""
 "Fonte: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
 "json'>Dati Protezione Civile</a>"
 
-#: covidashit/templates/dashboard/charts.html:80
+#: covidashit/templates/dashboard/charts.html:76
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
-#: covidashit/templates/dashboard/charts.html:86
+#: covidashit/templates/dashboard/charts.html:82
 msgid "# Total Cases"
 msgstr "# Totale casi"
 
-#: covidashit/templates/dashboard/charts.html:93
+#: covidashit/templates/dashboard/charts.html:89
 msgid "# New Positive"
 msgstr "# Nuovi Positivi"
+
+#~ msgid ""
+#~ "Use this to visualize one series at a time otherwise the legend in the "
+#~ "chart"
+#~ msgstr "Usa il menu per visualizzare l'andamento di una serie alla volta"
+
+#~ msgid "Single Selection"
+#~ msgstr "Seleziona Unica"
+
+#~ msgid "Multiple Selection"
+#~ msgstr "Selezione Multipla"
 
 #~ msgid "Select data"
 #~ msgstr "Seleziona una serie"
