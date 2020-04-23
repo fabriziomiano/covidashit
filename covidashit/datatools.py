@@ -153,7 +153,8 @@ def fill_series(province=False):
         }
         series9 = {
             "name": gettext(ITEN_MAP["totale_positivi"]["title"]),
-            "data": TOT_POS
+            "data": TOT_POS,
+            "visible": "true"
         }
         series10 = {
             "name": gettext(ITEN_MAP["totale_casi"]["title"]),

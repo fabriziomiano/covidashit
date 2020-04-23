@@ -3,9 +3,6 @@ let chartTrendOptions = {
         type: 'line',
         zoomType: 'x'
     },
-    legend: {
-        enabled: false
-    },
     title: title,
     xAxis: xAxis,
     yAxis: yAxis,
@@ -121,26 +118,26 @@ $(document).ready(function () {
     if (!window.location.href.includes("provinces")) {
         $("#chart-iacopo").highcharts(chartIacopoOptions);
     }
-    if (!document.getElementById("radioSingleSel").checked) {
-
-    }
 });
 
 function dataTypeSelector(value) {
-    if (document.getElementById("radioSingleSel").checked) {
-        for (let i = 0; i < chartTrend.series.length; i++) {
-            if (chartTrend.series[i].name === value) {
-                chartTrend.series[i].show()
-            } else {
-                chartTrend.series[i].hide()
+    if (value !== "default") {
+        if (document.getElementById("radioSingleSel").checked) {
+            for (let i = 0; i < chartTrend.series.length; i++) {
+                if (chartTrend.series[i].name === value) {
+                    chartTrend.series[i].show()
+                } else {
+                    chartTrend.series[i].hide()
+                }
             }
-        }
-    }
-    if (document.getElementById("radioMultSel").checked) {
-        for (let i = 0; i < chartTrend.series.length; i++) {
-            if (chartTrend.series[i].name === value) {
-                chartTrend.series[i].show()
+        } else if (document.getElementById("radioMultSel").checked) {
+            for (let i = 0; i < chartTrend.series.length; i++) {
+                if (chartTrend.series[i].name === value) {
+                    chartTrend.series[i].show()
+                }
             }
+        } else {
+            alert("Please select single or multiple selection")
         }
     }
 }
