@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-04-23 21:54+0200\n"
+"POT-Creation-Date: 2020-04-24 13:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -241,16 +241,16 @@ msgstr ""
 
 #: covidashit/templates/base/modal.html:16
 msgid ""
-"Use the name of the series at the bottom of the chart to Toggle them "
-"on/off"
+"Click the name of the series at the bottom of the chart to toggle on/off "
+"or use the dropdown to visualize one series at a time"
 msgstr ""
 
 #: covidashit/templates/base/modal.html:19
-msgid "Hover or tap"
+msgid "Hover or tap the icon "
 msgstr ""
 
 #: covidashit/templates/base/modal.html:20
-msgid "next to the card title to read the description of the data"
+msgid " next to the card title to read the description of the data"
 msgstr ""
 
 #: covidashit/templates/base/modal.html:31
@@ -282,47 +282,51 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
-#: covidashit/templates/base/sidebar.html:10
+#: covidashit/templates/base/sidebar.html:9
 msgid "How to"
 msgstr ""
 
-#: covidashit/templates/base/sidebar.html:14
+#: covidashit/templates/base/sidebar.html:13
 msgid "Visualization"
 msgstr ""
 
-#: covidashit/templates/base/sidebar.html:17
+#: covidashit/templates/base/sidebar.html:16
 msgid "National Data"
 msgstr ""
 
-#: covidashit/templates/base/sidebar.html:23
+#: covidashit/templates/base/sidebar.html:22
 msgid "Regional Data"
 msgstr ""
 
-#: covidashit/templates/base/sidebar.html:38
-msgid "Provincial Data (Total cases only)"
+#: covidashit/templates/base/sidebar.html:37
+msgid "Provincial Data"
 msgstr ""
 
-#: covidashit/templates/base/sidebar.html:50
+#: covidashit/templates/base/sidebar.html:49
 msgid "Credits"
 msgstr ""
 
-#: covidashit/templates/base/sidebar.html:55
+#: covidashit/templates/base/sidebar.html:54
 msgid "Author"
 msgstr ""
 
-#: covidashit/templates/base/sidebar.html:62
-msgid "CP News"
+#: covidashit/templates/base/sidebar.html:61
+msgid "CPD News"
 msgstr ""
 
-#: covidashit/templates/base/sidebar.html:65
-msgid "CP Repo"
+#: covidashit/templates/base/sidebar.html:64
+msgid "CPD Repository"
 msgstr ""
 
-#: covidashit/templates/base/sidebar.html:71
-msgid "Days since lockdown"
+#: covidashit/templates/base/sidebar.html:67
+msgid "App Repository"
 msgstr ""
 
 #: covidashit/templates/base/sidebar.html:73
+msgid "Days since lockdown"
+msgstr ""
+
+#: covidashit/templates/base/sidebar.html:75
 msgid "#italiachiusa on Twitter"
 msgstr ""
 
