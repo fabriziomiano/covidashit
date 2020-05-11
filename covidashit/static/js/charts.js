@@ -61,7 +61,7 @@ let chartIacopoOptions = {
     plotOptions: {
         scatter: {
             marker: {
-                radius: 7,
+                radius: 3,
                 states: {
                     hover: {
                         enabled: true,
