@@ -4,7 +4,9 @@ import time
 from flask import render_template, redirect, Blueprint
 from flask_babel import gettext
 
-from config import LOCKDOWN_DAY, REGIONS, PROVINCES, ITEN_MAP, CUSTOM_CARDS
+from config import (
+    PHASE2_DAY, REOPENING_DAY, REGIONS, PROVINCES, ITEN_MAP, CUSTOM_CARDS
+)
 from covidashit.datatools import (
     EXP_STATUS, parse_data, init_data, latest_update, get_national_data,
     get_regional_data, get_provincial_data
@@ -40,7 +42,8 @@ def index():
         provinces=PROVINCES,
         series=series,
         ts=str(time.time()),
-        lockdown_days=(dt.datetime.today() - LOCKDOWN_DAY).days,
+        days_since_phase2=(dt.datetime.today() - PHASE2_DAY).days,
+        days_since_reopening=(dt.datetime.today() - REOPENING_DAY).days,
         latest_update=updated_at,
         scatterplot_series=scatterplot_series,
         data_series=DATA_SERIES
@@ -74,7 +77,8 @@ def provincial(territory):
         regions=REGIONS,
         series=series,
         ts=str(time.time()),
-        lockdown_days=(dt.datetime.today() - LOCKDOWN_DAY).days,
+        days_since_phase2=(dt.datetime.today() - PHASE2_DAY).days,
+        days_since_reopening=(dt.datetime.today() - REOPENING_DAY).days,
         latest_update=updated_at,
         scatterplot_series=scatterplot_series,
         data_series=DATA_SERIES
