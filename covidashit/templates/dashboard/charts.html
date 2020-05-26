@@ -1,6 +1,6 @@
 <!-- Chart -->
 <div class="row">
-    <div class="col-xl-6">
+    <div class="col-xl-12">
         <div class="card border-left-primary shadow mb-3" id="chartCard">
             <div class="card-header">
                 <i class="fas fa-chart-line mr-2"></i>
@@ -31,7 +31,7 @@
     </div>
 
     {% if territory not in provinces %}
-        <div class="col-xl-6">
+        <div class="col-xl-12">
             <div class="card border-left-primary shadow mb-3" id="chartCard">
                 <div class="card-header"><i class="fas fa-chart-line mr-2"></i>{{ _("New Positive VS Total Cases") }} |
                     {% if territory %}
@@ -48,7 +48,32 @@
 <script>
     let series = {{ series|safe }};
     let xAxis = {
-        categories: {{ dates|safe }}
+        categories: {{ dates|safe }},
+        plotLines: [
+            {
+                color: '#FF0000', // Red
+                width: 1,
+                value: 13,
+                label: {
+                    text: "{{ gettext("Lockdown") }}"
+                }
+            },
+            {
+                color: '#000000',
+                width: 1,
+                value: 70,
+                label: {
+                    text: "{{ gettext("Phase 2") }}"
+                }
+            },
+            {
+                color: 'rgb(0,255,0)',
+                width: 1,
+                value: 84,
+                label: {
+                    text: "{{ gettext("Reopening") }}"
+                }
+            }]
     };
     let yAxis = {
         title: {
