@@ -3,17 +3,7 @@ import os
 
 from flask_babel import gettext
 
-NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
-REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni.json"
-PROVINCIAL_DATE_FILE = "dpc-covid19-ita-province.json"
-BASE_URL_DATA = (
-    "https://raw.githubusercontent.com"
-    "/pcm-dpc/COVID-19/master/dati-json/"
-)
-URL_NATIONAL_DATA = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
-URL_REGIONAL_DATA = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
-URL_PROVINCIAL_DATA = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
-ITEN_MAP = {
+VARS_CONFIG = {
     "ricoverati_con_sintomi": {
         "title": gettext("Hospitalized With Symptoms"),
         "desc": gettext(
@@ -194,7 +184,7 @@ ITEN_MAP = {
         "longdesc": gettext(
             "Total number of people healed since the beginning of the outbreak"
         ),
-        "icon": "far fa-smile",
+        "icon": "fas fa-smile",
         "increase": {
             "colour": "text-success",
             "icon": "fas fa-long-arrow-alt-up",
@@ -265,7 +255,8 @@ ITEN_MAP = {
         "title": gettext("Total Swabs"),
         "desc": gettext("# of swabs performed"),
         "longdesc": gettext(
-            "Total number of swabs performed since the beginning of the outbreak"
+            "Total number of swabs performed since the beginning of "
+            "the outbreak"
         ),
         "icon": "fas fa-vial",
         "increase": {
@@ -306,6 +297,18 @@ ITEN_MAP = {
         }
     }
 }
+
+NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
+REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni.json"
+PROVINCIAL_DATE_FILE = "dpc-covid19-ita-province.json"
+BASE_URL_DATA = (
+    "https://raw.githubusercontent.com"
+    "/pcm-dpc/COVID-19/master/dati-json/"
+)
+URL_NATIONAL_DATA = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
+URL_REGIONAL_DATA = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
+URL_PROVINCIAL_DATA = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
+BARCHART_RACE_VAR = "totale_positivi"
 #  The order here matters as it will be reflected in the webpage
 CARD_TYPES = [
     "nuovi_positivi", "ricoverati_con_sintomi", "terapia_intensiva",
@@ -324,6 +327,8 @@ CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y %H:%M"
 PCM_DATE_KEY = "data"
 LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
+PHASE2_DAY = dt.datetime(2020, 5, 4)
+REOPENING_DAY = dt.datetime(2020, 5, 18)
 LANGUAGES = {
     "en": "English",
     "it_IT": "Italiano"
@@ -357,4 +362,21 @@ PROVINCES = [
     'Terni', 'Torino', 'Trapani', 'Trento', 'Treviso', 'Trieste',
     'Udine', 'Varese', 'Venezia', 'Verbano-Cusio-Ossola', 'Vercelli',
     'Verona', 'Vibo Valentia', 'Vicenza', 'Viterbo'
+]
+DATA_TO_FRONTEND = {
+    "regions": REGIONS,
+    "provinces": PROVINCES,
+    "days_since_phase2": (dt.datetime.today() - PHASE2_DAY).days,
+    "days_since_reopening": (dt.datetime.today() - REOPENING_DAY).days,
+    "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days
+}
+TRANSLATION_DIRNAME = "translations"
+MONGO_URI = os.environ["MONGO_URI"]
+DB_NAME = os.environ["DB_NAME"]
+COLLECTION_NAME = os.environ["COLLECTION_NAME"]
+BARCHART_RACE_QUERY = {"name": "barchart_race"}
+DATA_SERIES = [
+    VARS_CONFIG[key]["title"]
+    for key in VARS_CONFIG
+    if key not in CUSTOM_CARDS
 ]

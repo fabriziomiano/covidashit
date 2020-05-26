@@ -1,6 +1,17 @@
+# notebook stuff
 .ipynb_checkpoints
 *.ipynb
+
+# python compiled
 *.pyc
 __pycache__
+
+# ide stuff
 .idea
 .vscode
+
+# node modules
+node_modules/
+
+# data PCD
+dpc*.json

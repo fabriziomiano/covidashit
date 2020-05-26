@@ -3,8 +3,7 @@
     <div class="col-xl-6">
         <div class="card border-left-primary shadow mb-3" id="chartCard">
             <div class="card-header">
-                <i class="fas fa-chart-line mr-2"></i>
-                {{ _("Trend") }} |
+                <i class="fas fa-chart-line mr-2"></i> {{ _("Trend") }} |
                 {% if territory %}
                     {{ territory }}
                 {% else %}
@@ -13,8 +12,12 @@
                 {% if territory not in provinces %}
                     <div class="float-sm-right small">
                         <label for="dataTypeSelector">
-                            <select class="form-control form-control-sm" name="dataTypeSelector" onmousedown="this.value='';" onchange="dataTypeSelector(this.value);">
-                                <option value="default" selected>{{ _("Select data (default Total Positive)") }}</option>
+                            <select class="form-control form-control-sm"
+                                    name="dataTypeSelector"
+                                    onmousedown="this.value='';"
+                                    onchange="dataTypeSelector(this.value);">
+                                <option value="default"
+                                        selected>{{ _("Select data (default Total Positive)") }}</option>
                                 {% for ds in data_series %}
                                     <option value="{{ gettext(ds) }}">
                                         {{ gettext(ds) }}
@@ -26,20 +29,26 @@
                     </div>
                 {% endif %}
             </div>
-            <div id="chart-trend" class="container-fluid px-2" style="border: none; width:100%; margin: 0 auto"></div>
+            <div id="chart-trend" class="container-fluid px-2"
+                 style="border: none; width:100%; height: 450px; margin: 0 auto">
+            </div>
         </div>
     </div>
 
     {% if territory not in provinces %}
         <div class="col-xl-6">
             <div class="card border-left-primary shadow mb-3" id="chartCard">
-                <div class="card-header"><i class="fas fa-chart-line mr-2"></i>{{ _("New Positive VS Total Cases") }} |
+                <div class="card-header">
+                    <i class="fas fa-chart-line mr-2"></i>
+                    {{ _("New Positive VS Total Cases") }} |
                     {% if territory %}
                         {{ territory }}
                     {% else %} {{ _("National") }}
                     {% endif %}
                 </div>
-                <div id="chart-iacopo" class="container-fluid px-2" style="border: none; width:100%; margin: 0 auto"></div>
+                <div id="chart-iacopo" class="container-fluid px-2"
+                     style="border: none; width:100%; margin: 0 auto">
+                </div>
             </div>
         </div>
     {% endif %}
@@ -48,7 +57,49 @@
 <script>
     let series = {{ series|safe }};
     let xAxis = {
-        categories: {{ dates|safe }}
+        categories: {{ dates|safe }},
+        plotLines: [
+            {
+                color: 'rgba(255,0,0)',
+                width: 1,
+                value: 13,
+                label: {
+                    text: "{{ gettext("Lockdown") }}"
+                }
+            },
+            {
+                color: 'rgba(252,115,3)',
+                width: 1,
+                value: 70,
+                label: {
+                    text: "{{ gettext("Phase 2") }}"
+                }
+            },
+            {
+                color: 'rgb(0,255,0)',
+                width: 1,
+                value: 112,
+                label: {
+                    text: "{{ gettext("Phase 3") }}"
+                }
+            }],
+        plotBands: [
+            {
+                color: 'rgba(255,0,0,.3)',
+                from: 13,
+                to: 70
+            },
+            {
+                color: 'rgba(252,115,3,.3)',
+                from: 70,
+                to: 112
+            },
+            {
+                color: 'rgba(0,255,0,.3)',
+                from: 112,
+                to: {{ dates|length }}
+            }
+        ]
     };
     let yAxis = {
         title: {

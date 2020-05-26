@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <!-- Breadcrumb -->
+                <ol class="breadcrumb mt-3  ">
+                    <li class="breadcrumb-item active">
+                        {% if not navtitle %}
+                            {{ _("Italy") }}
+                        {% else %}
+                            {{ navtitle }}
+                        {% endif %} |
+                        <i class="fas fa-bullhorn mr-2"></i>
+                        {{ _("Latest CPD Update:") }} {{ latest_update }}
+                    </li>
+                </ol>
+
+                {% if territory in provinces %}
+                    <div class="alert alert-warning" role="alert">
+                        {{ _('Only the "Total positive" data is shown') }}
+                    </div>
+                {% endif %}
+
+                {% include 'dashboard/cards.html' %}
+                {% include 'dashboard/charts.html' %}
+                {% if territory not in provinces %}
+                    {% include 'dashboard/barChartRace.html' %}
+                {% endif %}
+
+            </div>
+        </main>
+
+        <footer class="py-4 bg-light mt-auto text-center">
+            <div class="container-fluid">
+                <span class="text-muted">
+                    <a href="https://github.com/fabriziomiano/covidashit"
+                       target="_blank">
+                        <i class="fab fa-github fa-2x mr-1"></i>
+                    </a>
+                </span>
+            </div>
+        </footer>
+
+    </div>
+
+{% endblock %}

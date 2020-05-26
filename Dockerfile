@@ -1,13 +1,27 @@
-FROM python:3.6-alpine
+#Grab the latest alpine image
+FROM ubuntu:18.04
 
-LABEL mantainer="fabriziomiano@gmail.com"
+# Install python and pip
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get install -y python3-pip
+ADD ./requirements.txt /tmp/requirements.txt
 
-COPY . /app
+# Install dependencies
+RUN pip3 install --upgrade pip \
+    && pip3 install --no-cache-dir -q -r /tmp/requirements.txt
 
-WORKDIR /app
+# Add our code
+ADD . /opt/app/
+WORKDIR /opt/app
 
-RUN pip install --upgrade pip && pip install -r requirements.txt
+# Run the image as a non-root user
+RUN useradd -m myuser
+USER myuser
 
-EXPOSE 5000
+# Run the app.  CMD is required to run on Heroku
+# This is only for testing purposes: $PORT is set by Heroku
+# This is only for testing purposes: "EXPOSE" is NOT supported by Heroku
+#EXPOSE 5000
+#ENV PORT 5000
 
-ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:5000", "wsgi:app"]
+CMD gunicorn --bind 0.0.0.0:$PORT wsgi:app

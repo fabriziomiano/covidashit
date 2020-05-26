@@ -131,3 +131,18 @@ function dataTypeSelector(value) {
         }
     }
 }
+
+
+function playBCR() {
+    $('#loadBCRButtonLoader').removeAttr('hidden')
+    $('#loadBCRButton').attr('hidden', true)
+    $.ajax({
+        url: '/api/bcr',
+        method: 'get',
+        success: function (response) {
+            $("#loadBCRButtonLoader").attr("hidden", true)
+            $("#bcrCard").append(response["html"])
+            $("#bcrts").append(response["ts"]).removeAttr('hidden')
+        }
+    })
+}

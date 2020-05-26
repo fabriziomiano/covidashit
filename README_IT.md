@@ -23,7 +23,9 @@ Il back-end riceve i dati e li serve al frontend per le cards e la chart.
 Non uso alcun database poiché per il momento, e speriamo neance in futuro, non si parla di molti dati.
 
 Il front-end sta in `covidashit/templates` ed usa JavaScript per costruire la chart che è 
-creata con [HighCharts](https://www.highcharts.com/)
+creata con [HighCharts](https://www.highcharts.com/). Inoltre, ogni giorno alle 19 viene 
+lanciato un cron job che crea una bar chart race.
+Grazie agli sviluppatori di [bar-chart-race](https://www.dexplo.org/bar_chart_race/).
 
 #### Setup locale
 
@@ -41,20 +43,18 @@ $ python -m flask run
 Flask sarà in ascolto all'url [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ##### Produzione
-Il `Procfile` è pronto per essere utilizzato su Heroku. 
-Per testare l'abmiente di produzione in locale:
+Il Dockerfile fornito può essere usato per pubblicare l'app su Heroku.
+Per testare l'abmiente di produzione in locale decommentare la L18 e L31 e lanciare:
 ```
-$ gunicorn wsgi:app
+$ docker build --tag covidashit:latest . 
+$ docker run --name covidashit -d -p 80:5000 covidashit
 ```
 
-Alternativamente, è possibile fare il build del container Docker:
-```
-docker-compose up -d
-```
 Flask sarà in ascolto all'url [http://127.0.0.1](http://127.0.0.1) 
 
 ## Donazione
 
-Se il progetto ti piace o se ti ho fatto risparmiare qualche linea di codice, sentiti libero di offrirmi un caffé. Grazie!
+Se il progetto ti piace o se ti ho fatto risparmiare qualche linea di codice, 
+sentiti libero di offrirmi un caffé. Grazie!
 
 [![paypal](https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PMW6C23XTQDWG)

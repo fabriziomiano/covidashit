@@ -16,7 +16,7 @@
                     {{ _('National Data') }}
                 </a>
 
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRegionLayouts"
+                <a id="regionalNavLink" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRegionLayouts"
                    aria-expanded="false" aria-controls="collapseRegionLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
                     {{ _('Regional Data') }}
@@ -31,7 +31,7 @@
                     </nav>
                 </div>
 
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProvinceLayouts"
+                <a id="provincialNavLink" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProvinceLayouts"
                    aria-expanded="false" aria-controls="collapseProvinceLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
                     {{ _('Provincial Data') }}
@@ -68,10 +68,9 @@
 
         <!-- footer sidebar-->
         <div class="sb-sidenav-footer">
-            <div class="small">{{ _('Days since lockdown') }}: {{ lockdown_days }}
-                <a href="https://twitter.com/hashtag/italiachiusa"
-                   target="_blank"> {{ _("#italiachiusa on Twitter") }}</a>
-            </div>
+            <div class="small">{{ _('Days since Reopening') }}: {{ days_since_reopening }}</div>
+            <div class="small">{{ _('Days since "Phase 2"') }}: {{ days_since_phase2 }}</div>
+            <div class="small">{{ _('Days in Lockdown') }}: {{ days_in_lockdown }}</div>
         </div>
     </nav>
 </div>

@@ -1,0 +1,22 @@
+<!-- bar chart race -->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card border-left-primary shadow mb-3" id="bcrCard">
+            <div class="card-header"><i class="fas fa-chart-bar mr-2"></i>
+                {{ _("Total positive bar chart race") }}
+            </div>
+            <div class="alert alert-success small" role="alert" id="bcrts" hidden>
+                <i class="fas fa-bullhorn mr-2"></i>
+                {{ _("Latest Update:") }}
+            </div>
+
+            <button type="button" class="btn btn-primary" id="loadBCRButton" onclick="playBCR()">
+                <i class="fas fa-play mr-2"></i> {{ _("Play bar-chart race") }}
+            </button>
+            <button class="btn btn-primary" type="button" id="loadBCRButtonLoader" disabled hidden>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                {{ _("Loading...") }}
+            </button>
+        </div>
+    </div>
+</div>

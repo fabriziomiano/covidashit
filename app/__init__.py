@@ -2,13 +2,19 @@ import os
 
 from flask import Flask, request, render_template
 from flask_babel import Babel
+from flask_pymongo import PyMongo
 
-from config import LANGUAGES
-from .views.dashboard import dashboard
+from config import (
+    LANGUAGES, TRANSLATION_DIRNAME
+)
+
+mongo = PyMongo()
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask("app")
+    app.config["MONGO_URI"] = os.environ["MONGO_URI"]
+    mongo.init_app(app)
     babel = Babel(app)
     set_error_handlers(app)
 
@@ -17,7 +23,8 @@ def create_app():
         return request.accept_languages.best_match(LANGUAGES.keys())
 
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = os.path.join(
-        app.root_path, "translations")
+        app.root_path, TRANSLATION_DIRNAME
+    )
 
     @app.after_request
     def add_header(r):
@@ -32,7 +39,12 @@ def create_app():
         return r
 
     set_error_handlers(app)
+
+    from .ui import dashboard
     app.register_blueprint(dashboard)
+
+    from .api import api
+    app.register_blueprint(api)
     return app
 
 
