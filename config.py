@@ -323,7 +323,8 @@ PCM_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y %H:%M"
 PCM_DATE_KEY = "data"
-LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
+PHASE2_DAY = dt.datetime(2020, 5, 4)
+REOPENING_DAY = dt.datetime(2020, 5, 18)
 LANGUAGES = {
     "en": "English",
     "it_IT": "Italiano"
