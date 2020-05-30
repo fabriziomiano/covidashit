@@ -323,6 +323,7 @@ PCM_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y %H:%M"
 PCM_DATE_KEY = "data"
+LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
 PHASE2_DAY = dt.datetime(2020, 5, 4)
 REOPENING_DAY = dt.datetime(2020, 5, 18)
 LANGUAGES = {
@@ -359,3 +360,10 @@ PROVINCES = [
     'Udine', 'Varese', 'Venezia', 'Verbano-Cusio-Ossola', 'Vercelli',
     'Verona', 'Vibo Valentia', 'Vicenza', 'Viterbo'
 ]
+DATA_TO_FRONTEND = {
+    "regions": REGIONS,
+    "provinces": PROVINCES,
+    "days_since_phase2": (dt.datetime.today() - PHASE2_DAY).days,
+    "days_since_reopening": (dt.datetime.today() - REOPENING_DAY).days,
+    "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days
+}
