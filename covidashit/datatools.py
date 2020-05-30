@@ -1,12 +1,18 @@
 import datetime as dt
 import json
+import time
 
 import requests
 from flask import current_app
 from flask_babel import gettext
 
-from config import CUSTOM_CARDS, CARD_MAP, CARD_TYPES, ITEN_MAP, PROVINCES, PROVINCE_KEY, REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT, PCM_DATE_KEY, UPDATE_FMT, URL_NATIONAL_DATA, \
-    NATIONAL_DATA_FILE, URL_REGIONAL_DATA, REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE
+from config import (
+    CUSTOM_CARDS, CARD_MAP, CARD_TYPES, ITEN_MAP, PROVINCES, PROVINCE_KEY,
+    REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT, PCM_DATE_KEY,
+    UPDATE_FMT, URL_NATIONAL_DATA, NATIONAL_DATA_FILE, URL_REGIONAL_DATA,
+    REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE,
+    DATA_TO_FRONTEND
+)
 
 DATES = []
 ICU = []
@@ -325,4 +331,37 @@ def get_provincial_data():
     except Exception as e:
         current_app.logger.error("Request Error {}".format(e))
         data["provincial"] = read_cached_data(PROVINCIAL_DATE_FILE)
+    return data
+
+
+def populate_data_to_frontend(
+        dates,
+        trend_cards,
+        series,
+        updated_at,
+        data_series
+):
+    """
+    Return a data dict to be rendered which is an augmented copy of
+    DATA_TO_FRONTEND defined in config.py
+    :param dates: list
+    :param trend_cards: list
+    :param series: list
+    :param updated_at: str
+    :param data_series: list
+    :return: dict
+    """
+    data = {
+        "dates": dates,
+        "trend_cards": trend_cards,
+        "series": series,
+        "ts": str(time.time()),
+        "latest_update": updated_at,
+        "data_series": data_series,
+        "scatterplot_series": {
+            "name": gettext("New Positive VS Total Cases"),
+            "data": EXP_STATUS
+        }
+    }
+    data.update(DATA_TO_FRONTEND)
     return data
