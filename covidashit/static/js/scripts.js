@@ -25,4 +25,14 @@
         $('[data-toggle="tooltip"]').tooltip();
     })
 
+    $(function () {
+        if (window.location.href.includes("provinces")) {
+            $("#provincialNavLink").addClass('active')
+        }
+
+        if (window.location.href.includes("regions")) {
+            $("#regionalNavLink").addClass('active')
+        }
+    })
+
 })(jQuery);
