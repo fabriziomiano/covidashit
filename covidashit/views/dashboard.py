@@ -47,6 +47,6 @@ def provincial(territory):
     init_data()
     dates, series, trend_cards = parse_data(data, territory=territory)
     data = populate_data_to_frontend(
-        dates, trend_cards, series, updated_at, DATA_SERIES
+        dates, trend_cards, series, updated_at, DATA_SERIES, territory
     )
     return render_template("dashboard.html", **data)

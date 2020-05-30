@@ -339,7 +339,8 @@ def populate_data_to_frontend(
         trend_cards,
         series,
         updated_at,
-        data_series
+        data_series,
+        territory=None
 ):
     """
     Return a data dict to be rendered which is an augmented copy of
@@ -347,6 +348,7 @@ def populate_data_to_frontend(
     :param dates: list
     :param trend_cards: list
     :param series: list
+    :param territory: str
     :param updated_at: str
     :param data_series: list
     :return: dict
@@ -358,6 +360,8 @@ def populate_data_to_frontend(
         "ts": str(time.time()),
         "latest_update": updated_at,
         "data_series": data_series,
+        "territory": territory,
+        "navtitle": territory,
         "scatterplot_series": {
             "name": gettext("New Positive VS Total Cases"),
             "data": EXP_STATUS
