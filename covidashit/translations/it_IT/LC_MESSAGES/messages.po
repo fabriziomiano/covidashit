@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-05-26 20:28+0200\n"
-"PO-Revision-Date: 2020-05-26 20:29+0200\n"
+"POT-Creation-Date: 2020-05-30 21:01+0200\n"
+"PO-Revision-Date: 2020-05-30 21:02+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -192,53 +192,61 @@ msgstr "Decessi odierni"
 msgid "Daily deaths count"
 msgstr "Conteggio decessi odierni"
 
-#: covidashit/datatools.py:125
+#: covidashit/datatools.py:131
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: covidashit/datatools.py:129
+#: covidashit/datatools.py:135
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: covidashit/datatools.py:133
+#: covidashit/datatools.py:139
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: covidashit/datatools.py:137
+#: covidashit/datatools.py:143
 msgid "decedutititle"
 msgstr ""
 
-#: covidashit/datatools.py:141
+#: covidashit/datatools.py:147
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: covidashit/datatools.py:145
+#: covidashit/datatools.py:151
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: covidashit/datatools.py:149
+#: covidashit/datatools.py:155
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: covidashit/datatools.py:153
+#: covidashit/datatools.py:159
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: covidashit/datatools.py:157
+#: covidashit/datatools.py:163
 msgid "totale_positivititle"
 msgstr ""
 
-#: covidashit/datatools.py:162 covidashit/datatools.py:176
+#: covidashit/datatools.py:168 covidashit/datatools.py:182
 msgid "totale_casititle"
 msgstr ""
 
-#: covidashit/datatools.py:166
+#: covidashit/datatools.py:172
 msgid "tamponititle"
 msgstr ""
+
+#: covidashit/datatools.py:366 covidashit/templates/dashboard/charts.html:36
+msgid "New Positive VS Total Cases"
+msgstr "Nuovi Positivi VS Totale Casi"
 
 #: covidashit/templates/dashboard.html:11
 msgid "Latest Update:"
 msgstr "Ultimo aggiornamento:"
+
+#: covidashit/templates/dashboard.html:17
+msgid "Only the \"Total positive\" data is shown"
+msgstr "Mostrati solo i \"Totali Positivi\""
 
 #: covidashit/templates/base/head.html:18
 msgid "COVID-19 Italy outbreak dashboard"
@@ -351,6 +359,10 @@ msgstr "Giorni dalla \"Fase 2\""
 msgid "Days since Reopening"
 msgstr "Giorni dalla Riapertura"
 
+#: covidashit/templates/base/sidebar.html:73
+msgid "Days in Lockdown"
+msgstr "Giorni di Lockdown"
+
 #: covidashit/templates/dashboard/charts.html:7
 msgid "Trend"
 msgstr "Andamento"
@@ -367,11 +379,6 @@ msgstr "Seleziona dati (default Totale Positivi)"
 #: covidashit/templates/dashboard/charts.html:24
 msgid "Visualize one series at a time"
 msgstr "Visualizza una serie alla volta"
-
-#: covidashit/templates/dashboard/charts.html:36
-#: covidashit/views/dashboard.py:34 covidashit/views/dashboard.py:67
-msgid "New Positive VS Total Cases"
-msgstr "Nuovi Positivi VS Totale Casi"
 
 #: covidashit/templates/dashboard/charts.html:58
 msgid "Lockdown"
@@ -517,9 +524,6 @@ msgstr "# Nuovi Positivi"
 
 #~ msgid "\"New positive\""
 #~ msgstr "\"Nuovi positivi\""
-
-#~ msgid "\"Total positive variation\""
-#~ msgstr "\"Variazione totale positivi\""
 
 #~ msgid "\"Intensive care unit\"."
 #~ msgstr "\"Terapia intensiva\"."
