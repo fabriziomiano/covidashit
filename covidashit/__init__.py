@@ -1,10 +1,20 @@
+import atexit
 import os
 
+from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, request, render_template
 from flask_babel import Babel
 
 from config import LANGUAGES
+from .datatools import barchartrace_to_html
 from .views.dashboard import dashboard
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=barchartrace_to_html, trigger="cron", hour=15, minute=49, second=45)
+scheduler.start()
+
+# Shut down the scheduler when exiting the app
+atexit.register(lambda: scheduler.shutdown())
 
 
 def create_app():

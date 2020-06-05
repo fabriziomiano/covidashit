@@ -1,7 +1,10 @@
 import datetime as dt
 import json
+import os
 import time
 
+import bar_chart_race as bcr
+import pandas as pd
 import requests
 from flask import current_app
 from flask_babel import gettext
@@ -11,7 +14,7 @@ from config import (
     REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT, PCM_DATE_KEY,
     UPDATE_FMT, URL_NATIONAL_DATA, NATIONAL_DATA_FILE, URL_REGIONAL_DATA,
     REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE,
-    DATA_TO_FRONTEND
+    DATA_TO_FRONTEND, BARCHART_RACE_VARS
 )
 
 DATES = []
@@ -369,3 +372,49 @@ def populate_data_to_frontend(
     }
     data.update(DATA_TO_FRONTEND)
     return data
+
+
+def barchartrace_to_html():
+    """
+    Generate HTML files of the bar-chart races of all the relevant
+    variables defined in the config
+    :return: None
+    """
+    data = get_regional_data()["regional"]
+    dates = sorted(set([d["data"] for d in data]))
+    dates = [
+        dt.datetime.strptime(d, "%Y-%m-%dT%H:%M:%S").strftime("%d %b")
+        for d in dates
+    ]
+    for var in BARCHART_RACE_VARS:
+        new_data = {}
+        print("Doing {}".format(var))
+        for d in data:
+            region = d["denominazione_regione"]
+            if region not in new_data:
+                new_data[region] = [d[var]]
+            else:
+                new_data[region].append(d[var])
+        df = pd.DataFrame.from_dict(new_data, orient='index', columns=dates)
+        df = df.transpose()
+        bcr_html = bcr.bar_chart_race(
+            df=df,
+            title=ITEN_MAP[var]["title"],
+            period_summary_func=lambda v, r: {
+                'x': .99, 'y': .18,
+                's': f'Tot: {v.nlargest(6).sum():,.0f}',
+                'ha': 'right', 'size': 8
+            },
+            period_label={'x': .99, 'y': .25, 'ha': 'right', 'va': 'center'}
+        )
+        str_to_replace = '<video width="988" height="504"'
+        str_replacement = '<video width="100%" height="auto"'
+        bcr_html = bcr_html.replace(str_to_replace, str_replacement)
+        filename = "{}.html".format(var)
+        file_rel_path = (
+            'covidashit/templates/dashboard/barChartRace/{}'.format(filename)
+        )
+        file_abs_path = os.path.join(os.getcwd(), file_rel_path)
+        with open(file_abs_path, "w") as file_out:
+            file_out.write(bcr_html)
+        print("Saved {}".format(file_abs_path))
