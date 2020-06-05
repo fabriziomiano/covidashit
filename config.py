@@ -306,6 +306,10 @@ ITEN_MAP = {
         }
     }
 }
+BARCHART_RACE_VARS = [
+    "terapia_intensiva", "totale_positivi", "totale_ospedalizzati",
+    "totale_casi", "deceduti", "tamponi"
+]
 #  The order here matters as it will be reflected in the webpage
 CARD_TYPES = [
     "nuovi_positivi", "ricoverati_con_sintomi", "terapia_intensiva",
