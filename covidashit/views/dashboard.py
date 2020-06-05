@@ -22,7 +22,7 @@ def national():
 
 
 @dashboard.route("/")
-def index():
+def national_view():
     covid_data = get_national_data()
     init_data()
     dates, series, trend_cards = parse_data(covid_data)
@@ -35,7 +35,7 @@ def index():
 
 @dashboard.route("/regions/<string:territory>")
 @dashboard.route("/provinces/<string:territory>")
-def provincial(territory):
+def regional_or_provincial_view(territory):
     if territory in REGIONS:
         data = get_regional_data()
         updated_at = latest_update(data["regional"])
