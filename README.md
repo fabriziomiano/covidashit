@@ -24,7 +24,9 @@ The back-end retrieves the data and it serves it to the front-end chart and card
 I'm not using any db as, luckily enough, there isn't too much data to store, and hopfully there will not be, ever.
 
 The front-end is under `covidashit/templates` and it uses a simple JS to create
-the chart object, which is built using [HighCharts](https://www.highcharts.com/)
+the chart object, which is built using [HighCharts](https://www.highcharts.com/).
+Additionally, a bar chart race video is produced every day at 7PM with a cron job scheduled. 
+Thanks to the [bar-chart-race](https://www.dexplo.org/bar_chart_race/) library maintainers.
 
 #### Setup a local version
 
@@ -41,15 +43,12 @@ $ python -m flask run
 Flask will be listening at [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ##### Production
-The `Profile` can be used to deploy the app on Heroku.
-To test the production environment locally, simply run
+The provided Dockerfile is ready to be used to deploy the app on Heroku. 
+To test the production environment locally, uncomment L18 and L31 of the 
+Dockerfile, and run
 ```
-$ gunicorn wsgi:app
-```
-
-Alternatively, it is possible to build a Docker image and deploy the container locally with 
-```
-docker-compose up -d
+$ docker build --tag covidashit:latest . 
+$ docker run --name covidashit -d -p 80:5000 covidashit
 ```
 
 Flask will be listening at [http://127.0.0.1](http://127.0.0.1)
