@@ -1,9 +1,18 @@
 <!-- bar chart race -->
 
 {% block content %}
-
-<div class="container-fluid">
-    {% include 'dashboard/barChartRace/totale_positivi.html' %}
-</div>
-
+    <div class="col-xl-12">
+        <div class="card border-left-primary shadow mb-3" id="chartCard">
+            <div class="card-header"><i class="fas fa-chart-bar mr-2"></i>
+                {{ _("Total positive bar chart race") }}
+            </div>
+            <div class="alert alert-warning small" role="alert">
+                <i class="fas fa-bullhorn mr-2"></i>
+                {{ _("Latest Update:") }} {{ barchart_cron_latest_update }}
+            </div>
+            <div class="container-fluid">
+                {% include 'dashboard/barChartRace/totale_positivi.html' %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
