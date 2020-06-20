@@ -14,7 +14,7 @@ RUN pip3 install --upgrade pip \
 ADD . /opt/app/
 WORKDIR /opt/app
 
-# Expose is NOT supported by Heroku
+# This is only for testing purposes: "EXPOSE" is NOT supported by Heroku
 #EXPOSE 5000
 
 # Set Europe/Rome Timezone
@@ -27,6 +27,6 @@ RUN useradd -m myuser
 USER myuser
 
 # Run the app.  CMD is required to run on Heroku
-# $PORT is set by Heroku
+# This is only for testing purposes: $PORT is set by Heroku
 #ENV PORT 5000
 CMD gunicorn --bind 0.0.0.0:$PORT wsgi:app
