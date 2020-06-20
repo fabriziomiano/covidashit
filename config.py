@@ -306,10 +306,7 @@ ITEN_MAP = {
         }
     }
 }
-BARCHART_RACE_VARS = [
-    "terapia_intensiva", "totale_positivi", "totale_ospedalizzati",
-    "totale_casi", "deceduti", "tamponi"
-]
+BARCHART_RACE_VARS = ["totale_positivi"]
 #  The order here matters as it will be reflected in the webpage
 CARD_TYPES = [
     "nuovi_positivi", "ricoverati_con_sintomi", "terapia_intensiva",
@@ -371,3 +368,6 @@ DATA_TO_FRONTEND = {
     "days_since_reopening": (dt.datetime.today() - REOPENING_DAY).days,
     "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days
 }
+BARCHART_CRON_DT = dt.time(19, 00)
+BARCHART_CRON_LOG_FILENAME = "barchart.log"
+TRANSLATION_DIRNAME = "translations"
