@@ -5,12 +5,20 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, request, render_template
 from flask_babel import Babel
 
-from config import LANGUAGES
+from config import (
+    LANGUAGES, TRANSLATION_DIRNAME, BARCHART_CRON_DT,
+    BARCHART_CRON_LOG_FILENAME
+)
 from .datatools import barchartrace_to_html
 from .views.dashboard import dashboard
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=barchartrace_to_html, trigger="cron", hour=15, minute=49, second=45)
+scheduler.add_job(
+    func=barchartrace_to_html,
+    trigger="cron",
+    hour=BARCHART_CRON_DT.hour,
+    minute=BARCHART_CRON_DT.minute
+)
 scheduler.start()
 
 # Shut down the scheduler when exiting the app
@@ -18,7 +26,7 @@ atexit.register(lambda: scheduler.shutdown())
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask("covidashit")
     babel = Babel(app)
     set_error_handlers(app)
 
@@ -26,8 +34,12 @@ def create_app():
     def get_locale():
         return request.accept_languages.best_match(LANGUAGES.keys())
 
+    app.config["BARCHART_LOG_PATH"] = os.path.join(
+        app.root_path, BARCHART_CRON_LOG_FILENAME
+    )
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = os.path.join(
-        app.root_path, "translations")
+        app.root_path, TRANSLATION_DIRNAME
+    )
 
     @app.after_request
     def add_header(r):
