@@ -1,7 +1,6 @@
 import datetime as dt
 import json
 import os
-import re
 import time
 
 import bar_chart_race as bcr
@@ -433,6 +432,6 @@ def replace_video_tag_content(string_to_replace):
     :param string_to_replace: str
     :return: str
     """
-    gex = "<video.*?>"
+    start = string_to_replace.find(">") + 1
     to = '<video width="100%" height="auto" controls autoplay loop>'
-    return re.sub(gex, to, string_to_replace)
+    return to + string_to_replace[start:]
