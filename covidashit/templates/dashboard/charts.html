@@ -1,6 +1,10 @@
 <!-- Chart -->
 <div class="row">
+    {% if not territory %}
     <div class="col-xl-6">
+    {% else %}
+    <div class="col-xl-12">
+    {% endif %}
         <div class="card border-left-primary shadow mb-3" id="chartCard">
             <div class="card-header">
                 <i class="fas fa-chart-line mr-2"></i>
