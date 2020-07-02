@@ -1,6 +1,6 @@
 <!-- Chart -->
 <div class="row">
-    {% if not territory %}
+    {% if territory not in provinces %}
     <div class="col-xl-6">
     {% else %}
     <div class="col-xl-12">
@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    {% if not territory %}
+    {% if territory not in provinces %}
         {% include 'dashboard/barChartRace.html' %}
     {% endif %}
 

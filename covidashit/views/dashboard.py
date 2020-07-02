@@ -20,19 +20,24 @@ DATA_SERIES = [
 dashboard = Blueprint("dashboard", __name__)
 
 
+def get_bcr_data():
+    from covidashit import mongo
+    bcr_data = mongo.db[COLLECTION_NAME].find(BARCHART_RACE_QUERY)[0]
+    return bcr_data
+
+
 @dashboard.route("/national")
-def national():
+def old_national():
     return redirect('/')
 
 
 @dashboard.route("/")
 def national_view():
-    from covidashit import mongo
     covid_data = get_national_data()
     init_data()
     dates, series, trend_cards = parse_data(covid_data)
     updated_at = latest_update(covid_data["national"])
-    bcr_data = mongo.db[COLLECTION_NAME].find(BARCHART_RACE_QUERY)[0]
+    bcr_data = get_bcr_data()
     bcr_ts = bcr_data["ts"].strftime(UPDATE_FMT)
     bcr_html = bcr_data["html_str"]
     data = frontend_data(
@@ -65,7 +70,12 @@ def regional_or_provincial_view(territory):
         return render_template("errors/404.html")
     init_data()
     dates, series, trend_cards = parse_data(data, territory=territory)
+    bcr_data = get_bcr_data()
+    bcr_ts = bcr_data["ts"].strftime(UPDATE_FMT)
+    bcr_html = bcr_data["html_str"]
     data = frontend_data(
+        bcr_ts=bcr_ts,
+        bcr_html=bcr_html,
         ts=dt.datetime.now(),
         navtitle=territory,
         territory=territory,
