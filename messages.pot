@@ -1,99 +1,99 @@
 # Translations template for COVIdashIT.
 # Copyright (C) 2020 Fabrizio Miano
 # This file is distributed under the same license as the COVIdashIT project.
-# Fabrizio Miano <fabriziomiano@gmail.com>, 2020.
+# FABRIZIO MIANO fabriziomiano@gmail.com, 2020.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: COVIdashIT\n"
+"Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-07-02 12:56+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2020-07-03 00:36+0200\n"
+"PO-Revision-Date: 2020-07-03 00:36+0200\n"
+"Last-Translator: FABRIZIO MIANO fabriziomiano@gmail.com\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: config.py:18
+#: iten_map.py:5
 msgid "Hospitalized With Symptoms"
 msgstr ""
 
-#: config.py:19
+#: iten_map.py:6
 msgid "# of people currently hospitalized with symptoms"
 msgstr ""
 
-#: config.py:22
+#: iten_map.py:9
 msgid ""
 "Total count of people currently in hospital due to coronavirus with "
 "symptoms"
 msgstr ""
 
-#: config.py:30 config.py:53 config.py:76 config.py:99 config.py:129
-#: config.py:157 config.py:178 config.py:201 config.py:224 config.py:251
-#: config.py:274 config.py:295
+#: iten_map.py:17 iten_map.py:40 iten_map.py:63 iten_map.py:86 iten_map.py:116
+#: iten_map.py:144 iten_map.py:165 iten_map.py:188 iten_map.py:211
+#: iten_map.py:238 iten_map.py:261 iten_map.py:282
 msgid "Increased with respect to yesterday"
 msgstr ""
 
-#: config.py:35 config.py:58 config.py:81 config.py:104 config.py:134
-#: config.py:162 config.py:183 config.py:206 config.py:229 config.py:256
-#: config.py:279 config.py:300
+#: iten_map.py:22 iten_map.py:45 iten_map.py:68 iten_map.py:91 iten_map.py:121
+#: iten_map.py:149 iten_map.py:170 iten_map.py:193 iten_map.py:216
+#: iten_map.py:243 iten_map.py:266 iten_map.py:287
 msgid "Decreased with respect to yesterday"
 msgstr ""
 
-#: config.py:40 config.py:63 config.py:86 config.py:109 config.py:139
-#: config.py:167 config.py:188 config.py:211 config.py:234 config.py:261
-#: config.py:284 config.py:305
+#: iten_map.py:27 iten_map.py:50 iten_map.py:73 iten_map.py:96 iten_map.py:126
+#: iten_map.py:154 iten_map.py:175 iten_map.py:198 iten_map.py:221
+#: iten_map.py:248 iten_map.py:271 iten_map.py:292
 msgid "Stable with respect to yesterday"
 msgstr ""
 
-#: config.py:44
+#: iten_map.py:31
 msgid "Intensive Care Unit"
 msgstr ""
 
-#: config.py:45
+#: iten_map.py:32
 msgid "# of people currently in ICU"
 msgstr ""
 
-#: config.py:46
+#: iten_map.py:33
 msgid "Total count of people currently in ICU and positive to COVID-19"
 msgstr ""
 
-#: config.py:67
+#: iten_map.py:54
 msgid "Total Hospitalized"
 msgstr ""
 
-#: config.py:68
+#: iten_map.py:55
 msgid "# of people currently hospitalized"
 msgstr ""
 
-#: config.py:69
+#: iten_map.py:56
 msgid "Total count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 
-#: config.py:90
+#: iten_map.py:77
 msgid "Self Isolation"
 msgstr ""
 
-#: config.py:91
+#: iten_map.py:78
 msgid "# of people currently in self isolation"
 msgstr ""
 
-#: config.py:92
+#: iten_map.py:79
 msgid "People currently positive but who don't need hospitalization"
 msgstr ""
 
-#: config.py:113
+#: iten_map.py:100
 msgid "Total Positive"
 msgstr ""
 
-#: config.py:114
+#: iten_map.py:101
 msgid "# of people currently hospitalized with symptoms + ICU + self isolation"
 msgstr ""
 
-#: config.py:118
+#: iten_map.py:105
 msgid ""
 "People currently positive. Unlike 'Total Cases' it does not take into "
 "account 'healed' and 'deaths'. By the end of the outbreak this should "
@@ -101,78 +101,78 @@ msgid ""
 "healed - total deaths"
 msgstr ""
 
-#: config.py:143
+#: iten_map.py:130
 msgid "Total Positive Variation"
 msgstr ""
 
-#: config.py:144
+#: iten_map.py:131
 msgid "Variation of # of people currently positive with respect to yesterday"
 msgstr ""
 
-#: config.py:148
+#: iten_map.py:135
 msgid ""
 "Variation of the number of people currently positive with respect to the "
 "previous day. It is negative when the number of daily healed and deaths "
 "is larger than 'New positive'"
 msgstr ""
 
-#: config.py:171
+#: iten_map.py:158
 msgid "New Positive"
 msgstr ""
 
-#: config.py:172 config.py:173
+#: iten_map.py:159 iten_map.py:160
 msgid "Daily count of new positve cases"
 msgstr ""
 
-#: config.py:192
+#: iten_map.py:179
 msgid "Total Healed"
 msgstr ""
 
-#: config.py:193
+#: iten_map.py:180
 msgid "Cumulative # of people healed"
 msgstr ""
 
-#: config.py:194
+#: iten_map.py:181
 msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:215
+#: iten_map.py:202
 msgid "Total Deaths"
 msgstr ""
 
-#: config.py:216
+#: iten_map.py:203
 msgid "Total deaths count"
 msgstr ""
 
-#: config.py:217
+#: iten_map.py:204
 msgid "Total deaths count since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:238
+#: iten_map.py:225
 msgid "Total Cases"
 msgstr ""
 
-#: config.py:239 config.py:243
+#: iten_map.py:226 iten_map.py:230
 msgid "Total count of the positive tests since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:265
+#: iten_map.py:252
 msgid "Total Swabs"
 msgstr ""
 
-#: config.py:266
+#: iten_map.py:253
 msgid "# of swabs performed"
 msgstr ""
 
-#: config.py:267
+#: iten_map.py:254
 msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:288
+#: iten_map.py:275
 msgid "Daily deaths"
 msgstr ""
 
-#: config.py:289 config.py:290
+#: iten_map.py:276 iten_map.py:277
 msgid "Daily deaths count"
 msgstr ""
 
@@ -284,7 +284,7 @@ msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
 #: covidashit/templates/base/navbar.html:6
-#: covidashit/templates/dashboard/charts.html:115
+#: covidashit/templates/dashboard/charts.html:117
 msgid "Italy"
 msgstr ""
 
@@ -348,59 +348,59 @@ msgstr ""
 msgid "Latest Update:"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:7
+#: covidashit/templates/dashboard/charts.html:11
 msgid "Trend"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:11
-#: covidashit/templates/dashboard/charts.html:49
+#: covidashit/templates/dashboard/charts.html:15
+#: covidashit/templates/dashboard/charts.html:53
 msgid "National"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:21
+#: covidashit/templates/dashboard/charts.html:25
 msgid "Select data (default Total Positive)"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:28
+#: covidashit/templates/dashboard/charts.html:32
 msgid "Visualize one series at a time"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:46
-#: covidashit/views/dashboard.py:48 covidashit/views/dashboard.py:78
+#: covidashit/templates/dashboard/charts.html:50
+#: covidashit/views/dashboard.py:54 covidashit/views/dashboard.py:89
 msgid "New Positive VS Total Cases"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:70
+#: covidashit/templates/dashboard/charts.html:72
 msgid "Lockdown"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:78
+#: covidashit/templates/dashboard/charts.html:80
 msgid "Phase 2"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:86
+#: covidashit/templates/dashboard/charts.html:88
 msgid "Reopening"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:109
+#: covidashit/templates/dashboard/charts.html:111
 msgid "# of people"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:125
+#: covidashit/templates/dashboard/charts.html:127
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
 "json'>Civil Protection dataset</a>"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:130
+#: covidashit/templates/dashboard/charts.html:132
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:136
+#: covidashit/templates/dashboard/charts.html:138
 msgid "# Total Cases"
 msgstr ""
 
-#: covidashit/templates/dashboard/charts.html:143
+#: covidashit/templates/dashboard/charts.html:145
 msgid "# New Positive"
 msgstr ""
 
