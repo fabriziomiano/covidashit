@@ -4,13 +4,14 @@ from flask import render_template, redirect, Blueprint
 from flask_babel import gettext
 
 from config import (
-    REGIONS, PROVINCES, ITEN_MAP, CUSTOM_CARDS, BARCHART_RACE_QUERY,
+    REGIONS, PROVINCES, CUSTOM_CARDS, BARCHART_RACE_QUERY,
     COLLECTION_NAME, UPDATE_FMT
 )
 from covidashit.datatools import (
     parse_data, init_data, latest_update, get_national_data,
     get_regional_data, get_provincial_data, frontend_data, EXP_STATUS
 )
+from iten_map import ITEN_MAP
 
 DATA_SERIES = [
     ITEN_MAP[key]["title"]
