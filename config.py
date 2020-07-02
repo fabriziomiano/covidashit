@@ -368,6 +368,9 @@ DATA_TO_FRONTEND = {
     "days_since_reopening": (dt.datetime.today() - REOPENING_DAY).days,
     "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days
 }
-BARCHART_CRON_DT = dt.time(19, 00)
-BARCHART_CRON_LOG_FILENAME = "barchart.log"
+BARCHART_CRON_DT = dt.time(12, 31)
 TRANSLATION_DIRNAME = "translations"
+MONGO_URI = os.environ.get("MONGO_URI")
+DB_NAME = os.environ.get("DB_NAME")
+COLLECTION_NAME = os.environ.get("COLLECTION_NAME")
+BARCHART_RACE_QUERY = {"name": "barchart_race"}
