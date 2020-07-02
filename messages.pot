@@ -1,16 +1,16 @@
 # Translations template for COVIdashIT.
 # Copyright (C) 2020 Fabrizio Miano
 # This file is distributed under the same license as the COVIdashIT project.
-# FABRIZIO MIANO fabriziomiano@gmail.com, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-07-03 00:36+0200\n"
-"PO-Revision-Date: 2020-07-03 00:36+0200\n"
-"Last-Translator: FABRIZIO MIANO fabriziomiano@gmail.com\n"
+"POT-Creation-Date: 2020-07-03 00:43+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -263,23 +263,19 @@ msgstr ""
 msgid " next to the card title to read the description of the data"
 msgstr ""
 
-#: covidashit/templates/base/modal.html:31
-msgid "Days since lockdown:"
-msgstr ""
-
-#: covidashit/templates/base/modal.html:38
+#: covidashit/templates/base/modal.html:27
 msgid "Who made this?"
 msgstr ""
 
-#: covidashit/templates/base/modal.html:41
+#: covidashit/templates/base/modal.html:30
 msgid "Got it!"
 msgstr ""
 
-#: covidashit/templates/base/modal.html:43
+#: covidashit/templates/base/modal.html:32
 msgid "NOTE:"
 msgstr ""
 
-#: covidashit/templates/base/modal.html:43
+#: covidashit/templates/base/modal.html:32
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
