@@ -3,30 +3,31 @@ import os
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, request, render_template
+from flask_pymongo import PyMongo
 from flask_babel import Babel
 
 from config import (
-    LANGUAGES, TRANSLATION_DIRNAME, BARCHART_CRON_DT,
-    BARCHART_CRON_LOG_FILENAME
+    LANGUAGES, TRANSLATION_DIRNAME, BARCHART_CRON_DT
 )
-from .datatools import barchartrace_to_html
+from .datatools import barchartrace_html_to_mongo
 from .views.dashboard import dashboard
 
+mongo = PyMongo()
 scheduler = BackgroundScheduler()
 scheduler.add_job(
-    func=barchartrace_to_html,
+    func=barchartrace_html_to_mongo,
     trigger="cron",
     hour=BARCHART_CRON_DT.hour,
     minute=BARCHART_CRON_DT.minute
 )
 scheduler.start()
-
-# Shut down the scheduler when exiting the app
 atexit.register(lambda: scheduler.shutdown())
 
 
 def create_app():
     app = Flask("covidashit")
+    app.config["MONGO_URI"] = os.environ["MONGO_URI"]
+    mongo.init_app(app)
     babel = Babel(app)
     set_error_handlers(app)
 
@@ -34,9 +35,6 @@ def create_app():
     def get_locale():
         return request.accept_languages.best_match(LANGUAGES.keys())
 
-    app.config["BARCHART_LOG_PATH"] = os.path.join(
-        app.root_path, BARCHART_CRON_LOG_FILENAME
-    )
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = os.path.join(
         app.root_path, TRANSLATION_DIRNAME
     )

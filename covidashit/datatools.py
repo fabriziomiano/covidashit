@@ -1,10 +1,9 @@
 import datetime as dt
 import json
-import os
-import time
 
 import bar_chart_race as bcr
 import pandas as pd
+import pymongo
 import requests
 from flask import current_app
 from flask_babel import gettext
@@ -14,7 +13,8 @@ from config import (
     REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT, PCM_DATE_KEY,
     UPDATE_FMT, URL_NATIONAL_DATA, NATIONAL_DATA_FILE, URL_REGIONAL_DATA,
     REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE,
-    DATA_TO_FRONTEND, BARCHART_RACE_VARS, BARCHART_CRON_LOG_FILENAME
+    DATA_TO_FRONTEND, BARCHART_RACE_VARS, MONGO_URI, DB_NAME, COLLECTION_NAME,
+    BARCHART_RACE_QUERY
 )
 
 DATES = []
@@ -337,44 +337,32 @@ def get_provincial_data():
     return data
 
 
-def populate_data_to_frontend(
-        dates,
-        trend_cards,
-        series,
-        updated_at,
-        data_series,
-        territory=None
-):
+def frontend_data(territory=None, **data):
     """
     Return a data dict to be rendered which is an augmented copy of
     DATA_TO_FRONTEND defined in config.py
-    :param dates: list
-    :param trend_cards: list
-    :param series: list
-    :param territory: str
-    :param updated_at: str
-    :param data_series: list
+    :param territory: optional, str
+    :param data: **kwargs
     :return: dict
     """
-    with open(current_app.config["BARCHART_LOG_PATH"], "r") as file_in:
-        barchart_cron_latest_update = file_in.read()
-    data = {
-        "dates": dates,
-        "trend_cards": trend_cards,
-        "series": series,
-        "ts": str(time.time()),
-        "latest_update": updated_at,
-        "data_series": data_series,
-        "territory": territory,
-        "navtitle": territory,
-        "barchart_cron_latest_update": barchart_cron_latest_update,
-        "scatterplot_series": {
-            "name": gettext("New Positive VS Total Cases"),
-            "data": EXP_STATUS
-        }
-    }
+    try:
+        data["territory"] = territory
+    except KeyError:
+        pass
     data.update(DATA_TO_FRONTEND)
     return data
+
+
+def replace_video_tag_content(string_to_replace):
+    """
+    Replace <video> tag content with
+    <video width="100%" height="auto" controls autoplay loop>
+    :param string_to_replace: str
+    :return: str
+    """
+    start = string_to_replace.find(">") + 1
+    to = '<video width="100%" height="auto" controls autoplay loop>'
+    return to + string_to_replace[start:]
 
 
 def barchartrace_to_html():
@@ -408,30 +396,26 @@ def barchartrace_to_html():
                 's': f'Tot: {v.nlargest(6).sum():,.0f}',
                 'ha': 'right', 'size': 8
             },
-            period_label={'x': .99, 'y': .25, 'ha': 'right', 'va': 'center'}
+            period_label={'x': .99, 'y': .25, 'ha': 'right', 'va': 'center'},
+            dpi=320
         )
         bcr_html = replace_video_tag_content(bcr_html)
-        filename = "{}.html".format(var)
-        file_rel_path = (
-            'covidashit/templates/dashboard/barChartRace/{}'.format(filename)
-        )
-        file_abs_path = os.path.join(os.getcwd(), file_rel_path)
-        with open(file_abs_path, "w") as file_out:
-            file_out.write(bcr_html)
-        print("Saved {}".format(file_abs_path))
-        barchart_log_fp = os.path.join("covidashit", BARCHART_CRON_LOG_FILENAME)
-        with open(barchart_log_fp, "w") as file_out:
-            now = dt.datetime.now()
-            file_out.write(now.strftime(UPDATE_FMT))
+        return bcr_html
 
 
-def replace_video_tag_content(string_to_replace):
+def barchartrace_html_to_mongo():
     """
-    Replace <video> tag content with
-    <video width="100%" height="auto" controls autoplay loop>
-    :param string_to_replace: str
-    :return: str
+    Create, or update, an item on mongodb like the following
+    {
+        "name": "barchart_race",
+        "ts": dt.datetime.now(),
+        "html_str": "<video ....."
+    }
+    :return: None
     """
-    start = string_to_replace.find(">") + 1
-    to = '<video width="100%" height="auto" controls autoplay loop>'
-    return to + string_to_replace[start:]
+    bcr_html = barchartrace_to_html()
+    client = pymongo.MongoClient(MONGO_URI)
+    db = client[DB_NAME]
+    collection = db[COLLECTION_NAME]
+    new_data = {"$set": {"html_str": bcr_html, "ts": dt.datetime.now()}}
+    collection.update_one(BARCHART_RACE_QUERY, new_data, upsert=True)

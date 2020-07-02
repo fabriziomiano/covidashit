@@ -1,11 +1,15 @@
+import datetime as dt
+
 from flask import render_template, redirect, Blueprint
+from flask_babel import gettext
 
 from config import (
-    REGIONS, PROVINCES, ITEN_MAP, CUSTOM_CARDS
+    REGIONS, PROVINCES, ITEN_MAP, CUSTOM_CARDS, BARCHART_RACE_QUERY,
+    COLLECTION_NAME, UPDATE_FMT
 )
 from covidashit.datatools import (
     parse_data, init_data, latest_update, get_national_data,
-    get_regional_data, get_provincial_data, populate_data_to_frontend
+    get_regional_data, get_provincial_data, frontend_data, EXP_STATUS
 )
 
 DATA_SERIES = [
@@ -23,12 +27,27 @@ def national():
 
 @dashboard.route("/")
 def national_view():
+    from covidashit import mongo
     covid_data = get_national_data()
     init_data()
     dates, series, trend_cards = parse_data(covid_data)
     updated_at = latest_update(covid_data["national"])
-    data = populate_data_to_frontend(
-        dates, trend_cards, series, updated_at, DATA_SERIES
+    bcr_data = mongo.db[COLLECTION_NAME].find(BARCHART_RACE_QUERY)[0]
+    bcr_ts = bcr_data["ts"].strftime(UPDATE_FMT)
+    bcr_html = bcr_data["html_str"]
+    data = frontend_data(
+        ts=dt.datetime.now(),
+        dates=dates,
+        trend_cards=trend_cards,
+        series=series,
+        latest_update=updated_at,
+        data_series=DATA_SERIES,
+        bcr_ts=bcr_ts,
+        bcr_html=bcr_html,
+        scatterplot_series={
+            "name": gettext("New Positive VS Total Cases"),
+            "data": EXP_STATUS
+        }
     )
     return render_template("dashboard.html", **data)
 
@@ -46,7 +65,18 @@ def regional_or_provincial_view(territory):
         return render_template("errors/404.html")
     init_data()
     dates, series, trend_cards = parse_data(data, territory=territory)
-    data = populate_data_to_frontend(
-        dates, trend_cards, series, updated_at, DATA_SERIES, territory
+    data = frontend_data(
+        ts=dt.datetime.now(),
+        navtitle=territory,
+        territory=territory,
+        dates=dates,
+        series=series,
+        trend_cards=trend_cards,
+        latest_update=updated_at,
+        data_series=DATA_SERIES,
+        scatterplot_series={
+            "name": gettext("New Positive VS Total Cases"),
+            "data": EXP_STATUS
+        }
     )
     return render_template("dashboard.html", **data)
