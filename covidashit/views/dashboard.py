@@ -1,4 +1,4 @@
-import datetime as dt
+import time
 
 from flask import render_template, redirect, Blueprint
 from flask_babel import gettext
@@ -42,7 +42,7 @@ def national_view():
     bcr_ts = bcr_data["ts"].strftime(UPDATE_FMT)
     bcr_html = bcr_data["html_str"]
     data = frontend_data(
-        ts=dt.datetime.now(),
+        ts=int(time.time()),
         dates=dates,
         trend_cards=trend_cards,
         series=series,
@@ -77,7 +77,7 @@ def regional_or_provincial_view(territory):
     data = frontend_data(
         bcr_ts=bcr_ts,
         bcr_html=bcr_html,
-        ts=dt.datetime.now(),
+        ts=int(time.time()),
         navtitle=territory,
         territory=territory,
         dates=dates,
