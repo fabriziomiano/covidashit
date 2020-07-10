@@ -1,14 +1,9 @@
 <!-- Chart -->
 <div class="row">
-    {% if territory not in provinces %}
     <div class="col-xl-6">
-    {% else %}
-    <div class="col-xl-12">
-    {% endif %}
         <div class="card border-left-primary shadow mb-3" id="chartCard">
             <div class="card-header">
-                <i class="fas fa-chart-line mr-2"></i>
-                {{ _("Trend") }} |
+                <i class="fas fa-chart-line mr-2"></i> {{ _("Trend") }} |
                 {% if territory %}
                     {{ territory }}
                 {% else %}
@@ -34,7 +29,9 @@
                     </div>
                 {% endif %}
             </div>
-            <div id="chart-trend" class="container-fluid px-2" style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+            <div id="chart-trend" class="container-fluid px-2"
+                 style="border: none; width:100%; height: 450px; margin: 0 auto">
+            </div>
         </div>
     </div>
 
@@ -53,7 +50,9 @@
                     {% else %} {{ _("National") }}
                     {% endif %}
                 </div>
-                <div id="chart-iacopo" class="container-fluid px-2" style="border: none; width:100%; margin: 0 auto"></div>
+                <div id="chart-iacopo" class="container-fluid px-2"
+                     style="border: none; width:100%; margin: 0 auto">
+                </div>
             </div>
         </div>
     {% endif %}
@@ -65,7 +64,7 @@
         categories: {{ dates|safe }},
         plotLines: [
             {
-                color: '#FF0000', // Red
+                color: 'rgba(255,0,0)',
                 width: 1,
                 value: 13,
                 label: {
@@ -73,7 +72,7 @@
                 }
             },
             {
-                color: '#000000',
+                color: 'rgba(252,115,3)',
                 width: 1,
                 value: 70,
                 label: {
@@ -83,25 +82,25 @@
             {
                 color: 'rgb(0,255,0)',
                 width: 1,
-                value: 84,
+                value: 112,
                 label: {
-                    text: "{{ gettext("Reopening") }}"
+                    text: "{{ gettext("Phase 3") }}"
                 }
             }],
         plotBands: [
             {
-                color: 'rgba(255,0,0,.25)',
+                color: 'rgba(255,0,0,.3)',
                 from: 13,
                 to: 70
             },
             {
-                color: 'rgba(252,115,3,.25)',
+                color: 'rgba(252,115,3,.3)',
                 from: 70,
-                to: 84
+                to: 112
             },
             {
-                color: 'rgba(0,255,0,.25)',
-                from: 84,
+                color: 'rgba(0,255,0,.3)',
+                from: 112,
                 to: {{ dates|length }}
             }
         ]
