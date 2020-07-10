@@ -29,4 +29,4 @@ USER myuser
 #EXPOSE 5000
 #ENV PORT 5000
 
-CMD gunicorn --workers=3 --bind 0.0.0.0:$PORT wsgi:app
+CMD gunicorn --bind 0.0.0.0:$PORT wsgi:app
