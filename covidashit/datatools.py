@@ -1,9 +1,6 @@
 import datetime as dt
 import json
 
-import bar_chart_race as bcr
-import pandas as pd
-import pymongo
 import requests
 from flask import current_app
 from flask_babel import gettext
@@ -13,8 +10,7 @@ from config import (
     REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT, PCM_DATE_KEY,
     UPDATE_FMT, URL_NATIONAL_DATA, NATIONAL_DATA_FILE, URL_REGIONAL_DATA,
     REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE,
-    DATA_TO_FRONTEND, BARCHART_RACE_VAR, MONGO_URI, DB_NAME, COLLECTION_NAME,
-    BARCHART_RACE_QUERY
+    DATA_TO_FRONTEND
 )
 from iten_map import ITEN_MAP
 
@@ -363,70 +359,3 @@ def frontend_data(territory=None, **data):
         pass
     data.update(DATA_TO_FRONTEND)
     return data
-
-
-def replace_video_tag_content(string_to_replace):
-    """
-    Replace <video> tag content with
-    <video width="100%" height="auto" controls autoplay loop>
-    :param string_to_replace: str
-    :return: str
-    """
-    start = string_to_replace.find(">") + 1
-    to = '<video width="100%" height="auto" controls autoplay loop>'
-    return to + string_to_replace[start:]
-
-
-def barchartrace_to_html():
-    """
-    Generate HTML files of the bar-chart races of all the relevant
-    variables defined in the config
-    :return: None
-    """
-    data = get_regional_data()["regional"]
-    dates = sorted(set([d["data"] for d in data]))
-    dates = [
-        dt.datetime.strptime(d, "%Y-%m-%dT%H:%M:%S").strftime("%d %b")
-        for d in dates
-    ]
-    bcr_data = {}
-    print("Doing {}".format(BARCHART_RACE_VAR))
-    for d in data:
-        region = d["denominazione_regione"]
-        if region not in bcr_data:
-            bcr_data[region] = [d[BARCHART_RACE_VAR]]
-        else:
-            bcr_data[region].append(d[BARCHART_RACE_VAR])
-    df = pd.DataFrame.from_dict(bcr_data, orient='index', columns=dates)
-    df = df.transpose()
-    bcr_html = bcr.bar_chart_race(
-        df=df,
-        title=ITEN_MAP[BARCHART_RACE_VAR]["title"],
-        period_summary_func=lambda v, r: {
-            'x': .99, 'y': .18,
-            's': f'Tot: {v.nlargest(6).sum():,.0f}',
-            'ha': 'right', 'size': 8
-        },
-        period_label={'x': .99, 'y': .25, 'ha': 'right', 'va': 'center'},
-        dpi=320
-    )
-    bcr_html = replace_video_tag_content(bcr_html)
-    return bcr_html
-
-
-def barchartrace_html_to_mongo():
-    """
-    Create, or update, an item on mongodb like the following
-    {
-        "name": "barchart_race",
-        "ts": dt.datetime.now(),
-        "html_str": "<video ....."
-    }
-    :return: None
-    """
-    bcr_html = barchartrace_to_html()
-    client = pymongo.MongoClient(MONGO_URI)
-    db = client[DB_NAME]
-    collection = db[COLLECTION_NAME]
-    new_data = {"$set": {"html_str": bcr_html, "ts": dt.datetime.now()}}
-    collection.update_one(BARCHART_RACE_QUERY, new_data, upsert=True)

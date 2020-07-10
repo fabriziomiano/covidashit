@@ -73,8 +73,6 @@ DATA_TO_FRONTEND = {
     "days_since_reopening": (dt.datetime.today() - REOPENING_DAY).days,
     "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days
 }
-BCR_CRON_HOURS = int(os.environ["BCR_CRON_HOURS"])
-BCR_CRON_MINUTES = int(os.environ["BCR_CRON_MINUTES"])
 TRANSLATION_DIRNAME = "translations"
 MONGO_URI = os.environ["MONGO_URI"]
 DB_NAME = os.environ["DB_NAME"]

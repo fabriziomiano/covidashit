@@ -1,27 +1,15 @@
-import atexit
 import os
 
-from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, request, render_template
-from flask_pymongo import PyMongo
 from flask_babel import Babel
+from flask_pymongo import PyMongo
 
 from config import (
-    LANGUAGES, TRANSLATION_DIRNAME, BCR_CRON_HOURS, BCR_CRON_MINUTES
+    LANGUAGES, TRANSLATION_DIRNAME
 )
-from .datatools import barchartrace_html_to_mongo
 from .views.dashboard import dashboard
 
 mongo = PyMongo()
-scheduler = BackgroundScheduler()
-scheduler.add_job(
-    func=barchartrace_html_to_mongo,
-    trigger="cron",
-    hour=BCR_CRON_HOURS,
-    minute=BCR_CRON_MINUTES
-)
-scheduler.start()
-atexit.register(lambda: scheduler.shutdown())
 
 
 def create_app():
