@@ -1,6 +1,8 @@
 import datetime as dt
 import os
 
+from iten_map import ITEN_MAP
+
 NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
 REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni.json"
 PROVINCIAL_DATE_FILE = "dpc-covid19-ita-province.json"
@@ -78,3 +80,8 @@ MONGO_URI = os.environ["MONGO_URI"]
 DB_NAME = os.environ["DB_NAME"]
 COLLECTION_NAME = os.environ["COLLECTION_NAME"]
 BARCHART_RACE_QUERY = {"name": "barchart_race"}
+DATA_SERIES = [
+    ITEN_MAP[key]["title"]
+    for key in ITEN_MAP
+    if key not in CUSTOM_CARDS
+]
