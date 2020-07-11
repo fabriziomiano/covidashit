@@ -7,7 +7,6 @@ from flask_pymongo import PyMongo
 from config import (
     LANGUAGES, TRANSLATION_DIRNAME
 )
-from .views.dashboard import dashboard
 
 mongo = PyMongo()
 
@@ -40,7 +39,12 @@ def create_app():
         return r
 
     set_error_handlers(app)
+
+    from .ui import dashboard
     app.register_blueprint(dashboard)
+
+    from .api import api
+    app.register_blueprint(api)
     return app
 
 
