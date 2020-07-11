@@ -2,15 +2,21 @@
 
 {% block content %}
     <div class="col-xl-6">
-        <div class="card border-left-primary shadow mb-3" id="chartCard">
+        <div class="card border-left-primary shadow mb-3" id="bcrCard">
             <div class="card-header"><i class="fas fa-chart-bar mr-2"></i>
                 {{ _("Total positive bar chart race") }}
             </div>
-            <div class="alert alert-success small" role="alert">
+            <div class="alert alert-success small" role="alert" id="bcrts">
                 <i class="fas fa-bullhorn mr-2"></i>
-                {{ _("Latest Update:") }} {{ bcr_ts }}
+                {{ _("Latest Update:") }}
             </div>
-            {{ bcr_html|safe }}
+            <div class="container" id="bcrLoader">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-grow" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
