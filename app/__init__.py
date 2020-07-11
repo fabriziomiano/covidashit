@@ -12,7 +12,7 @@ mongo = PyMongo()
 
 
 def create_app():
-    app = Flask("covidashit")
+    app = Flask("app")
     app.config["MONGO_URI"] = os.environ["MONGO_URI"]
     mongo.init_app(app)
     babel = Babel(app)

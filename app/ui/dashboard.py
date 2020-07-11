@@ -4,11 +4,11 @@ from flask import render_template, redirect
 from flask_babel import gettext
 
 from config import REGIONS, PROVINCES, DATA_SERIES
-from covidashit.datatools import (
+from app.datatools import (
     parse_data, init_data, latest_update, get_national_data,
     get_regional_data, get_provincial_data, frontend_data, EXP_STATUS
 )
-from covidashit.ui import dashboard
+from app.ui import dashboard
 
 
 @dashboard.route("/national")
