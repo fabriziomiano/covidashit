@@ -1,30 +1,14 @@
 import time
 
-from flask import render_template, redirect, Blueprint
+from flask import render_template, redirect
 from flask_babel import gettext
 
-from config import (
-    REGIONS, PROVINCES, CUSTOM_CARDS, BARCHART_RACE_QUERY,
-    COLLECTION_NAME, UPDATE_FMT
-)
+from config import REGIONS, PROVINCES, DATA_SERIES
 from covidashit.datatools import (
     parse_data, init_data, latest_update, get_national_data,
     get_regional_data, get_provincial_data, frontend_data, EXP_STATUS
 )
-from iten_map import ITEN_MAP
-
-DATA_SERIES = [
-    ITEN_MAP[key]["title"]
-    for key in ITEN_MAP
-    if key not in CUSTOM_CARDS
-]
-dashboard = Blueprint("dashboard", __name__)
-
-
-def get_bcr_data():
-    from covidashit import mongo
-    bcr_data = mongo.db[COLLECTION_NAME].find(BARCHART_RACE_QUERY)[0]
-    return bcr_data
+from covidashit.ui import dashboard
 
 
 @dashboard.route("/national")
@@ -38,9 +22,6 @@ def national_view():
     init_data()
     dates, series, trend_cards = parse_data(covid_data)
     updated_at = latest_update(covid_data["national"])
-    bcr_data = get_bcr_data()
-    bcr_ts = bcr_data["ts"].strftime(UPDATE_FMT)
-    bcr_html = bcr_data["html_str"]
     data = frontend_data(
         ts=int(time.time()),
         dates=dates,
@@ -48,8 +29,6 @@ def national_view():
         series=series,
         latest_update=updated_at,
         data_series=DATA_SERIES,
-        bcr_ts=bcr_ts,
-        bcr_html=bcr_html,
         scatterplot_series={
             "name": gettext("New Positive VS Total Cases"),
             "data": EXP_STATUS
@@ -71,12 +50,7 @@ def regional_or_provincial_view(territory):
         return render_template("errors/404.html")
     init_data()
     dates, series, trend_cards = parse_data(data, territory=territory)
-    bcr_data = get_bcr_data()
-    bcr_ts = bcr_data["ts"].strftime(UPDATE_FMT)
-    bcr_html = bcr_data["html_str"]
     data = frontend_data(
-        bcr_ts=bcr_ts,
-        bcr_html=bcr_html,
         ts=int(time.time()),
         navtitle=territory,
         territory=territory,
