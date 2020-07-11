@@ -131,3 +131,15 @@ function dataTypeSelector(value) {
         }
     }
 }
+
+$(function () {
+    $.ajax({
+        url: '/api/get_bcr',
+        method: 'get',
+        success: function (response) {
+            $("#bcrLoader").attr("hidden", true)
+            $("#bcrCard").append(response["html"])
+            $("#bcrts").append(response["ts"])
+        }
+    })
+})
