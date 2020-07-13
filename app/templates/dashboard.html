@@ -20,6 +20,9 @@
 
                 {% include 'dashboard/cards.html' %}
                 {% include 'dashboard/charts.html' %}
+                {% if territory not in provinces %}
+                    {% include 'dashboard/barChartRace.html' %}
+                {% endif %}
 
             </div>
         </main>
