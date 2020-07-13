@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-07-10 20:31+0200\n"
-"PO-Revision-Date: 2020-07-10 20:40+0200\n"
+"POT-Creation-Date: 2020-07-13 02:55+0200\n"
+"PO-Revision-Date: 2020-07-13 02:56+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -192,80 +192,79 @@ msgstr "Decessi odierni"
 msgid "Daily deaths count"
 msgstr "Conteggio decessi odierni"
 
-#: covidashit/datatools.py:135
+#: app/datatools.py:131
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: covidashit/datatools.py:139
+#: app/datatools.py:135
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: covidashit/datatools.py:143
+#: app/datatools.py:139
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: covidashit/datatools.py:147
+#: app/datatools.py:143
 msgid "decedutititle"
 msgstr ""
 
-#: covidashit/datatools.py:151
+#: app/datatools.py:147
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: covidashit/datatools.py:155
+#: app/datatools.py:151
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: covidashit/datatools.py:159
+#: app/datatools.py:155
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: covidashit/datatools.py:163
+#: app/datatools.py:159
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: covidashit/datatools.py:167
+#: app/datatools.py:163
 msgid "totale_positivititle"
 msgstr ""
 
-#: covidashit/datatools.py:172 covidashit/datatools.py:186
+#: app/datatools.py:168 app/datatools.py:182
 msgid "totale_casititle"
 msgstr ""
 
-#: covidashit/datatools.py:176
+#: app/datatools.py:172
 msgid "tamponititle"
 msgstr ""
 
-#: covidashit/templates/dashboard.html:11
+#: app/templates/dashboard.html:11
 msgid "Latest CPD Update:"
 msgstr "Ultimo aggiornamento DPC:"
 
-#: covidashit/templates/dashboard.html:17
+#: app/templates/dashboard.html:17
 msgid "Only the \"Total positive\" data is shown"
 msgstr "Mostrati solo i \"Totali Positivi\""
 
-#: covidashit/templates/base/head.html:18
+#: app/templates/base/head.html:18
 msgid "COVID-19 Italy outbreak dashboard"
 msgstr "Visualizzazione dati epidemia COVID-19 in Italia"
 
-#: covidashit/templates/base/head.html:20
+#: app/templates/base/head.html:20
 msgid "COVID-19 Italy outbreak"
 msgstr "Epidemia COVID-19 Italia"
 
-#: covidashit/templates/base/head.html:22
+#: app/templates/base/head.html:22
 msgid "Data visualization of the COVID-19 outbreak in Italy"
 msgstr "Visualizzazione dei dati dell'epidemia COVID-19 in Italia"
 
-#: covidashit/templates/base/head.html:33
-#: covidashit/templates/base/head.html:35
+#: app/templates/base/head.html:33 app/templates/base/head.html:35
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
-#: covidashit/templates/base/modal.html:7
+#: app/templates/base/modal.html:7
 msgid "HOW TO USE"
 msgstr "COME SI USA"
 
-#: covidashit/templates/base/modal.html:16
+#: app/templates/base/modal.html:16
 msgid ""
 "Click the name of the series at the bottom of the chart to toggle on/off or "
 "use the dropdown to visualize one series at a time"
@@ -274,136 +273,141 @@ msgstr ""
 "visualizzazione, oppure usa il menu a tendina per visualizzarne una alla "
 "volta"
 
-#: covidashit/templates/base/modal.html:19
+#: app/templates/base/modal.html:19
 msgid "Hover or tap the icon "
 msgstr "Passa sopra col mouse o tocca l'icona "
 
-#: covidashit/templates/base/modal.html:20
+#: app/templates/base/modal.html:20
 msgid " next to the card title to read the description of the data"
 msgstr " accanto al titolo della scheda per leggere la descrizione del dato"
 
-#: covidashit/templates/base/modal.html:27
+#: app/templates/base/modal.html:27
 msgid "Who made this?"
 msgstr "Chi è l'autore?"
 
-#: covidashit/templates/base/modal.html:30
+#: app/templates/base/modal.html:30
 msgid "Got it!"
 msgstr "Ok!"
 
-#: covidashit/templates/base/modal.html:32
+#: app/templates/base/modal.html:32
 msgid "NOTE:"
 msgstr "NOTA:"
 
-#: covidashit/templates/base/modal.html:32
+#: app/templates/base/modal.html:32
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr "Solo i \"Casi totali\" vengono forniti per le province."
 
-#: covidashit/templates/base/navbar.html:6
-#: covidashit/templates/dashboard/charts.html:116
+#: app/templates/base/navbar.html:6 app/templates/dashboard/charts.html:112
 msgid "Italy"
 msgstr "Italia"
 
-#: covidashit/templates/base/sidebar.html:6
+#: app/templates/base/sidebar.html:6
 msgid "Usage"
 msgstr "Utilizzo"
 
-#: covidashit/templates/base/sidebar.html:9
+#: app/templates/base/sidebar.html:9
 msgid "How to"
 msgstr "Istruzioni"
 
-#: covidashit/templates/base/sidebar.html:13
+#: app/templates/base/sidebar.html:13
 msgid "Visualization"
 msgstr "Visualizzazione"
 
-#: covidashit/templates/base/sidebar.html:16
+#: app/templates/base/sidebar.html:16
 msgid "National Data"
 msgstr "Dati Nazionali"
 
-#: covidashit/templates/base/sidebar.html:22
+#: app/templates/base/sidebar.html:22
 msgid "Regional Data"
 msgstr "Dati Regionali"
 
-#: covidashit/templates/base/sidebar.html:37
+#: app/templates/base/sidebar.html:37
 msgid "Provincial Data"
 msgstr "Dati Provinciali"
 
-#: covidashit/templates/base/sidebar.html:49
+#: app/templates/base/sidebar.html:49
 msgid "Credits"
 msgstr "Crediti"
 
-#: covidashit/templates/base/sidebar.html:54
+#: app/templates/base/sidebar.html:54
 msgid "Author"
 msgstr "Autore"
 
-#: covidashit/templates/base/sidebar.html:61
+#: app/templates/base/sidebar.html:61
 msgid "CPD News"
 msgstr "News DPC"
 
-#: covidashit/templates/base/sidebar.html:64
+#: app/templates/base/sidebar.html:64
 msgid "CPD Repository"
 msgstr "Repository DPC"
 
-#: covidashit/templates/base/sidebar.html:71
+#: app/templates/base/sidebar.html:71
 msgid "Days since Reopening"
 msgstr "Giorni dalla Riapertura"
 
-#: covidashit/templates/base/sidebar.html:72
+#: app/templates/base/sidebar.html:72
 msgid "Days since \"Phase 2\""
 msgstr "Giorni dalla \"Fase 2\""
 
-#: covidashit/templates/base/sidebar.html:73
+#: app/templates/base/sidebar.html:73
 msgid "Days in Lockdown"
 msgstr "Giorni di Lockdown"
 
-#: covidashit/templates/dashboard/barChartRace.html:7
+#: app/templates/dashboard/barChartRace.html:6
 msgid "Total positive bar chart race"
 msgstr "Bar chart race Totale positivi"
 
-#: covidashit/templates/dashboard/barChartRace.html:11
+#: app/templates/dashboard/barChartRace.html:10
 msgid "Latest Update:"
 msgstr "Ultimo aggiornamento:"
 
-#: covidashit/templates/dashboard/charts.html:6
+#: app/templates/dashboard/barChartRace.html:14
+msgid "Play bar-chart race"
+msgstr "Riproduci bar chart race"
+
+#: app/templates/dashboard/barChartRace.html:18
+msgid "Loading..."
+msgstr "Carico..."
+
+#: app/templates/dashboard/charts.html:6
 msgid "Trend"
 msgstr "Andamento"
 
-#: covidashit/templates/dashboard/charts.html:10
-#: covidashit/templates/dashboard/charts.html:50
+#: app/templates/dashboard/charts.html:10
+#: app/templates/dashboard/charts.html:46
 msgid "National"
 msgstr "Nazionale"
 
-#: covidashit/templates/dashboard/charts.html:20
+#: app/templates/dashboard/charts.html:20
 msgid "Select data (default Total Positive)"
 msgstr "Seleziona dati (default Totale Positivi)"
 
-#: covidashit/templates/dashboard/charts.html:27
+#: app/templates/dashboard/charts.html:27
 msgid "Visualize one series at a time"
 msgstr "Visualizza una serie alla volta"
 
-#: covidashit/templates/dashboard/charts.html:47
-#: covidashit/views/dashboard.py:54 covidashit/views/dashboard.py:89
+#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:33
+#: app/ui/dashboard.py:63
 msgid "New Positive VS Total Cases"
 msgstr "Nuovi Positivi VS Totale Casi"
 
-#: covidashit/templates/dashboard/charts.html:71
+#: app/templates/dashboard/charts.html:67
 msgid "Lockdown"
 msgstr "Lockdown"
 
-#: covidashit/templates/dashboard/charts.html:79
+#: app/templates/dashboard/charts.html:75
 msgid "Phase 2"
 msgstr "Fase 2"
 
-#: covidashit/templates/dashboard/charts.html:87
-#, fuzzy
-#| msgid "Phase 2"
+#: app/templates/dashboard/charts.html:83
 msgid "Phase 3"
-msgstr "Fase 2"
+msgstr "Fase 3"
 
-#: covidashit/templates/dashboard/charts.html:110
+#: app/templates/dashboard/charts.html:106
 msgid "# of people"
 msgstr "# persone"
 
-#: covidashit/templates/dashboard/charts.html:126
+#: app/templates/dashboard/charts.html:122
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
 "json'>Civil Protection dataset</a>"
@@ -411,15 +415,15 @@ msgstr ""
 "Fonte: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-"
 "json'>Dati Protezione Civile</a>"
 
-#: covidashit/templates/dashboard/charts.html:131
+#: app/templates/dashboard/charts.html:127
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
-#: covidashit/templates/dashboard/charts.html:137
+#: app/templates/dashboard/charts.html:133
 msgid "# Total Cases"
 msgstr "# Totale Casi"
 
-#: covidashit/templates/dashboard/charts.html:144
+#: app/templates/dashboard/charts.html:140
 msgid "# New Positive"
 msgstr "# Nuovi Positivi"
 
