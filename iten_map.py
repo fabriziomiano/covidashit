@@ -181,7 +181,7 @@ ITEN_MAP = {
         "longdesc": gettext(
             "Total number of people healed since the beginning of the outbreak"
         ),
-        "icon": "far fa-smile",
+        "icon": "fas fa-smile",
         "increase": {
             "colour": "text-success",
             "icon": "fas fa-long-arrow-alt-up",
