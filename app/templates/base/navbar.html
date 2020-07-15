@@ -1,12 +1,26 @@
 <!-- Navbar -->
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <img class="ml-2" src="../../static/img/virussketch.png" alt="" width="32" height="32">
-    <a class="navbar-brand">
-        {% if not navtitle %}
-            COVIDash-IT | {{ _("Italy") }}
-        {% else %}
-            COVIDash-IT | {{ navtitle }}
-        {% endif %}
+    <a class="navbar-brand" href="/">
+        <img class="mr-2" src="../../static/img/virussketch.png" alt=""
+             width="32" height="32"> COVIDashIT
     </a>
-    <button class="btn btn-link btn-sm order-first" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+    <button class="btn btn-link btn-sm order-first ml-3" id="sidebarToggle"><i
+            class="fas fa-bars"></i></button>
+    <!-- Navbar Search-->
+    <form id="searchForm"
+          class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"
+          action="">
+        <div class="input-group">
+            <input id="searchInput" class="form-control" type="text"
+                   placeholder="{{ _("Search region/province") }}"
+                   aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button id="searchBtn" class="btn btn-primary" type="submit">
+                    <i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </form>
 </nav>
+<script>
+    let searchInputErrMsg = '{{ _("Region/province not in the right format") }}'
+</script>
