@@ -10,7 +10,8 @@ from config import (
     REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT, PCM_DATE_KEY,
     UPDATE_FMT, URL_NATIONAL_DATA, NATIONAL_DATA_FILE, URL_REGIONAL_DATA,
     REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE,
-    DATA_TO_FRONTEND, VARS_CONFIG
+    DATA_TO_FRONTEND, VARS_CONFIG, LATEST_REGIONAL_DATA_FILE,
+    URL_LATEST_REGIONAL_DATA, URL_LATEST_PROVINCIAL_DATA, TOTAL_CASES_KEY
 )
 
 DATES = []
@@ -108,6 +109,7 @@ def get_trends(data, province=False):
     for key in card_types:
         stats = get_stats(key, last, penultimate, third_tolast)
         trend_cards.append({
+            "id": key,
             "title": VARS_CONFIG[key]["title"],
             "desc": VARS_CONFIG[key]["desc"],
             "longdesc": VARS_CONFIG[key]["longdesc"],
@@ -322,6 +324,31 @@ def get_regional_data():
     return data
 
 
+def get_latest_regional_data():
+    """
+    Return the latest regional data from the "Protezione Civile" repository
+    :return: dict
+    """
+    data = {}
+    try:
+        response = requests.get(URL_LATEST_REGIONAL_DATA, timeout=5)
+        status = response.status_code
+        if status == 200:
+            latest_regional_data = response.json()
+            data["latest_regional"] = sorted(
+                latest_regional_data, key=lambda x: x[PCM_DATE_KEY]
+            )
+            cache_data(data["latest_regional"], LATEST_REGIONAL_DATA_FILE)
+        else:
+            current_app.logger.error(
+                "Could not get data: ERROR {}".format(status))
+            data["regional"] = read_cached_data(LATEST_REGIONAL_DATA_FILE)
+    except Exception as e:
+        current_app.logger.error("Request Error {}".format(e))
+        data["latest_regional"] = read_cached_data(LATEST_REGIONAL_DATA_FILE)
+    return data
+
+
 def get_provincial_data():
     """
     Return the provincial data from the "Protezione Civile" repository
@@ -348,6 +375,32 @@ def get_provincial_data():
     return data
 
 
+def get_latest_provincial_data():
+    """
+    Return the latest provincial data from the "Protezione Civile" repository
+    :return: dict
+    """
+    data = {}
+    try:
+        response = requests.get(URL_LATEST_PROVINCIAL_DATA, timeout=5)
+        status = response.status_code
+        if status == 200:
+            prov_data = response.json()
+            data["latest_provincial"] = sorted(
+                prov_data, key=lambda x: x[PCM_DATE_KEY]
+            )
+            cache_data(data["latest_provincial"], PROVINCIAL_DATE_FILE)
+        else:
+            current_app.logger.error(
+                "Could not get data: ERROR {}".format(status)
+            )
+            data["latest_provincial"] = read_cached_data(PROVINCIAL_DATE_FILE)
+    except Exception as e:
+        current_app.logger.error("Request Error {}".format(e))
+        data["latest_provincial"] = read_cached_data(PROVINCIAL_DATE_FILE)
+    return data
+
+
 def frontend_data(territory=None, **data):
     """
     Return a data dict to be rendered which is an augmented copy of
@@ -362,3 +415,45 @@ def frontend_data(territory=None, **data):
         pass
     data.update(DATA_TO_FRONTEND)
     return data
+
+
+def get_regional_breakdown(covid_data):
+    """
+    Return a dict whose keys are the COVID dataset variables
+    and the values are lists of dicts whose keys are "region" and "count".
+    Example:
+    {
+      'nuovi_positivi': [
+        {'region': 'Abruzzo', 'count': 1}, ...{'region': 'Veneto', 'count': 55}
+      ],
+      'ricoverati_con_sintomi': [
+        {'region': 'Abruzzo', 'count': 17}, ...
+      ]
+    }
+    :param covid_data: list of dicts
+    :return: dict
+    """
+    breakdown = {}
+    for _type in CARD_TYPES:
+        if _type not in CUSTOM_CARDS:
+            breakdown[_type] = [
+                {"area": d[REGION_KEY], "count": d[_type]}
+                for d in covid_data if d[_type] != 0
+            ]
+    return breakdown
+
+
+def get_provincial_breakdown(covid_data, region):
+    """
+    :param covid_data: list of dicts
+    :param region: str
+    :return: dict
+    """
+    print(region)
+    return {
+        TOTAL_CASES_KEY: [
+            {"area": d[PROVINCE_KEY], "count": d[TOTAL_CASES_KEY]}
+            for d in covid_data
+            if d[REGION_KEY] == region
+        ]
+    }

@@ -1,8 +1,41 @@
-/*!
-    * Start Bootstrap - SB Admin v6.0.0 (https://startbootstrap.com/templates/sb-admin)
-    * Copyright 2013-2020 Start Bootstrap
-    * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-sb-admin/blob/master/LICENSE)
-    */
+let provinces = [
+    'Agrigento', 'Alessandria', 'Ancona', 'Aosta', 'Arezzo',
+    'Ascoli Piceno', 'Asti', 'Avellino', 'Bari',
+    'Barletta-Andria-Trani', 'Belluno', 'Benevento', 'Bergamo',
+    'Biella', 'Bologna', 'Bolzano', 'Brescia', 'Brindisi', 'Cagliari',
+    'Caltanissetta', 'Campobasso', 'Caserta', 'Catania', 'Catanzaro',
+    'Chieti', 'Como', 'Cosenza', 'Cremona', 'Crotone', 'Cuneo',
+    'Enna', 'Fermo', 'Ferrara', 'Firenze', 'Foggia', 'Forlì-Cesena',
+    'Frosinone', 'Genova', 'Gorizia', 'Grosseto', 'Imperia',
+    'Isernia', "L'Aquila", 'La Spezia', 'Latina', 'Lecce', 'Lecco',
+    'Livorno', 'Lodi', 'Lucca', 'Macerata', 'Mantova',
+    'Massa Carrara', 'Matera', 'Messina', 'Milano', 'Modena',
+    'Monza e della Brianza', 'Napoli', 'Novara', 'Nuoro', 'Oristano',
+    'Padova', 'Palermo', 'Parma', 'Pavia', 'Perugia',
+    'Pesaro e Urbino', 'Pescara', 'Piacenza', 'Pisa', 'Pistoia',
+    'Pordenone', 'Potenza', 'Prato', 'Ragusa', 'Ravenna',
+    'Reggio di Calabria', "Reggio nell'Emilia", 'Rieti', 'Rimini',
+    'Roma', 'Rovigo', 'Salerno', 'Sassari', 'Savona', 'Siena',
+    'Siracusa', 'Sondrio', 'Sud Sardegna', 'Taranto', 'Teramo',
+    'Terni', 'Torino', 'Trapani', 'Trento', 'Treviso', 'Trieste',
+    'Udine', 'Varese', 'Venezia', 'Verbano-Cusio-Ossola', 'Vercelli',
+    'Verona', 'Vibo Valentia', 'Vicenza', 'Viterbo'
+]
+
+let regions = [
+    'Abruzzo', 'Basilicata', 'Calabria', 'Campania', 'Emilia-Romagna',
+    'Friuli Venezia Giulia', 'Lazio', 'Liguria', 'Lombardia',
+    'Marche', 'Molise', 'P.A. Bolzano', 'P.A. Trento', 'Piemonte',
+    'Puglia', 'Sardegna', 'Sicilia', 'Toscana', 'Umbria',
+    "Valle d'Aosta", 'Veneto'
+];
+
+let regionsAndProvinces = regions.concat(provinces);
+
+let regionsUrl = '/regions/';
+let provincesUrl = '/provinces/';
+
+
 (function ($) {
     "use strict";
 
@@ -21,9 +54,18 @@
         $(window).resize();
     });
 
+    // activate tooltips
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     })
+
+    // activate data tables
+    $(function () {
+        $('[class="table table-bordered"]').DataTable({
+            "order": [[1, "desc"]]
+        })
+    })
+
 
     $(function () {
         if (window.location.href.includes("provinces")) {
@@ -34,5 +76,31 @@
             $("#regionalNavLink").addClass('active')
         }
     })
+
+    $(function () {
+        $("#searchInput").autocomplete({
+            source: regionsAndProvinces
+        });
+    });
+
+    $(function () {
+        $("#searchInput").on('change', function (e) {
+            e.preventDefault();
+            let url = validateSearchInput($("#searchInput").val());
+            $("#searchForm").removeAttr('action').attr('action', url);
+        })
+    })
+
+    function validateSearchInput(searchInput) {
+        let url = "";
+        if (regions.includes(searchInput)) {
+            url = regionsUrl + searchInput;
+        } else if (provinces.includes(searchInput)) {
+            url = provincesUrl + searchInput;
+        } else {
+            alert(searchInputErrMsg);
+        }
+        return url;
+    }
 
 })(jQuery);
