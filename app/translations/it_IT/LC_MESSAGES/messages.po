@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-07-13 02:55+0200\n"
-"PO-Revision-Date: 2020-07-13 02:56+0200\n"
+"POT-Creation-Date: 2020-07-15 19:40+0200\n"
+"PO-Revision-Date: 2020-07-15 19:41+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -19,89 +19,89 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: iten_map.py:5
+#: config.py:8
 msgid "Hospitalized With Symptoms"
 msgstr "Ricoverati con sintomi"
 
-#: iten_map.py:6
+#: config.py:9
 msgid "# of people currently hospitalized with symptoms"
 msgstr "# di persone attualmente ricoverate con sintomi"
 
-#: iten_map.py:9
+#: config.py:12
 msgid ""
 "Total count of people currently in hospital due to coronavirus with symptoms"
 msgstr ""
 "Conteggi del numero di persone attualmente in ospedale con sintomi da Covid"
 
-#: iten_map.py:17 iten_map.py:40 iten_map.py:63 iten_map.py:86 iten_map.py:116
-#: iten_map.py:144 iten_map.py:165 iten_map.py:188 iten_map.py:211
-#: iten_map.py:238 iten_map.py:261 iten_map.py:282
+#: config.py:20 config.py:43 config.py:66 config.py:89 config.py:119
+#: config.py:147 config.py:168 config.py:191 config.py:214 config.py:241
+#: config.py:265 config.py:286
 msgid "Increased with respect to yesterday"
 msgstr "In aumento rispetto a ieri"
 
-#: iten_map.py:22 iten_map.py:45 iten_map.py:68 iten_map.py:91 iten_map.py:121
-#: iten_map.py:149 iten_map.py:170 iten_map.py:193 iten_map.py:216
-#: iten_map.py:243 iten_map.py:266 iten_map.py:287
+#: config.py:25 config.py:48 config.py:71 config.py:94 config.py:124
+#: config.py:152 config.py:173 config.py:196 config.py:219 config.py:246
+#: config.py:270 config.py:291
 msgid "Decreased with respect to yesterday"
 msgstr "In calo rispetto a ieri"
 
-#: iten_map.py:27 iten_map.py:50 iten_map.py:73 iten_map.py:96 iten_map.py:126
-#: iten_map.py:154 iten_map.py:175 iten_map.py:198 iten_map.py:221
-#: iten_map.py:248 iten_map.py:271 iten_map.py:292
+#: config.py:30 config.py:53 config.py:76 config.py:99 config.py:129
+#: config.py:157 config.py:178 config.py:201 config.py:224 config.py:251
+#: config.py:275 config.py:296
 msgid "Stable with respect to yesterday"
 msgstr "Stabile rispetto a ieri"
 
-#: iten_map.py:31
+#: config.py:34
 msgid "Intensive Care Unit"
 msgstr "Terapia intensiva"
 
-#: iten_map.py:32
+#: config.py:35
 msgid "# of people currently in ICU"
 msgstr "# di persone attualmete in terapia intensiva"
 
-#: iten_map.py:33
+#: config.py:36
 msgid "Total count of people currently in ICU and positive to COVID-19"
 msgstr ""
 "Conteggi del numero di persone attualmente in terapia intensiva e positive "
 "al COVID-19"
 
-#: iten_map.py:54
+#: config.py:57
 msgid "Total Hospitalized"
 msgstr "Totale ricoverati"
 
-#: iten_map.py:55
+#: config.py:58
 msgid "# of people currently hospitalized"
 msgstr "# di persone attualmente ricoverate"
 
-#: iten_map.py:56
+#: config.py:59
 msgid "Total count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 "Conteggi del numero di persone attualmente positive e ricoverate. Tiene "
 "conto di quelle in terapia intensiva"
 
-#: iten_map.py:77
+#: config.py:80
 msgid "Self Isolation"
 msgstr "Isolamento autonomo"
 
-#: iten_map.py:78
+#: config.py:81
 msgid "# of people currently in self isolation"
 msgstr "# di persone in Terapia Intensiva"
 
-#: iten_map.py:79
+#: config.py:82
 msgid "People currently positive but who don't need hospitalization"
 msgstr "Persone attualmente positive che non hanno bisogno di ricovero"
 
-#: iten_map.py:100
+#: config.py:103
 msgid "Total Positive"
 msgstr "Totale positivi"
 
-#: iten_map.py:101
+#: config.py:104
 msgid "# of people currently hospitalized with symptoms + ICU + self isolation"
 msgstr ""
 "# di persone attualmente ricoverate con sintomi + terapia intensiva + "
 "isolamento autonomo"
 
-#: iten_map.py:105
+#: config.py:108
 msgid ""
 "People currently positive. Unlike 'Total Cases' it does not take into "
 "account 'healed' and 'deaths'. By the end of the outbreak this should tend "
@@ -113,15 +113,15 @@ msgstr ""
 "zero. In particolare, è definito totale positivi = totale casi - totale "
 "guariti - totale morti"
 
-#: iten_map.py:130
+#: config.py:133
 msgid "Total Positive Variation"
 msgstr "Variazione totale positivi"
 
-#: iten_map.py:131
+#: config.py:134
 msgid "Variation of # of people currently positive with respect to yesterday"
 msgstr "Variazione del # di persone attualmente ricoverate con sintomi"
 
-#: iten_map.py:135
+#: config.py:138
 msgid ""
 "Variation of the number of people currently positive with respect to the "
 "previous day. It is negative when the number of daily healed and deaths is "
@@ -131,72 +131,72 @@ msgstr ""
 "precedente. È negativo se il numero di deceduti e guariti quotidiani supera "
 "il numero 'Nuovi positivi'"
 
-#: iten_map.py:158
+#: config.py:161
 msgid "New Positive"
 msgstr "Nuovi Positivi"
 
-#: iten_map.py:159 iten_map.py:160
+#: config.py:162 config.py:163
 msgid "Daily count of new positve cases"
 msgstr "Conteggio giornaliero dei nuovi casi positivi"
 
-#: iten_map.py:179
+#: config.py:182
 msgid "Total Healed"
 msgstr "Totale guariti"
 
-#: iten_map.py:180
+#: config.py:183
 msgid "Cumulative # of people healed"
 msgstr "Totale cumulativo di persone guarite"
 
-#: iten_map.py:181
+#: config.py:184
 msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 "Totale cumulativo del numero di persone guarite dall'inizio dell'epidemia"
 
-#: iten_map.py:202
+#: config.py:205
 msgid "Total Deaths"
 msgstr "Totale decessi"
 
-#: iten_map.py:203
+#: config.py:206
 msgid "Total deaths count"
 msgstr "Conteggio totale decessi"
 
-#: iten_map.py:204
+#: config.py:207
 msgid "Total deaths count since the beginning of the outbreak"
 msgstr "Conteggio dei decessi dall'inizio dell'epidemia"
 
-#: iten_map.py:225
+#: config.py:228
 msgid "Total Cases"
 msgstr "Totale casi"
 
-#: iten_map.py:226 iten_map.py:230
+#: config.py:229 config.py:233
 msgid "Total count of the positive tests since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi positivi dall'inizio dell'epidemia"
 
-#: iten_map.py:252
+#: config.py:255
 msgid "Total Swabs"
 msgstr "Totale tamponi"
 
-#: iten_map.py:253
+#: config.py:256
 msgid "# of swabs performed"
 msgstr "# di tamponi eseguiti"
 
-#: iten_map.py:254
+#: config.py:257
 msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi effettuati dall'inizio dell'epidemia"
 
-#: iten_map.py:275
+#: config.py:279
 msgid "Daily deaths"
 msgstr "Decessi odierni"
 
-#: iten_map.py:276 iten_map.py:277
+#: config.py:280 config.py:281
 msgid "Daily deaths count"
 msgstr "Conteggio decessi odierni"
 
-#: app/datatools.py:131
+#: app/datatools.py:130
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: app/datatools.py:135
+#: app/datatools.py:134
 msgid "variazione_totale_positivititle"
 msgstr ""
 
@@ -236,11 +236,15 @@ msgstr ""
 msgid "tamponititle"
 msgstr ""
 
-#: app/templates/dashboard.html:11
+#: app/templates/dashboard.html:12 app/templates/dashboard/charts.html:112
+msgid "Italy"
+msgstr "Italia"
+
+#: app/templates/dashboard.html:17
 msgid "Latest CPD Update:"
 msgstr "Ultimo aggiornamento DPC:"
 
-#: app/templates/dashboard.html:17
+#: app/templates/dashboard.html:23
 msgid "Only the \"Total positive\" data is shown"
 msgstr "Mostrati solo i \"Totali Positivi\""
 
@@ -297,9 +301,15 @@ msgstr "NOTA:"
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr "Solo i \"Casi totali\" vengono forniti per le province."
 
-#: app/templates/base/navbar.html:6 app/templates/dashboard/charts.html:112
-msgid "Italy"
-msgstr "Italia"
+#: app/templates/base/navbar.html:15
+msgid "Search region/province"
+msgstr "Cerca regione/provincia"
+
+#: app/templates/base/navbar.html:25
+#, fuzzy
+#| msgid "Provided province or region not in the right format"
+msgid "Region/province not in the right format"
+msgstr "Formato provincia/regione non corretto"
 
 #: app/templates/base/sidebar.html:6
 msgid "Usage"
