@@ -1,10 +1,10 @@
 from flask import jsonify
 
-from config import COLLECTION_NAME, BARCHART_RACE_QUERY, UPDATE_FMT
 from app.api import api
+from config import COLLECTION_NAME, BARCHART_RACE_QUERY, UPDATE_FMT
 
 
-@api.route("/get_bcr")
+@api.route("/bcr")
 def get_bcr():
     from app import mongo
     bcr_data = next(

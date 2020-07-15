@@ -137,7 +137,7 @@ function playBCR() {
     $('#loadBCRButtonLoader').removeAttr('hidden')
     $('#loadBCRButton').attr('hidden', true)
     $.ajax({
-        url: '/api/get_bcr',
+        url: '/api/bcr',
         method: 'get',
         success: function (response) {
             $("#loadBCRButtonLoader").attr("hidden", true)
