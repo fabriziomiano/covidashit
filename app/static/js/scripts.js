@@ -61,7 +61,9 @@ let provincesUrl = '/provinces/';
 
     // activate data tables
     $(function () {
-        $('#dataTable').DataTable();
+        $('[class="table table-bordered"]').DataTable({
+            "order": [[1, "desc"]]
+        })
     })
 
 
@@ -102,4 +104,3 @@ let provincesUrl = '/provinces/';
     }
 
 })(jQuery);
-
