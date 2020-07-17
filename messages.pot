@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-07-15 19:40+0200\n"
+"POT-Creation-Date: 2020-08-03 17:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,60 +176,56 @@ msgstr ""
 msgid "Daily deaths count"
 msgstr ""
 
-#: app/datatools.py:130
+#: app/datatools.py:132
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: app/datatools.py:134
+#: app/datatools.py:136
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: app/datatools.py:139
+#: app/datatools.py:141
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: app/datatools.py:143
+#: app/datatools.py:145
 msgid "decedutititle"
 msgstr ""
 
-#: app/datatools.py:147
+#: app/datatools.py:149
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: app/datatools.py:151
+#: app/datatools.py:153
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: app/datatools.py:155
+#: app/datatools.py:157
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: app/datatools.py:159
+#: app/datatools.py:161
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: app/datatools.py:163
+#: app/datatools.py:165
 msgid "totale_positivititle"
 msgstr ""
 
-#: app/datatools.py:168 app/datatools.py:182
+#: app/datatools.py:170 app/datatools.py:184
 msgid "totale_casititle"
 msgstr ""
 
-#: app/datatools.py:172
+#: app/datatools.py:174
 msgid "tamponititle"
 msgstr ""
 
-#: app/templates/dashboard.html:12 app/templates/dashboard/charts.html:112
-msgid "Italy"
-msgstr ""
-
-#: app/templates/dashboard.html:17
+#: app/templates/dashboard.html:16
 msgid "Latest CPD Update:"
 msgstr ""
 
-#: app/templates/dashboard.html:23
-msgid "Only the \"Total positive\" data is shown"
+#: app/templates/dashboard.html:22
+msgid "Only the \"Total Cases\" data is shown"
 msgstr ""
 
 #: app/templates/base/head.html:18
@@ -244,41 +240,67 @@ msgstr ""
 msgid "Data visualization of the COVID-19 outbreak in Italy"
 msgstr ""
 
-#: app/templates/base/head.html:33 app/templates/base/head.html:35
-msgid "COVID-19 Italy"
-msgstr ""
-
-#: app/templates/base/modal.html:7
+#: app/templates/base/modal.html:10
 msgid "HOW TO USE"
 msgstr ""
 
-#: app/templates/base/modal.html:16
-msgid ""
-"Click the name of the series at the bottom of the chart to toggle on/off "
-"or use the dropdown to visualize one series at a time"
+#: app/templates/base/modal.html:19
+msgid "Cards"
 msgstr ""
 
-#: app/templates/base/modal.html:19
+#: app/templates/base/modal.html:23
+msgid ""
+"Click on a card to visualize the breakdown of the relevant "
+"regions/provinces"
+msgstr ""
+
+#: app/templates/base/modal.html:26
 msgid "Hover or tap the icon "
 msgstr ""
 
-#: app/templates/base/modal.html:20
+#: app/templates/base/modal.html:28
 msgid " next to the card title to read the description of the data"
 msgstr ""
 
-#: app/templates/base/modal.html:27
+#: app/templates/base/modal.html:33
+msgid "Charts"
+msgstr ""
+
+#: app/templates/base/modal.html:37
+msgid "Click the name of the series at the bottom of the chart to toggle on/off"
+msgstr ""
+
+#: app/templates/base/modal.html:40
+msgid "Use the dropdown to visualize one series at a time"
+msgstr ""
+
+#: app/templates/base/modal.html:43
+msgid ""
+"Drag to zoom in or use pinch to zoom. Use the 'Reset Zoom' button to "
+"reset the original chart"
+msgstr ""
+
+#: app/templates/base/modal.html:48
+msgid "Search bar (desktop version only)"
+msgstr ""
+
+#: app/templates/base/modal.html:52
+msgid "Type the name of the area you want to visualize and use autocompletion"
+msgstr ""
+
+#: app/templates/base/modal.html:60
 msgid "Who made this?"
 msgstr ""
 
-#: app/templates/base/modal.html:30
+#: app/templates/base/modal.html:64
 msgid "Got it!"
 msgstr ""
 
-#: app/templates/base/modal.html:32
+#: app/templates/base/modal.html:67
 msgid "NOTE:"
 msgstr ""
 
-#: app/templates/base/modal.html:32
+#: app/templates/base/modal.html:67
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
@@ -298,47 +320,51 @@ msgstr ""
 msgid "How to"
 msgstr ""
 
-#: app/templates/base/sidebar.html:13
+#: app/templates/base/sidebar.html:11
+msgid "New"
+msgstr ""
+
+#: app/templates/base/sidebar.html:14
 msgid "Visualization"
 msgstr ""
 
-#: app/templates/base/sidebar.html:16
+#: app/templates/base/sidebar.html:17
 msgid "National Data"
 msgstr ""
 
-#: app/templates/base/sidebar.html:22
+#: app/templates/base/sidebar.html:23
 msgid "Regional Data"
 msgstr ""
 
-#: app/templates/base/sidebar.html:37
+#: app/templates/base/sidebar.html:38
 msgid "Provincial Data"
 msgstr ""
 
-#: app/templates/base/sidebar.html:49
+#: app/templates/base/sidebar.html:50
 msgid "Credits"
 msgstr ""
 
-#: app/templates/base/sidebar.html:54
+#: app/templates/base/sidebar.html:55
 msgid "Author"
 msgstr ""
 
-#: app/templates/base/sidebar.html:61
+#: app/templates/base/sidebar.html:62
 msgid "CPD News"
 msgstr ""
 
-#: app/templates/base/sidebar.html:64
+#: app/templates/base/sidebar.html:65
 msgid "CPD Repository"
 msgstr ""
 
-#: app/templates/base/sidebar.html:71
+#: app/templates/base/sidebar.html:72
 msgid "Days since Reopening"
 msgstr ""
 
-#: app/templates/base/sidebar.html:72
+#: app/templates/base/sidebar.html:73
 msgid "Days since \"Phase 2\""
 msgstr ""
 
-#: app/templates/base/sidebar.html:73
+#: app/templates/base/sidebar.html:74
 msgid "Days in Lockdown"
 msgstr ""
 
@@ -375,8 +401,8 @@ msgstr ""
 msgid "Visualize one series at a time"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:33
-#: app/ui/dashboard.py:63
+#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:41
+#: app/ui/dashboard.py:79
 msgid "New Positive VS Total Cases"
 msgstr ""
 
@@ -393,7 +419,11 @@ msgid "Phase 3"
 msgstr ""
 
 #: app/templates/dashboard/charts.html:106
-msgid "# of people"
+msgid "Counts"
+msgstr ""
+
+#: app/templates/dashboard/charts.html:112
+msgid "Italy"
 msgstr ""
 
 #: app/templates/dashboard/charts.html:122
@@ -412,5 +442,25 @@ msgstr ""
 
 #: app/templates/dashboard/charts.html:140
 msgid "# New Positive"
+msgstr ""
+
+#: app/templates/dashboard/modal_tables.html:25
+msgid "Area"
+msgstr ""
+
+#: app/templates/dashboard/modal_tables.html:26
+msgid "Count"
+msgstr ""
+
+#: app/templates/dashboard/modal_tables.html:44
+msgid "Close"
+msgstr ""
+
+#: app/ui/dashboard.py:30 app/ui/dashboard.py:68
+msgid "COVID-19 Italy"
+msgstr ""
+
+#: app/ui/dashboard.py:31
+msgid "National Dashboard"
 msgstr ""
 

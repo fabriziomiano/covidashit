@@ -29,7 +29,9 @@
                             <tbody>
                             {% for row in breakdown[items[0]] %}
                                 <tr>
-                                    <td>{{ row.area }}</td>
+                                    <td>
+                                        <a href="{{ row.url }}"> {{ row.area }}</a>
+                                    </td>
                                     <td>{{ row.count }}</td>
                                 </tr>
                             {% endfor %}

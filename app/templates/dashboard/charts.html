@@ -4,12 +4,12 @@
         <div class="card border-left-primary shadow mb-3" id="chartCard">
             <div class="card-header">
                 <i class="fas fa-chart-line mr-2"></i> {{ _("Trend") }} |
-                {% if territory %}
-                    {{ territory }}
+                {% if area %}
+                    {{ area }}
                 {% else %}
                     {{ _("National") }}
                 {% endif %}
-                {% if territory not in provinces %}
+                {% if area not in provinces %}
                     <div class="float-sm-right small">
                         <label for="dataTypeSelector">
                             <select class="form-control form-control-sm"
@@ -35,14 +35,14 @@
         </div>
     </div>
 
-    {% if territory not in provinces %}
+    {% if area not in provinces %}
         <div class="col-xl-6">
             <div class="card border-left-primary shadow mb-3" id="chartCard">
                 <div class="card-header">
                     <i class="fas fa-chart-line mr-2"></i>
                     {{ _("New Positive VS Total Cases") }} |
-                    {% if territory %}
-                        {{ territory }}
+                    {% if area %}
+                        {{ area }}
                     {% else %} {{ _("National") }}
                     {% endif %}
                 </div>
@@ -103,18 +103,18 @@
     };
     let yAxis = {
         title: {
-            text: "{{ gettext("# of people") }}"
+            text: "{{ gettext("Counts") }}"
         }
     };
     let title;
-    {% if not territory %}
+    {% if not area %}
         title = {
             text: "{{ gettext("Italy") }}",
             align: "left"
         };
     {% else %}
         title = {
-            text: "{{ territory }}",
+            text: "{{ area }}",
             align: "left"
         };
     {% endif %}

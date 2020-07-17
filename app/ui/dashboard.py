@@ -3,7 +3,6 @@ import time
 from flask import render_template, redirect
 from flask_babel import gettext
 
-from config import REGIONS, PROVINCES, DATA_SERIES, VARS_CONFIG
 from app.datatools import (
     parse_data, init_data, latest_update, get_national_data,
     get_regional_data, get_provincial_data, frontend_data, EXP_STATUS,
@@ -11,6 +10,7 @@ from app.datatools import (
     get_latest_provincial_data, get_provincial_breakdown
 )
 from app.ui import dashboard
+from config import REGIONS, PROVINCES, DATA_SERIES, VARS_CONFIG
 
 
 @dashboard.route("/national")
@@ -27,6 +27,8 @@ def national_view():
     dates, series, trend_cards = parse_data(covid_data)
     updated_at = latest_update(covid_data["national"])
     data = frontend_data(
+        page_title=gettext("COVID-19 Italy"),
+        dashboard_title=gettext("National Dashboard"),
         ts=int(time.time()),
         dates=dates,
         trend_cards=trend_cards,
@@ -43,29 +45,29 @@ def national_view():
     return render_template("dashboard.html", **data)
 
 
-@dashboard.route("/regions/<string:territory>")
-@dashboard.route("/provinces/<string:territory>")
-def regional_or_provincial_view(territory):
+@dashboard.route("/regions/<area>")
+@dashboard.route("/provinces/<area>")
+def regional_or_provincial_view(area):
     breakdown = {}
-    if territory in REGIONS:
+    if area in REGIONS:
         covid_data = get_regional_data()
         updated_at = latest_update(covid_data["regional"])
         latest_provincial_data = get_latest_provincial_data()
         breakdown = get_provincial_breakdown(
-            latest_provincial_data["latest_provincial"], territory
+            latest_provincial_data["latest_provincial"], area
         )
-        print(breakdown)
-    elif territory in PROVINCES:
+    elif area in PROVINCES:
         covid_data = get_provincial_data()
         updated_at = latest_update(covid_data["provincial"])
     else:
         return render_template("errors/404.html")
     init_data()
-    dates, series, trend_cards = parse_data(covid_data, territory=territory)
-    covid_data = frontend_data(
+    dates, series, trend_cards = parse_data(covid_data, area=area)
+    data = frontend_data(
         ts=int(time.time()),
-        navtitle=territory,
-        territory=territory,
+        page_title="{} | {}".format(area, gettext("COVID-19 Italy")),
+        dashboard_title=area,
+        area=area,
         dates=dates,
         series=series,
         trend_cards=trend_cards,
@@ -78,4 +80,4 @@ def regional_or_provincial_view(territory):
             "data": EXP_STATUS
         }
     )
-    return render_template("dashboard.html", **covid_data)
+    return render_template("dashboard.html", **data)
