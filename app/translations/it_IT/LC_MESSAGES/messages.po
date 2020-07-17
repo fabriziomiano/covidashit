@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-07-15 19:40+0200\n"
-"PO-Revision-Date: 2020-07-15 19:41+0200\n"
+"POT-Creation-Date: 2020-07-17 23:30+0200\n"
+"PO-Revision-Date: 2020-07-17 23:31+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: config.py:8
@@ -192,47 +192,47 @@ msgstr "Decessi odierni"
 msgid "Daily deaths count"
 msgstr "Conteggio decessi odierni"
 
-#: app/datatools.py:130
+#: app/datatools.py:132
 msgid "nuovi_positivititle"
 msgstr ""
 
-#: app/datatools.py:134
+#: app/datatools.py:136
 msgid "variazione_totale_positivititle"
 msgstr ""
 
-#: app/datatools.py:139
+#: app/datatools.py:141
 msgid "terapia_intensivatitle"
 msgstr ""
 
-#: app/datatools.py:143
+#: app/datatools.py:145
 msgid "decedutititle"
 msgstr ""
 
-#: app/datatools.py:147
+#: app/datatools.py:149
 msgid "dimessi_guaritititle"
 msgstr ""
 
-#: app/datatools.py:151
+#: app/datatools.py:153
 msgid "ricoverati_con_sintomititle"
 msgstr ""
 
-#: app/datatools.py:155
+#: app/datatools.py:157
 msgid "totale_ospedalizzatititle"
 msgstr ""
 
-#: app/datatools.py:159
+#: app/datatools.py:161
 msgid "isolamento_domiciliaretitle"
 msgstr ""
 
-#: app/datatools.py:163
+#: app/datatools.py:165
 msgid "totale_positivititle"
 msgstr ""
 
-#: app/datatools.py:168 app/datatools.py:182
+#: app/datatools.py:170 app/datatools.py:184
 msgid "totale_casititle"
 msgstr ""
 
-#: app/datatools.py:172
+#: app/datatools.py:174
 msgid "tamponititle"
 msgstr ""
 
@@ -396,8 +396,8 @@ msgstr "Seleziona dati (default Totale Positivi)"
 msgid "Visualize one series at a time"
 msgstr "Visualizza una serie alla volta"
 
-#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:33
-#: app/ui/dashboard.py:63
+#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:39
+#: app/ui/dashboard.py:77
 msgid "New Positive VS Total Cases"
 msgstr "Nuovi Positivi VS Totale Casi"
 
@@ -436,6 +436,18 @@ msgstr "# Totale Casi"
 #: app/templates/dashboard/charts.html:140
 msgid "# New Positive"
 msgstr "# Nuovi Positivi"
+
+#: app/templates/dashboard/modal_tables.html:25
+msgid "Area"
+msgstr "Area"
+
+#: app/templates/dashboard/modal_tables.html:26
+msgid "Count"
+msgstr "Conteggi"
+
+#: app/templates/dashboard/modal_tables.html:42
+msgid "Close"
+msgstr "Chiudi"
 
 #~ msgid "Reopening"
 #~ msgstr "Riapertura"
