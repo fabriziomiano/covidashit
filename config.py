@@ -300,7 +300,7 @@ VARS_CONFIG = {
 
 NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
 REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni.json"
-REGIONAL_DATA_FILE_LATEST = "dpc-covid19-ita-regioni-latest.json"
+LATEST_REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni-latest.json"
 PROVINCIAL_DATE_FILE = "dpc-covid19-ita-province.json"
 BASE_URL_DATA = (
     "https://raw.githubusercontent.com"
@@ -308,8 +308,8 @@ BASE_URL_DATA = (
 )
 URL_NATIONAL_DATA = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
 URL_REGIONAL_DATA = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
-URL_REGIONAL_DATA_LATEST = os.path.join(
-    BASE_URL_DATA, REGIONAL_DATA_FILE_LATEST
+URL_LATEST_REGIONAL_DATA = os.path.join(
+    BASE_URL_DATA, LATEST_REGIONAL_DATA_FILE
 )
 URL_PROVINCIAL_DATA = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
 BARCHART_RACE_VAR = "totale_positivi"
