@@ -10212,3 +10212,5 @@ body {
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;
 }
+
+.ui-autocomplete { z-index:2000 !important; }
