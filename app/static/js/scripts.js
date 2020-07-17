@@ -54,9 +54,18 @@ let provincesUrl = '/provinces/';
         $(window).resize();
     });
 
+    // activate tooltips
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     })
+
+    // activate data tables
+    $(function () {
+        $('[class="table table-bordered"]').DataTable({
+            "order": [[1, "desc"]]
+        })
+    })
+
 
     $(function () {
         if (window.location.href.includes("provinces")) {
