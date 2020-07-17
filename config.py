@@ -302,6 +302,7 @@ NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
 REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni.json"
 LATEST_REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni-latest.json"
 PROVINCIAL_DATE_FILE = "dpc-covid19-ita-province.json"
+LATEST_PROVINCIAL_DATE_FILE = "dpc-covid19-ita-province-latest.json"
 BASE_URL_DATA = (
     "https://raw.githubusercontent.com"
     "/pcm-dpc/COVID-19/master/dati-json/"
@@ -312,13 +313,16 @@ URL_LATEST_REGIONAL_DATA = os.path.join(
     BASE_URL_DATA, LATEST_REGIONAL_DATA_FILE
 )
 URL_PROVINCIAL_DATA = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
+URL_LATEST_PROVINCIAL_DATA = os.path.join(
+    BASE_URL_DATA, LATEST_PROVINCIAL_DATE_FILE
+)
 BARCHART_RACE_VAR = "totale_positivi"
 #  The order here matters as it will be reflected in the webpage
 CARD_TYPES = [
-    "nuovi_positivi", "ricoverati_con_sintomi", "terapia_intensiva",
-    "deceduti_giornalieri", "totale_positivi", "totale_ospedalizzati",
-    "variazione_totale_positivi", "totale_casi", "isolamento_domiciliare",
-    "dimessi_guariti", "deceduti", "tamponi"
+    "totale_casi", "nuovi_positivi", "ricoverati_con_sintomi",
+    "terapia_intensiva", "deceduti_giornalieri", "totale_positivi",
+    "totale_ospedalizzati", "variazione_totale_positivi",
+    "isolamento_domiciliare", "dimessi_guariti", "deceduti", "tamponi"
 ]
 CUSTOM_CARDS = ["deceduti_giornalieri"]
 CARD_MAP = {
@@ -326,6 +330,7 @@ CARD_MAP = {
 }
 REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
+TOTAL_CASES_KEY = "totale_casi"
 PCM_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y %H:%M"
