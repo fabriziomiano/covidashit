@@ -280,7 +280,7 @@ def get_national_data():
     """
     data = {}
     try:
-        response = requests.get(URL_NATIONAL_DATA, timeout=5)
+        response = requests.get(URL_NATIONAL_DATA, timeout=3)
         status = response.status_code
         if status == 200:
             national_data = response.json()
@@ -306,7 +306,7 @@ def get_regional_data():
     """
     data = {}
     try:
-        response = requests.get(URL_REGIONAL_DATA, timeout=5)
+        response = requests.get(URL_REGIONAL_DATA, timeout=3)
         status = response.status_code
         if status == 200:
             regional_data = response.json()
@@ -331,7 +331,7 @@ def get_latest_regional_data():
     """
     data = {}
     try:
-        response = requests.get(URL_LATEST_REGIONAL_DATA, timeout=5)
+        response = requests.get(URL_LATEST_REGIONAL_DATA, timeout=3)
         status = response.status_code
         if status == 200:
             latest_regional_data = response.json()
@@ -356,7 +356,7 @@ def get_provincial_data():
     """
     data = {}
     try:
-        response = requests.get(URL_PROVINCIAL_DATA, timeout=5)
+        response = requests.get(URL_PROVINCIAL_DATA, timeout=3)
         status = response.status_code
         if status == 200:
             prov_data = response.json()
@@ -382,7 +382,7 @@ def get_latest_provincial_data():
     """
     data = {}
     try:
-        response = requests.get(URL_LATEST_PROVINCIAL_DATA, timeout=5)
+        response = requests.get(URL_LATEST_PROVINCIAL_DATA, timeout=3)
         status = response.status_code
         if status == 200:
             prov_data = response.json()
@@ -438,22 +438,24 @@ def get_regional_breakdown(covid_data):
         if _type not in CUSTOM_CARDS:
             breakdown[_type] = [
                 {"area": d[REGION_KEY], "count": d[_type]}
-                for d in covid_data if d[_type] != 0
+                for d in covid_data
+                if d[_type] != 0 and d[REGION_KEY] in REGIONS
             ]
     return breakdown
 
 
 def get_provincial_breakdown(covid_data, region):
     """
+    Return a dict whose key is TOTAL_CASE_KEY and its value
+    is a list of dicts each containing area and relative count
     :param covid_data: list of dicts
     :param region: str
     :return: dict
     """
-    print(region)
     return {
         TOTAL_CASES_KEY: [
             {"area": d[PROVINCE_KEY], "count": d[TOTAL_CASES_KEY]}
             for d in covid_data
-            if d[REGION_KEY] == region
+            if d[REGION_KEY] == region and d[PROVINCE_KEY] in PROVINCES
         ]
     }
