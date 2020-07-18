@@ -4341,6 +4341,9 @@ input[type=button].btn-block {
   margin-right: 0;
   margin-left: 0;
 }
+.card:hover {
+  background-color: #F0F0F0;
+}
 .card > .list-group:first-child .list-group-item:first-child {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
