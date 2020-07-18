@@ -3,7 +3,6 @@ import time
 from flask import render_template, redirect
 from flask_babel import gettext
 
-from config import REGIONS, PROVINCES, DATA_SERIES, VARS_CONFIG
 from app.datatools import (
     parse_data, init_data, latest_update, get_national_data,
     get_regional_data, get_provincial_data, frontend_data, EXP_STATUS,
@@ -11,6 +10,7 @@ from app.datatools import (
     get_latest_provincial_data, get_provincial_breakdown
 )
 from app.ui import dashboard
+from config import REGIONS, PROVINCES, DATA_SERIES, VARS_CONFIG
 
 
 @dashboard.route("/national")
@@ -54,7 +54,6 @@ def regional_or_provincial_view(territory):
         breakdown = get_provincial_breakdown(
             latest_provincial_data["latest_provincial"], territory
         )
-        print(breakdown)
     elif territory in PROVINCES:
         covid_data = get_provincial_data()
         updated_at = latest_update(covid_data["provincial"])
@@ -62,7 +61,7 @@ def regional_or_provincial_view(territory):
         return render_template("errors/404.html")
     init_data()
     dates, series, trend_cards = parse_data(covid_data, territory=territory)
-    covid_data = frontend_data(
+    data = frontend_data(
         ts=int(time.time()),
         navtitle=territory,
         territory=territory,
@@ -78,4 +77,4 @@ def regional_or_provincial_view(territory):
             "data": EXP_STATUS
         }
     )
-    return render_template("dashboard.html", **covid_data)
+    return render_template("dashboard.html", **data)
