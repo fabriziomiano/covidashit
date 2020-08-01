@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-07-17 23:30+0200\n"
-"PO-Revision-Date: 2020-07-17 23:31+0200\n"
+"POT-Creation-Date: 2020-08-01 17:07+0200\n"
+"PO-Revision-Date: 2020-08-01 17:08+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: config.py:8
@@ -264,40 +264,63 @@ msgstr "Visualizzazione dei dati dell'epidemia COVID-19 in Italia"
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
-#: app/templates/base/modal.html:7
+#: app/templates/base/modal.html:10
 msgid "HOW TO USE"
 msgstr "COME SI USA"
 
-#: app/templates/base/modal.html:16
-msgid ""
-"Click the name of the series at the bottom of the chart to toggle on/off or "
-"use the dropdown to visualize one series at a time"
-msgstr ""
-"Clicca sui nomi delle serie sotto al grafico per attivarne/disattivarne la "
-"visualizzazione, oppure usa il menu a tendina per visualizzarne una alla "
-"volta"
+#: app/templates/base/modal.html:18
+msgid "Cards"
+msgstr "Schede"
 
-#: app/templates/base/modal.html:19
+#: app/templates/base/modal.html:21
+msgid ""
+"Click on a card to visualize the breakdown of the relevant regions/provinces"
+msgstr ""
+"Clicca su una scheda per visualizzare la lista delle regioni/province "
+"pertinenti"
+
+#: app/templates/base/modal.html:24
 msgid "Hover or tap the icon "
 msgstr "Passa sopra col mouse o tocca l'icona "
 
-#: app/templates/base/modal.html:20
+#: app/templates/base/modal.html:26
 msgid " next to the card title to read the description of the data"
 msgstr " accanto al titolo della scheda per leggere la descrizione del dato"
 
-#: app/templates/base/modal.html:27
+#: app/templates/base/modal.html:30
+msgid "Charts"
+msgstr "Grafici"
+
+#: app/templates/base/modal.html:33
+msgid ""
+"Click the name of the series at the bottom of the chart to toggle on/off"
+msgstr ""
+"Clicca sui nomi delle serie sotto al grafico per attivarne/disattivarne la "
+"visualizzazione"
+
+#: app/templates/base/modal.html:36
+msgid "Use the dropdown to visualize one series at a time"
+msgstr "Usa il menu a tendina per visualizzare una serie alla volta"
+
+#: app/templates/base/modal.html:39
+msgid ""
+"Drag to zoom in or use pinch to zoom. Use the 'Reset Zoom' button to reset "
+"the original chart"
+msgstr "Trascina per zoomare. Usa il bottone 'Reset Zoom' per ripristinare"
+
+#: app/templates/base/modal.html:47
 msgid "Who made this?"
 msgstr "Chi è l'autore?"
 
-#: app/templates/base/modal.html:30
+#: app/templates/base/modal.html:51
 msgid "Got it!"
 msgstr "Ok!"
 
-#: app/templates/base/modal.html:32
+#: app/templates/base/modal.html:54
 msgid "NOTE:"
 msgstr "NOTA:"
 
-#: app/templates/base/modal.html:32
+#: app/templates/base/modal.html:54
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr "Solo i \"Casi totali\" vengono forniti per le province."
 
@@ -306,8 +329,6 @@ msgid "Search region/province"
 msgstr "Cerca regione/provincia"
 
 #: app/templates/base/navbar.html:25
-#, fuzzy
-#| msgid "Provided province or region not in the right format"
 msgid "Region/province not in the right format"
 msgstr "Formato provincia/regione non corretto"
 
@@ -319,47 +340,51 @@ msgstr "Utilizzo"
 msgid "How to"
 msgstr "Istruzioni"
 
-#: app/templates/base/sidebar.html:13
+#: app/templates/base/sidebar.html:11
+msgid "New"
+msgstr "Novità"
+
+#: app/templates/base/sidebar.html:14
 msgid "Visualization"
 msgstr "Visualizzazione"
 
-#: app/templates/base/sidebar.html:16
+#: app/templates/base/sidebar.html:17
 msgid "National Data"
 msgstr "Dati Nazionali"
 
-#: app/templates/base/sidebar.html:22
+#: app/templates/base/sidebar.html:23
 msgid "Regional Data"
 msgstr "Dati Regionali"
 
-#: app/templates/base/sidebar.html:37
+#: app/templates/base/sidebar.html:38
 msgid "Provincial Data"
 msgstr "Dati Provinciali"
 
-#: app/templates/base/sidebar.html:49
+#: app/templates/base/sidebar.html:50
 msgid "Credits"
 msgstr "Crediti"
 
-#: app/templates/base/sidebar.html:54
+#: app/templates/base/sidebar.html:55
 msgid "Author"
 msgstr "Autore"
 
-#: app/templates/base/sidebar.html:61
+#: app/templates/base/sidebar.html:62
 msgid "CPD News"
 msgstr "News DPC"
 
-#: app/templates/base/sidebar.html:64
+#: app/templates/base/sidebar.html:65
 msgid "CPD Repository"
 msgstr "Repository DPC"
 
-#: app/templates/base/sidebar.html:71
+#: app/templates/base/sidebar.html:72
 msgid "Days since Reopening"
 msgstr "Giorni dalla Riapertura"
 
-#: app/templates/base/sidebar.html:72
+#: app/templates/base/sidebar.html:73
 msgid "Days since \"Phase 2\""
 msgstr "Giorni dalla \"Fase 2\""
 
-#: app/templates/base/sidebar.html:73
+#: app/templates/base/sidebar.html:74
 msgid "Days in Lockdown"
 msgstr "Giorni di Lockdown"
 
@@ -397,7 +422,7 @@ msgid "Visualize one series at a time"
 msgstr "Visualizza una serie alla volta"
 
 #: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:39
-#: app/ui/dashboard.py:77
+#: app/ui/dashboard.py:76
 msgid "New Positive VS Total Cases"
 msgstr "Nuovi Positivi VS Totale Casi"
 
@@ -414,8 +439,8 @@ msgid "Phase 3"
 msgstr "Fase 3"
 
 #: app/templates/dashboard/charts.html:106
-msgid "# of people"
-msgstr "# persone"
+msgid "Counts"
+msgstr "Conteggi"
 
 #: app/templates/dashboard/charts.html:122
 msgid ""
@@ -445,9 +470,12 @@ msgstr "Area"
 msgid "Count"
 msgstr "Conteggi"
 
-#: app/templates/dashboard/modal_tables.html:42
+#: app/templates/dashboard/modal_tables.html:44
 msgid "Close"
 msgstr "Chiudi"
+
+#~ msgid "# of people"
+#~ msgstr "# persone"
 
 #~ msgid "Reopening"
 #~ msgstr "Riapertura"
