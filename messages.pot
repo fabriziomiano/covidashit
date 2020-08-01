@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-07-17 23:30+0200\n"
+"POT-Creation-Date: 2020-08-01 17:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -248,37 +248,59 @@ msgstr ""
 msgid "COVID-19 Italy"
 msgstr ""
 
-#: app/templates/base/modal.html:7
+#: app/templates/base/modal.html:10
 msgid "HOW TO USE"
 msgstr ""
 
-#: app/templates/base/modal.html:16
-msgid ""
-"Click the name of the series at the bottom of the chart to toggle on/off "
-"or use the dropdown to visualize one series at a time"
+#: app/templates/base/modal.html:18
+msgid "Cards"
 msgstr ""
 
-#: app/templates/base/modal.html:19
+#: app/templates/base/modal.html:21
+msgid ""
+"Click on a card to visualize the breakdown of the relevant "
+"regions/provinces"
+msgstr ""
+
+#: app/templates/base/modal.html:24
 msgid "Hover or tap the icon "
 msgstr ""
 
-#: app/templates/base/modal.html:20
+#: app/templates/base/modal.html:26
 msgid " next to the card title to read the description of the data"
 msgstr ""
 
-#: app/templates/base/modal.html:27
+#: app/templates/base/modal.html:30
+msgid "Charts"
+msgstr ""
+
+#: app/templates/base/modal.html:33
+msgid "Click the name of the series at the bottom of the chart to toggle on/off"
+msgstr ""
+
+#: app/templates/base/modal.html:36
+msgid "Use the dropdown to visualize one series at a time"
+msgstr ""
+
+#: app/templates/base/modal.html:39
+msgid ""
+"Drag to zoom in or use pinch to zoom. Use the 'Reset Zoom' button to "
+"reset the original chart"
+msgstr ""
+
+#: app/templates/base/modal.html:47
 msgid "Who made this?"
 msgstr ""
 
-#: app/templates/base/modal.html:30
+#: app/templates/base/modal.html:51
 msgid "Got it!"
 msgstr ""
 
-#: app/templates/base/modal.html:32
+#: app/templates/base/modal.html:54
 msgid "NOTE:"
 msgstr ""
 
-#: app/templates/base/modal.html:32
+#: app/templates/base/modal.html:54
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
@@ -298,47 +320,51 @@ msgstr ""
 msgid "How to"
 msgstr ""
 
-#: app/templates/base/sidebar.html:13
+#: app/templates/base/sidebar.html:11
+msgid "New"
+msgstr ""
+
+#: app/templates/base/sidebar.html:14
 msgid "Visualization"
 msgstr ""
 
-#: app/templates/base/sidebar.html:16
+#: app/templates/base/sidebar.html:17
 msgid "National Data"
 msgstr ""
 
-#: app/templates/base/sidebar.html:22
+#: app/templates/base/sidebar.html:23
 msgid "Regional Data"
 msgstr ""
 
-#: app/templates/base/sidebar.html:37
+#: app/templates/base/sidebar.html:38
 msgid "Provincial Data"
 msgstr ""
 
-#: app/templates/base/sidebar.html:49
+#: app/templates/base/sidebar.html:50
 msgid "Credits"
 msgstr ""
 
-#: app/templates/base/sidebar.html:54
+#: app/templates/base/sidebar.html:55
 msgid "Author"
 msgstr ""
 
-#: app/templates/base/sidebar.html:61
+#: app/templates/base/sidebar.html:62
 msgid "CPD News"
 msgstr ""
 
-#: app/templates/base/sidebar.html:64
+#: app/templates/base/sidebar.html:65
 msgid "CPD Repository"
 msgstr ""
 
-#: app/templates/base/sidebar.html:71
+#: app/templates/base/sidebar.html:72
 msgid "Days since Reopening"
 msgstr ""
 
-#: app/templates/base/sidebar.html:72
+#: app/templates/base/sidebar.html:73
 msgid "Days since \"Phase 2\""
 msgstr ""
 
-#: app/templates/base/sidebar.html:73
+#: app/templates/base/sidebar.html:74
 msgid "Days in Lockdown"
 msgstr ""
 
@@ -376,7 +402,7 @@ msgid "Visualize one series at a time"
 msgstr ""
 
 #: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:39
-#: app/ui/dashboard.py:77
+#: app/ui/dashboard.py:76
 msgid "New Positive VS Total Cases"
 msgstr ""
 
@@ -393,7 +419,7 @@ msgid "Phase 3"
 msgstr ""
 
 #: app/templates/dashboard/charts.html:106
-msgid "# of people"
+msgid "Counts"
 msgstr ""
 
 #: app/templates/dashboard/charts.html:122
@@ -422,7 +448,7 @@ msgstr ""
 msgid "Count"
 msgstr ""
 
-#: app/templates/dashboard/modal_tables.html:42
+#: app/templates/dashboard/modal_tables.html:44
 msgid "Close"
 msgstr ""
 
