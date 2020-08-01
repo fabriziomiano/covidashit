@@ -436,8 +436,11 @@ def get_regional_breakdown(covid_data):
     breakdown = {}
     for _type in CARD_TYPES:
         if _type not in CUSTOM_CARDS:
-            breakdown[_type] = [
-                {"area": d[REGION_KEY], "count": d[_type]}
+            breakdown[_type] = [{
+                "area": d[REGION_KEY],
+                "count": d[_type],
+                "url": "/regions/{}".format(d[REGION_KEY])
+            }
                 for d in covid_data
                 if d[_type] != 0 and d[REGION_KEY] in REGIONS
             ]
@@ -453,8 +456,11 @@ def get_provincial_breakdown(covid_data, region):
     :return: dict
     """
     return {
-        TOTAL_CASES_KEY: [
-            {"area": d[PROVINCE_KEY], "count": d[TOTAL_CASES_KEY]}
+        TOTAL_CASES_KEY: [{
+            "area": d[PROVINCE_KEY],
+            "count": d[TOTAL_CASES_KEY],
+            "url": "/provinces/{}".format(d[PROVINCE_KEY])
+        }
             for d in covid_data
             if d[REGION_KEY] == region and d[PROVINCE_KEY] in PROVINCES
         ]
