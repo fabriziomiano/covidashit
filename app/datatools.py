@@ -14,23 +14,9 @@ from config import (
     URL_LATEST_REGIONAL_DATA, URL_LATEST_PROVINCIAL_DATA, TOTAL_CASES_KEY
 )
 
+DEFAULT_SERIES = "totale_positivi"
 DATES = []
-ICU = []
-HOSP_W_SYMPTS = []
-TOT_DEATHS = []
-TOT_HOSP = []
-SELF_ISOL = []
-TOT_POS = []
-NEW_POS = []
-TOT_SWABS = []
-HEALED = []
-TOT_CASES = []
-TOT_POS_VAR = []
 EXP_STATUS = []
-ALL_DATA = [
-    DATES, ICU, HOSP_W_SYMPTS, TOT_DEATHS, TOT_HOSP, SELF_ISOL, TOT_POS,
-    NEW_POS, TOT_SWABS, HEALED, TOT_CASES, TOT_POS_VAR, EXP_STATUS
-]
 
 
 def read_cached_data(data_filepath):
@@ -128,61 +114,17 @@ def fill_series(province=False):
     :return: list
     """
     if not province:
-        series1 = {
-            "name": gettext(VARS_CONFIG["nuovi_positivi"]["title"]),
-            "data": NEW_POS
-        }
-        series2 = {
-            "name": gettext(
-                VARS_CONFIG["variazione_totale_positivi"]["title"]),
-            "data": TOT_POS_VAR
-        }
-        series3 = {
-            "name": gettext(VARS_CONFIG["terapia_intensiva"]["title"]),
-            "data": ICU
-        }
-        series4 = {
-            "name": gettext(VARS_CONFIG["deceduti"]["title"]),
-            "data": TOT_DEATHS
-        }
-        series5 = {
-            "name": gettext(VARS_CONFIG["dimessi_guariti"]["title"]),
-            "data": HEALED
-        }
-        series6 = {
-            "name": gettext(VARS_CONFIG["ricoverati_con_sintomi"]["title"]),
-            "data": HOSP_W_SYMPTS
-        }
-        series7 = {
-            "name": gettext(VARS_CONFIG["totale_ospedalizzati"]["title"]),
-            "data": TOT_HOSP
-        }
-        series8 = {
-            "name": gettext(VARS_CONFIG["isolamento_domiciliare"]["title"]),
-            "data": SELF_ISOL
-        }
-        series9 = {
-            "name": gettext(VARS_CONFIG["totale_positivi"]["title"]),
-            "data": TOT_POS,
-            "visible": "true"
-        }
-        series10 = {
-            "name": gettext(VARS_CONFIG["totale_casi"]["title"]),
-            "data": TOT_CASES
-        }
-        series11 = {
-            "name": gettext(VARS_CONFIG["tamponi"]["title"]),
-            "data": TOT_SWABS
-        }
         series = [
-            series1, series2, series3, series4, series5,
-            series6, series7, series8, series9, series10,
-            series11
+            {
+                "name": gettext(VARS_CONFIG[key]["title"]),
+                "data": VARS_CONFIG[key]["data"]
+            }
+            for key in VARS_CONFIG if key not in CUSTOM_CARDS
         ]
     else:
         series = [{
             "name": gettext(VARS_CONFIG["totale_casi"]["title"]),
-            "data": TOT_CASES,
+            "data": VARS_CONFIG["totale_casi"]["data"],
             "visible": "true"
         }]
     return series
@@ -237,21 +179,17 @@ def fill_data(datum, province=False):
     :return: None
     """
     if not province:
-        ICU.append(datum["terapia_intensiva"])
-        HOSP_W_SYMPTS.append(datum["ricoverati_con_sintomi"])
-        TOT_DEATHS.append(datum["deceduti"])
-        HEALED.append(datum["dimessi_guariti"])
-        TOT_HOSP.append(datum["totale_ospedalizzati"])
-        SELF_ISOL.append(datum["isolamento_domiciliare"])
-        TOT_POS.append(datum["totale_positivi"])
-        NEW_POS.append(datum["nuovi_positivi"])
-        TOT_SWABS.append(datum["tamponi"])
-        TOT_POS_VAR.append(datum["variazione_totale_positivi"])
+        for key in VARS_CONFIG:
+            if key not in CUSTOM_CARDS:
+                VARS_CONFIG[key]["data"].append(
+                    datum[key] if datum[key] is not None else 0
+                )
         EXP_STATUS.append([datum["totale_casi"], datum["nuovi_positivi"]])
+    else:
+        VARS_CONFIG["totale_casi"]["data"].append(datum["totale_casi"])
     date_dt = dt.datetime.strptime(datum["data"], PCM_DATE_FMT)
     date_str = date_dt.strftime(CHART_DATE_FMT)
     DATES.append(date_str)
-    TOT_CASES.append(datum["totale_casi"])
 
 
 def init_data():
@@ -259,8 +197,8 @@ def init_data():
     Empty data series in DATA
     :return: None
     """
-    for data_type in ALL_DATA:
-        data_type.clear()
+    for key in VARS_CONFIG:
+        VARS_CONFIG[key]["data"] = []
 
 
 def latest_update(data):

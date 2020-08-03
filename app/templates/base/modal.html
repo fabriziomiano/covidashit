@@ -15,7 +15,9 @@
             </div>
 
             <div class="modal-body">
-                <h5 class="text-center">{{ _("Cards") }}</h5>
+                <h5>
+                    <i class="far fa-clipboard mr-2"></i>{{ _("Cards") }}
+                </h5>
                 <ul class="list-group">
                     <li class="list-group-item">
                         {{ _('Click on a card to visualize the breakdown of the relevant regions/provinces') }}
@@ -27,7 +29,9 @@
                     </li>
                 </ul>
 
-                <h5 class="mt-2 text-center">{{ _("Charts") }}</h5>
+                <h5 class="mt-4">
+                    <i class="fas fa-chart-line mr-2"></i>{{ _("Charts") }}
+                </h5>
                 <ul class="list-group">
                     <li class="list-group-item">
                         {{ _('Click the name of the series at the bottom of the chart to toggle on/off') }}
@@ -37,6 +41,15 @@
                     </li>
                     <li class="list-group-item">
                         {{ _("Drag to zoom in or use pinch to zoom. Use the 'Reset Zoom' button to reset the original chart") }}
+                    </li>
+                </ul>
+
+                <h5 class="mt-4">
+                    <i class="fas fa-search mr-2"></i>{{ _("Search bar (desktop version only)") }}
+                </h5>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {{ _('Type the name of the area you want to visualize and use autocompletion') }}
                     </li>
                 </ul>
             </div>

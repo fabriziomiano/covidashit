@@ -3,6 +3,33 @@ import os
 
 from flask_babel import gettext
 
+TREND_SYMBOL_LOGIC = {
+    "stable": {
+        "colour": "text-info",
+        "icon": "fas fa-minus",
+        "tooltip": gettext("Stable with respect to yesterday")
+    },
+    "increase": {
+        "colour": "text-danger",
+        "icon": "fas fa-long-arrow-alt-up",
+        "tooltip": gettext("Increased with respect to yesterday")
+    },
+    "increase_inverted": {
+        "colour": "text-success",
+        "icon": "fas fa-long-arrow-alt-up",
+        "tooltip": gettext("Increased with respect to yesterday")
+    },
+    "decrease": {
+        "colour": "text-success",
+        "icon": "fas fa-long-arrow-alt-down",
+        "tooltip": gettext("Decreased with respect to yesterday")
+    },
+    "decrease_inverted": {
+        "colour": "text-danger",
+        "icon": "fas fa-long-arrow-alt-down",
+        "tooltip": gettext("Decreased with respect to yesterday")
+    }
+}
 VARS_CONFIG = {
     "ricoverati_con_sintomi": {
         "title": gettext("Hospitalized With Symptoms"),
@@ -13,22 +40,10 @@ VARS_CONFIG = {
             "Total count of people currently in hospital "
             "due to coronavirus with symptoms"
         ),
-        "icon": "fas fa-hospital-user",
-        "increase": {
-            "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "fas fa-minus",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
+        "icon": "fas fa-hospital-symbol",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     "terapia_intensiva": {
         "title": gettext("Intensive Care Unit"),
@@ -37,21 +52,9 @@ VARS_CONFIG = {
             "Total count of people currently in ICU and positive to COVID-19"
         ),
         "icon": "fas fa-procedures",
-        "increase": {
-            "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "fas fa-minus",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     "totale_ospedalizzati": {
         "title": gettext("Total Hospitalized"),
@@ -59,22 +62,10 @@ VARS_CONFIG = {
         "longdesc": gettext(
             "Total count of people currently hospitalized. "
             "It takes into account ICU"),
-        "icon": "fas fa-hospital-user",
-        "increase": {
-            "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "fas fa-minus",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
+        "icon": "fas fa-hospital-symbol",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     "isolamento_domiciliare": {
         "title": gettext("Self Isolation"),
@@ -83,21 +74,9 @@ VARS_CONFIG = {
             "People currently positive but who don't need hospitalization"
         ),
         "icon": "fas fa-house-user",
-        "increase": {
-            "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "fas fa-minus",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     "totale_positivi": {
         "title": gettext("Total Positive"),
@@ -113,21 +92,9 @@ VARS_CONFIG = {
             "total positive = total cases - total healed - total deaths"
         ),
         "icon": "fas fa-viruses",
-        "increase": {
-            "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "fas fa-minus",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     "variazione_totale_positivi": {
         "title": gettext("Total Positive Variation"),
@@ -141,42 +108,18 @@ VARS_CONFIG = {
             "of daily healed and deaths is larger than 'New positive'"
         ),
         "icon": "fas fa-chart-area",
-        "increase": {
-            "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "fas fa-minus",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     "nuovi_positivi": {
         "title": gettext("New Positive"),
         "desc": gettext("Daily count of new positve cases"),
         "longdesc": gettext("Daily count of new positve cases"),
-        "icon": "fas fa-virus",
-        "increase": {
-            "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "fas fa-minus",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
+        "icon": "fas fa-user-plus",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     "dimessi_guariti": {
         "title": gettext("Total Healed"),
@@ -185,21 +128,9 @@ VARS_CONFIG = {
             "Total number of people healed since the beginning of the outbreak"
         ),
         "icon": "fas fa-smile",
-        "increase": {
-            "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-up",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-down",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "fas fa-minus",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
+        "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     "deceduti": {
         "title": gettext("Total Deaths"),
@@ -208,21 +139,9 @@ VARS_CONFIG = {
             "Total deaths count since the beginning of the outbreak"
         ),
         "icon": "fas fa-cross",
-        "increase": {
-            "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "fas fa-minus",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     "totale_casi": {
         "title": gettext("Total Cases"),
@@ -235,21 +154,9 @@ VARS_CONFIG = {
             " beginning of the outbreak"
         ),
         "icon": "fas fa-viruses",
-        "increase": {
-            "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "fas fa-minus",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     "tamponi": {
         "title": gettext("Total Swabs"),
@@ -259,43 +166,52 @@ VARS_CONFIG = {
             "the outbreak"
         ),
         "icon": "fas fa-vial",
-        "increase": {
-            "colour": "text-danger",
-            "icon": "",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-success",
-            "icon": "",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     "deceduti_giornalieri": {
         "title": gettext("Daily deaths"),
         "desc": gettext("Daily deaths count"),
         "longdesc": gettext("Daily deaths count"),
         "icon": "fas fa-cross",
-        "increase": {
-            "colour": "text-danger",
-            "icon": "fas fa-long-arrow-alt-up",
-            "tooltip": gettext("Increased with respect to yesterday")
-        },
-        "decrease": {
-            "colour": "text-success",
-            "icon": "fas fa-long-arrow-alt-down",
-            "tooltip": gettext("Decreased with respect to yesterday")
-        },
-        "stable": {
-            "colour": "text-info",
-            "icon": "fas fa-minus",
-            "tooltip": gettext("Stable with respect to yesterday")
-        }
-    }
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
+    },
+    "casi_da_sospetto_diagnostico": {
+        "title": gettext("Positive suspected case"),
+        "desc": gettext("Positive cases emerged from clinical activity"),
+        "longdesc": gettext("Positive cases emerged from clinical activity"),
+        "icon": "fas fa-diagnoses",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
+    },
+    "casi_da_screening": {
+        "title": gettext("Positive from screening"),
+        "desc": gettext(
+            "Positive cases emerging from surveys and tests, "
+            "planned at national or regional level"
+        ),
+        "longdesc": gettext(
+            "Positive cases emerging from surveys and tests,"
+            " planned at national or regional level"
+        ),
+        "icon": "fas fa-stethoscope",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
+    },
+    "casi_testati": {
+        "title": gettext("Total tested"),
+        "desc": gettext("Total number of people tested"),
+        "longdesc": gettext("Total number of people tested"),
+        "icon": "fas fa-stethoscope",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
+    },
 }
 
 NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
@@ -322,7 +238,8 @@ CARD_TYPES = [
     "totale_casi", "nuovi_positivi", "ricoverati_con_sintomi",
     "terapia_intensiva", "deceduti_giornalieri", "totale_positivi",
     "totale_ospedalizzati", "variazione_totale_positivi",
-    "isolamento_domiciliare", "dimessi_guariti", "deceduti", "tamponi"
+    "isolamento_domiciliare", "dimessi_guariti", "deceduti", "tamponi",
+    "casi_da_sospetto_diagnostico", "casi_da_screening", "casi_testati"
 ]
 CUSTOM_CARDS = ["deceduti_giornalieri"]
 CARD_MAP = {
