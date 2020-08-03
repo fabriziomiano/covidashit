@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-08-03 16:48+0200\n"
-"PO-Revision-Date: 2020-08-03 16:49+0200\n"
+"POT-Creation-Date: 2020-08-03 17:32+0200\n"
+"PO-Revision-Date: 2020-08-03 17:32+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -260,59 +260,69 @@ msgstr "Visualizzazione dei dati dell'epidemia COVID-19 in Italia"
 msgid "HOW TO USE"
 msgstr "COME SI USA"
 
-#: app/templates/base/modal.html:18
+#: app/templates/base/modal.html:19
 msgid "Cards"
 msgstr "Schede"
 
-#: app/templates/base/modal.html:21
+#: app/templates/base/modal.html:23
 msgid ""
 "Click on a card to visualize the breakdown of the relevant regions/provinces"
 msgstr ""
 "Clicca su una scheda per visualizzare la lista delle regioni/province "
 "pertinenti"
 
-#: app/templates/base/modal.html:24
+#: app/templates/base/modal.html:26
 msgid "Hover or tap the icon "
 msgstr "Passa sopra col mouse o tocca l'icona "
 
-#: app/templates/base/modal.html:26
+#: app/templates/base/modal.html:28
 msgid " next to the card title to read the description of the data"
 msgstr " accanto al titolo della scheda per leggere la descrizione del dato"
 
-#: app/templates/base/modal.html:30
+#: app/templates/base/modal.html:33
 msgid "Charts"
 msgstr "Grafici"
 
-#: app/templates/base/modal.html:33
+#: app/templates/base/modal.html:37
 msgid ""
 "Click the name of the series at the bottom of the chart to toggle on/off"
 msgstr ""
 "Clicca sui nomi delle serie sotto al grafico per attivarne/disattivarne la "
 "visualizzazione"
 
-#: app/templates/base/modal.html:36
+#: app/templates/base/modal.html:40
 msgid "Use the dropdown to visualize one series at a time"
 msgstr "Usa il menu a tendina per visualizzare una serie alla volta"
 
-#: app/templates/base/modal.html:39
+#: app/templates/base/modal.html:43
 msgid ""
 "Drag to zoom in or use pinch to zoom. Use the 'Reset Zoom' button to reset "
 "the original chart"
 msgstr "Trascina per zoomare. Usa il bottone 'Reset Zoom' per ripristinare"
 
-#: app/templates/base/modal.html:47
+#: app/templates/base/modal.html:48
+msgid "Search bar (desktop version only)"
+msgstr "Barra di ricerca (solo versione desktop)"
+
+#: app/templates/base/modal.html:52
+msgid "Type the name of the area you want to visualize and use autocompletion"
+msgstr ""
+"Inizia a digitare il nome dell'area che vuoi visualizzare e usa l'auto "
+"completamento"
+
+#: app/templates/base/modal.html:60
 msgid "Who made this?"
 msgstr "Chi è l'autore?"
 
-#: app/templates/base/modal.html:51
+#: app/templates/base/modal.html:64
 msgid "Got it!"
 msgstr "Ok!"
 
-#: app/templates/base/modal.html:54
+#: app/templates/base/modal.html:67
 msgid "NOTE:"
 msgstr "NOTA:"
 
-#: app/templates/base/modal.html:54
+#: app/templates/base/modal.html:67
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr "Solo i \"Casi totali\" vengono forniti per le province."
 
