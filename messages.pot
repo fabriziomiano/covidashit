@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-08-01 17:08+0200\n"
+"POT-Creation-Date: 2020-08-03 17:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,16 +220,12 @@ msgstr ""
 msgid "tamponititle"
 msgstr ""
 
-#: app/templates/dashboard.html:12 app/templates/dashboard/charts.html:112
-msgid "Italy"
-msgstr ""
-
-#: app/templates/dashboard.html:17
+#: app/templates/dashboard.html:16
 msgid "Latest CPD Update:"
 msgstr ""
 
-#: app/templates/dashboard.html:23
-msgid "Only the \"Total positive\" data is shown"
+#: app/templates/dashboard.html:22
+msgid "Only the \"Total Cases\" data is shown"
 msgstr ""
 
 #: app/templates/base/head.html:18
@@ -244,63 +240,67 @@ msgstr ""
 msgid "Data visualization of the COVID-19 outbreak in Italy"
 msgstr ""
 
-#: app/templates/base/head.html:33 app/templates/base/head.html:35
-msgid "COVID-19 Italy"
-msgstr ""
-
 #: app/templates/base/modal.html:10
 msgid "HOW TO USE"
 msgstr ""
 
-#: app/templates/base/modal.html:18
+#: app/templates/base/modal.html:19
 msgid "Cards"
 msgstr ""
 
-#: app/templates/base/modal.html:21
+#: app/templates/base/modal.html:23
 msgid ""
 "Click on a card to visualize the breakdown of the relevant "
 "regions/provinces"
 msgstr ""
 
-#: app/templates/base/modal.html:24
+#: app/templates/base/modal.html:26
 msgid "Hover or tap the icon "
 msgstr ""
 
-#: app/templates/base/modal.html:26
+#: app/templates/base/modal.html:28
 msgid " next to the card title to read the description of the data"
 msgstr ""
 
-#: app/templates/base/modal.html:30
+#: app/templates/base/modal.html:33
 msgid "Charts"
 msgstr ""
 
-#: app/templates/base/modal.html:33
+#: app/templates/base/modal.html:37
 msgid "Click the name of the series at the bottom of the chart to toggle on/off"
 msgstr ""
 
-#: app/templates/base/modal.html:36
+#: app/templates/base/modal.html:40
 msgid "Use the dropdown to visualize one series at a time"
 msgstr ""
 
-#: app/templates/base/modal.html:39
+#: app/templates/base/modal.html:43
 msgid ""
 "Drag to zoom in or use pinch to zoom. Use the 'Reset Zoom' button to "
 "reset the original chart"
 msgstr ""
 
-#: app/templates/base/modal.html:47
+#: app/templates/base/modal.html:48
+msgid "Search bar (desktop version only)"
+msgstr ""
+
+#: app/templates/base/modal.html:52
+msgid "Type the name of the area you want to visualize and use autocompletion"
+msgstr ""
+
+#: app/templates/base/modal.html:60
 msgid "Who made this?"
 msgstr ""
 
-#: app/templates/base/modal.html:51
+#: app/templates/base/modal.html:64
 msgid "Got it!"
 msgstr ""
 
-#: app/templates/base/modal.html:54
+#: app/templates/base/modal.html:67
 msgid "NOTE:"
 msgstr ""
 
-#: app/templates/base/modal.html:54
+#: app/templates/base/modal.html:67
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
@@ -401,8 +401,8 @@ msgstr ""
 msgid "Visualize one series at a time"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:39
-#: app/ui/dashboard.py:76
+#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:41
+#: app/ui/dashboard.py:79
 msgid "New Positive VS Total Cases"
 msgstr ""
 
@@ -420,6 +420,10 @@ msgstr ""
 
 #: app/templates/dashboard/charts.html:106
 msgid "Counts"
+msgstr ""
+
+#: app/templates/dashboard/charts.html:112
+msgid "Italy"
 msgstr ""
 
 #: app/templates/dashboard/charts.html:122
@@ -450,5 +454,13 @@ msgstr ""
 
 #: app/templates/dashboard/modal_tables.html:44
 msgid "Close"
+msgstr ""
+
+#: app/ui/dashboard.py:30 app/ui/dashboard.py:68
+msgid "COVID-19 Italy"
+msgstr ""
+
+#: app/ui/dashboard.py:31
+msgid "National Dashboard"
 msgstr ""
 

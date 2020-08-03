@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-08-01 17:07+0200\n"
-"PO-Revision-Date: 2020-08-01 17:08+0200\n"
+"POT-Creation-Date: 2020-08-03 17:32+0200\n"
+"PO-Revision-Date: 2020-08-03 17:32+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -236,17 +236,13 @@ msgstr ""
 msgid "tamponititle"
 msgstr ""
 
-#: app/templates/dashboard.html:12 app/templates/dashboard/charts.html:112
-msgid "Italy"
-msgstr "Italia"
-
-#: app/templates/dashboard.html:17
+#: app/templates/dashboard.html:16
 msgid "Latest CPD Update:"
 msgstr "Ultimo aggiornamento DPC:"
 
-#: app/templates/dashboard.html:23
-msgid "Only the \"Total positive\" data is shown"
-msgstr "Mostrati solo i \"Totali Positivi\""
+#: app/templates/dashboard.html:22
+msgid "Only the \"Total Cases\" data is shown"
+msgstr "Solo la serie \"Totale Casi\" è mostrata"
 
 #: app/templates/base/head.html:18
 msgid "COVID-19 Italy outbreak dashboard"
@@ -260,67 +256,73 @@ msgstr "Epidemia COVID-19 Italia"
 msgid "Data visualization of the COVID-19 outbreak in Italy"
 msgstr "Visualizzazione dei dati dell'epidemia COVID-19 in Italia"
 
-#: app/templates/base/head.html:33 app/templates/base/head.html:35
-msgid "COVID-19 Italy"
-msgstr "COVID-19 Italia"
-
 #: app/templates/base/modal.html:10
 msgid "HOW TO USE"
 msgstr "COME SI USA"
 
-#: app/templates/base/modal.html:18
+#: app/templates/base/modal.html:19
 msgid "Cards"
 msgstr "Schede"
 
-#: app/templates/base/modal.html:21
+#: app/templates/base/modal.html:23
 msgid ""
 "Click on a card to visualize the breakdown of the relevant regions/provinces"
 msgstr ""
 "Clicca su una scheda per visualizzare la lista delle regioni/province "
 "pertinenti"
 
-#: app/templates/base/modal.html:24
+#: app/templates/base/modal.html:26
 msgid "Hover or tap the icon "
 msgstr "Passa sopra col mouse o tocca l'icona "
 
-#: app/templates/base/modal.html:26
+#: app/templates/base/modal.html:28
 msgid " next to the card title to read the description of the data"
 msgstr " accanto al titolo della scheda per leggere la descrizione del dato"
 
-#: app/templates/base/modal.html:30
+#: app/templates/base/modal.html:33
 msgid "Charts"
 msgstr "Grafici"
 
-#: app/templates/base/modal.html:33
+#: app/templates/base/modal.html:37
 msgid ""
 "Click the name of the series at the bottom of the chart to toggle on/off"
 msgstr ""
 "Clicca sui nomi delle serie sotto al grafico per attivarne/disattivarne la "
 "visualizzazione"
 
-#: app/templates/base/modal.html:36
+#: app/templates/base/modal.html:40
 msgid "Use the dropdown to visualize one series at a time"
 msgstr "Usa il menu a tendina per visualizzare una serie alla volta"
 
-#: app/templates/base/modal.html:39
+#: app/templates/base/modal.html:43
 msgid ""
 "Drag to zoom in or use pinch to zoom. Use the 'Reset Zoom' button to reset "
 "the original chart"
 msgstr "Trascina per zoomare. Usa il bottone 'Reset Zoom' per ripristinare"
 
-#: app/templates/base/modal.html:47
+#: app/templates/base/modal.html:48
+msgid "Search bar (desktop version only)"
+msgstr "Barra di ricerca (solo versione desktop)"
+
+#: app/templates/base/modal.html:52
+msgid "Type the name of the area you want to visualize and use autocompletion"
+msgstr ""
+"Inizia a digitare il nome dell'area che vuoi visualizzare e usa l'auto "
+"completamento"
+
+#: app/templates/base/modal.html:60
 msgid "Who made this?"
 msgstr "Chi è l'autore?"
 
-#: app/templates/base/modal.html:51
+#: app/templates/base/modal.html:64
 msgid "Got it!"
 msgstr "Ok!"
 
-#: app/templates/base/modal.html:54
+#: app/templates/base/modal.html:67
 msgid "NOTE:"
 msgstr "NOTA:"
 
-#: app/templates/base/modal.html:54
+#: app/templates/base/modal.html:67
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr "Solo i \"Casi totali\" vengono forniti per le province."
 
@@ -421,8 +423,8 @@ msgstr "Seleziona dati (default Totale Positivi)"
 msgid "Visualize one series at a time"
 msgstr "Visualizza una serie alla volta"
 
-#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:39
-#: app/ui/dashboard.py:76
+#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:41
+#: app/ui/dashboard.py:79
 msgid "New Positive VS Total Cases"
 msgstr "Nuovi Positivi VS Totale Casi"
 
@@ -441,6 +443,10 @@ msgstr "Fase 3"
 #: app/templates/dashboard/charts.html:106
 msgid "Counts"
 msgstr "Conteggi"
+
+#: app/templates/dashboard/charts.html:112
+msgid "Italy"
+msgstr "Italia"
 
 #: app/templates/dashboard/charts.html:122
 msgid ""
@@ -473,6 +479,14 @@ msgstr "Conteggi"
 #: app/templates/dashboard/modal_tables.html:44
 msgid "Close"
 msgstr "Chiudi"
+
+#: app/ui/dashboard.py:30 app/ui/dashboard.py:68
+msgid "COVID-19 Italy"
+msgstr "COVID-19 Italia"
+
+#: app/ui/dashboard.py:31
+msgid "National Dashboard"
+msgstr "Dashboard Nazionale"
 
 #~ msgid "# of people"
 #~ msgstr "# persone"

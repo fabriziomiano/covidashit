@@ -188,11 +188,11 @@ def fill_series(province=False):
     return series
 
 
-def parse_data(data, territory=None):
+def parse_data(data, area=None):
     """
     Return dates, series, trend_cards
     :param data: dict
-    :param territory: str
+    :param area: str
     :return:
         DATES: list,
         series: list,
@@ -200,30 +200,30 @@ def parse_data(data, territory=None):
     """
     series = []
     trend_cards = []
-    if territory is None:
+    if area is None:
         national_data = data["national"]
         trend_cards = get_trends(national_data)
         for d in national_data:
             fill_data(d)
         series = fill_series()
     else:
-        if territory in PROVINCES:
+        if area in PROVINCES:
             provincial_data = data["provincial"]
             subset = [
                 r for r in provincial_data
-                if r[PROVINCE_KEY] == territory
+                if r[PROVINCE_KEY] == area
             ]
             trend_cards = get_trends(subset, province=True)
             for d in provincial_data:
-                if territory == d[PROVINCE_KEY]:
+                if area == d[PROVINCE_KEY]:
                     fill_data(d, province=True)
             series = fill_series(province=True)
-        elif territory in REGIONS:
+        elif area in REGIONS:
             regional_data = data["regional"]
-            subset = [r for r in regional_data if r[REGION_KEY] == territory]
+            subset = [r for r in regional_data if r[REGION_KEY] == area]
             trend_cards = get_trends(subset)
             for d in regional_data:
-                if territory == d[REGION_KEY]:
+                if area == d[REGION_KEY]:
                     fill_data(d)
             series = fill_series()
     return DATES, series, trend_cards
@@ -401,16 +401,16 @@ def get_latest_provincial_data():
     return data
 
 
-def frontend_data(territory=None, **data):
+def frontend_data(area=None, **data):
     """
     Return a data dict to be rendered which is an augmented copy of
     DATA_TO_FRONTEND defined in config.py
-    :param territory: optional, str
+    :param area: optional, str
     :param data: **kwargs
     :return: dict
     """
     try:
-        data["territory"] = territory
+        data["area"] = area
     except KeyError:
         pass
     data.update(DATA_TO_FRONTEND)
