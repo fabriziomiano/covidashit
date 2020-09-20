@@ -146,3 +146,18 @@ function playBCR() {
         }
     })
 }
+
+let totPosStrIT = "Totale positivi";
+let totPosStrEN = "Total Positive";
+(function ($) {
+    "use strict";
+    $(function () {
+        for (let i = 0; i < series.length; i++) {
+            console.log(series[i].name)
+            if (series[i].name === totPosStrEN || series[i].name === totPosStrIT) {
+                chartTrend.series[i].show()
+            }
+        }
+    })
+
+})(jQuery);
