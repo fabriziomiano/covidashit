@@ -173,7 +173,7 @@ def parse_data(data, area=None):
 
 def fill_data(datum, province=False):
     """
-    Fill the data series lists
+    Fill the "data" lists in VARS_CONFIG
     :param datum: dict
     :param province: bool
     :return: None
@@ -194,11 +194,13 @@ def fill_data(datum, province=False):
 
 def init_data():
     """
-    Empty data series in DATA
+    Empty all the "data" keys in VARS_CONFIG plus DATES and EXP_STATUS
     :return: None
     """
     for key in VARS_CONFIG:
         VARS_CONFIG[key]["data"] = []
+    EXP_STATUS.clear()
+    DATES.clear()
 
 
 def latest_update(data):

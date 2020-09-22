@@ -5,7 +5,7 @@ from flask_babel import Babel
 from flask_pymongo import PyMongo
 
 from config import (
-    LANGUAGES, TRANSLATION_DIRNAME
+    LANGUAGES, TRANSLATION_DIRNAME, MONGO_URI
 )
 
 mongo = PyMongo()
@@ -13,7 +13,7 @@ mongo = PyMongo()
 
 def create_app():
     app = Flask("app")
-    app.config["MONGO_URI"] = os.environ["MONGO_URI"]
+    app.config["MONGO_URI"] = MONGO_URI
     mongo.init_app(app)
     babel = Babel(app)
     set_error_handlers(app)

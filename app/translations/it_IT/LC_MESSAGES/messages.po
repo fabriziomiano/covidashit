@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-09-20 19:17+0200\n"
-"PO-Revision-Date: 2020-09-20 19:19+0200\n"
+"POT-Creation-Date: 2020-09-23 21:57+0200\n"
+"PO-Revision-Date: 2020-09-23 21:57+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -87,7 +87,7 @@ msgstr "Persone attualmente positive che non hanno bisogno di ricovero"
 
 #: config.py:82
 msgid "Total Positive"
-msgstr "Totale positivi"
+msgstr "Totale Positivi"
 
 #: config.py:83
 msgid "# of people currently hospitalized with symptoms + ICU + self isolation"
@@ -179,26 +179,38 @@ msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi effettuati dall'inizio dell'epidemia"
 
 #: config.py:174
+msgid "Daily Swabs"
+msgstr "Tamponi giornalieri"
+
+#: config.py:175
+msgid "# of swabs performed today"
+msgstr "# di tamponi eseguiti oggi"
+
+#: config.py:176
+msgid "Number of swabs performed today"
+msgstr "Numero di tamponi eseguiti oggi"
+
+#: config.py:185
 msgid "Daily deaths"
-msgstr "Decessi odierni"
+msgstr "Decessi giornalieri"
 
-#: config.py:175 config.py:176
+#: config.py:186 config.py:187
 msgid "Daily deaths count"
-msgstr "Conteggio decessi odierni"
+msgstr "Conteggio decessi giornalieri"
 
-#: config.py:183
+#: config.py:194
 msgid "Positive suspected case"
 msgstr "Positivi da sospetti"
 
-#: config.py:184 config.py:185
+#: config.py:195 config.py:196
 msgid "Positive cases emerged from clinical activity"
 msgstr "Casi positivi al tampone emersi da attività clinica"
 
-#: config.py:192
+#: config.py:203
 msgid "Positive from screening"
 msgstr "Positivi da screening"
 
-#: config.py:193 config.py:197
+#: config.py:204 config.py:208
 msgid ""
 "Positive cases emerging from surveys and tests, planned at national or "
 "regional level"
@@ -206,11 +218,11 @@ msgstr ""
 "Casi positivi emersi da indagini e test, pianificati a livello nazionale o "
 "regionale"
 
-#: config.py:207
+#: config.py:218
 msgid "Total tested"
 msgstr "Totale testati"
 
-#: config.py:208 config.py:209
+#: config.py:219 config.py:220
 msgid "Total number of people tested"
 msgstr "Totale dei soggetti sottoposti al test"
 
@@ -372,19 +384,15 @@ msgstr "Giorni dalla \"Fase 2\""
 msgid "Days in Lockdown"
 msgstr "Giorni di Lockdown"
 
-#: app/templates/dashboard/barChartRace.html:6
-msgid "Total positive bar chart race"
-msgstr "Bar chart race Totale positivi"
-
-#: app/templates/dashboard/barChartRace.html:10
+#: app/templates/dashboard/barChartRace.html:12
 msgid "Latest Update:"
 msgstr "Ultimo aggiornamento:"
 
-#: app/templates/dashboard/barChartRace.html:14
+#: app/templates/dashboard/barChartRace.html:17
 msgid "Play bar-chart race"
 msgstr "Riproduci bar chart race"
 
-#: app/templates/dashboard/barChartRace.html:18
+#: app/templates/dashboard/barChartRace.html:23
 msgid "Loading..."
 msgstr "Carico..."
 
@@ -405,8 +413,8 @@ msgstr "Seleziona dati (default Totale Positivi)"
 msgid "Visualize one series at a time"
 msgstr "Visualizza una serie alla volta"
 
-#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:41
-#: app/ui/dashboard.py:79
+#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:42
+#: app/ui/dashboard.py:81
 msgid "New Positive VS Total Cases"
 msgstr "Nuovi Positivi VS Totale Casi"
 
@@ -462,13 +470,16 @@ msgstr "Conteggi"
 msgid "Close"
 msgstr "Chiudi"
 
-#: app/ui/dashboard.py:30 app/ui/dashboard.py:68
+#: app/ui/dashboard.py:30 app/ui/dashboard.py:69
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
 #: app/ui/dashboard.py:31
 msgid "National Dashboard"
 msgstr "Dashboard Nazionale"
+
+#~ msgid "Total positive bar chart race"
+#~ msgstr "Bar chart race Totale positivi"
 
 #, fuzzy
 #~| msgid "Select data"

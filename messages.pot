@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-09-20 19:17+0200\n"
+"POT-Creation-Date: 2020-09-23 21:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,36 +163,48 @@ msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr ""
 
 #: config.py:174
+msgid "Daily Swabs"
+msgstr ""
+
+#: config.py:175
+msgid "# of swabs performed today"
+msgstr ""
+
+#: config.py:176
+msgid "Number of swabs performed today"
+msgstr ""
+
+#: config.py:185
 msgid "Daily deaths"
 msgstr ""
 
-#: config.py:175 config.py:176
+#: config.py:186 config.py:187
 msgid "Daily deaths count"
 msgstr ""
 
-#: config.py:183
+#: config.py:194
 msgid "Positive suspected case"
 msgstr ""
 
-#: config.py:184 config.py:185
+#: config.py:195 config.py:196
 msgid "Positive cases emerged from clinical activity"
 msgstr ""
 
-#: config.py:192
+#: config.py:203
 msgid "Positive from screening"
 msgstr ""
 
-#: config.py:193 config.py:197
+#: config.py:204 config.py:208
 msgid ""
 "Positive cases emerging from surveys and tests, planned at national or "
 "regional level"
 msgstr ""
 
-#: config.py:207
+#: config.py:218
 msgid "Total tested"
 msgstr ""
 
-#: config.py:208 config.py:209
+#: config.py:219 config.py:220
 msgid "Total number of people tested"
 msgstr ""
 
@@ -348,19 +360,15 @@ msgstr ""
 msgid "Days in Lockdown"
 msgstr ""
 
-#: app/templates/dashboard/barChartRace.html:6
-msgid "Total positive bar chart race"
-msgstr ""
-
-#: app/templates/dashboard/barChartRace.html:10
+#: app/templates/dashboard/barChartRace.html:12
 msgid "Latest Update:"
 msgstr ""
 
-#: app/templates/dashboard/barChartRace.html:14
+#: app/templates/dashboard/barChartRace.html:17
 msgid "Play bar-chart race"
 msgstr ""
 
-#: app/templates/dashboard/barChartRace.html:18
+#: app/templates/dashboard/barChartRace.html:23
 msgid "Loading..."
 msgstr ""
 
@@ -381,8 +389,8 @@ msgstr ""
 msgid "Visualize one series at a time"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:41
-#: app/ui/dashboard.py:79
+#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:42
+#: app/ui/dashboard.py:81
 msgid "New Positive VS Total Cases"
 msgstr ""
 
@@ -436,7 +444,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: app/ui/dashboard.py:30 app/ui/dashboard.py:68
+#: app/ui/dashboard.py:30 app/ui/dashboard.py:69
 msgid "COVID-19 Italy"
 msgstr ""
 
