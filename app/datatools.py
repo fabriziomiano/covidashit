@@ -199,6 +199,8 @@ def init_data():
     """
     for key in VARS_CONFIG:
         VARS_CONFIG[key]["data"] = []
+    EXP_STATUS.clear()
+    DATES.clear()
 
 
 def latest_update(data):
