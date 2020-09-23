@@ -1,6 +1,5 @@
 import datetime as dt
 import os
-from typing import List, Any, Union
 
 from flask_babel import gettext
 
@@ -244,7 +243,6 @@ URL_PROVINCIAL_DATA = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
 URL_LATEST_PROVINCIAL_DATA = os.path.join(
     BASE_URL_DATA, LATEST_PROVINCIAL_DATE_FILE
 )
-BARCHART_RACE_VAR = "totale_positivi"
 #  The order here matters as it will be reflected in the webpage
 CARD_TYPES = [
     "nuovi_positivi",
@@ -323,9 +321,22 @@ DATA_TO_FRONTEND = {
 TRANSLATION_DIRNAME = "translations"
 MONGO_URI = os.environ["MONGO_URI"]
 COLLECTION_NAME = os.environ["COLLECTION_NAME"]
-BARCHART_RACE_QUERY = {"name": "barchart_race"}
+BARCHART_RACE_QUERY = {"name": ""}
 DATA_SERIES = [
     VARS_CONFIG[key]["title"]
     for key in VARS_CONFIG
     if key not in CUSTOM_CARDS
+]
+#  The order here matters as it will be reflected in the webpage
+BCR_TYPES = [
+    'ricoverati_con_sintomi',
+    'terapia_intensiva',
+    'totale_ospedalizzati',
+    'isolamento_domiciliare',
+    'totale_positivi',
+    'nuovi_positivi',
+    'dimessi_guariti',
+    'deceduti',
+    'totale_casi',
+    'tamponi'
 ]
