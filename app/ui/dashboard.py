@@ -10,7 +10,7 @@ from app.datatools import (
     get_latest_provincial_data, get_provincial_breakdown
 )
 from app.ui import dashboard
-from config import REGIONS, PROVINCES, DATA_SERIES, VARS_CONFIG
+from config import REGIONS, PROVINCES, DATA_SERIES, VARS_CONFIG, BCR_TYPES
 
 
 @dashboard.route("/national")
@@ -37,6 +37,7 @@ def national_view():
         data_series=DATA_SERIES,
         breakdown=breakdown,
         vars_config=VARS_CONFIG,
+        bcr_types=BCR_TYPES,
         scatterplot_series={
             "name": gettext("New Positive VS Total Cases"),
             "data": EXP_STATUS
@@ -75,6 +76,7 @@ def regional_or_provincial_view(area):
         data_series=DATA_SERIES,
         breakdown=breakdown,
         vars_config=VARS_CONFIG,
+        bcr_types=BCR_TYPES,
         scatterplot_series={
             "name": gettext("New Positive VS Total Cases"),
             "data": EXP_STATUS
