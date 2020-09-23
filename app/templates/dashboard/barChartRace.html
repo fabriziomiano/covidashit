@@ -4,7 +4,7 @@
         <div class="col-xl-6 col-md-6 mb-2">
             <div class="card border-left-primary shadow mb-3" id="bcrCard{{ var }}">
                 <div class="card-header"><i class="fas fa-chart-bar mr-2"></i>
-                    {{ vars_config[var]["title"] }}
+                    {{ gettext(vars_config[var]["title"]) }}
                 </div>
                 <div class="alert alert-success small" role="alert" id="bcrts{{ var }}"
                      hidden>
