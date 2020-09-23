@@ -22,6 +22,12 @@
                           role="status" aria-hidden="true"></span>
                     {{ _("Loading...") }}
                 </button>
+                <button class="btn btn-primary" type="button"
+                        id="loadBCRButtonLoader{{ var }}" disabled hidden>
+                    <span class="spinner-border spinner-border-sm"
+                          role="status" aria-hidden="true"></span>
+                    {{ _("Retry }}
+                </button>
             </div>
         </div>
     {% endfor %}
