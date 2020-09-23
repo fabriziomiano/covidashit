@@ -1,5 +1,6 @@
 import datetime as dt
 import os
+from typing import List, Any, Union
 
 from flask_babel import gettext
 
@@ -170,6 +171,17 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
+    "tamponi_giornalieri": {
+        "title": gettext("Daily Swabs"),
+        "desc": gettext("# of swabs performed today"),
+        "longdesc": gettext(
+            "Number of swabs performed today"
+        ),
+        "icon": "fas fa-vial",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"]
+    },
     "deceduti_giornalieri": {
         "title": gettext("Daily deaths"),
         "desc": gettext("Daily deaths count"),
@@ -235,15 +247,27 @@ URL_LATEST_PROVINCIAL_DATA = os.path.join(
 BARCHART_RACE_VAR = "totale_positivi"
 #  The order here matters as it will be reflected in the webpage
 CARD_TYPES = [
-    "totale_casi", "nuovi_positivi", "ricoverati_con_sintomi",
-    "terapia_intensiva", "deceduti_giornalieri", "totale_positivi",
-    "totale_ospedalizzati", "variazione_totale_positivi",
-    "isolamento_domiciliare", "dimessi_guariti", "deceduti", "tamponi",
-    "casi_da_sospetto_diagnostico", "casi_da_screening", "casi_testati"
+    "nuovi_positivi",
+    "ricoverati_con_sintomi",
+    "terapia_intensiva",
+    "tamponi_giornalieri",
+    "deceduti_giornalieri",
+    "isolamento_domiciliare",
+    "casi_da_sospetto_diagnostico",
+    "casi_da_screening",
+    "casi_testati",
+    "variazione_totale_positivi",
+    "totale_positivi",
+    "totale_ospedalizzati",
+    "dimessi_guariti",
+    "deceduti",
+    "tamponi",
+    "totale_casi"
 ]
-CUSTOM_CARDS = ["deceduti_giornalieri"]
+CUSTOM_CARDS = ["deceduti_giornalieri", "tamponi_giornalieri"]
 CARD_MAP = {
-    "deceduti_giornalieri": "deceduti"
+    "deceduti_giornalieri": "deceduti",
+    "tamponi_giornalieri": "tamponi"
 }
 REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
@@ -298,7 +322,6 @@ DATA_TO_FRONTEND = {
 }
 TRANSLATION_DIRNAME = "translations"
 MONGO_URI = os.environ["MONGO_URI"]
-DB_NAME = os.environ["DB_NAME"]
 COLLECTION_NAME = os.environ["COLLECTION_NAME"]
 BARCHART_RACE_QUERY = {"name": "barchart_race"}
 DATA_SERIES = [
