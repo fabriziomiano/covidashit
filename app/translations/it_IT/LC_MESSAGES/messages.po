@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-09-20 19:17+0200\n"
-"PO-Revision-Date: 2020-09-20 19:19+0200\n"
+"POT-Creation-Date: 2020-09-23 15:18+0200\n"
+"PO-Revision-Date: 2020-09-23 15:18+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -19,83 +19,83 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config.py:10
+#: config.py:11
 msgid "Stable with respect to yesterday"
 msgstr "Stabile rispetto a ieri"
 
-#: config.py:15 config.py:20
+#: config.py:16 config.py:21
 msgid "Increased with respect to yesterday"
 msgstr "In aumento rispetto a ieri"
 
-#: config.py:25 config.py:30
+#: config.py:26 config.py:31
 msgid "Decreased with respect to yesterday"
 msgstr "In calo rispetto a ieri"
 
-#: config.py:35
+#: config.py:36
 msgid "Hospitalized With Symptoms"
 msgstr "Ricoverati con sintomi"
 
-#: config.py:36
+#: config.py:37
 msgid "# of people currently hospitalized with symptoms"
 msgstr "# di persone attualmente ricoverate con sintomi"
 
-#: config.py:39
+#: config.py:40
 msgid ""
 "Total count of people currently in hospital due to coronavirus with symptoms"
 msgstr ""
 "Conteggi del numero di persone attualmente in ospedale con sintomi da Covid"
 
-#: config.py:49
+#: config.py:50
 msgid "Intensive Care Unit"
 msgstr "Terapia intensiva"
 
-#: config.py:50
+#: config.py:51
 msgid "# of people currently in ICU"
 msgstr "# di persone attualmete in terapia intensiva"
 
-#: config.py:51
+#: config.py:52
 msgid "Total count of people currently in ICU and positive to COVID-19"
 msgstr ""
 "Conteggi del numero di persone attualmente in terapia intensiva e positive "
 "al COVID-19"
 
-#: config.py:60
+#: config.py:61
 msgid "Total Hospitalized"
 msgstr "Totale ricoverati"
 
-#: config.py:61
+#: config.py:62
 msgid "# of people currently hospitalized"
 msgstr "# di persone attualmente ricoverate"
 
-#: config.py:62
+#: config.py:63
 msgid "Total count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 "Conteggi del numero di persone attualmente positive e ricoverate. Tiene "
 "conto di quelle in terapia intensiva"
 
-#: config.py:71
+#: config.py:72
 msgid "Self Isolation"
 msgstr "Isolamento autonomo"
 
-#: config.py:72
+#: config.py:73
 msgid "# of people currently in self isolation"
 msgstr "# di persone in Terapia Intensiva"
 
-#: config.py:73
+#: config.py:74
 msgid "People currently positive but who don't need hospitalization"
 msgstr "Persone attualmente positive che non hanno bisogno di ricovero"
 
-#: config.py:82
+#: config.py:83
 msgid "Total Positive"
 msgstr "Totale positivi"
 
-#: config.py:83
+#: config.py:84
 msgid "# of people currently hospitalized with symptoms + ICU + self isolation"
 msgstr ""
 "# di persone attualmente ricoverate con sintomi + terapia intensiva + "
 "isolamento autonomo"
 
-#: config.py:87
+#: config.py:88
 msgid ""
 "People currently positive. Unlike 'Total Cases' it does not take into "
 "account 'healed' and 'deaths'. By the end of the outbreak this should tend "
@@ -107,15 +107,15 @@ msgstr ""
 "zero. In particolare, è definito totale positivi = totale casi - totale "
 "guariti - totale morti"
 
-#: config.py:100
+#: config.py:101
 msgid "Total Positive Variation"
 msgstr "Variazione totale positivi"
 
-#: config.py:101
+#: config.py:102
 msgid "Variation of # of people currently positive with respect to yesterday"
 msgstr "Variazione del # di persone attualmente ricoverate con sintomi"
 
-#: config.py:105
+#: config.py:106
 msgid ""
 "Variation of the number of people currently positive with respect to the "
 "previous day. It is negative when the number of daily healed and deaths is "
@@ -125,80 +125,92 @@ msgstr ""
 "precedente. È negativo se il numero di deceduti e guariti quotidiani supera "
 "il numero 'Nuovi positivi'"
 
-#: config.py:116
+#: config.py:117
 msgid "New Positive"
 msgstr "Nuovi Positivi"
 
-#: config.py:117 config.py:118
+#: config.py:118 config.py:119
 msgid "Daily count of new positve cases"
 msgstr "Conteggio giornaliero dei nuovi casi positivi"
 
-#: config.py:125
+#: config.py:126
 msgid "Total Healed"
 msgstr "Totale guariti"
 
-#: config.py:126
+#: config.py:127
 msgid "Cumulative # of people healed"
 msgstr "Totale cumulativo di persone guarite"
 
-#: config.py:127
+#: config.py:128
 msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 "Totale cumulativo del numero di persone guarite dall'inizio dell'epidemia"
 
-#: config.py:136
+#: config.py:137
 msgid "Total Deaths"
 msgstr "Totale decessi"
 
-#: config.py:137
+#: config.py:138
 msgid "Total deaths count"
 msgstr "Conteggio totale decessi"
 
-#: config.py:138
+#: config.py:139
 msgid "Total deaths count since the beginning of the outbreak"
 msgstr "Conteggio dei decessi dall'inizio dell'epidemia"
 
-#: config.py:147
+#: config.py:148
 msgid "Total Cases"
 msgstr "Totale casi"
 
-#: config.py:148 config.py:152
+#: config.py:149 config.py:153
 msgid "Total count of the positive tests since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi positivi dall'inizio dell'epidemia"
 
-#: config.py:162
+#: config.py:163
 msgid "Total Swabs"
 msgstr "Totale tamponi"
 
-#: config.py:163
+#: config.py:164
 msgid "# of swabs performed"
 msgstr "# di tamponi eseguiti"
 
-#: config.py:164
+#: config.py:165
 msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi effettuati dall'inizio dell'epidemia"
 
-#: config.py:174
+#: config.py:175
+msgid "Daily Swabs"
+msgstr "Tamponi giornalieri"
+
+#: config.py:176
+msgid "# of swabs performed today"
+msgstr "# di tamponi eseguiti oggi"
+
+#: config.py:177
+msgid "Number of swabs performed today"
+msgstr "Numero di tamponi eseguiti oggi"
+
+#: config.py:186
 msgid "Daily deaths"
 msgstr "Decessi odierni"
 
-#: config.py:175 config.py:176
+#: config.py:187 config.py:188
 msgid "Daily deaths count"
 msgstr "Conteggio decessi odierni"
 
-#: config.py:183
+#: config.py:195
 msgid "Positive suspected case"
 msgstr "Positivi da sospetti"
 
-#: config.py:184 config.py:185
+#: config.py:196 config.py:197
 msgid "Positive cases emerged from clinical activity"
 msgstr "Casi positivi al tampone emersi da attività clinica"
 
-#: config.py:192
+#: config.py:204
 msgid "Positive from screening"
 msgstr "Positivi da screening"
 
-#: config.py:193 config.py:197
+#: config.py:205 config.py:209
 msgid ""
 "Positive cases emerging from surveys and tests, planned at national or "
 "regional level"
@@ -206,11 +218,11 @@ msgstr ""
 "Casi positivi emersi da indagini e test, pianificati a livello nazionale o "
 "regionale"
 
-#: config.py:207
+#: config.py:219
 msgid "Total tested"
 msgstr "Totale testati"
 
-#: config.py:208 config.py:209
+#: config.py:220 config.py:221
 msgid "Total number of people tested"
 msgstr "Totale dei soggetti sottoposti al test"
 
