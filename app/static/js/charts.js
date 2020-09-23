@@ -132,32 +132,36 @@ function dataTypeSelector(value) {
     }
 }
 
-
-function playBCR() {
-    $('#loadBCRButtonLoader').removeAttr('hidden')
-    $('#loadBCRButton').attr('hidden', true)
+function playBCR(bcr_id) {
+    $('#loadBCRButtonLoader' + bcr_id).removeAttr('hidden')
+    $('#loadBCRButton' + bcr_id).attr('hidden', true)
     $.ajax({
-        url: '/api/bcr',
+        url: '/api/bcr/' + bcr_id,
         method: 'get',
         success: function (response) {
-            $("#loadBCRButtonLoader").attr("hidden", true)
-            $("#bcrCard").append(response["html"])
-            $("#bcrts").append(response["ts"]).removeAttr('hidden')
+            console.log(response)
+            if (response["status"] === "ok") {
+                $("#bcrCard" + bcr_id).append(response["html_str"])
+                $("#bcrts" + bcr_id).append(response["ts"]).removeAttr('hidden')
+            }
+            else {
+                $("#bcrCard" + bcr_id).append(response["error"])
+                $("#bcrts" + bcr_id).append(response["error"]).removeAttr('hidden')
+            }
+            $("#loadBCRButtonLoader" + bcr_id).attr("hidden", true)
         }
     })
 }
 
-let totPosStrIT = "Totale positivi";
+let totPosStrIT = "Totale Positivi";
 let totPosStrEN = "Total Positive";
 (function ($) {
     "use strict";
     $(function () {
         for (let i = 0; i < series.length; i++) {
-            console.log(series[i].name)
             if (series[i].name === totPosStrEN || series[i].name === totPosStrIT) {
                 chartTrend.series[i].show()
             }
         }
     })
-
 })(jQuery);

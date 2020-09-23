@@ -13,11 +13,13 @@ RUN pip3 install --upgrade pip \
 ADD . /opt/app/
 WORKDIR /opt/app
 
-# This is only for testing purposes: "EXPOSE" is NOT supported by Heroku
-#EXPOSE 5000
-
-# This is only for testing purposes: $PORT is set by Heroku
+# This is only for testing purposes as $PORT is automatically set by Heroku
 #ENV PORT 5000
+
+# Environment variables that need to be set locally
+# to retrieve the bar-chart races from mongoDB
+#ENV COLLECTION_NAME changeme
+#ENV MONGO_URI changeme
 
 # Run the app.  CMD is required to run on Heroku
 CMD gunicorn --bind 0.0.0.0:$PORT wsgi:app

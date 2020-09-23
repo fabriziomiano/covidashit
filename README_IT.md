@@ -23,8 +23,9 @@ Il back-end riceve i dati e li serve al frontend per le cards e la chart.
 Non uso alcun database poiché per il momento, e speriamo neance in futuro, non si parla di molti dati.
 
 Il front-end sta in `covidashit/templates` ed usa JavaScript per costruire la chart che è 
-creata con [HighCharts](https://www.highcharts.com/). Inoltre, ogni giorno alle 19 viene 
-lanciato un cron job che crea una bar chart race.
+creata con [HighCharts](https://www.highcharts.com/). Inoltre, ogni giorno alle un cron job schedulato
+crea le bar chart race visibili nella dashboard lanciando uno script di [BCR2Mongo](https://github.com/fabriziomiano/barchartrace2mongo).
+
 Grazie agli sviluppatori di [bar-chart-race](https://www.dexplo.org/bar_chart_race/).
 
 #### Setup locale
@@ -51,6 +52,10 @@ $ docker run --name covidashit -d -p 80:5000 covidashit
 ```
 
 Flask sarà in ascolto all'url [http://127.0.0.1](http://127.0.0.1) 
+
+##### Additional note
+
+L'app puo' essere pubblicata su Heroku sia come docker container che semplicemente utilizzando il Procfile.
 
 ## Donazione
 

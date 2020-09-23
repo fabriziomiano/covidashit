@@ -1,3 +1,4 @@
 *.png
 *.ipynb
 *.gitignore
+*.log
