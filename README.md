@@ -25,7 +25,9 @@ I'm not using any db as, luckily enough, there isn't too much data to store, and
 
 The front-end is under `covidashit/templates` and it uses a simple JS to create
 the chart object, which is built using [HighCharts](https://www.highcharts.com/).
-Additionally, a bar chart race video is produced every day at 7PM with a cron job scheduled. 
+Additionally, bar chart races are produced every day with a scheduled cron job that runs a script from 
+[BCR2Mongo](https://github.com/fabriziomiano/barchartrace2mongo).  
+
 Thanks to the [bar-chart-race](https://www.dexplo.org/bar_chart_race/) library maintainers.
 
 #### Setup a local version
@@ -51,7 +53,13 @@ $ docker build --tag covidashit:latest .
 $ docker run --name covidashit -d -p 80:5000 covidashit
 ```
 
-Flask will be listening at [http://127.0.0.1](http://127.0.0.1)
+The docker container will be listening at [http://127.0.0.1](http://127.0.0.1)
+
+##### Additional note
+
+The app can be deployed on Heroku either as a docker container or simply using the Procfile
+
+
 
 ## Donation
 
