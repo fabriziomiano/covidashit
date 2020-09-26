@@ -6,15 +6,11 @@ from flask import current_app
 from flask_babel import gettext
 
 from config import (
-    CUSTOM_CARDS, CARD_MAP, CARD_TYPES, PROVINCES, PROVINCE_KEY,
-    REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT, PCM_DATE_KEY,
-    UPDATE_FMT, URL_NATIONAL_DATA, NATIONAL_DATA_FILE, URL_REGIONAL_DATA,
-    REGIONAL_DATA_FILE, URL_PROVINCIAL_DATA, PROVINCIAL_DATE_FILE,
-    DATA_TO_FRONTEND, VARS_CONFIG, LATEST_REGIONAL_DATA_FILE,
-    URL_LATEST_REGIONAL_DATA, URL_LATEST_PROVINCIAL_DATA, TOTAL_CASES_KEY
+    CUSTOM_CARDS, CARD_MAP, CARD_TYPES, VARS_CONFIG, PROVINCES,
+    PROVINCE_KEY, REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT,
+    PCM_DATE_KEY, UPDATE_FMT, DATA_TYPE, DASHBOARD_DATA, TOTAL_CASES_KEY
 )
 
-DEFAULT_SERIES = "totale_positivi"
 DATES = []
 EXP_STATUS = []
 
@@ -22,9 +18,12 @@ EXP_STATUS = []
 def read_cached_data(data_filepath):
     """
     Read .json file
-    :param data_filepath:
+    :param data_filepath: str
     :return: JSON-serialised object
     """
+    current_app.logger.warning(
+        "Reading cache data at {}".format(data_filepath)
+    )
     with open(data_filepath, 'r') as data_file:
         data = json.load(data_file)
     return data
@@ -33,10 +32,11 @@ def read_cached_data(data_filepath):
 def cache_data(data, data_filepath):
     """
     Save JSON-serialized object to file
-    :param data:
-    :param data_filepath:
+    :param data: list or dict
+    :param data_filepath: str
     :return: None
     """
+    current_app.logger.info("Caching data at {}".format(data_filepath))
     with open(data_filepath, 'w') as data_file:
         json.dump(data, data_file)
 
@@ -84,6 +84,7 @@ def get_trends(data, province=False):
     :param province: bool
     :return: list of dicts
     """
+    current_app.logger.debug("Building trends")
     if not province:
         card_types = CARD_TYPES
     else:
@@ -113,6 +114,7 @@ def fill_series(province=False):
     Return the series array to be used in the chart
     :return: list
     """
+    current_app.logger.debug("Filling series")
     if not province:
         series = [
             {
@@ -130,7 +132,25 @@ def fill_series(province=False):
     return series
 
 
-def parse_data(data, area=None):
+def parse_national_data(national_data):
+    """
+    Return dates, series, trend_cards
+    :param national_data: list of dicts
+    :return:
+        DATES: list,
+        series: list,
+        trend_cards: list
+    """
+    current_app.logger.debug("Parsing national data")
+    trend_cards = get_trends(national_data)
+    current_app.logger.debug("Filling national data")
+    for d in national_data:
+        fill_data(d)
+    series = fill_series()
+    return DATES, series, trend_cards
+
+
+def parse_area_data(data, area):
     """
     Return dates, series, trend_cards
     :param data: dict
@@ -140,34 +160,27 @@ def parse_data(data, area=None):
         series: list,
         trend_cards: list
     """
-    series = []
-    trend_cards = []
-    if area is None:
-        national_data = data["national"]
-        trend_cards = get_trends(national_data)
-        for d in national_data:
-            fill_data(d)
+    current_app.logger.debug("Parsing area data")
+    series, trend_cards = [], []
+    if area in PROVINCES:
+        current_app.logger.debug("Filling provincial data")
+        subset = [
+            r for r in data
+            if r[PROVINCE_KEY] == area
+        ]
+        trend_cards = get_trends(subset, province=True)
+        for d in data:
+            if area == d[PROVINCE_KEY]:
+                fill_data(d, province=True)
+        series = fill_series(province=True)
+    elif area in REGIONS:
+        current_app.logger.debug("Filling regional data")
+        subset = [r for r in data if r[REGION_KEY] == area]
+        trend_cards = get_trends(subset)
+        for d in data:
+            if area == d[REGION_KEY]:
+                fill_data(d)
         series = fill_series()
-    else:
-        if area in PROVINCES:
-            provincial_data = data["provincial"]
-            subset = [
-                r for r in provincial_data
-                if r[PROVINCE_KEY] == area
-            ]
-            trend_cards = get_trends(subset, province=True)
-            for d in provincial_data:
-                if area == d[PROVINCE_KEY]:
-                    fill_data(d, province=True)
-            series = fill_series(province=True)
-        elif area in REGIONS:
-            regional_data = data["regional"]
-            subset = [r for r in regional_data if r[REGION_KEY] == area]
-            trend_cards = get_trends(subset)
-            for d in regional_data:
-                if area == d[REGION_KEY]:
-                    fill_data(d)
-            series = fill_series()
     return DATES, series, trend_cards
 
 
@@ -197,6 +210,7 @@ def init_data():
     Empty all the "data" keys in VARS_CONFIG plus DATES and EXP_STATUS
     :return: None
     """
+    current_app.logger.debug("Init dashboard data")
     for key in VARS_CONFIG:
         VARS_CONFIG[key]["data"] = []
     EXP_STATUS.clear()
@@ -209,151 +223,53 @@ def latest_update(data):
     :param data: list
     :return: str
     """
+    current_app.logger.debug("Getting latest update")
     date_dt = dt.datetime.strptime(data[-1][PCM_DATE_KEY], PCM_DATE_FMT)
     return date_dt.strftime(UPDATE_FMT)
 
 
-def get_national_data():
+def get_covid_data(data_type):
     """
     Return the national data from the "Protezione Civile" repository
-    :return: dict
+    :return: list of dicts
     """
-    data = {}
+    current_app.logger.debug("Getting {} data".format(data_type))
+    data_url = DATA_TYPE[data_type]["url"]
+    cached_data_file = DATA_TYPE[data_type]["cache_file"]
     try:
-        response = requests.get(URL_NATIONAL_DATA, timeout=3)
+        response = requests.get(data_url, timeout=3)
         status = response.status_code
         if status == 200:
             national_data = response.json()
-            data["national"] = sorted(
+            data = sorted(
                 national_data, key=lambda x: x[PCM_DATE_KEY]
             )
-            cache_data(data["national"], NATIONAL_DATA_FILE)
+            cache_data(data, cached_data_file)
         else:
             current_app.logger.error(
                 "Could not get data: ERROR {}".format(status)
             )
-            data["national"] = read_cached_data(NATIONAL_DATA_FILE)
+            data = read_cached_data(cached_data_file)
     except Exception as e:
         current_app.logger.error("Request Error {}".format(e))
-        data["national"] = read_cached_data(NATIONAL_DATA_FILE)
+        data = read_cached_data(cached_data_file)
     return data
 
 
-def get_regional_data():
-    """
-    Return the regional data from the "Protezione Civile" repository
-    :return: dict
-    """
-    data = {}
-    try:
-        response = requests.get(URL_REGIONAL_DATA, timeout=3)
-        status = response.status_code
-        if status == 200:
-            regional_data = response.json()
-            data["regional"] = sorted(
-                regional_data, key=lambda x: x[PCM_DATE_KEY]
-            )
-            cache_data(data["regional"], REGIONAL_DATA_FILE)
-        else:
-            current_app.logger.error(
-                "Could not get data: ERROR {}".format(status))
-            data["regional"] = read_cached_data(REGIONAL_DATA_FILE)
-    except Exception as e:
-        current_app.logger.error("Request Error {}".format(e))
-        data["regional"] = read_cached_data(REGIONAL_DATA_FILE)
-    return data
-
-
-def get_latest_regional_data():
-    """
-    Return the latest regional data from the "Protezione Civile" repository
-    :return: dict
-    """
-    data = {}
-    try:
-        response = requests.get(URL_LATEST_REGIONAL_DATA, timeout=3)
-        status = response.status_code
-        if status == 200:
-            latest_regional_data = response.json()
-            data["latest_regional"] = sorted(
-                latest_regional_data, key=lambda x: x[PCM_DATE_KEY]
-            )
-            cache_data(data["latest_regional"], LATEST_REGIONAL_DATA_FILE)
-        else:
-            current_app.logger.error(
-                "Could not get data: ERROR {}".format(status))
-            data["regional"] = read_cached_data(LATEST_REGIONAL_DATA_FILE)
-    except Exception as e:
-        current_app.logger.error("Request Error {}".format(e))
-        data["latest_regional"] = read_cached_data(LATEST_REGIONAL_DATA_FILE)
-    return data
-
-
-def get_provincial_data():
-    """
-    Return the provincial data from the "Protezione Civile" repository
-    :return: dict
-    """
-    data = {}
-    try:
-        response = requests.get(URL_PROVINCIAL_DATA, timeout=3)
-        status = response.status_code
-        if status == 200:
-            prov_data = response.json()
-            data["provincial"] = sorted(
-                prov_data, key=lambda x: x[PCM_DATE_KEY]
-            )
-            cache_data(data["provincial"], PROVINCIAL_DATE_FILE)
-        else:
-            current_app.logger.error(
-                "Could not get data: ERROR {}".format(status)
-            )
-            data["provincial"] = read_cached_data(PROVINCIAL_DATE_FILE)
-    except Exception as e:
-        current_app.logger.error("Request Error {}".format(e))
-        data["provincial"] = read_cached_data(PROVINCIAL_DATE_FILE)
-    return data
-
-
-def get_latest_provincial_data():
-    """
-    Return the latest provincial data from the "Protezione Civile" repository
-    :return: dict
-    """
-    data = {}
-    try:
-        response = requests.get(URL_LATEST_PROVINCIAL_DATA, timeout=3)
-        status = response.status_code
-        if status == 200:
-            prov_data = response.json()
-            data["latest_provincial"] = sorted(
-                prov_data, key=lambda x: x[PCM_DATE_KEY]
-            )
-            cache_data(data["latest_provincial"], PROVINCIAL_DATE_FILE)
-        else:
-            current_app.logger.error(
-                "Could not get data: ERROR {}".format(status)
-            )
-            data["latest_provincial"] = read_cached_data(PROVINCIAL_DATE_FILE)
-    except Exception as e:
-        current_app.logger.error("Request Error {}".format(e))
-        data["latest_provincial"] = read_cached_data(PROVINCIAL_DATE_FILE)
-    return data
-
-
-def frontend_data(area=None, **data):
+def enrich_frontend_data(area=None, **data):
     """
     Return a data dict to be rendered which is an augmented copy of
-    DATA_TO_FRONTEND defined in config.py
+    DASHBOARD_DATA defined in config.py
     :param area: optional, str
     :param data: **kwargs
     :return: dict
     """
+    current_app.logger.debug("Enriching data to dashboard")
     try:
         data["area"] = area
     except KeyError:
         pass
-    data.update(DATA_TO_FRONTEND)
+    data.update(DASHBOARD_DATA)
     return data
 
 

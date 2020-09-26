@@ -311,7 +311,7 @@ PROVINCES = [
     'Udine', 'Varese', 'Venezia', 'Verbano-Cusio-Ossola', 'Vercelli',
     'Verona', 'Vibo Valentia', 'Vicenza', 'Viterbo'
 ]
-DATA_TO_FRONTEND = {
+DASHBOARD_DATA = {
     "regions": REGIONS,
     "provinces": PROVINCES,
     "days_since_phase2": (dt.datetime.today() - PHASE2_DAY).days,
@@ -338,3 +338,25 @@ BCR_TYPES = [
     'totale_casi',
     'tamponi'
 ]
+DATA_TYPE = {
+    "national": {
+        "url": URL_NATIONAL_DATA,
+        "cache_file": NATIONAL_DATA_FILE
+    },
+    "provincial": {
+        "url": URL_PROVINCIAL_DATA,
+        "cache_file": PROVINCIAL_DATE_FILE
+    },
+    "regional": {
+        "url": URL_REGIONAL_DATA,
+        "cache_file": REGIONAL_DATA_FILE
+    },
+    "latest_regional": {
+        "url": URL_LATEST_REGIONAL_DATA,
+        "cache_file": LATEST_REGIONAL_DATA_FILE
+    },
+    "latest_provincial": {
+        "url": URL_LATEST_PROVINCIAL_DATA,
+        "cache_file": LATEST_PROVINCIAL_DATE_FILE
+    }
+}
