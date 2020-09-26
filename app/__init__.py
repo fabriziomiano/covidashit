@@ -12,7 +12,7 @@ mongo = PyMongo()
 
 
 def create_app():
-    app = Flask("app")
+    app = Flask(__name__)
     app.config["MONGO_URI"] = MONGO_URI
     mongo.init_app(app)
     babel = Babel(app)
@@ -38,21 +38,24 @@ def create_app():
         r.headers['Cache-Control'] = 'public, max-age=0'
         return r
 
-    set_error_handlers(app)
-
     from .ui import dashboard
     app.register_blueprint(dashboard)
 
     from .api import api
     app.register_blueprint(api)
+
     return app
 
 
 def set_error_handlers(app):
     @app.errorhandler(404)
     def page_not_found(e):
-        return render_template("errors/404.html"), 404
+        app.logger.error("{}".format(e))
+        return render_template("errors/404.html", error=e), 404
 
+    @app.errorhandler(400)
+    @app.errorhandler(405)
     @app.errorhandler(500)
     def server_error(e):
-        return render_template("errors/500.html"), 500
+        app.logger.error("{}".format(e))
+        return render_template("errors/generic.html", error=e)

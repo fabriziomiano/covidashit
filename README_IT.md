@@ -7,7 +7,9 @@ che usa i dati forniti dalla [Protezione Civile](https://github.com/pcm-dpc)
 
 ## Anteprima
 
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/master/preview_it.png)
+Mobile          |  Desktop
+:-------------------------:|:-------------------------:
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/master/previews/mobile.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/master/previews/preview.png)
 
 ##### La WebApp è pubblicata su Heroku &#8594; [qui](https://covidashit.herokuapp.com/)
 

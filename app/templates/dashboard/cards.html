@@ -11,18 +11,21 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 <i class="{{ t.icon }} mr-1"></i>{{ _(t.title) }}
                                 <i class="fas fa-info-circle text-black-50"
-                                   data-toggle="tooltip" data-placement="auto"
+                                   data-toggle="tooltip"
+                                   data-placement="auto"
                                    data-original-title="{{ _(t.longdesc) }}"></i>
                             </div>
                             <div class="h4 mb-0 font-weight-bold text-gray-8000">
                                 {{ t.count }}
+                                <small class="h6">({{ t.today_yesterday_diff }})</small>
                             </div>
                         </div>
 
                         <div class="col-auto">
                             <div class="text-xs">
                                 <strong class="{{ t.colour }}">
-                                    <i class="{{ t.status_icon }} fa-4x"
+                                    <small class="h6">{{ t.percentage_difference|safe }}</small>
+                                    <i class="{{ t.status_icon }} fa-3x"
                                        data-toggle="tooltip"
                                        data-placement="auto"
                                        data-original-title="{{ t.tooltip }}"></i>

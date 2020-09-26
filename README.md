@@ -7,7 +7,9 @@ provided by the [Civil Protection (CP)](https://github.com/pcm-dpc)
 
 ## Preview
 
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/master/preview.png)
+Mobile          |  Desktop
+:-------------------------:|:-------------------------:
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/master/previews/mobile.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/master/previews/preview.png)
 
 ##### The app is deployed on Heroku &#8594; [here](https://covidashit.herokuapp.com/)
 
