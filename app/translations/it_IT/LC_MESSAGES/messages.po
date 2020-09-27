@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-09-23 21:57+0200\n"
-"PO-Revision-Date: 2020-09-23 21:57+0200\n"
+"POT-Creation-Date: 2020-09-27 19:55+0200\n"
+"PO-Revision-Date: 2020-09-27 19:56+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -226,14 +226,6 @@ msgstr "Totale testati"
 msgid "Total number of people tested"
 msgstr "Totale dei soggetti sottoposti al test"
 
-#: app/datatools.py:119
-msgid "title"
-msgstr ""
-
-#: app/datatools.py:126
-msgid "totale_casititle"
-msgstr ""
-
 #: app/templates/dashboard.html:16
 msgid "Latest CPD Update:"
 msgstr "Ultimo aggiornamento DPC:"
@@ -413,8 +405,7 @@ msgstr "Seleziona dati (default Totale Positivi)"
 msgid "Visualize one series at a time"
 msgstr "Visualizza una serie alla volta"
 
-#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:42
-#: app/ui/dashboard.py:81
+#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:15
 msgid "New Positive VS Total Cases"
 msgstr "Nuovi Positivi VS Totale Casi"
 
@@ -470,13 +461,21 @@ msgstr "Conteggi"
 msgid "Close"
 msgstr "Chiudi"
 
-#: app/ui/dashboard.py:30 app/ui/dashboard.py:69
+#: app/ui/dashboard.py:38 app/ui/dashboard.py:83
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
-#: app/ui/dashboard.py:31
+#: app/ui/dashboard.py:39
 msgid "National Dashboard"
 msgstr "Dashboard Nazionale"
+
+#: app/utils/data.py:131
+msgid "title"
+msgstr ""
+
+#: app/utils/data.py:138
+msgid "totale_casititle"
+msgstr ""
 
 #~ msgid "Total positive bar chart race"
 #~ msgstr "Bar chart race Totale positivi"

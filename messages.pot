@@ -1,14 +1,14 @@
-# Translations template for COVIdashIT.
+# Translations template for COVIDashIT.
 # Copyright (C) 2020 Fabrizio Miano
-# This file is distributed under the same license as the COVIdashIT project.
+# This file is distributed under the same license as the COVIDashIT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: COVIdashIT 1.1\n"
+"Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-09-23 21:57+0200\n"
+"POT-Creation-Date: 2020-09-27 20:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -208,14 +208,6 @@ msgstr ""
 msgid "Total number of people tested"
 msgstr ""
 
-#: app/datatools.py:119
-msgid "title"
-msgstr ""
-
-#: app/datatools.py:126
-msgid "totale_casititle"
-msgstr ""
-
 #: app/templates/dashboard.html:16
 msgid "Latest CPD Update:"
 msgstr ""
@@ -389,8 +381,7 @@ msgstr ""
 msgid "Visualize one series at a time"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:42
-#: app/ui/dashboard.py:81
+#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:15
 msgid "New Positive VS Total Cases"
 msgstr ""
 
@@ -444,11 +435,19 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: app/ui/dashboard.py:30 app/ui/dashboard.py:69
+#: app/ui/dashboard.py:38 app/ui/dashboard.py:83
 msgid "COVID-19 Italy"
 msgstr ""
 
-#: app/ui/dashboard.py:31
+#: app/ui/dashboard.py:39
 msgid "National Dashboard"
+msgstr ""
+
+#: app/utils/data.py:131
+msgid "title"
+msgstr ""
+
+#: app/utils/data.py:138
+msgid "totale_casititle"
 msgstr ""
 
