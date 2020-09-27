@@ -50,8 +50,12 @@ def create_app():
 def set_error_handlers(app):
     @app.errorhandler(404)
     def page_not_found(e):
-        return render_template("errors/404.html"), 404
+        app.logger.error("{}".format(e))
+        return render_template("errors/404.html", error=e), 404
 
+    @app.errorhandler(400)
+    @app.errorhandler(405)
     @app.errorhandler(500)
     def server_error(e):
-        return render_template("errors/500.html"), 500
+        app.logger.error("{}".format(e))
+        return render_template("errors/generic.html", error=e)
