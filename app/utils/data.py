@@ -41,37 +41,45 @@ def cache_data(data, data_filepath):
         json.dump(data, data_file)
 
 
-def get_stats(key, last, penultimate, third_tolast):
+def get_stats(data_type, today_data, yesterday_data, three_days_ago_data):
     """
-    Return count and status of a given data type
-    :param key: str
-    :param last: dict
-    :param penultimate: dict
-    :param third_tolast: dict
+    Return the stats of a given data_type.
+    For the quantities whose values are provided as cumulative
+    by the civil protection, the daily counts are computed as:
+    cumulative(today) - cumulative(yesterday)
+    :param data_type: str
+    :param today_data: dict
+    :param yesterday_data: dict
+    :param three_days_ago_data: dict
     :return: dict
     """
-    if key not in CUSTOM_CARDS:
-        count = last[key]
-        if int(penultimate[key]) > int(last[key]):
-            status = "decrease"
-        elif penultimate[key] == last[key]:
-            status = "stable"
-        else:
-            status = "increase"
+    if data_type not in CUSTOM_CARDS:
+        today_count = today_data[data_type]
+        yesterday_count = yesterday_data[data_type]
     else:
-        count = int(last[CARD_MAP[key]]) - int(penultimate[CARD_MAP[key]])
-        today_diff = int(last[CARD_MAP[key]]) - int(penultimate[CARD_MAP[key]])
-        yesterday_count = int(penultimate[CARD_MAP[key]])
-        day_before_yesterday_count = int(third_tolast[CARD_MAP[key]])
-        yesterday_diff = yesterday_count - day_before_yesterday_count
-        if today_diff < yesterday_diff:
-            status = "decrease"
-        elif today_diff == yesterday_diff:
-            status = "stable"
-        else:
-            status = "increase"
+        today_total = today_data[CARD_MAP[data_type]]
+        yesterday_total = yesterday_data[CARD_MAP[data_type]]
+        three_days_ago_total = three_days_ago_data[CARD_MAP[data_type]]
+        today_count = today_total - yesterday_total
+        yesterday_count = yesterday_total - three_days_ago_total
+    today_yesterday_diff = today_count - yesterday_count
+    if today_yesterday_diff < 0:
+        status = "decrease"
+    elif today_yesterday_diff == 0:
+        status = "stable"
+    else:
+        status = "increase"
+    if yesterday_count == 0 or today_yesterday_diff == 0:
+        percentage_difference = "0.0%" \
+            if today_yesterday_diff == 0 else "&#8734;"
+    else:
+        percentage_difference = "{0:+}%".format(round(
+            ((today_yesterday_diff / abs(yesterday_count)) * 100), 1
+        ))
     stats = {
-        "count": count,
+        "count": today_count,
+        "today_yesterday_diff": "{0:+}".format(today_yesterday_diff),
+        "percentage_difference": percentage_difference,
         "status": status
     }
     return stats
@@ -104,7 +112,9 @@ def get_trends(data, province=False):
             "colour": VARS_CONFIG[key][stats["status"]]["colour"],
             "icon": VARS_CONFIG[key]["icon"],
             "status_icon": VARS_CONFIG[key][stats["status"]]["icon"],
-            "tooltip": VARS_CONFIG[key][stats["status"]]["tooltip"]
+            "tooltip": VARS_CONFIG[key][stats["status"]]["tooltip"],
+            "percentage_difference": stats["percentage_difference"],
+            "today_yesterday_diff": stats["today_yesterday_diff"]
         })
     return trend_cards
 
