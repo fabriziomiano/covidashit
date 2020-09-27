@@ -12,7 +12,7 @@ mongo = PyMongo()
 
 
 def create_app():
-    app = Flask("app")
+    app = Flask(__name__)
     app.config["MONGO_URI"] = MONGO_URI
     mongo.init_app(app)
     babel = Babel(app)
@@ -38,13 +38,12 @@ def create_app():
         r.headers['Cache-Control'] = 'public, max-age=0'
         return r
 
-    set_error_handlers(app)
-
     from .ui import dashboard
     app.register_blueprint(dashboard)
 
     from .api import api
     app.register_blueprint(api)
+
     return app
 
 
