@@ -4,8 +4,34 @@
         <img class="mr-2" src="../../static/img/virussketch.png" alt=""
              width="32" height="32"> COVIDashIT
     </a>
-    <button class="btn btn-link btn-sm order-first ml-3" id="sidebarToggle"><i
-            class="fas fa-bars"></i></button>
+    <button class="btn btn-link btn-sm order-first ml-3" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    {% if area %}
+        <!-- Navigation Buttons -->
+        {% if area_index != 0 %}
+            <div class="btn-group mr-2" role="group"
+                 aria-label='{{ _("Previous in alphabetical order") }}'>
+                <button id="previousAreaButton"
+                        class="btn btn-sm btn-info"
+                        onclick='jumpToArea("{{ area }}", "previous")'>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+        {% endif %}
+        {% if area_index != area_length %}
+            <div class="btn-group mr-2" role="group"
+                 aria-label="{{ _("Next in alphabetical order") }}">
+                <button id="nextAreaButton"
+                        class="btn btn-sm btn-info"
+                        onclick='jumpToArea("{{ area }}", "next")'>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        {% endif %}
+    {% endif %}
+
     <!-- Navbar Search-->
     <form id="searchForm"
           class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"
@@ -16,11 +42,52 @@
                    aria-label="Search" aria-describedby="basic-addon2">
             <div class="input-group-append">
                 <button id="searchBtn" class="btn btn-primary" type="submit">
-                    <i class="fas fa-search"></i></button>
+                    <i class="fas fa-search"></i>
+                </button>
             </div>
         </div>
     </form>
 </nav>
 <script>
-    let searchInputErrMsg = '{{ _("Region/province not in the right format") }}'
+    let searchInputErrMsg = '{{ _("Region/province not in the right format") }}';
+
+    function jumpToArea(area, direction) {
+        let base_url;
+        let url;
+        let areas;
+        let areas_length;
+
+        if (provinces.includes(area)) {
+            areas = provinces;
+            base_url = provincesUrl;
+        }
+
+        if (regions.includes(area)) {
+            areas = regions;
+            base_url = regionsUrl;
+        }
+        areas_length = areas.length;
+        if (areas.includes(area)) {
+            console.log(area)
+            let i = areas.indexOf(area);
+            console.log(i)
+            if (direction === 'next') {
+                if (i !== areas_length) {
+                    let nextArea = areas[i + 1];
+                    console.log(nextArea)
+                    url = base_url + nextArea;
+                    window.location.href = url
+                }
+            }
+            if (direction === 'previous') {
+                if (i !== 0) {
+                    let previousArea = areas[i - 1];
+                    console.log(previousArea)
+                    url = base_url + previousArea;
+                    window.location.href = url
+                }
+            }
+        }
+        console.log(url)
+    }
 </script>

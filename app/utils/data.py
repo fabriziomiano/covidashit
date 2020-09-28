@@ -9,7 +9,7 @@ from config import (
     CUSTOM_CARDS, CARD_MAP, CARD_TYPES, VARS_CONFIG, PROVINCES,
     PROVINCE_KEY, REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT,
     PCM_DATE_KEY, UPDATE_FMT, DATA_TYPE, DASHBOARD_DATA, TOTAL_CASES_KEY,
-    NEW_POSITIVE_KEY
+    NEW_POSITIVE_KEY, CUMULATIVE_DATA_TYPES
 )
 
 DATES = []
@@ -54,16 +54,26 @@ def get_stats(data_type, today_data, yesterday_data, three_days_ago_data):
     :param three_days_ago_data: dict
     :return: dict
     """
-    if data_type not in CUSTOM_CARDS:
-        today_count = today_data[data_type]
-        yesterday_count = yesterday_data[data_type]
-    else:
+    if data_type in CUSTOM_CARDS:
         today_total = today_data[CARD_MAP[data_type]]
         yesterday_total = yesterday_data[CARD_MAP[data_type]]
         three_days_ago_total = three_days_ago_data[CARD_MAP[data_type]]
         today_count = today_total - yesterday_total
         yesterday_count = yesterday_total - three_days_ago_total
-    today_yesterday_diff = today_count - yesterday_count
+        today_yesterday_diff = today_count - yesterday_count
+        count = today_count
+    elif data_type in CUMULATIVE_DATA_TYPES:
+        today_total = today_data[data_type]
+        yesterday_total = yesterday_data[data_type]
+        three_days_ago_total = three_days_ago_data[data_type]
+        today_yesterday_diff = today_total - yesterday_total
+        yesterday_count = yesterday_total - three_days_ago_total
+        count = today_total
+    else:
+        today_count = today_data[data_type]
+        yesterday_count = yesterday_data[data_type]
+        today_yesterday_diff = today_count - yesterday_count
+        count = today_count
     if today_yesterday_diff < 0:
         status = "decrease"
     elif today_yesterday_diff == 0:
@@ -75,10 +85,10 @@ def get_stats(data_type, today_data, yesterday_data, three_days_ago_data):
             if today_yesterday_diff == 0 else "&#8734;"
     else:
         percentage_difference = "{0:+}%".format(round(
-            ((today_yesterday_diff / abs(yesterday_count)) * 100), 1
+            ((today_yesterday_diff / yesterday_count) * 100), 1
         ))
     stats = {
-        "count": today_count,
+        "count": count,
         "today_yesterday_diff": "{0:+}".format(today_yesterday_diff),
         "percentage_difference": percentage_difference,
         "status": status
