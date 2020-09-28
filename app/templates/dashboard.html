@@ -8,23 +8,26 @@
                 <!-- Breadcrumb -->
                 <ol class="breadcrumb mt-2">
                     <li class="breadcrumb-item active">
-                        <a class="h3 font-weight-bolder">
+                        <a class="h4 font-weight-bolder">
                             {{ dashboard_title }}
                         </a>
                         <br>
                         <div class="text-sm text-info">
-                            <i class="fas fa-bullhorn mr-2"></i>
+                            <i class="fas fa-bullhorn mr-1"></i>
                             {{ _("Latest Update:") }} {{ latest_update }}
                         </div>
-                        <div class="text-sm text-danger">
-                            <i class="fas fa-vial mr-2"></i>
-                            {{ _("Positive swabs percentage:") }} {{ positive_swabs_percentage }}
-                        </div>
+                        {% if area not in provinces %}
+                            <div class="text-sm text-danger">
+                                <i class="fas fa-vial mr-1"></i>
+                                {{ _("Positive swabs percentage:") }} {{ positive_swabs_percentage }}
+                            </div>
+                        {% endif %}
                     </li>
                 </ol>
 
                 {% if area in provinces %}
-                    <div class="alert alert-warning" role="alert">
+                    <div class="alert alert-warning font-weight-bold"
+                         role="alert">
                         {{ _('Only the "Total Cases" data is shown') }}
                     </div>
                 {% endif %}
