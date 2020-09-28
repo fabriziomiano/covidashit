@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-09-28 22:00+0200\n"
-"PO-Revision-Date: 2020-09-28 22:00+0200\n"
+"POT-Creation-Date: 2020-09-28 22:17+0200\n"
+"PO-Revision-Date: 2020-09-28 22:17+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -230,11 +230,11 @@ msgstr "Totale dei soggetti sottoposti al test"
 msgid "Latest Update:"
 msgstr "Ultimo aggiornamento:"
 
-#: app/templates/dashboard.html:21
+#: app/templates/dashboard.html:22
 msgid "Positive swabs percentage:"
 msgstr "Percentuale tamponi positivi:"
 
-#: app/templates/dashboard.html:28
+#: app/templates/dashboard.html:30
 msgid "Only the \"Total Cases\" data is shown"
 msgstr "Solo la serie \"Totale Casi\" è mostrata"
 
