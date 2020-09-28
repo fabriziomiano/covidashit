@@ -12,8 +12,14 @@
                             {{ dashboard_title }}
                         </a>
                         <br>
-                        <i class="fas fa-bullhorn mr-2"></i>
-                        {{ _("Latest CPD Update:") }} {{ latest_update }}
+                        <div class="text-sm text-info">
+                            <i class="fas fa-bullhorn mr-2"></i>
+                            {{ _("Latest Update:") }} {{ latest_update }}
+                        </div>
+                        <div class="text-sm text-danger">
+                            <i class="fas fa-vial mr-2"></i>
+                            {{ _("Positive swabs percentage:") }} {{ positive_swabs_percentage }}
+                        </div>
                     </li>
                 </ol>
 

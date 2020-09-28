@@ -8,7 +8,8 @@ from flask_babel import gettext
 from config import (
     CUSTOM_CARDS, CARD_MAP, CARD_TYPES, VARS_CONFIG, PROVINCES,
     PROVINCE_KEY, REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT,
-    PCM_DATE_KEY, UPDATE_FMT, DATA_TYPE, DASHBOARD_DATA, TOTAL_CASES_KEY
+    PCM_DATE_KEY, UPDATE_FMT, DATA_TYPE, DASHBOARD_DATA, TOTAL_CASES_KEY,
+    NEW_POSITIVE_KEY
 )
 
 DATES = []
@@ -96,7 +97,7 @@ def get_trends(data, province=False):
     if not province:
         card_types = CARD_TYPES
     else:
-        card_types = ["totale_casi"]
+        card_types = [TOTAL_CASES_KEY]
     last = data[-1]
     penultimate = data[-2]
     third_tolast = data[-3]
@@ -135,8 +136,8 @@ def fill_series(province=False):
         ]
     else:
         series = [{
-            "name": gettext(VARS_CONFIG["totale_casi"]["title"]),
-            "data": VARS_CONFIG["totale_casi"]["data"],
+            "name": gettext(VARS_CONFIG[TOTAL_CASES_KEY]["title"]),
+            "data": VARS_CONFIG[TOTAL_CASES_KEY]["data"],
             "visible": "true"
         }]
     return series
@@ -207,9 +208,9 @@ def fill_data(datum, province=False):
                 VARS_CONFIG[key]["data"].append(
                     datum[key] if datum[key] is not None else 0
                 )
-        EXP_STATUS.append([datum["totale_casi"], datum["nuovi_positivi"]])
+        EXP_STATUS.append([datum[TOTAL_CASES_KEY], datum[NEW_POSITIVE_KEY]])
     else:
-        VARS_CONFIG["totale_casi"]["data"].append(datum["totale_casi"])
+        VARS_CONFIG[TOTAL_CASES_KEY]["data"].append(datum[TOTAL_CASES_KEY])
     date_dt = dt.datetime.strptime(datum["data"], PCM_DATE_FMT)
     date_str = date_dt.strftime(CHART_DATE_FMT)
     DATES.append(date_str)
@@ -331,3 +332,25 @@ def get_provincial_breakdown(covid_data, region):
             if d[REGION_KEY] == region and d[PROVINCE_KEY] in PROVINCES
         ]
     }
+
+
+def get_positive_swabs_percentage(trend_cards):
+    """
+
+    :param trend_cards:
+    :return:
+    """
+    daily_swabs = 0
+    new_positive = 0
+    for t in trend_cards:
+        if t["id"] == "tamponi_giornalieri":
+            daily_swabs = t["count"]
+        if t["id"] == "nuovi_positivi":
+            new_positive = t["count"]
+    if daily_swabs != 0:
+        positive_swabs_percentage = "{0:+}%".format(
+            round((new_positive / daily_swabs) * 100, 1)
+        )
+    else:
+        positive_swabs_percentage = "n/a"
+    return positive_swabs_percentage
