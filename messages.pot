@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-09-28 19:36+0200\n"
+"POT-Creation-Date: 2020-09-28 22:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,77 +17,77 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: config.py:26
+#: config.py:33
 msgid "Stable with respect to yesterday"
 msgstr ""
 
-#: config.py:31 config.py:36
+#: config.py:38 config.py:43
 msgid "Increased with respect to yesterday"
 msgstr ""
 
-#: config.py:41 config.py:46
+#: config.py:48 config.py:53
 msgid "Decreased with respect to yesterday"
 msgstr ""
 
-#: config.py:51
+#: config.py:58
 msgid "Hospitalized With Symptoms"
 msgstr ""
 
-#: config.py:52
+#: config.py:59
 msgid "# of people currently hospitalized with symptoms"
 msgstr ""
 
-#: config.py:55
+#: config.py:62
 msgid ""
 "Total count of people currently in hospital due to coronavirus with "
 "symptoms"
 msgstr ""
 
-#: config.py:65
+#: config.py:72
 msgid "Intensive Care Unit"
 msgstr ""
 
-#: config.py:66
+#: config.py:73
 msgid "# of people currently in ICU"
 msgstr ""
 
-#: config.py:67
+#: config.py:74
 msgid "Total count of people currently in ICU and positive to COVID-19"
 msgstr ""
 
-#: config.py:76
+#: config.py:83
 msgid "Total Hospitalized"
 msgstr ""
 
-#: config.py:77
+#: config.py:84
 msgid "# of people currently hospitalized"
 msgstr ""
 
-#: config.py:78
+#: config.py:85
 msgid "Total count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 
-#: config.py:87
+#: config.py:94
 msgid "Self Isolation"
 msgstr ""
 
-#: config.py:88
+#: config.py:95
 msgid "# of people currently in self isolation"
 msgstr ""
 
-#: config.py:89
+#: config.py:96
 msgid "People currently positive but who do not need hospitalization"
 msgstr ""
 
-#: config.py:98
+#: config.py:105
 msgid "Total Positive"
 msgstr ""
 
-#: config.py:99
+#: config.py:106
 msgid "# of people currently hospitalized with symptoms + ICU + self isolation"
 msgstr ""
 
-#: config.py:103
+#: config.py:110
 msgid ""
 "People currently positive. Unlike 'Total Cases' it does not take into "
 "account 'healed' and 'deaths'. By the end of the outbreak this should "
@@ -95,128 +95,128 @@ msgid ""
 "healed - total deaths"
 msgstr ""
 
-#: config.py:116
+#: config.py:123
 msgid "Total Positive Variation"
 msgstr ""
 
-#: config.py:117
+#: config.py:124
 msgid "Variation of # of people currently positive with respect to yesterday"
 msgstr ""
 
-#: config.py:121
+#: config.py:128
 msgid ""
 "Variation of the number of people currently positive with respect to the "
 "previous day. It is negative when the number of daily healed and deaths "
 "is larger than 'New positive'"
 msgstr ""
 
-#: config.py:132
+#: config.py:139
 msgid "New Positive"
 msgstr ""
 
-#: config.py:133 config.py:134
+#: config.py:140 config.py:141
 msgid "Daily count of new positve cases"
 msgstr ""
 
-#: config.py:141
+#: config.py:148
 msgid "Total Healed"
 msgstr ""
 
-#: config.py:142
+#: config.py:149
 msgid "Cumulative # of people healed"
 msgstr ""
 
-#: config.py:143
+#: config.py:150
 msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:152
+#: config.py:159
 msgid "Total Deaths"
 msgstr ""
 
-#: config.py:153
+#: config.py:160
 msgid "Total deaths count"
 msgstr ""
 
-#: config.py:154
+#: config.py:161
 msgid "Total deaths count since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:163
+#: config.py:170
 msgid "Total Cases"
 msgstr ""
 
-#: config.py:164 config.py:168
+#: config.py:171 config.py:175
 msgid "Total count of the positive tests since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:178
+#: config.py:185
 msgid "Total Swabs"
 msgstr ""
 
-#: config.py:179
+#: config.py:186
 msgid "# of swabs performed"
 msgstr ""
 
-#: config.py:180
+#: config.py:187
 msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:190
+#: config.py:197
 msgid "Daily Swabs"
 msgstr ""
 
-#: config.py:191
+#: config.py:198
 msgid "# of swabs performed today"
 msgstr ""
 
-#: config.py:192
+#: config.py:199
 msgid "Number of swabs performed today"
 msgstr ""
 
-#: config.py:201
+#: config.py:208
 msgid "Daily deaths"
 msgstr ""
 
-#: config.py:202 config.py:203
+#: config.py:209 config.py:210
 msgid "Daily deaths count"
 msgstr ""
 
-#: config.py:210
+#: config.py:217
 msgid "Positive suspected case"
 msgstr ""
 
-#: config.py:211 config.py:212
+#: config.py:218 config.py:219
 msgid "Positive cases emerged from clinical activity"
 msgstr ""
 
-#: config.py:219
+#: config.py:226
 msgid "Positive from screening"
 msgstr ""
 
-#: config.py:220 config.py:224
+#: config.py:227 config.py:231
 msgid ""
 "Positive cases emerging from surveys and tests, planned at national or "
 "regional level"
 msgstr ""
 
-#: config.py:234
+#: config.py:241
 msgid "Total tested"
 msgstr ""
 
-#: config.py:235 config.py:236
+#: config.py:242 config.py:243
 msgid "Total number of people tested"
 msgstr ""
 
-#: app/templates/dashboard.html:18 app/templates/dashboard/barChartRace.html:12
+#: app/templates/dashboard.html:17 app/templates/dashboard/barChartRace.html:12
 msgid "Latest Update:"
 msgstr ""
 
-#: app/templates/dashboard.html:25
-msgid "Percentage of positive swabs:"
+#: app/templates/dashboard.html:21
+msgid "Positive swabs percentage:"
 msgstr ""
 
-#: app/templates/dashboard.html:35
+#: app/templates/dashboard.html:28
 msgid "Only the \"Total Cases\" data is shown"
 msgstr ""
 
