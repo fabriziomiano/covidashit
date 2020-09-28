@@ -3,6 +3,29 @@ import os
 
 from flask_babel import gettext
 
+DAILY_SWABS_KEY = "tamponi_giornalieri"
+HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
+ICU_KEY = "terapia_intensiva"
+TOTAL_HOSPITALIZED_KEY = "totale_ospedalizzati"
+SELF_ISOLATION_KEY = "isolamento_domiciliare"
+TOTAL_POSITIVE_KEY = "totale_positivi"
+TOTAL_POSITIVE_VARIATION_KEY = "variazione_totale_positivi"
+NEW_POSITIVE_KEY = "nuovi_positivi"
+TOTAL_HEALED_KEY = "dimessi_guariti"
+TOTAL_DEATHS_KEY = "deceduti"
+TOTAL_CASES_KEY = "totale_casi"
+TOTAL_SWABS_KEY = "tamponi"
+DAILY_DEATHS_KEY = "deceduti_giornalieri"
+POSITIVE_SUSPECTED_KEY = "casi_da_sospetto_diagnostico"
+POSITIVE_FROM_SCREENING_KEY = "casi_da_screening"
+TOTAL_TESTED = "casi_testati"
+REGION_KEY = "denominazione_regione"
+PROVINCE_KEY = "denominazione_provincia"
+PCM_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
+CHART_DATE_FMT = "%d %b"
+UPDATE_FMT = "%d/%m/%Y %H:%M"
+PCM_DATE_KEY = "data"
+TRANSLATION_DIRNAME = "translations"
 TREND_SYMBOL_LOGIC = {
     "stable": {
         "colour": "text-info",
@@ -31,7 +54,7 @@ TREND_SYMBOL_LOGIC = {
     }
 }
 VARS_CONFIG = {
-    "ricoverati_con_sintomi": {
+    HOSPITALIZED_WITH_SYMPTOMS_KEY: {
         "title": gettext("Hospitalized With Symptoms"),
         "desc": gettext(
             "# of people currently hospitalized with symptoms"
@@ -45,7 +68,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "terapia_intensiva": {
+    ICU_KEY: {
         "title": gettext("Intensive Care Unit"),
         "desc": gettext("# of people currently in ICU"),
         "longdesc": gettext(
@@ -56,7 +79,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "totale_ospedalizzati": {
+    TOTAL_HOSPITALIZED_KEY: {
         "title": gettext("Total Hospitalized"),
         "desc": gettext("# of people currently hospitalized"),
         "longdesc": gettext(
@@ -67,18 +90,18 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "isolamento_domiciliare": {
+    SELF_ISOLATION_KEY: {
         "title": gettext("Self Isolation"),
         "desc": gettext("# of people currently in self isolation"),
         "longdesc": gettext(
-            "People currently positive but who don't need hospitalization"
+            "People currently positive but who do not need hospitalization"
         ),
         "icon": "fas fa-house-user",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "totale_positivi": {
+    TOTAL_POSITIVE_KEY: {
         "title": gettext("Total Positive"),
         "desc": gettext(
             "# of people currently "
@@ -96,7 +119,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "variazione_totale_positivi": {
+    TOTAL_POSITIVE_VARIATION_KEY: {
         "title": gettext("Total Positive Variation"),
         "desc": gettext(
             "Variation of # of people currently positive "
@@ -112,7 +135,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "nuovi_positivi": {
+    NEW_POSITIVE_KEY: {
         "title": gettext("New Positive"),
         "desc": gettext("Daily count of new positve cases"),
         "longdesc": gettext("Daily count of new positve cases"),
@@ -121,7 +144,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "dimessi_guariti": {
+    TOTAL_HEALED_KEY: {
         "title": gettext("Total Healed"),
         "desc": gettext("Cumulative # of people healed"),
         "longdesc": gettext(
@@ -132,7 +155,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "deceduti": {
+    TOTAL_DEATHS_KEY: {
         "title": gettext("Total Deaths"),
         "desc": gettext("Total deaths count"),
         "longdesc": gettext(
@@ -143,7 +166,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "totale_casi": {
+    TOTAL_CASES_KEY: {
         "title": gettext("Total Cases"),
         "desc": gettext(
             "Total count of the positive tests since the"
@@ -158,7 +181,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "tamponi": {
+    TOTAL_SWABS_KEY: {
         "title": gettext("Total Swabs"),
         "desc": gettext("# of swabs performed"),
         "longdesc": gettext(
@@ -170,7 +193,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "tamponi_giornalieri": {
+    DAILY_SWABS_KEY: {
         "title": gettext("Daily Swabs"),
         "desc": gettext("# of swabs performed today"),
         "longdesc": gettext(
@@ -181,7 +204,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "deceduti_giornalieri": {
+    DAILY_DEATHS_KEY: {
         "title": gettext("Daily deaths"),
         "desc": gettext("Daily deaths count"),
         "longdesc": gettext("Daily deaths count"),
@@ -190,7 +213,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "casi_da_sospetto_diagnostico": {
+    POSITIVE_SUSPECTED_KEY: {
         "title": gettext("Positive suspected case"),
         "desc": gettext("Positive cases emerged from clinical activity"),
         "longdesc": gettext("Positive cases emerged from clinical activity"),
@@ -199,7 +222,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "casi_da_screening": {
+    POSITIVE_FROM_SCREENING_KEY: {
         "title": gettext("Positive from screening"),
         "desc": gettext(
             "Positive cases emerging from surveys and tests, "
@@ -214,7 +237,7 @@ VARS_CONFIG = {
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
-    "casi_testati": {
+    TOTAL_TESTED: {
         "title": gettext("Total tested"),
         "desc": gettext("Total number of people tested"),
         "longdesc": gettext("Total number of people tested"),
@@ -245,35 +268,28 @@ URL_LATEST_PROVINCIAL_DATA = os.path.join(
 )
 #  The order here matters as it will be reflected in the webpage
 CARD_TYPES = [
-    "nuovi_positivi",
-    "ricoverati_con_sintomi",
-    "terapia_intensiva",
-    "tamponi_giornalieri",
-    "deceduti_giornalieri",
-    "isolamento_domiciliare",
-    "casi_da_sospetto_diagnostico",
-    "casi_da_screening",
-    "casi_testati",
-    "variazione_totale_positivi",
-    "totale_positivi",
-    "totale_ospedalizzati",
-    "dimessi_guariti",
-    "deceduti",
-    "tamponi",
-    "totale_casi"
+    NEW_POSITIVE_KEY,
+    HOSPITALIZED_WITH_SYMPTOMS_KEY,
+    ICU_KEY,
+    DAILY_SWABS_KEY,
+    DAILY_DEATHS_KEY,
+    SELF_ISOLATION_KEY,
+    POSITIVE_SUSPECTED_KEY,
+    POSITIVE_FROM_SCREENING_KEY,
+    TOTAL_TESTED,
+    TOTAL_POSITIVE_VARIATION_KEY,
+    TOTAL_POSITIVE_KEY,
+    TOTAL_HOSPITALIZED_KEY,
+    TOTAL_HEALED_KEY,
+    TOTAL_DEATHS_KEY,
+    TOTAL_SWABS_KEY,
+    TOTAL_CASES_KEY
 ]
-CUSTOM_CARDS = ["deceduti_giornalieri", "tamponi_giornalieri"]
+CUSTOM_CARDS = [DAILY_DEATHS_KEY, DAILY_SWABS_KEY]
 CARD_MAP = {
-    "deceduti_giornalieri": "deceduti",
-    "tamponi_giornalieri": "tamponi"
+    DAILY_DEATHS_KEY: TOTAL_DEATHS_KEY,
+    DAILY_SWABS_KEY: TOTAL_SWABS_KEY
 }
-REGION_KEY = "denominazione_regione"
-PROVINCE_KEY = "denominazione_provincia"
-TOTAL_CASES_KEY = "totale_casi"
-PCM_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
-CHART_DATE_FMT = "%d %b"
-UPDATE_FMT = "%d/%m/%Y %H:%M"
-PCM_DATE_KEY = "data"
 LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
 PHASE2_DAY = dt.datetime(2020, 5, 4)
 REOPENING_DAY = dt.datetime(2020, 5, 18)
@@ -282,34 +298,34 @@ LANGUAGES = {
     "it_IT": "Italiano"
 }
 REGIONS = [
-    'Abruzzo', 'Basilicata', 'Calabria', 'Campania', 'Emilia-Romagna',
-    'Friuli Venezia Giulia', 'Lazio', 'Liguria', 'Lombardia',
-    'Marche', 'Molise', 'P.A. Bolzano', 'P.A. Trento', 'Piemonte',
-    'Puglia', 'Sardegna', 'Sicilia', 'Toscana', 'Umbria',
-    "Valle d'Aosta", 'Veneto'
+    "Abruzzo", "Basilicata", "Calabria", "Campania", "Emilia-Romagna",
+    "Friuli Venezia Giulia", "Lazio", "Liguria", "Lombardia",
+    "Marche", "Molise", "P.A. Bolzano", "P.A. Trento", "Piemonte",
+    "Puglia", "Sardegna", "Sicilia", "Toscana", "Umbria",
+    "Valle d'Aosta", "Veneto"
 ]
 PROVINCES = [
-    'Agrigento', 'Alessandria', 'Ancona', 'Aosta', 'Arezzo',
-    'Ascoli Piceno', 'Asti', 'Avellino', 'Bari',
-    'Barletta-Andria-Trani', 'Belluno', 'Benevento', 'Bergamo',
-    'Biella', 'Bologna', 'Bolzano', 'Brescia', 'Brindisi', 'Cagliari',
-    'Caltanissetta', 'Campobasso', 'Caserta', 'Catania', 'Catanzaro',
-    'Chieti', 'Como', 'Cosenza', 'Cremona', 'Crotone', 'Cuneo',
-    'Enna', 'Fermo', 'Ferrara', 'Firenze', 'Foggia', 'Forlì-Cesena',
-    'Frosinone', 'Genova', 'Gorizia', 'Grosseto', 'Imperia',
-    'Isernia', "L'Aquila", 'La Spezia', 'Latina', 'Lecce', 'Lecco',
-    'Livorno', 'Lodi', 'Lucca', 'Macerata', 'Mantova',
-    'Massa Carrara', 'Matera', 'Messina', 'Milano', 'Modena',
-    'Monza e della Brianza', 'Napoli', 'Novara', 'Nuoro', 'Oristano',
-    'Padova', 'Palermo', 'Parma', 'Pavia', 'Perugia',
-    'Pesaro e Urbino', 'Pescara', 'Piacenza', 'Pisa', 'Pistoia',
-    'Pordenone', 'Potenza', 'Prato', 'Ragusa', 'Ravenna',
-    'Reggio di Calabria', "Reggio nell'Emilia", 'Rieti', 'Rimini',
-    'Roma', 'Rovigo', 'Salerno', 'Sassari', 'Savona', 'Siena',
-    'Siracusa', 'Sondrio', 'Sud Sardegna', 'Taranto', 'Teramo',
-    'Terni', 'Torino', 'Trapani', 'Trento', 'Treviso', 'Trieste',
-    'Udine', 'Varese', 'Venezia', 'Verbano-Cusio-Ossola', 'Vercelli',
-    'Verona', 'Vibo Valentia', 'Vicenza', 'Viterbo'
+    "Agrigento", "Alessandria", "Ancona", "Aosta", "Arezzo",
+    "Ascoli Piceno", "Asti", "Avellino", "Bari",
+    "Barletta-Andria-Trani", "Belluno", "Benevento", "Bergamo",
+    "Biella", "Bologna", "Bolzano", "Brescia", "Brindisi", "Cagliari",
+    "Caltanissetta", "Campobasso", "Caserta", "Catania", "Catanzaro",
+    "Chieti", "Como", "Cosenza", "Cremona", "Crotone", "Cuneo",
+    "Enna", "Fermo", "Ferrara", "Firenze", "Foggia", "Forlì-Cesena",
+    "Frosinone", "Genova", "Gorizia", "Grosseto", "Imperia",
+    "Isernia", "L'Aquila", "La Spezia", "Latina", "Lecce", "Lecco",
+    "Livorno", "Lodi", "Lucca", "Macerata", "Mantova",
+    "Massa Carrara", "Matera", "Messina", "Milano", "Modena",
+    "Monza e della Brianza", "Napoli", "Novara", "Nuoro", "Oristano",
+    "Padova", "Palermo", "Parma", "Pavia", "Perugia",
+    "Pesaro e Urbino", "Pescara", "Piacenza", "Pisa", "Pistoia",
+    "Pordenone", "Potenza", "Prato", "Ragusa", "Ravenna",
+    "Reggio di Calabria", "Reggio nell'Emilia", "Rieti", "Rimini",
+    "Roma", "Rovigo", "Salerno", "Sassari", "Savona", "Siena",
+    "Siracusa", "Sondrio", "Sud Sardegna", "Taranto", "Teramo",
+    "Terni", "Torino", "Trapani", "Trento", "Treviso", "Trieste",
+    "Udine", "Varese", "Venezia", "Verbano-Cusio-Ossola", "Vercelli",
+    "Verona", "Vibo Valentia", "Vicenza", "Viterbo"
 ]
 DASHBOARD_DATA = {
     "regions": REGIONS,
@@ -318,7 +334,6 @@ DASHBOARD_DATA = {
     "days_since_reopening": (dt.datetime.today() - REOPENING_DAY).days,
     "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days
 }
-TRANSLATION_DIRNAME = "translations"
 MONGO_URI = os.environ["MONGO_URI"]
 COLLECTION_NAME = os.environ["COLLECTION_NAME"]
 BARCHART_RACE_QUERY = {"name": ""}
@@ -329,14 +344,14 @@ DATA_SERIES = [
 ]
 #  The order here matters as it will be reflected in the webpage
 BCR_TYPES = [
-    'ricoverati_con_sintomi',
-    'terapia_intensiva',
-    'totale_ospedalizzati',
-    'totale_positivi',
-    'dimessi_guariti',
-    'deceduti',
-    'totale_casi',
-    'tamponi'
+    HOSPITALIZED_WITH_SYMPTOMS_KEY,
+    ICU_KEY,
+    TOTAL_HOSPITALIZED_KEY,
+    TOTAL_POSITIVE_KEY,
+    TOTAL_HEALED_KEY,
+    TOTAL_DEATHS_KEY,
+    TOTAL_CASES_KEY,
+    TOTAL_SWABS_KEY
 ]
 DATA_TYPE = {
     "national": {
