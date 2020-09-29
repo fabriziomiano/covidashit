@@ -20,7 +20,7 @@ let provinces = [
     'Terni', 'Torino', 'Trapani', 'Trento', 'Treviso', 'Trieste',
     'Udine', 'Varese', 'Venezia', 'Verbano-Cusio-Ossola', 'Vercelli',
     'Verona', 'Vibo Valentia', 'Vicenza', 'Viterbo'
-]
+];
 
 let regions = [
     'Abruzzo', 'Basilicata', 'Calabria', 'Campania', 'Emilia-Romagna',
@@ -68,18 +68,24 @@ let provincesUrl = '/provinces/';
 
 
     $(function () {
-        if (window.location.href.includes("provinces")) {
-            $("#provincialNavLink").addClass('active')
-        }
+        if ((window.location.href.includes("provinces")) || (window.location.href.includes("regions"))) {
+            $("#areasCollapse").addClass('active');
+            $("#areasDiv").addClass("text-success");
 
-        if (window.location.href.includes("regions")) {
-            $("#regionalNavLink").addClass('active')
+        }
+        else {
+            $("#nationalDataDiv").addClass("text-danger");
         }
     })
 
     $(function () {
         $("#searchInput").autocomplete({
-            source: regionsAndProvinces
+            source: regionsAndProvinces,
+            trigger: "focus"
+        }).bind("autocompleteselect", function (event, ui) {
+            let url = validateSearchInput(ui.item.value);
+            document.location.href = url;
+            console.log(ui.item.value, url);
         });
     });
 
