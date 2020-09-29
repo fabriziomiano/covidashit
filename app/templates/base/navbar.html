@@ -20,7 +20,7 @@
                 </button>
             </div>
         {% endif %}
-        {% if area_index != area_length %}
+        {% if area_index < areas_length-1 %}
             <div class="btn-group mr-2" role="group"
                  aria-label="{{ _("Next in alphabetical order") }}">
                 <button id="nextAreaButton"

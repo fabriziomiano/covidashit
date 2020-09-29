@@ -67,6 +67,7 @@ def area_view(areas, area):
     try:
         if area in REGIONS:
             assert areas == "regions"
+            areas = REGIONS
             regional_data = get_covid_data("regional")
             latest_provincial_data = get_covid_data("latest_provincial")
             breakdown = get_provincial_breakdown(latest_provincial_data, area)
@@ -74,11 +75,15 @@ def area_view(areas, area):
             area_index = REGIONS.index(area)
         elif area in PROVINCES:
             assert areas == "provinces"
+            areas = PROVINCES
             provincial_data = get_covid_data("provincial")
             covid_data = provincial_data
             area_index = PROVINCES.index(area)
         else:
             raise AssertionError
+        current_app.logger.debug(
+            "{} {} {}".format(area, area_index, len(areas)-1)
+        )
         updated_at = latest_update(covid_data)
         dates, series, trend_cards = parse_area_data(covid_data, area)
         positive_swabs_percentage = get_positive_swabs_percentage(trend_cards)
@@ -88,7 +93,7 @@ def area_view(areas, area):
             dashboard_title=area,
             area=area,
             area_index=area_index,
-            areas_lentgh=len(areas),
+            areas_length=len(areas),
             dates=dates,
             series=series,
             trend_cards=trend_cards,
