@@ -10,7 +10,7 @@ from app.utils.data import (
     get_positive_swabs_percentage
 )
 from app.ui import dashboard
-from config import DATA_SERIES, VARS_CONFIG, BCR_TYPES
+from config import DATA_SERIES, VARS_CONFIG, BCR_TYPES, REGIONS, PROVINCES
 
 SCATTERPLOT_SERIES = {
     "name": gettext("New Positive VS Total Cases"),
@@ -63,20 +63,22 @@ def area_view(areas, area):
     :return: flask.render_template
     """
     init_data()
-    covid_data = {}
     breakdown = {}
-    if areas not in ("regions", "provinces"):
-        current_app.logger.error(areas + " not in regions nor in provinces")
-        template, status_code = render_template("errors/404.html"), 404
-    else:
-        if areas == 'regions':
+    try:
+        if area in REGIONS:
+            assert areas == "regions"
             regional_data = get_covid_data("regional")
             latest_provincial_data = get_covid_data("latest_provincial")
             breakdown = get_provincial_breakdown(latest_provincial_data, area)
             covid_data = regional_data
-        if areas == 'provinces':
+            area_index = REGIONS.index(area)
+        elif area in PROVINCES:
+            assert areas == "provinces"
             provincial_data = get_covid_data("provincial")
             covid_data = provincial_data
+            area_index = PROVINCES.index(area)
+        else:
+            raise AssertionError
         updated_at = latest_update(covid_data)
         dates, series, trend_cards = parse_area_data(covid_data, area)
         positive_swabs_percentage = get_positive_swabs_percentage(trend_cards)
@@ -85,6 +87,8 @@ def area_view(areas, area):
             page_title="{} | {}".format(area, gettext("COVID-19 Italy")),
             dashboard_title=area,
             area=area,
+            area_index=area_index,
+            areas_lentgh=len(areas),
             dates=dates,
             series=series,
             trend_cards=trend_cards,
@@ -97,4 +101,9 @@ def area_view(areas, area):
             positive_swabs_percentage=positive_swabs_percentage
         )
         template, status_code = render_template("dashboard.html", **data), 200
+    except AssertionError:
+        err_log_msg = "{}/{} is not a valid pattern".format(areas, area)
+        current_app.logger.error(err_log_msg)
+        template = render_template("errors/404.html")
+        status_code = 400
     return template, status_code
