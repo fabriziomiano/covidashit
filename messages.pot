@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-09-28 22:17+0200\n"
+"POT-Creation-Date: 2020-10-03 00:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -216,7 +216,7 @@ msgstr ""
 msgid "Positive swabs percentage:"
 msgstr ""
 
-#: app/templates/dashboard.html:30
+#: app/templates/dashboard.html:31
 msgid "Only the \"Total Cases\" data is shown"
 msgstr ""
 
@@ -297,10 +297,18 @@ msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
 #: app/templates/base/navbar.html:15
-msgid "Search region/province"
+msgid "Previous in alphabetical order"
 msgstr ""
 
 #: app/templates/base/navbar.html:25
+msgid "Next in alphabetical order"
+msgstr ""
+
+#: app/templates/base/navbar.html:41
+msgid "Search region/province"
+msgstr ""
+
+#: app/templates/base/navbar.html:52
 msgid "Region/province not in the right format"
 msgstr ""
 
@@ -308,51 +316,43 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
-#: app/templates/base/sidebar.html:10
+#: app/templates/base/sidebar.html:8
 msgid "How to"
 msgstr ""
 
-#: app/templates/base/sidebar.html:14
+#: app/templates/base/sidebar.html:11
 msgid "Visualization"
 msgstr ""
 
-#: app/templates/base/sidebar.html:18
+#: app/templates/base/sidebar.html:13
 msgid "National Data"
 msgstr ""
 
-#: app/templates/base/sidebar.html:26
-msgid "Regional Data"
+#: app/templates/base/sidebar.html:18
+msgid "Areas"
 msgstr ""
 
-#: app/templates/base/sidebar.html:48
-msgid "Provincial Data"
+#: app/templates/base/sidebar.html:42
+msgid "- Regional -"
 msgstr ""
 
-#: app/templates/base/sidebar.html:63
-msgid "Credits"
-msgstr ""
-
-#: app/templates/base/sidebar.html:69
+#: app/templates/base/sidebar.html:52
 msgid "Author"
 msgstr ""
 
-#: app/templates/base/sidebar.html:77
-msgid "CPD News"
+#: app/templates/base/sidebar.html:56
+msgid "Personal Website"
 msgstr ""
 
-#: app/templates/base/sidebar.html:82
-msgid "CPD Repository"
-msgstr ""
-
-#: app/templates/base/sidebar.html:89
+#: app/templates/base/sidebar.html:65
 msgid "Days since Reopening"
 msgstr ""
 
-#: app/templates/base/sidebar.html:90
+#: app/templates/base/sidebar.html:66
 msgid "Days since \"Phase 2\""
 msgstr ""
 
-#: app/templates/base/sidebar.html:91
+#: app/templates/base/sidebar.html:67
 msgid "Days in Lockdown"
 msgstr ""
 
@@ -381,7 +381,7 @@ msgstr ""
 msgid "Visualize one series at a time"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:16
+#: app/templates/dashboard/charts.html:43 app/ui/dashboard.py:18
 msgid "New Positive VS Total Cases"
 msgstr ""
 
@@ -423,6 +423,22 @@ msgstr ""
 msgid "# New Positive"
 msgstr ""
 
+#: app/templates/dashboard/footer.html:8
+msgid "The repository of this dashboard"
+msgstr ""
+
+#: app/templates/dashboard/footer.html:17
+msgid "Author Personal Page"
+msgstr ""
+
+#: app/templates/dashboard/footer.html:26
+msgid "Civil Protection News Website"
+msgstr ""
+
+#: app/templates/dashboard/footer.html:35
+msgid "Data source: Civil Protection"
+msgstr ""
+
 #: app/templates/dashboard/modal_tables.html:25
 msgid "Area"
 msgstr ""
@@ -435,15 +451,15 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: app/ui/dashboard.py:40 app/ui/dashboard.py:85
+#: app/ui/dashboard.py:42 app/ui/dashboard.py:95
 msgid "COVID-19 Italy"
 msgstr ""
 
-#: app/ui/dashboard.py:41
+#: app/ui/dashboard.py:43
 msgid "National Dashboard"
 msgstr ""
 
-#: app/utils/data.py:132 app/utils/data.py:139
+#: app/utils/data.py:142 app/utils/data.py:149
 msgid "title"
 msgstr ""
 
