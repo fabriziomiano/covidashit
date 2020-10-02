@@ -22,12 +22,22 @@
                 <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion small" id="sidenavAccordionPages">
                         {% for region in italy_map %}
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth{{ region }}" aria-expanded="false" aria-controls="pagesCollapseAuth{{ region }}">
-                                {{ region }}
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
+                            {% if italy_map[region]|length > 0 %}
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                                   data-target="#pagesCollapseAuth{{ region.split()[0] }}"
+                                   aria-expanded="false" aria-controls="pagesCollapseAuth{{ region }}">
+                                    {{ region }}
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                            {% else %}
+                                <a class="nav-link" href="/regions/{{ region }}">
+                                    <div class="sb-nav-link-icon"></div>{{ region }}
+                                </a>
+                            {% endif %}
 
-                                <div class="collapse" id="pagesCollapseAuth{{ region }}" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                <div class="collapse" id="pagesCollapseAuth{{ region.split()[0] }}"
+                                     aria-labelledby="headingOne"
+                                     data-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav small">
                                     <a class="nav-link" href="/regions/{{ region }}">{{ _("- Regional -") }}</a>
                                         {% for province in italy_map[region] %}
