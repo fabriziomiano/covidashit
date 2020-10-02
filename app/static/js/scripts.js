@@ -68,12 +68,13 @@ let provincesUrl = '/provinces/';
 
 
     $(function () {
-        if (window.location.href.includes("provinces")) {
-            $("#provincialNavLink").addClass('active')
-        }
+        if ((window.location.href.includes("provinces")) || (window.location.href.includes("regions"))) {
+            $("#areasCollapse").addClass('active');
+            $("#areasDiv").addClass("text-success");
 
-        if (window.location.href.includes("regions")) {
-            $("#regionalNavLink").addClass('active')
+        }
+        else {
+            $("#nationalDataDiv").addClass("text-danger");
         }
     })
 
