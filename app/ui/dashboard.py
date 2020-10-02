@@ -10,7 +10,9 @@ from app.utils.data import (
     get_positive_swabs_percentage
 )
 from app.ui import dashboard
-from config import DATA_SERIES, VARS_CONFIG, BCR_TYPES, REGIONS, PROVINCES
+from config import (
+    DATA_SERIES, VARS_CONFIG, BCR_TYPES, REGIONS, PROVINCES, ITALY_MAP
+)
 
 SCATTERPLOT_SERIES = {
     "name": gettext("New Positive VS Total Cases"),
@@ -49,7 +51,8 @@ def national_view():
         vars_config=VARS_CONFIG,
         bcr_types=BCR_TYPES,
         scatterplot_series=SCATTERPLOT_SERIES,
-        positive_swabs_percentage=positive_swabs_percentage
+        positive_swabs_percentage=positive_swabs_percentage,
+        italy_map=ITALY_MAP
     )
     return render_template("dashboard.html", **data)
 
@@ -103,7 +106,8 @@ def area_view(areas, area):
             vars_config=VARS_CONFIG,
             bcr_types=BCR_TYPES,
             scatterplot_series=SCATTERPLOT_SERIES,
-            positive_swabs_percentage=positive_swabs_percentage
+            positive_swabs_percentage=positive_swabs_percentage,
+            italy_map=ITALY_MAP
         )
         template, status_code = render_template("dashboard.html", **data), 200
     except AssertionError:
