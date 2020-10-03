@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-10-03 00:49+0200\n"
+"POT-Creation-Date: 2020-10-03 18:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -208,15 +208,15 @@ msgstr ""
 msgid "Total number of people tested"
 msgstr ""
 
-#: app/templates/dashboard.html:17 app/templates/dashboard/barChartRace.html:12
+#: app/templates/dashboard.html:16 app/templates/dashboard/barChartRace.html:12
 msgid "Latest Update:"
 msgstr ""
 
-#: app/templates/dashboard.html:22
+#: app/templates/dashboard.html:21
 msgid "Positive swabs percentage:"
 msgstr ""
 
-#: app/templates/dashboard.html:31
+#: app/templates/dashboard.html:30
 msgid "Only the \"Total Cases\" data is shown"
 msgstr ""
 
@@ -296,11 +296,11 @@ msgstr ""
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
-#: app/templates/base/navbar.html:15
+#: app/templates/base/navbar.html:18
 msgid "Previous in alphabetical order"
 msgstr ""
 
-#: app/templates/base/navbar.html:25
+#: app/templates/base/navbar.html:28
 msgid "Next in alphabetical order"
 msgstr ""
 
@@ -308,7 +308,7 @@ msgstr ""
 msgid "Search region/province"
 msgstr ""
 
-#: app/templates/base/navbar.html:52
+#: app/templates/base/navbar.html:51
 msgid "Region/province not in the right format"
 msgstr ""
 
@@ -354,6 +354,22 @@ msgstr ""
 
 #: app/templates/base/sidebar.html:67
 msgid "Days in Lockdown"
+msgstr ""
+
+#: app/templates/base/sidebar.html:75
+msgid "The repository of this dashboard"
+msgstr ""
+
+#: app/templates/base/sidebar.html:84
+msgid "Author Personal Page"
+msgstr ""
+
+#: app/templates/base/sidebar.html:93
+msgid "Civil Protection News Website"
+msgstr ""
+
+#: app/templates/base/sidebar.html:102
+msgid "Data source: Civil Protection"
 msgstr ""
 
 #: app/templates/dashboard/barChartRace.html:17
@@ -421,22 +437,6 @@ msgstr ""
 
 #: app/templates/dashboard/charts.html:140
 msgid "# New Positive"
-msgstr ""
-
-#: app/templates/dashboard/footer.html:8
-msgid "The repository of this dashboard"
-msgstr ""
-
-#: app/templates/dashboard/footer.html:17
-msgid "Author Personal Page"
-msgstr ""
-
-#: app/templates/dashboard/footer.html:26
-msgid "Civil Protection News Website"
-msgstr ""
-
-#: app/templates/dashboard/footer.html:35
-msgid "Data source: Civil Protection"
 msgstr ""
 
 #: app/templates/dashboard/modal_tables.html:25
