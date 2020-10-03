@@ -1,12 +1,15 @@
 <!-- Navbar -->
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+
     <a class="navbar-brand" href="/">
-        <img class="mr-2" src="../../static/img/virussketch.png" alt=""
-             width="32" height="32"> COVIDashIT
+        <img src="../../static/img/virussketch.png" width="30" height="30" alt=""> COVIDashIT
     </a>
-    <button class="btn btn-link btn-sm order-first ml-3" id="sidebarToggle">
-        <i class="fas fa-bars"></i>
-    </button>
+
+
+    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle">
+        <i class="fas fa-bars"></i></button>
+    <!-- Navbar Search-->
+
 
     {% if area %}
         <!-- Navigation Buttons -->
@@ -14,7 +17,7 @@
             <div class="btn-group mr-2" role="group"
                  aria-label='{{ _("Previous in alphabetical order") }}'>
                 <button id="previousAreaButton"
-                        class="btn btn-sm btn-info"
+                        class="btn btn-sm btn-info rounded-pill"
                         onclick='jumpToArea("{{ area }}", "previous")'>
                     <i class="fas fa-chevron-left"></i>
                 </button>
@@ -24,7 +27,7 @@
             <div class="btn-group mr-2" role="group"
                  aria-label="{{ _("Next in alphabetical order") }}">
                 <button id="nextAreaButton"
-                        class="btn btn-sm btn-info"
+                        class="btn btn-sm btn-info rounded-pill"
                         onclick='jumpToArea("{{ area }}", "next")'>
                     <i class="fas fa-chevron-right"></i>
                 </button>
@@ -32,21 +35,17 @@
         {% endif %}
     {% endif %}
 
-    <!-- Navbar Search-->
-    <form id="searchForm"
-          class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"
-          action="">
+    <form id="searchForm" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
             <input id="searchInput" class="form-control" type="text"
                    placeholder="{{ _("Search region/province") }}"
-                   aria-label="Search" aria-describedby="basic-addon2">
+                   aria-label="Search" aria-describedby="basic-addon2" autofocus/>
             <div class="input-group-append">
-                <button id="searchBtn" class="btn btn-primary" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
+                <button id="searchBtn" class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
             </div>
         </div>
     </form>
+
 </nav>
 <script>
     let searchInputErrMsg = '{{ _("Region/province not in the right format") }}';
