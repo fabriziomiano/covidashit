@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-10-03 00:49+0200\n"
-"PO-Revision-Date: 2020-10-03 00:54+0200\n"
+"POT-Creation-Date: 2020-10-05 19:45+0200\n"
+"PO-Revision-Date: 2020-10-05 19:46+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -226,15 +226,15 @@ msgstr "Totale testati"
 msgid "Total number of people tested"
 msgstr "Totale dei soggetti sottoposti al test"
 
-#: app/templates/dashboard.html:17 app/templates/dashboard/barChartRace.html:12
+#: app/templates/dashboard.html:16 app/templates/dashboard/barChartRace.html:12
 msgid "Latest Update:"
 msgstr "Ultimo aggiornamento:"
 
-#: app/templates/dashboard.html:22
+#: app/templates/dashboard.html:21
 msgid "Positive swabs percentage:"
 msgstr "Percentuale tamponi positivi:"
 
-#: app/templates/dashboard.html:31
+#: app/templates/dashboard.html:30
 msgid "Only the \"Total Cases\" data is shown"
 msgstr "Solo la serie \"Totale Casi\" è mostrata"
 
@@ -320,19 +320,33 @@ msgstr "NOTA:"
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr "Solo i \"Casi totali\" vengono forniti per le province."
 
-#: app/templates/base/navbar.html:15
+#: app/templates/base/navbar.html:9
 msgid "Previous in alphabetical order"
 msgstr "Precedente in ordine alfabetico"
 
-#: app/templates/base/navbar.html:25
+#: app/templates/base/navbar.html:16
 msgid "Next in alphabetical order"
 msgstr "Successivo in ordine alfabetico"
 
-#: app/templates/base/navbar.html:41
+#: app/templates/base/navbar.html:27
 msgid "Search region/province"
 msgstr "Cerca regione/provincia"
 
-#: app/templates/base/navbar.html:52
+#: app/templates/base/navbar.html:39
+msgid "Author Personal Page"
+msgstr "La pagina personale dell'autore"
+
+#: app/templates/base/navbar.html:42
+#, fuzzy
+#| msgid "Personal Website"
+msgid "CPD News Website"
+msgstr "Sito Web Persoale"
+
+#: app/templates/base/navbar.html:43
+msgid "Data source: Civil Protection"
+msgstr "Sorgente dati: repository della Protezione Civile"
+
+#: app/templates/base/navbar.html:59
 msgid "Region/province not in the right format"
 msgstr "Formato provincia/regione non corretto"
 
@@ -449,22 +463,6 @@ msgstr "# Totale Casi"
 msgid "# New Positive"
 msgstr "# Nuovi Positivi"
 
-#: app/templates/dashboard/footer.html:8
-msgid "The repository of this dashboard"
-msgstr "La repository di questa dashboard"
-
-#: app/templates/dashboard/footer.html:17
-msgid "Author Personal Page"
-msgstr "La pagina personale dell'autore"
-
-#: app/templates/dashboard/footer.html:26
-msgid "Civil Protection News Website"
-msgstr "Sito della Protezione Civile"
-
-#: app/templates/dashboard/footer.html:35
-msgid "Data source: Civil Protection"
-msgstr "Sorgente dati: repository della Protezione Civile"
-
 #: app/templates/dashboard/modal_tables.html:25
 msgid "Area"
 msgstr "Area"
@@ -488,6 +486,12 @@ msgstr "Dashboard Nazionale"
 #: app/utils/data.py:142 app/utils/data.py:149
 msgid "title"
 msgstr ""
+
+#~ msgid "The repository of this dashboard"
+#~ msgstr "La repository di questa dashboard"
+
+#~ msgid "Civil Protection News Website"
+#~ msgstr "Sito della Protezione Civile"
 
 #~ msgid "Provincial Data"
 #~ msgstr "Dati Provinciali"
