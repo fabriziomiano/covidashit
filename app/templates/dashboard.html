@@ -11,15 +11,14 @@
                         <a class="h4 font-weight-bolder">
                             {{ dashboard_title }}
                         </a>
-                        <br>
-                        <div class="text-sm text-info">
-                            <i class="fas fa-bullhorn mr-1"></i>
-                            {{ _("Latest Update:") }} {{ latest_update }}
+                        <div class="text-info">
+                            <small><i class="fas fa-bullhorn mr-1"></i>
+                            {{ _("Latest Update:") }} <strong>{{ latest_update }}</strong></small>
                         </div>
                         {% if area not in provinces %}
-                            <div class="text-sm text-danger">
-                                <i class="fas fa-vial mr-1"></i>
-                                {{ _("Positive swabs percentage:") }} {{ positive_swabs_percentage }}
+                            <div class="text-danger">
+                                <small><i class="fas fa-vial mr-1"></i>
+                                {{ _("Positive swabs percentage:") }} <strong>{{ positive_swabs_percentage }}</strong></small>
                             </div>
                         {% endif %}
                     </li>
@@ -41,9 +40,6 @@
 
             </div>
         </main>
-
-        {% include 'dashboard/footer.html' %}
-
     </div>
 
 {% endblock %}
