@@ -85,7 +85,6 @@ let provincesUrl = '/provinces/';
         }).bind("autocompleteselect", function (event, ui) {
             let url = validateSearchInput(ui.item.value);
             document.location.href = url;
-            console.log(ui.item.value, url);
         });
     });
 
