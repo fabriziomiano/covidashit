@@ -22,9 +22,12 @@ TOTAL_TESTED = "casi_testati"
 REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
 PCM_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
+MONGO_QUERY_DT_FMT = "%Y-%m-%d"
 CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y %H:%M"
 PCM_DATE_KEY = "data"
+NOTE_KEY = "note"
+RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
 TRANSLATION_DIRNAME = "translations"
 TREND_SYMBOL_LOGIC = {
     "stable": {
@@ -189,8 +192,8 @@ VARS_CONFIG = {
             "the outbreak"
         ),
         "icon": "fas fa-vial",
-        "increase": TREND_SYMBOL_LOGIC["increase"],
-        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     DAILY_SWABS_KEY: {
@@ -200,8 +203,8 @@ VARS_CONFIG = {
             "Number of swabs performed today"
         ),
         "icon": "fas fa-vial",
-        "increase": TREND_SYMBOL_LOGIC["increase"],
-        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     DAILY_DEATHS_KEY: {
@@ -249,6 +252,7 @@ VARS_CONFIG = {
 }
 
 NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
+LATEST_NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale-latest.json"
 REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni.json"
 LATEST_REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni-latest.json"
 PROVINCIAL_DATE_FILE = "dpc-covid19-ita-province.json"
@@ -258,6 +262,9 @@ BASE_URL_DATA = (
     "/pcm-dpc/COVID-19/master/dati-json/"
 )
 URL_NATIONAL_DATA = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
+URL_LATEST_NATIONAL_DATA = os.path.join(
+    BASE_URL_DATA, LATEST_NATIONAL_DATA_FILE
+)
 URL_REGIONAL_DATA = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
 URL_LATEST_REGIONAL_DATA = os.path.join(
     BASE_URL_DATA, LATEST_REGIONAL_DATA_FILE
@@ -342,7 +349,10 @@ DASHBOARD_DATA = {
     "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days
 }
 MONGO_URI = os.environ["MONGO_URI"]
-COLLECTION_NAME = os.environ["COLLECTION_NAME"]
+BAR_CHART_COLLECTION = os.environ["BAR_CHART_COLLECTION"]
+NATIONAL_DATA_COLLECTION = os.environ["NATIONAL_DATA_COLLECTION"]
+REGIONAL_DATA_COLLECTION = os.environ["REGIONAL_DATA_COLLECTION"]
+PROVINCIAL_DATA_COLLECTION = os.environ["PROVINCIAL_DATA_COLLECTION"]
 BARCHART_RACE_QUERY = {"name": ""}
 DATA_SERIES = [
     VARS_CONFIG[key]["title"]
@@ -372,6 +382,10 @@ DATA_TYPE = {
     "regional": {
         "url": URL_REGIONAL_DATA,
         "cache_file": REGIONAL_DATA_FILE
+    },
+    "latest_national": {
+        "url": URL_LATEST_NATIONAL_DATA,
+        "cache_file": LATEST_NATIONAL_DATA_FILE
     },
     "latest_regional": {
         "url": URL_LATEST_REGIONAL_DATA,

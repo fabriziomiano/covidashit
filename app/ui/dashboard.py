@@ -1,13 +1,13 @@
 import time
 
-from flask import render_template, redirect, current_app
+from flask import render_template, redirect, current_app as app
 from flask_babel import gettext
 
 from app.utils.data import (
     EXP_STATUS, parse_national_data, parse_area_data,
     init_data, latest_update, get_covid_data, enrich_frontend_data,
     get_regional_breakdown, get_provincial_breakdown,
-    get_positive_swabs_percentage
+    get_positive_swabs_percentage, get_notes
 )
 from app.ui import dashboard
 from config import (
@@ -31,13 +31,17 @@ def national_view():
     Render the national view
     :return: flask.render_template
     """
-    covid_data = get_covid_data("national")
-    latest_regional_data = get_covid_data("latest_regional")
+    national_data = get_covid_data(data_type="national", query_type="full")
+    latest_national_data = get_covid_data(
+        data_type="national", query_type="latest")
+    latest_regional_data = get_covid_data(
+        data_type="regional", query_type="latest")
     breakdown = get_regional_breakdown(latest_regional_data)
     init_data()
-    dates, series, trend_cards = parse_national_data(covid_data)
-    updated_at = latest_update(covid_data)
+    dates, series, trend_cards = parse_national_data(national_data)
+    updated_at = latest_update(national_data)
     positive_swabs_percentage = get_positive_swabs_percentage(trend_cards)
+    notes = get_notes(latest_national_data)
     data = enrich_frontend_data(
         page_title=gettext("COVID-19 Italy"),
         dashboard_title=gettext("National Dashboard"),
@@ -52,7 +56,8 @@ def national_view():
         bcr_types=BCR_TYPES,
         scatterplot_series=SCATTERPLOT_SERIES,
         positive_swabs_percentage=positive_swabs_percentage,
-        italy_map=ITALY_MAP
+        italy_map=ITALY_MAP,
+        notes=notes
     )
     return render_template("dashboard.html", **data)
 
@@ -71,25 +76,30 @@ def area_view(areas, area):
         if area in REGIONS:
             assert areas == "regions"
             areas = REGIONS
-            regional_data = get_covid_data("regional")
-            latest_provincial_data = get_covid_data("latest_provincial")
+            regional_data = get_covid_data(
+                data_type="regional", query_type="area", area=area)
+            latest_provincial_data = get_covid_data(
+                data_type="provincial", query_type="area_latest", area=area)
             breakdown = get_provincial_breakdown(latest_provincial_data, area)
             covid_data = regional_data
             area_index = REGIONS.index(area)
         elif area in PROVINCES:
             assert areas == "provinces"
             areas = PROVINCES
-            provincial_data = get_covid_data("provincial")
+            provincial_data = get_covid_data(
+                data_type="provincial", query_type="area", area=area)
             covid_data = provincial_data
             area_index = PROVINCES.index(area)
         else:
             raise AssertionError
-        current_app.logger.debug(
+        app.logger.debug(
             "{} {} {}".format(area, area_index, len(areas)-1)
         )
+        app.logger.debug("Data from DB: {}".format(covid_data))
         updated_at = latest_update(covid_data)
         dates, series, trend_cards = parse_area_data(covid_data, area)
         positive_swabs_percentage = get_positive_swabs_percentage(trend_cards)
+        notes = get_notes(covid_data, area=area)
         data = enrich_frontend_data(
             ts=int(time.time()),
             page_title="{} | {}".format(area, gettext("COVID-19 Italy")),
@@ -107,12 +117,13 @@ def area_view(areas, area):
             bcr_types=BCR_TYPES,
             scatterplot_series=SCATTERPLOT_SERIES,
             positive_swabs_percentage=positive_swabs_percentage,
-            italy_map=ITALY_MAP
+            italy_map=ITALY_MAP,
+            notes=notes
         )
         template, status_code = render_template("dashboard.html", **data), 200
     except AssertionError:
         err_log_msg = "{}/{} is not a valid pattern".format(areas, area)
-        current_app.logger.error(err_log_msg)
+        app.logger.error(err_log_msg)
         template = render_template("errors/404.html")
         status_code = 400
     return template, status_code

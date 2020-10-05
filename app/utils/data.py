@@ -1,16 +1,23 @@
 import datetime as dt
 import json
+import re
 
-import requests
-from flask import current_app
+from flask import current_app as app
 from flask_babel import gettext
 
+from app import mongo
 from config import (
     CUSTOM_CARDS, CARD_MAP, CARD_TYPES, VARS_CONFIG, PROVINCES,
     PROVINCE_KEY, REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT,
-    PCM_DATE_KEY, UPDATE_FMT, DATA_TYPE, DASHBOARD_DATA, TOTAL_CASES_KEY,
-    NEW_POSITIVE_KEY, CUMULATIVE_DATA_TYPES
+    PCM_DATE_KEY, UPDATE_FMT, DASHBOARD_DATA, TOTAL_CASES_KEY,
+    NEW_POSITIVE_KEY, CUMULATIVE_DATA_TYPES, RUBBISH_NOTE_REGEX, NOTE_KEY,
+    NATIONAL_DATA_COLLECTION, REGIONAL_DATA_COLLECTION,
+    PROVINCIAL_DATA_COLLECTION, MONGO_QUERY_DT_FMT
 )
+
+NATIONAL_COLLECTION = mongo.db[NATIONAL_DATA_COLLECTION]
+REGIONAL_COLLECTION = mongo.db[REGIONAL_DATA_COLLECTION]
+PROVINCIAL_COLLECTION = mongo.db[PROVINCIAL_DATA_COLLECTION]
 
 DATES = []
 EXP_STATUS = []
@@ -22,7 +29,7 @@ def read_cached_data(data_filepath):
     :param data_filepath: str
     :return: JSON-serialised object
     """
-    current_app.logger.warning(
+    app.logger.warning(
         "Reading cache data at {}".format(data_filepath)
     )
     with open(data_filepath, 'r') as data_file:
@@ -37,7 +44,7 @@ def cache_data(data, data_filepath):
     :param data_filepath: str
     :return: None
     """
-    current_app.logger.info("Caching data at {}".format(data_filepath))
+    app.logger.info("Caching data at {}".format(data_filepath))
     with open(data_filepath, 'w') as data_file:
         json.dump(data, data_file)
 
@@ -103,7 +110,7 @@ def get_trends(data, province=False):
     :param province: bool
     :return: list of dicts
     """
-    current_app.logger.debug("Building trends")
+    app.logger.debug("Building trends")
     if not province:
         card_types = CARD_TYPES
     else:
@@ -135,7 +142,7 @@ def fill_series(province=False):
     Return the series array to be used in the chart
     :return: list
     """
-    current_app.logger.debug("Filling series")
+    app.logger.debug("Filling series")
     if not province:
         series = [
             {
@@ -162,9 +169,9 @@ def parse_national_data(national_data):
         series: list,
         trend_cards: list
     """
-    current_app.logger.debug("Parsing national data")
+    app.logger.debug("Parsing national data")
     trend_cards = get_trends(national_data)
-    current_app.logger.debug("Filling national data")
+    app.logger.debug("Filling national data")
     for d in national_data:
         fill_data(d)
     series = fill_series()
@@ -181,10 +188,10 @@ def parse_area_data(data, area):
         series: list,
         trend_cards: list
     """
-    current_app.logger.debug("Parsing area data")
+    app.logger.debug("Parsing area data")
     series, trend_cards = [], []
     if area in PROVINCES:
-        current_app.logger.debug("Filling provincial data")
+        app.logger.debug("Filling provincial data")
         subset = [
             r for r in data
             if r[PROVINCE_KEY] == area
@@ -195,7 +202,7 @@ def parse_area_data(data, area):
                 fill_data(d, province=True)
         series = fill_series(province=True)
     elif area in REGIONS:
-        current_app.logger.debug("Filling regional data")
+        app.logger.debug("Filling regional data")
         subset = [r for r in data if r[REGION_KEY] == area]
         trend_cards = get_trends(subset)
         for d in data:
@@ -231,7 +238,7 @@ def init_data():
     Empty all the "data" keys in VARS_CONFIG plus DATES and EXP_STATUS
     :return: None
     """
-    current_app.logger.debug("Init dashboard data")
+    app.logger.debug("Init dashboard data")
     for key in VARS_CONFIG:
         VARS_CONFIG[key]["data"] = []
     EXP_STATUS.clear()
@@ -244,36 +251,72 @@ def latest_update(data):
     :param data: list
     :return: str
     """
-    current_app.logger.debug("Getting latest update")
+    app.logger.debug("Getting latest update")
     date_dt = dt.datetime.strptime(data[-1][PCM_DATE_KEY], PCM_DATE_FMT)
     return date_dt.strftime(UPDATE_FMT)
 
 
-def get_covid_data(data_type):
+def get_query_menu(area):
     """
-    Return the national data from the "Protezione Civile" repository
-    :return: list of dicts
+    Return query_menu populated with the current day and the provided area
+    :param area: str
+    :return: dict
     """
-    current_app.logger.debug("Getting {} data".format(data_type))
-    data_url = DATA_TYPE[data_type]["url"]
-    cached_data_file = DATA_TYPE[data_type]["cache_file"]
-    try:
-        response = requests.get(data_url, timeout=3)
-        status = response.status_code
-        if status == 200:
-            national_data = response.json()
-            data = sorted(
-                national_data, key=lambda x: x[PCM_DATE_KEY]
-            )
-            cache_data(data, cached_data_file)
-        else:
-            current_app.logger.error(
-                "Could not get data: ERROR {}".format(status)
-            )
-            data = read_cached_data(cached_data_file)
-    except Exception as e:
-        current_app.logger.error("Request Error {}".format(e))
-        data = read_cached_data(cached_data_file)
+    today = dt.datetime.strftime(dt.datetime.today(), MONGO_QUERY_DT_FMT)
+    return {
+        "national": {
+            "collection": NATIONAL_COLLECTION,
+            "query_type": {
+                "full": {},
+                "latest": {PCM_DATE_KEY: {"$regex": today}}
+            }
+        },
+        "regional": {
+            "collection": REGIONAL_COLLECTION,
+            "query_type": {
+                "full": {},
+                "area": {REGION_KEY: area},
+                "latest": {PCM_DATE_KEY: {"$regex": today}},
+                "area_latest": {
+                    REGION_KEY: area,
+                    PCM_DATE_KEY: {"$regex": today}
+                }
+            },
+
+        },
+        "provincial": {
+            "collection": PROVINCIAL_COLLECTION,
+            "query_type": {
+                "full": {},
+                "area": {PROVINCE_KEY: area},
+                "latest": {PCM_DATE_KEY: {"$regex": today}},
+                "area_latest": {
+                    PROVINCE_KEY: area,
+                    PCM_DATE_KEY: {"$regex": today}
+                }
+            }
+        }
+    }
+
+
+def get_covid_data(**menu):
+    """
+    Return data from the DB according to the provided menu
+    :param menu: dict
+    :return: list
+    """
+    area = menu.get("area")
+    data_type = menu.get("data_type")
+    query_type = menu.get("query_type")
+    query_menu = get_query_menu(area)
+    query = query_menu[data_type]["query_type"][query_type]
+    collection = query_menu[data_type]["collection"]
+    app.logger.debug(
+        "data_type {}, query_type {}, query {}".format(
+            data_type, query_type, query
+        )
+    )
+    data = list(collection.find(query))
     return data
 
 
@@ -285,7 +328,7 @@ def enrich_frontend_data(area=None, **data):
     :param data: **kwargs
     :return: dict
     """
-    current_app.logger.debug("Enriching data to dashboard")
+    app.logger.debug("Enriching data to dashboard")
     try:
         data["area"] = area
     except KeyError:
@@ -364,3 +407,39 @@ def get_positive_swabs_percentage(trend_cards):
     else:
         positive_swabs_percentage = "n/a"
     return positive_swabs_percentage
+
+
+def rubbish_notes(notes):
+    """
+    Return True if note matches the regex, else otherwise
+    :param notes: str
+    :return: bool
+    """
+    regex = re.compile(RUBBISH_NOTE_REGEX)
+    return regex.search(notes)
+
+
+def get_notes(latest_data, area=None):
+    """
+    Return the notes from the 'note' key in the list of dicts 'latest_data'.
+    Get the notes string from latest_data[0]['note'] if area is None
+    and therefore latest_data is the latest national data (only 1 entry);
+    otherwise, get the notes from the matching area in the data.
+    Return the notes in the data otherwise empty string when
+    the received note string is None or matches the RUBBISH_NOTE_REGEX
+    :param latest_data: list
+    :param area: str
+    :return: str
+    """
+    notes = ""
+    if area is None:
+        notes = latest_data[0][NOTE_KEY]
+    else:
+        for d in latest_data:
+            try:
+                if d[REGION_KEY] == area:
+                    notes = d[NOTE_KEY]
+            except KeyError:
+                if d[PROVINCE_KEY] == area:
+                    notes = d[NOTE_KEY]
+    return notes if notes is not None and not rubbish_notes(notes) else ""
