@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-10-05 19:45+0200\n"
-"PO-Revision-Date: 2020-10-05 19:46+0200\n"
+"POT-Creation-Date: 2020-10-05 22:39+0200\n"
+"PO-Revision-Date: 2020-10-05 22:39+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -333,18 +333,26 @@ msgid "Search region/province"
 msgstr "Cerca regione/provincia"
 
 #: app/templates/base/navbar.html:39
-msgid "Author Personal Page"
-msgstr "La pagina personale dell'autore"
+#, fuzzy
+#| msgid "Author Personal Page"
+msgid "Author Page"
+msgstr "Pagina dell'autore"
 
 #: app/templates/base/navbar.html:42
-#, fuzzy
-#| msgid "Personal Website"
-msgid "CPD News Website"
-msgstr "Sito Web Persoale"
+msgid "Civil Protection Dpt"
+msgstr "Dipartimento Protezione Civile"
 
 #: app/templates/base/navbar.html:43
 msgid "Data source: Civil Protection"
-msgstr "Sorgente dati: repository della Protezione Civile"
+msgstr "Fonte dati: Protezione Civile"
+
+#: app/templates/base/navbar.html:46
+msgid "Made with"
+msgstr "Realizzato con"
+
+#: app/templates/base/navbar.html:46
+msgid "in Catania"
+msgstr "a Catania"
 
 #: app/templates/base/navbar.html:59
 msgid "Region/province not in the right format"
@@ -487,11 +495,11 @@ msgstr "Dashboard Nazionale"
 msgid "title"
 msgstr ""
 
+#~ msgid "CPD News Website"
+#~ msgstr "Dipartimento Protezione Civile"
+
 #~ msgid "The repository of this dashboard"
 #~ msgstr "La repository di questa dashboard"
-
-#~ msgid "Civil Protection News Website"
-#~ msgstr "Sito della Protezione Civile"
 
 #~ msgid "Provincial Data"
 #~ msgstr "Dati Provinciali"

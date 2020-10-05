@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-10-05 19:45+0200\n"
+"POT-Creation-Date: 2020-10-05 22:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -309,15 +309,23 @@ msgid "Search region/province"
 msgstr ""
 
 #: app/templates/base/navbar.html:39
-msgid "Author Personal Page"
+msgid "Author Page"
 msgstr ""
 
 #: app/templates/base/navbar.html:42
-msgid "CPD News Website"
+msgid "Civil Protection Dpt"
 msgstr ""
 
 #: app/templates/base/navbar.html:43
 msgid "Data source: Civil Protection"
+msgstr ""
+
+#: app/templates/base/navbar.html:46
+msgid "Made with"
+msgstr ""
+
+#: app/templates/base/navbar.html:46
+msgid "in Catania"
 msgstr ""
 
 #: app/templates/base/navbar.html:59
