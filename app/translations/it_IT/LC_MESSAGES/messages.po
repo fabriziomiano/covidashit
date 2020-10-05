@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-10-03 18:32+0200\n"
-"PO-Revision-Date: 2020-10-03 18:33+0200\n"
+"POT-Creation-Date: 2020-10-05 19:45+0200\n"
+"PO-Revision-Date: 2020-10-05 19:46+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -320,19 +320,33 @@ msgstr "NOTA:"
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr "Solo i \"Casi totali\" vengono forniti per le province."
 
-#: app/templates/base/navbar.html:18
+#: app/templates/base/navbar.html:9
 msgid "Previous in alphabetical order"
 msgstr "Precedente in ordine alfabetico"
 
-#: app/templates/base/navbar.html:28
+#: app/templates/base/navbar.html:16
 msgid "Next in alphabetical order"
 msgstr "Successivo in ordine alfabetico"
 
-#: app/templates/base/navbar.html:41
+#: app/templates/base/navbar.html:27
 msgid "Search region/province"
 msgstr "Cerca regione/provincia"
 
-#: app/templates/base/navbar.html:51
+#: app/templates/base/navbar.html:39
+msgid "Author Personal Page"
+msgstr "La pagina personale dell'autore"
+
+#: app/templates/base/navbar.html:42
+#, fuzzy
+#| msgid "Personal Website"
+msgid "CPD News Website"
+msgstr "Sito Web Persoale"
+
+#: app/templates/base/navbar.html:43
+msgid "Data source: Civil Protection"
+msgstr "Sorgente dati: repository della Protezione Civile"
+
+#: app/templates/base/navbar.html:59
 msgid "Region/province not in the right format"
 msgstr "Formato provincia/regione non corretto"
 
@@ -379,22 +393,6 @@ msgstr "Giorni dalla \"Fase 2\""
 #: app/templates/base/sidebar.html:67
 msgid "Days in Lockdown"
 msgstr "Giorni di Lockdown"
-
-#: app/templates/base/sidebar.html:75
-msgid "The repository of this dashboard"
-msgstr "La repository di questa dashboard"
-
-#: app/templates/base/sidebar.html:84
-msgid "Author Personal Page"
-msgstr "La pagina personale dell'autore"
-
-#: app/templates/base/sidebar.html:93
-msgid "Civil Protection News Website"
-msgstr "Sito della Protezione Civile"
-
-#: app/templates/base/sidebar.html:102
-msgid "Data source: Civil Protection"
-msgstr "Sorgente dati: repository della Protezione Civile"
 
 #: app/templates/dashboard/barChartRace.html:17
 msgid "Play bar-chart race"
@@ -488,6 +486,12 @@ msgstr "Dashboard Nazionale"
 #: app/utils/data.py:142 app/utils/data.py:149
 msgid "title"
 msgstr ""
+
+#~ msgid "The repository of this dashboard"
+#~ msgstr "La repository di questa dashboard"
+
+#~ msgid "Civil Protection News Website"
+#~ msgstr "Sito della Protezione Civile"
 
 #~ msgid "Provincial Data"
 #~ msgstr "Dati Provinciali"

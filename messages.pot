@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-10-03 18:32+0200\n"
+"POT-Creation-Date: 2020-10-05 19:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -296,19 +296,31 @@ msgstr ""
 msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
-#: app/templates/base/navbar.html:18
+#: app/templates/base/navbar.html:9
 msgid "Previous in alphabetical order"
 msgstr ""
 
-#: app/templates/base/navbar.html:28
+#: app/templates/base/navbar.html:16
 msgid "Next in alphabetical order"
 msgstr ""
 
-#: app/templates/base/navbar.html:41
+#: app/templates/base/navbar.html:27
 msgid "Search region/province"
 msgstr ""
 
-#: app/templates/base/navbar.html:51
+#: app/templates/base/navbar.html:39
+msgid "Author Personal Page"
+msgstr ""
+
+#: app/templates/base/navbar.html:42
+msgid "CPD News Website"
+msgstr ""
+
+#: app/templates/base/navbar.html:43
+msgid "Data source: Civil Protection"
+msgstr ""
+
+#: app/templates/base/navbar.html:59
 msgid "Region/province not in the right format"
 msgstr ""
 
@@ -354,22 +366,6 @@ msgstr ""
 
 #: app/templates/base/sidebar.html:67
 msgid "Days in Lockdown"
-msgstr ""
-
-#: app/templates/base/sidebar.html:75
-msgid "The repository of this dashboard"
-msgstr ""
-
-#: app/templates/base/sidebar.html:84
-msgid "Author Personal Page"
-msgstr ""
-
-#: app/templates/base/sidebar.html:93
-msgid "Civil Protection News Website"
-msgstr ""
-
-#: app/templates/base/sidebar.html:102
-msgid "Data source: Civil Protection"
 msgstr ""
 
 #: app/templates/dashboard/barChartRace.html:17
