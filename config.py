@@ -25,6 +25,8 @@ PCM_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y %H:%M"
 PCM_DATE_KEY = "data"
+NOTE_KEY = "note"
+RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
 TRANSLATION_DIRNAME = "translations"
 TREND_SYMBOL_LOGIC = {
     "stable": {
@@ -249,6 +251,7 @@ VARS_CONFIG = {
 }
 
 NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
+LATEST_NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale-latest.json"
 REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni.json"
 LATEST_REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni-latest.json"
 PROVINCIAL_DATE_FILE = "dpc-covid19-ita-province.json"
@@ -258,6 +261,9 @@ BASE_URL_DATA = (
     "/pcm-dpc/COVID-19/master/dati-json/"
 )
 URL_NATIONAL_DATA = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
+URL_LATEST_NATIONAL_DATA = os.path.join(
+    BASE_URL_DATA, LATEST_NATIONAL_DATA_FILE
+)
 URL_REGIONAL_DATA = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
 URL_LATEST_REGIONAL_DATA = os.path.join(
     BASE_URL_DATA, LATEST_REGIONAL_DATA_FILE
@@ -372,6 +378,10 @@ DATA_TYPE = {
     "regional": {
         "url": URL_REGIONAL_DATA,
         "cache_file": REGIONAL_DATA_FILE
+    },
+    "latest_national": {
+        "url": URL_LATEST_NATIONAL_DATA,
+        "cache_file": LATEST_NATIONAL_DATA_FILE
     },
     "latest_regional": {
         "url": URL_LATEST_REGIONAL_DATA,

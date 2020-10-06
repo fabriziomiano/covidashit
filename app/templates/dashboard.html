@@ -8,12 +8,9 @@
                 <!-- Breadcrumb -->
                 <ol class="breadcrumb mt-2">
                     <li class="breadcrumb-item text-dark">
-                        <a class="h4 font-weight-bolder">
-                            {{ dashboard_title }}
-                        </a>
+                        <a class="h4 font-weight-bolder">{{ dashboard_title }}</a>
                         <div class="text-info">
-                            <small><i class="fas fa-bullhorn mr-1"></i>
-                            {{ _("Latest Update:") }} <strong>{{ latest_update }}</strong></small>
+                            <small><i class="fas fa-bullhorn mr-1"></i>{{ _("Latest Update:") }} <strong>{{ latest_update }}</strong></small>
                         </div>
                         {% if area not in provinces %}
                             <div class="text-danger">
@@ -24,9 +21,14 @@
                     </li>
                 </ol>
 
+                {% if notes %}
+                    <div class="small alert alert-info">
+                        <strong>{{ _("Notes:") }}</strong> {{ notes }}
+                    </div>
+                {% endif %}
+
                 {% if area in provinces %}
-                    <div class="alert alert-warning font-weight-bold"
-                         role="alert">
+                    <div class="small alert alert-warning font-weight-bold" role="alert">
                         {{ _('Only the "Total Cases" data is shown') }}
                     </div>
                 {% endif %}

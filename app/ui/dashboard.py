@@ -7,7 +7,7 @@ from app.utils.data import (
     EXP_STATUS, parse_national_data, parse_area_data,
     init_data, latest_update, get_covid_data, enrich_frontend_data,
     get_regional_breakdown, get_provincial_breakdown,
-    get_positive_swabs_percentage
+    get_positive_swabs_percentage, get_notes
 )
 from app.ui import dashboard
 from config import (
@@ -33,11 +33,13 @@ def national_view():
     """
     covid_data = get_covid_data("national")
     latest_regional_data = get_covid_data("latest_regional")
+    latest_national_data = get_covid_data("latest_national")
     breakdown = get_regional_breakdown(latest_regional_data)
     init_data()
     dates, series, trend_cards = parse_national_data(covid_data)
     updated_at = latest_update(covid_data)
     positive_swabs_percentage = get_positive_swabs_percentage(trend_cards)
+    notes = get_notes(latest_national_data)
     data = enrich_frontend_data(
         page_title=gettext("COVID-19 Italy"),
         dashboard_title=gettext("National Dashboard"),
@@ -52,7 +54,8 @@ def national_view():
         bcr_types=BCR_TYPES,
         scatterplot_series=SCATTERPLOT_SERIES,
         positive_swabs_percentage=positive_swabs_percentage,
-        italy_map=ITALY_MAP
+        italy_map=ITALY_MAP,
+        notes=notes
     )
     return render_template("dashboard.html", **data)
 
@@ -90,6 +93,7 @@ def area_view(areas, area):
         updated_at = latest_update(covid_data)
         dates, series, trend_cards = parse_area_data(covid_data, area)
         positive_swabs_percentage = get_positive_swabs_percentage(trend_cards)
+        notes = get_notes(covid_data, area=area)
         data = enrich_frontend_data(
             ts=int(time.time()),
             page_title="{} | {}".format(area, gettext("COVID-19 Italy")),
@@ -107,7 +111,8 @@ def area_view(areas, area):
             bcr_types=BCR_TYPES,
             scatterplot_series=SCATTERPLOT_SERIES,
             positive_swabs_percentage=positive_swabs_percentage,
-            italy_map=ITALY_MAP
+            italy_map=ITALY_MAP,
+            notes=notes
         )
         template, status_code = render_template("dashboard.html", **data), 200
     except AssertionError:

@@ -1,3 +1,4 @@
+import re
 import datetime as dt
 import json
 
@@ -9,7 +10,7 @@ from config import (
     CUSTOM_CARDS, CARD_MAP, CARD_TYPES, VARS_CONFIG, PROVINCES,
     PROVINCE_KEY, REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT,
     PCM_DATE_KEY, UPDATE_FMT, DATA_TYPE, DASHBOARD_DATA, TOTAL_CASES_KEY,
-    NEW_POSITIVE_KEY, CUMULATIVE_DATA_TYPES
+    NEW_POSITIVE_KEY, CUMULATIVE_DATA_TYPES, RUBBISH_NOTE_REGEX, NOTE_KEY
 )
 
 DATES = []
@@ -364,3 +365,39 @@ def get_positive_swabs_percentage(trend_cards):
     else:
         positive_swabs_percentage = "n/a"
     return positive_swabs_percentage
+
+
+def rubbish_notes(notes):
+    """
+    Return True if note matches the regex, else otherwise
+    :param notes: str
+    :return: bool
+    """
+    regex = re.compile(RUBBISH_NOTE_REGEX)
+    return regex.search(notes)
+
+
+def get_notes(latest_data, area=None):
+    """
+    Return the notes from the 'note' key in the list of dicts 'latest_data'.
+    Get the notes string from latest_data[0]['note'] if area is None
+    and therefore latest_data is the latest national data (only 1 entry);
+    otherwise, get the notes from the matching area in the data.
+    Return the notes in the data otherwise empty string when
+    the received note string is None or matches the RUBBISH_NOTE_REGEX
+    :param latest_data: list
+    :param area: str
+    :return: str
+    """
+    notes = ""
+    if area is None:
+        notes = latest_data[0][NOTE_KEY]
+    else:
+        for d in latest_data:
+            try:
+                if d[REGION_KEY] == area:
+                    notes = d[NOTE_KEY]
+            except KeyError:
+                if d[PROVINCE_KEY] == area:
+                    notes = d[NOTE_KEY]
+    return notes if notes is not None and not rubbish_notes(notes) else ""
