@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-10-05 22:39+0200\n"
-"PO-Revision-Date: 2020-10-05 22:39+0200\n"
+"POT-Creation-Date: 2020-10-06 22:02+0200\n"
+"PO-Revision-Date: 2020-10-06 22:02+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -19,83 +19,83 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config.py:33
+#: config.py:35
 msgid "Stable with respect to yesterday"
 msgstr "Stabile rispetto a ieri"
 
-#: config.py:38 config.py:43
+#: config.py:40 config.py:45
 msgid "Increased with respect to yesterday"
 msgstr "In aumento rispetto a ieri"
 
-#: config.py:48 config.py:53
+#: config.py:50 config.py:55
 msgid "Decreased with respect to yesterday"
 msgstr "In calo rispetto a ieri"
 
-#: config.py:58
+#: config.py:60
 msgid "Hospitalized With Symptoms"
 msgstr "Ricoverati con sintomi"
 
-#: config.py:59
+#: config.py:61
 msgid "# of people currently hospitalized with symptoms"
 msgstr "# di persone attualmente ricoverate con sintomi"
 
-#: config.py:62
+#: config.py:64
 msgid ""
 "Total count of people currently in hospital due to coronavirus with symptoms"
 msgstr ""
 "Conteggi del numero di persone attualmente in ospedale con sintomi da Covid"
 
-#: config.py:72
+#: config.py:74
 msgid "Intensive Care Unit"
 msgstr "Terapia intensiva"
 
-#: config.py:73
+#: config.py:75
 msgid "# of people currently in ICU"
 msgstr "# di persone attualmete in terapia intensiva"
 
-#: config.py:74
+#: config.py:76
 msgid "Total count of people currently in ICU and positive to COVID-19"
 msgstr ""
 "Conteggi del numero di persone attualmente in terapia intensiva e positive "
 "al COVID-19"
 
-#: config.py:83
+#: config.py:85
 msgid "Total Hospitalized"
 msgstr "Totale ricoverati"
 
-#: config.py:84
+#: config.py:86
 msgid "# of people currently hospitalized"
 msgstr "# di persone attualmente ricoverate"
 
-#: config.py:85
+#: config.py:87
 msgid "Total count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 "Conteggi del numero di persone attualmente positive e ricoverate. Tiene "
 "conto di quelle in terapia intensiva"
 
-#: config.py:94
+#: config.py:96
 msgid "Self Isolation"
 msgstr "Isolamento autonomo"
 
-#: config.py:95
+#: config.py:97
 msgid "# of people currently in self isolation"
 msgstr "# di persone in Terapia Intensiva"
 
-#: config.py:96
+#: config.py:98
 msgid "People currently positive but who do not need hospitalization"
 msgstr "Persone attualmente positive che non hanno bisogno di ricovero"
 
-#: config.py:105
+#: config.py:107
 msgid "Total Positive"
 msgstr "Totale Positivi"
 
-#: config.py:106
+#: config.py:108
 msgid "# of people currently hospitalized with symptoms + ICU + self isolation"
 msgstr ""
 "# di persone attualmente ricoverate con sintomi + terapia intensiva + "
 "isolamento autonomo"
 
-#: config.py:110
+#: config.py:112
 msgid ""
 "People currently positive. Unlike 'Total Cases' it does not take into "
 "account 'healed' and 'deaths'. By the end of the outbreak this should tend "
@@ -107,15 +107,15 @@ msgstr ""
 "zero. In particolare, è definito totale positivi = totale casi - totale "
 "guariti - totale morti"
 
-#: config.py:123
+#: config.py:125
 msgid "Total Positive Variation"
 msgstr "Variazione totale positivi"
 
-#: config.py:124
+#: config.py:126
 msgid "Variation of # of people currently positive with respect to yesterday"
 msgstr "Variazione del # di persone attualmente ricoverate con sintomi"
 
-#: config.py:128
+#: config.py:130
 msgid ""
 "Variation of the number of people currently positive with respect to the "
 "previous day. It is negative when the number of daily healed and deaths is "
@@ -125,92 +125,92 @@ msgstr ""
 "precedente. È negativo se il numero di deceduti e guariti quotidiani supera "
 "il numero 'Nuovi positivi'"
 
-#: config.py:139
+#: config.py:141
 msgid "New Positive"
 msgstr "Nuovi Positivi"
 
-#: config.py:140 config.py:141
+#: config.py:142 config.py:143
 msgid "Daily count of new positve cases"
 msgstr "Conteggio giornaliero dei nuovi casi positivi"
 
-#: config.py:148
+#: config.py:150
 msgid "Total Healed"
 msgstr "Totale guariti"
 
-#: config.py:149
+#: config.py:151
 msgid "Cumulative # of people healed"
 msgstr "Totale cumulativo di persone guarite"
 
-#: config.py:150
+#: config.py:152
 msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 "Totale cumulativo del numero di persone guarite dall'inizio dell'epidemia"
 
-#: config.py:159
+#: config.py:161
 msgid "Total Deaths"
 msgstr "Totale decessi"
 
-#: config.py:160
+#: config.py:162
 msgid "Total deaths count"
 msgstr "Conteggio totale decessi"
 
-#: config.py:161
+#: config.py:163
 msgid "Total deaths count since the beginning of the outbreak"
 msgstr "Conteggio dei decessi dall'inizio dell'epidemia"
 
-#: config.py:170
+#: config.py:172
 msgid "Total Cases"
 msgstr "Totale casi"
 
-#: config.py:171 config.py:175
+#: config.py:173 config.py:177
 msgid "Total count of the positive tests since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi positivi dall'inizio dell'epidemia"
 
-#: config.py:185
+#: config.py:187
 msgid "Total Swabs"
 msgstr "Totale tamponi"
 
-#: config.py:186
+#: config.py:188
 msgid "# of swabs performed"
 msgstr "# di tamponi eseguiti"
 
-#: config.py:187
+#: config.py:189
 msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi effettuati dall'inizio dell'epidemia"
 
-#: config.py:197
+#: config.py:199
 msgid "Daily Swabs"
 msgstr "Tamponi giornalieri"
 
-#: config.py:198
+#: config.py:200
 msgid "# of swabs performed today"
 msgstr "# di tamponi eseguiti oggi"
 
-#: config.py:199
+#: config.py:201
 msgid "Number of swabs performed today"
 msgstr "Numero di tamponi eseguiti oggi"
 
-#: config.py:208
+#: config.py:210
 msgid "Daily deaths"
 msgstr "Decessi giornalieri"
 
-#: config.py:209 config.py:210
+#: config.py:211 config.py:212
 msgid "Daily deaths count"
 msgstr "Conteggio decessi giornalieri"
 
-#: config.py:217
+#: config.py:219
 msgid "Positive suspected case"
 msgstr "Positivi da sospetti"
 
-#: config.py:218 config.py:219
+#: config.py:220 config.py:221
 msgid "Positive cases emerged from clinical activity"
 msgstr "Casi positivi al tampone emersi da attività clinica"
 
-#: config.py:226
+#: config.py:228
 msgid "Positive from screening"
 msgstr "Positivi da screening"
 
-#: config.py:227 config.py:231
+#: config.py:229 config.py:233
 msgid ""
 "Positive cases emerging from surveys and tests, planned at national or "
 "regional level"
@@ -218,23 +218,27 @@ msgstr ""
 "Casi positivi emersi da indagini e test, pianificati a livello nazionale o "
 "regionale"
 
-#: config.py:241
+#: config.py:243
 msgid "Total tested"
 msgstr "Totale testati"
 
-#: config.py:242 config.py:243
+#: config.py:244 config.py:245
 msgid "Total number of people tested"
 msgstr "Totale dei soggetti sottoposti al test"
 
-#: app/templates/dashboard.html:16 app/templates/dashboard/barChartRace.html:12
+#: app/templates/dashboard.html:13 app/templates/dashboard/barChartRace.html:12
 msgid "Latest Update:"
 msgstr "Ultimo aggiornamento:"
 
-#: app/templates/dashboard.html:21
+#: app/templates/dashboard.html:18
 msgid "Positive swabs percentage:"
 msgstr "Percentuale tamponi positivi:"
 
-#: app/templates/dashboard.html:30
+#: app/templates/dashboard.html:26
+msgid "Notes:"
+msgstr "Note:"
+
+#: app/templates/dashboard.html:32
 msgid "Only the \"Total Cases\" data is shown"
 msgstr "Solo la serie \"Totale Casi\" è mostrata"
 
@@ -333,8 +337,6 @@ msgid "Search region/province"
 msgstr "Cerca regione/provincia"
 
 #: app/templates/base/navbar.html:39
-#, fuzzy
-#| msgid "Author Personal Page"
 msgid "Author Page"
 msgstr "Pagina dell'autore"
 
@@ -483,15 +485,15 @@ msgstr "Conteggi"
 msgid "Close"
 msgstr "Chiudi"
 
-#: app/ui/dashboard.py:42 app/ui/dashboard.py:95
+#: app/ui/dashboard.py:44 app/ui/dashboard.py:99
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
-#: app/ui/dashboard.py:43
+#: app/ui/dashboard.py:45
 msgid "National Dashboard"
 msgstr "Dashboard Nazionale"
 
-#: app/utils/data.py:142 app/utils/data.py:149
+#: app/utils/data.py:143 app/utils/data.py:150
 msgid "title"
 msgstr ""
 
