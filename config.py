@@ -191,8 +191,8 @@ VARS_CONFIG = {
             "the outbreak"
         ),
         "icon": "fas fa-vial",
-        "increase": TREND_SYMBOL_LOGIC["increase"],
-        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     DAILY_SWABS_KEY: {
@@ -202,8 +202,8 @@ VARS_CONFIG = {
             "Number of swabs performed today"
         ),
         "icon": "fas fa-vial",
-        "increase": TREND_SYMBOL_LOGIC["increase"],
-        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
         "stable": TREND_SYMBOL_LOGIC["stable"]
     },
     DAILY_DEATHS_KEY: {
