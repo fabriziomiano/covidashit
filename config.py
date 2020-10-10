@@ -22,6 +22,7 @@ TOTAL_TESTED = "casi_testati"
 REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
 PCM_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
+MONGO_QUERY_DT_FMT = "%Y-%m-%d"
 CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y %H:%M"
 PCM_DATE_KEY = "data"
@@ -348,7 +349,10 @@ DASHBOARD_DATA = {
     "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days
 }
 MONGO_URI = os.environ["MONGO_URI"]
-COLLECTION_NAME = os.environ["COLLECTION_NAME"]
+BAR_CHART_COLLECTION = os.environ["BAR_CHART_COLLECTION"]
+NATIONAL_DATA_COLLECTION = os.environ["NATIONAL_DATA_COLLECTION"]
+REGIONAL_DATA_COLLECTION = os.environ["REGIONAL_DATA_COLLECTION"]
+PROVINCIAL_DATA_COLLECTION = os.environ["PROVINCIAL_DATA_COLLECTION"]
 BARCHART_RACE_QUERY = {"name": ""}
 DATA_SERIES = [
     VARS_CONFIG[key]["title"]
