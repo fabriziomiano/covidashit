@@ -22,13 +22,11 @@ The WebApp uses a Flask server and gunicorn in front of it, and it only requires
 Furthermore, it employs Flask-babel for the italian translation. The script `make_pot.sh` creates the needed files.
 A `Batch` version of the script is provided for Windows users. 
 The website's language is decided upon the client request. 
-The back-end retrieves the data and it serves it to the front-end chart and cards.
-I'm not using any db as, luckily enough, there isn't too much data to store, and hopfully there will not be, ever.
 
-The front-end is under `covidashit/templates` and it uses a simple JS to create
-the chart object, which is built using [HighCharts](https://www.highcharts.com/).
-Additionally, bar chart races are produced every day with a scheduled cron job that runs a script from 
-[BCR2Mongo](https://github.com/fabriziomiano/barchartrace2mongo).  
+The front-end is under `covidashit/templates` and it uses JS to create the chart object, 
+which is built using [HighCharts](https://www.highcharts.com/).
+Additionally, bar chart races are produced every day with a scheduled cron job that runs the 
+[BCR2Mongo](https://github.com/fabriziomiano/barchartrace2mongo) script.  
 
 Thanks to the [bar-chart-race](https://www.dexplo.org/bar_chart_race/) library maintainers.
 
