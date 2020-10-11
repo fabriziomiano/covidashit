@@ -1,5 +1,5 @@
 import json
-
+import datetime as dt
 from bson import ObjectId
 from flask import jsonify, request, current_app as app
 
@@ -53,7 +53,7 @@ def update_db():
     :return: dict
     """
     app.logger.warning("Received db update request")
-    response = {}
+    response = {"ts": dt.datetime.utcnow()}
     message = "collections NOT updated"
     do_update = False
     try:
