@@ -7,7 +7,7 @@ from app import mongo
 from app.api import api
 from app.utils.data import update_collections
 from config import (
-    BAR_CHART_COLLECTION, BARCHART_RACE_QUERY, UPDATE_FMT
+    BAR_CHART_COLLECTION, BARCHART_RACE_QUERY, UPDATE_FMT, CP_DATAFILE_MONITOR
 )
 
 BARCHART_COLLECTION = mongo.db[BAR_CHART_COLLECTION]
@@ -52,21 +52,29 @@ def update_db():
     *latest*.json file
     :return: dict
     """
+    app.logger.warning("Received db update request")
     response = {}
+    message = "collections NOT updated"
     do_update = False
     try:
         payload = request.json
-        commits = payload["commits"]
-        modified_files = [m for c in commits for m in c["modified"]]
-        app.logger.info("Modified files: {}".format(modified_files))
-        if any("latest.json" in _file for _file in modified_files):
-            do_update = True
-        if do_update:
-            app.logger.warning("Start collections update")
-            update_collections()
+        commits = payload.get("commits")
+        if commits is not None:
+            modified_files = []
+            for c in commits:
+                commit_modified_files = c.get("modified")
+                if commit_modified_files is not None:
+                    modified_files.extend(commit_modified_files)
+            app.logger.debug("Modified files: {}".format(modified_files))
+            if any(CP_DATAFILE_MONITOR in _file for _file in modified_files):
+                do_update = True
+            if do_update:
+                app.logger.warning("Start collections update")
+                update_collections()
+                message = "collections updated"
+                app.logger.warning("Collections updated")
         response["status"] = "ok"
-        response["message"] = "collections updated"
-        app.logger.warning("Collections updated")
+        response["message"] = message
     except Exception as e:
         app.logger.error("{}".format(e))
         response["status"] = "ko"
