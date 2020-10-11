@@ -4,22 +4,21 @@
 
     <div id="layoutSidenav_content">
         <main>
-            <div class="container-fluid">
-                <!-- Breadcrumb -->
-                <ol class="breadcrumb mt-2">
-                    <li class="breadcrumb-item text-dark">
-                        <a class="h4 font-weight-bolder">{{ dashboard_title }}</a>
+            <div class="container-fluid mt-2">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                    <h1 class="h3 mb-0 text-gray-800">{{ dashboard_title }}</h1>
                         <div class="text-info">
                             <small><i class="fas fa-bullhorn mr-1"></i>{{ _("Latest Update:") }} <strong>{{ latest_update }}</strong></small>
                         </div>
-                        {% if area not in provinces %}
-                            <div class="text-danger">
-                                <small><i class="fas fa-vial mr-1"></i>
+                    {% if area not in provinces %}
+                        <div class="text-danger">
+                            <small><i class="fas fa-vial mr-1"></i>
                                 {{ _("Positive swabs percentage:") }} <strong>{{ positive_swabs_percentage }}</strong></small>
-                            </div>
-                        {% endif %}
-                    </li>
-                </ol>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <hr class="mt-0">
 
                 {% if notes %}
                     <div class="small alert alert-info">
