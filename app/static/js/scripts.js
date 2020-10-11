@@ -97,6 +97,8 @@ let provincesUrl = '/provinces/';
 
     function validateSearchInput(searchInput) {
         let url = "";
+        searchInput = searchInput.split(/\s+/).map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+        console.log(searchInput)
         if (regions.includes(searchInput)) {
             url = regionsUrl + searchInput;
         } else if (provinces.includes(searchInput)) {

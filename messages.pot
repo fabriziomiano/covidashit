@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-10-11 05:13+0200\n"
+"POT-Creation-Date: 2020-10-11 21:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -208,19 +208,19 @@ msgstr ""
 msgid "Total number of people tested"
 msgstr ""
 
-#: app/templates/dashboard.html:13 app/templates/dashboard/barChartRace.html:12
+#: app/templates/dashboard.html:11 app/templates/dashboard/barChartRace.html:12
 msgid "Latest Update:"
 msgstr ""
 
-#: app/templates/dashboard.html:18
+#: app/templates/dashboard.html:16
 msgid "Positive swabs percentage:"
 msgstr ""
 
-#: app/templates/dashboard.html:26
+#: app/templates/dashboard.html:25
 msgid "Notes:"
 msgstr ""
 
-#: app/templates/dashboard.html:32
+#: app/templates/dashboard.html:31
 msgid "Only the \"Total Cases\" data is shown"
 msgstr ""
 

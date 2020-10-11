@@ -2,7 +2,7 @@
 <div class="row">
     {% for var in bcr_types %}
         <div class="col-xl-6 col-md-6 mb-2">
-            <div class="card border-left-primary shadow mb-3" id="bcrCard{{ var }}">
+            <div class="card shadow mb-2" id="bcrCard{{ var }}">
                 <div class="card-header"><i class="fas fa-chart-bar mr-2"></i>
                     {{ gettext(vars_config[var]["title"]) }}
                 </div>
