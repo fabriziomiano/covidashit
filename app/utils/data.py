@@ -9,8 +9,8 @@ from flask_babel import gettext
 from app import mongo
 from config import (
     CUSTOM_CARDS, CARD_MAP, CARD_TYPES, VARS_CONFIG, PROVINCES,
-    PROVINCE_KEY, REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT,
-    PCM_DATE_KEY, UPDATE_FMT, DASHBOARD_DATA, TOTAL_CASES_KEY,
+    PROVINCE_KEY, REGIONS, REGION_KEY, CP_DATE_FMT, CHART_DATE_FMT,
+    CP_DATE_KEY, UPDATE_FMT, DASHBOARD_DATA, TOTAL_CASES_KEY,
     NEW_POSITIVE_KEY, CUMULATIVE_DATA_TYPES, RUBBISH_NOTE_REGEX, NOTE_KEY,
     NATIONAL_DATA_COLLECTION, REGIONAL_DATA_COLLECTION,
     PROVINCIAL_DATA_COLLECTION, URL_NATIONAL_DATA, URL_REGIONAL_DATA,
@@ -233,7 +233,7 @@ def fill_data(datum, province=False):
         EXP_STATUS.append([datum[TOTAL_CASES_KEY], datum[NEW_POSITIVE_KEY]])
     else:
         VARS_CONFIG[TOTAL_CASES_KEY]["data"].append(datum[TOTAL_CASES_KEY])
-    date_dt = dt.datetime.strptime(datum["data"], PCM_DATE_FMT)
+    date_dt = dt.datetime.strptime(datum["data"], CP_DATE_FMT)
     date_str = date_dt.strftime(CHART_DATE_FMT)
     DATES.append(date_str)
 
@@ -257,7 +257,7 @@ def latest_update(data):
     :return: str
     """
     app.logger.debug("Getting latest update")
-    date_dt = dt.datetime.strptime(data[-1][PCM_DATE_KEY], PCM_DATE_FMT)
+    date_dt = dt.datetime.strptime(data[-1][CP_DATE_KEY], CP_DATE_FMT)
     return date_dt.strftime(UPDATE_FMT)
 
 
