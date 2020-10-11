@@ -2,22 +2,27 @@ import datetime as dt
 import json
 import re
 
+import requests
 from flask import current_app as app
 from flask_babel import gettext
 
 from app import mongo
 from config import (
     CUSTOM_CARDS, CARD_MAP, CARD_TYPES, VARS_CONFIG, PROVINCES,
-    PROVINCE_KEY, REGIONS, REGION_KEY, PCM_DATE_FMT, CHART_DATE_FMT,
-    PCM_DATE_KEY, UPDATE_FMT, DASHBOARD_DATA, TOTAL_CASES_KEY,
+    PROVINCE_KEY, REGIONS, REGION_KEY, CP_DATE_FMT, CHART_DATE_FMT,
+    CP_DATE_KEY, UPDATE_FMT, DASHBOARD_DATA, TOTAL_CASES_KEY,
     NEW_POSITIVE_KEY, CUMULATIVE_DATA_TYPES, RUBBISH_NOTE_REGEX, NOTE_KEY,
     NATIONAL_DATA_COLLECTION, REGIONAL_DATA_COLLECTION,
-    PROVINCIAL_DATA_COLLECTION, MONGO_QUERY_DT_FMT
+    PROVINCIAL_DATA_COLLECTION, URL_NATIONAL_DATA, URL_REGIONAL_DATA,
+    URL_PROVINCIAL_DATA, URL_LATEST_REGIONAL_DATA, URL_LATEST_PROVINCIAL_DATA,
+    LATEST_REGIONAL_DATA_COLLECTION, LATEST_PROVINCIAL_DATA_COLLECTION
 )
 
 NATIONAL_COLLECTION = mongo.db[NATIONAL_DATA_COLLECTION]
 REGIONAL_COLLECTION = mongo.db[REGIONAL_DATA_COLLECTION]
+LATEST_REGIONAL_COLLECTION = mongo.db[LATEST_REGIONAL_DATA_COLLECTION]
 PROVINCIAL_COLLECTION = mongo.db[PROVINCIAL_DATA_COLLECTION]
+LATEST_PROVINCIAL_COLLECTION = mongo.db[LATEST_PROVINCIAL_DATA_COLLECTION]
 
 DATES = []
 EXP_STATUS = []
@@ -228,7 +233,7 @@ def fill_data(datum, province=False):
         EXP_STATUS.append([datum[TOTAL_CASES_KEY], datum[NEW_POSITIVE_KEY]])
     else:
         VARS_CONFIG[TOTAL_CASES_KEY]["data"].append(datum[TOTAL_CASES_KEY])
-    date_dt = dt.datetime.strptime(datum["data"], PCM_DATE_FMT)
+    date_dt = dt.datetime.strptime(datum["data"], CP_DATE_FMT)
     date_str = date_dt.strftime(CHART_DATE_FMT)
     DATES.append(date_str)
 
@@ -252,7 +257,7 @@ def latest_update(data):
     :return: str
     """
     app.logger.debug("Getting latest update")
-    date_dt = dt.datetime.strptime(data[-1][PCM_DATE_KEY], PCM_DATE_FMT)
+    date_dt = dt.datetime.strptime(data[-1][CP_DATE_KEY], CP_DATE_FMT)
     return date_dt.strftime(UPDATE_FMT)
 
 
@@ -262,40 +267,49 @@ def get_query_menu(area):
     :param area: str
     :return: dict
     """
-    today = dt.datetime.strftime(dt.datetime.today(), MONGO_QUERY_DT_FMT)
     return {
         "national": {
-            "collection": NATIONAL_COLLECTION,
-            "query_type": {
-                "full": {},
-                "latest": {PCM_DATE_KEY: {"$regex": today}}
+            "full": {
+                "collection": NATIONAL_COLLECTION,
+                "query": {}
             }
         },
         "regional": {
-            "collection": REGIONAL_COLLECTION,
-            "query_type": {
-                "full": {},
-                "area": {REGION_KEY: area},
-                "latest": {PCM_DATE_KEY: {"$regex": today}},
-                "area_latest": {
-                    REGION_KEY: area,
-                    PCM_DATE_KEY: {"$regex": today}
-                }
+            "full": {
+                "collection": REGIONAL_COLLECTION,
+                "query": {}
             },
-
+            "area": {
+                "collection": REGIONAL_COLLECTION,
+                "query": {REGION_KEY: area}
+            },
+            "latest": {
+                "collection": LATEST_REGIONAL_COLLECTION,
+                "query": {}
+            },
+            "latest_area": {
+                "collection": LATEST_REGIONAL_COLLECTION,
+                "query": {REGION_KEY: area}
+            }
         },
         "provincial": {
-            "collection": PROVINCIAL_COLLECTION,
-            "query_type": {
-                "full": {},
-                "area": {PROVINCE_KEY: area},
-                "latest": {PCM_DATE_KEY: {"$regex": today}},
-                "area_latest": {
-                    PROVINCE_KEY: area,
-                    PCM_DATE_KEY: {"$regex": today}
-                }
+            "full": {
+                "collection": PROVINCIAL_COLLECTION,
+                "query": {}
+            },
+            "area": {
+                "collection": PROVINCIAL_COLLECTION,
+                "query": {PROVINCE_KEY: area}
+            },
+            "latest": {
+                "collection": LATEST_PROVINCIAL_COLLECTION,
+                "query": {}
+            },
+            "latest_area": {
+                "collection": LATEST_PROVINCIAL_COLLECTION,
+                "query": {PROVINCE_KEY: area}
             }
-        }
+        },
     }
 
 
@@ -307,16 +321,15 @@ def get_covid_data(**menu):
     """
     area = menu.get("area")
     data_type = menu.get("data_type")
-    query_type = menu.get("query_type")
+    query_type_dict = menu.get("query_type")
     query_menu = get_query_menu(area)
-    query = query_menu[data_type]["query_type"][query_type]
-    collection = query_menu[data_type]["collection"]
-    app.logger.debug(
-        "data_type {}, query_type {}, query {}".format(
-            data_type, query_type, query
-        )
-    )
+    query_type_dict = query_menu[data_type][query_type_dict]
+    query = query_type_dict["query"]
+    collection = query_type_dict["collection"]
     data = list(collection.find(query))
+    app.logger.debug(
+        "data_type {}, query {}, {}".format(data_type, query, len(data))
+    )
     return data
 
 
@@ -443,3 +456,31 @@ def get_notes(latest_data, area=None):
                 if d[PROVINCE_KEY] == area:
                     notes = d[NOTE_KEY]
     return notes if notes is not None and not rubbish_notes(notes) else ""
+
+
+def update_collections():
+    """
+    Update the collections on mongo with the latest
+    national, regional, and provincial data from the CP repo
+    :return: None
+    """
+    national_data = requests.get(URL_NATIONAL_DATA).json()
+    regional_data = requests.get(URL_REGIONAL_DATA).json()
+    provincial_data = requests.get(URL_PROVINCIAL_DATA).json()
+    latest_regional_data = requests.get(URL_LATEST_REGIONAL_DATA).json()
+    latest_provincial_data = requests.get(URL_LATEST_PROVINCIAL_DATA).json()
+    app.logger.warning("Update national collection")
+    NATIONAL_COLLECTION.drop()
+    NATIONAL_COLLECTION.insert_many(national_data)
+    app.logger.warning("Update regional collection")
+    REGIONAL_COLLECTION.drop()
+    REGIONAL_COLLECTION.insert_many(regional_data)
+    app.logger.warning("Update provincial collection")
+    PROVINCIAL_COLLECTION.drop()
+    PROVINCIAL_COLLECTION.insert_many(provincial_data)
+    app.logger.warning("Update latest regional collection")
+    LATEST_REGIONAL_COLLECTION.drop()
+    LATEST_REGIONAL_COLLECTION.insert_many(latest_regional_data)
+    app.logger.warning("Update latest provincial collection")
+    LATEST_PROVINCIAL_COLLECTION.drop()
+    LATEST_PROVINCIAL_COLLECTION.insert_many(latest_provincial_data)

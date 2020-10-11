@@ -32,8 +32,6 @@ def national_view():
     :return: flask.render_template
     """
     national_data = get_covid_data(data_type="national", query_type="full")
-    latest_national_data = get_covid_data(
-        data_type="national", query_type="latest")
     latest_regional_data = get_covid_data(
         data_type="regional", query_type="latest")
     breakdown = get_regional_breakdown(latest_regional_data)
@@ -41,7 +39,7 @@ def national_view():
     dates, series, trend_cards = parse_national_data(national_data)
     updated_at = latest_update(national_data)
     positive_swabs_percentage = get_positive_swabs_percentage(trend_cards)
-    notes = get_notes(latest_national_data)
+    notes = get_notes([national_data[-1]])
     data = enrich_frontend_data(
         page_title=gettext("COVID-19 Italy"),
         dashboard_title=gettext("National Dashboard"),
@@ -79,7 +77,7 @@ def area_view(areas, area):
             regional_data = get_covid_data(
                 data_type="regional", query_type="area", area=area)
             latest_provincial_data = get_covid_data(
-                data_type="provincial", query_type="area_latest", area=area)
+                data_type="provincial", query_type="latest")
             breakdown = get_provincial_breakdown(latest_provincial_data, area)
             covid_data = regional_data
             area_index = REGIONS.index(area)
@@ -95,7 +93,6 @@ def area_view(areas, area):
         app.logger.debug(
             "{} {} {}".format(area, area_index, len(areas)-1)
         )
-        app.logger.debug("Data from DB: {}".format(covid_data))
         updated_at = latest_update(covid_data)
         dates, series, trend_cards = parse_area_data(covid_data, area)
         positive_swabs_percentage = get_positive_swabs_percentage(trend_cards)
