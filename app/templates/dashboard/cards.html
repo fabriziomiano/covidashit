@@ -1,32 +1,32 @@
 <!-- Cards -->
 <div class="row">
     {% for t in trend_cards %}
-        <div class="col-xl-3 col-md-6 mb-2">
-            <div class="card border-left-primary shadow h-100" data-toggle="modal" data-target="#ModalCenter_{{ t.id }}">
-                <div class="card-header text-primary text-uppercase font-weight-bold">
-                    <i class="fas fa-info-circle text-black-50" data-toggle="tooltip" data-placement="auto" data-original-title="{{ _(t.longdesc) }}"></i>
-                    <i class="{{ t.icon }} mr-1"></i>{{ _(t.title) }}
-                </div>
+        <div class="col-xl-3 col-md-6 mb-1">
+            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow h-100" data-toggle="modal" data-target="#ModalCenter_{{ t.id }}">
                 <div class="card-body">
-
                     <div class="row no-gutters align-items-center">
-
+                        <div class="h6 mb-0 {{ t.colour }} text-uppercase py-1">
+                            <i class="small fas fa-info-circle text-black-50" data-toggle="tooltip" data-placement="auto" data-original-title="{{ _(t.longdesc) }}"></i>
+                            <i class="small {{ t.icon }}"></i>
+                            <span class="small"> {{ _(t.title) }}</span>
+                        </div>
+                    </div>
+                    <div class="row no-gutters align-items-center">
                         <div class="col">
-                            <div class="h5 mb-0 font-weight-bold text-gray-8000">
-                                {{ t.count }} <small class="h6">({{ t.today_yesterday_diff }})</small>
+                            <div class="h6 mb-0 text-gray-800">{{ t.count }}
+                                <small class="font-weight-light">({{ t.today_yesterday_diff }})</small>
                             </div>
                         </div>
 
                         <div class="col-auto">
-                            <div class="text-xs">
-                                <strong class="{{ t.colour }}">{{ t.percentage_difference|safe }}
-                                    <i class="{{ t.status_icon }} fa-2x" data-toggle="tooltip" data-placement="auto" data-original-title="{{ t.tooltip }}"></i>
-                                </strong>
+                            <div class="row no-gutters align-items-center">
+                            <span class="{{ t.colour }}">
+                                <strong>{{ t.percentage_difference|safe }}</strong>
+                                <i class="{{ t.status_icon }} fa-2x" data-toggle="tooltip" data-placement="auto" data-original-title="{{ t.tooltip }}"></i>
+                            </span>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
