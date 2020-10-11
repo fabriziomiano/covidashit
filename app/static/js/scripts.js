@@ -83,8 +83,7 @@ let provincesUrl = '/provinces/';
             source: regionsAndProvinces,
             trigger: "focus"
         }).bind("autocompleteselect", function (event, ui) {
-            let url = validateSearchInput(ui.item.value);
-            document.location.href = url;
+            document.location.href = validateSearchInput(ui.item.value);
         });
     });
 
