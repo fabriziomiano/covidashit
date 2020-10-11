@@ -54,7 +54,7 @@ def update_db():
     """
     app.logger.warning("Received db update request")
     response = {"ts": dt.datetime.utcnow()}
-    message = "collections NOT updated"
+    message = "nothing to update"
     do_update = False
     try:
         payload = request.json
@@ -65,6 +65,7 @@ def update_db():
                 commit_modified_files = c.get("modified")
                 if commit_modified_files is not None:
                     modified_files.extend(commit_modified_files)
+            response["modified_files"] = modified_files
             app.logger.debug("Modified files: {}".format(modified_files))
             if any(CP_DATAFILE_MONITOR in _file for _file in modified_files):
                 do_update = True
