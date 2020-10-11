@@ -62,10 +62,11 @@ def update_db():
         if any("latest.json" in _file for _file in modified_files):
             do_update = True
         if do_update:
-            app.logger.info("Start collections update")
+            app.logger.warning("Start collections update")
             update_collections()
         response["status"] = "ok"
         response["message"] = "collections updated"
+        app.logger.warning("Collections updated")
     except Exception as e:
         app.logger.error("{}".format(e))
         response["status"] = "ko"
