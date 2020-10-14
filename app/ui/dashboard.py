@@ -71,8 +71,7 @@ def area_view(areas, area):
     breakdown = {}
     positive_swabs_percentage = None
     try:
-        area = area.capitalize()
-        if area in REGIONS:
+        if any(area in region for region in REGIONS):
             assert areas == "regions"
             areas = REGIONS
             regional_data = get_covid_data(
@@ -84,7 +83,7 @@ def area_view(areas, area):
             area_index = REGIONS.index(area)
             positive_swabs_percentage = get_positive_swabs_percentage(
                 covid_data, area=area)
-        elif area in PROVINCES:
+        elif any(area in province for province in PROVINCES):
             assert areas == "provinces"
             areas = PROVINCES
             provincial_data = get_covid_data(
