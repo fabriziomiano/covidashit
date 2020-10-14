@@ -15,7 +15,8 @@ from config import (
     NATIONAL_DATA_COLLECTION, REGIONAL_DATA_COLLECTION,
     PROVINCIAL_DATA_COLLECTION, URL_NATIONAL_DATA, URL_REGIONAL_DATA,
     URL_PROVINCIAL_DATA, URL_LATEST_REGIONAL_DATA, URL_LATEST_PROVINCIAL_DATA,
-    LATEST_REGIONAL_DATA_COLLECTION, LATEST_PROVINCIAL_DATA_COLLECTION
+    LATEST_REGIONAL_DATA_COLLECTION, LATEST_PROVINCIAL_DATA_COLLECTION,
+    CP_DATAFILE_MONITOR, TOTAL_SWABS_KEY
 )
 
 NATIONAL_COLLECTION = mongo.db[NATIONAL_DATA_COLLECTION]
@@ -232,8 +233,10 @@ def fill_data(datum, province=False):
                 )
         EXP_STATUS.append([datum[TOTAL_CASES_KEY], datum[NEW_POSITIVE_KEY]])
     else:
-        VARS_CONFIG[TOTAL_CASES_KEY]["data"].append(datum[TOTAL_CASES_KEY])
-    date_dt = dt.datetime.strptime(datum["data"], CP_DATE_FMT)
+        VARS_CONFIG[TOTAL_CASES_KEY][CP_DATE_KEY].append(
+            datum[TOTAL_CASES_KEY]
+        )
+    date_dt = datum[CP_DATE_KEY]
     date_str = date_dt.strftime(CHART_DATE_FMT)
     DATES.append(date_str)
 
@@ -257,7 +260,7 @@ def latest_update(data):
     :return: str
     """
     app.logger.debug("Getting latest update")
-    date_dt = dt.datetime.strptime(data[-1][CP_DATE_KEY], CP_DATE_FMT)
+    date_dt = data[-1][CP_DATE_KEY]
     return date_dt.strftime(UPDATE_FMT)
 
 
@@ -400,25 +403,40 @@ def get_provincial_breakdown(covid_data, region):
     }
 
 
-def get_positive_swabs_percentage(trend_cards):
+def get_positive_swabs_percentage(latest_data, area=None):
     """
+    Return the percentage of positive swabs
+    :param latest_data: list
+    :param area: str
+    :return: str
+    """
+    positive_swabs_percentage = "0%"
+    latest_new_positive = latest_data[-1][NEW_POSITIVE_KEY]
+    latest_daily_swabs = (
+        latest_data[-1][TOTAL_SWABS_KEY] - latest_data[-2][TOTAL_SWABS_KEY]
+    )
+    if latest_daily_swabs != 0:
+        if area is None:
+            last_week_data = get_last_week_national_data()
+        else:
+            last_week_data = get_last_week_regional_data(area)
+        last_week_daily_swabs = (
+            last_week_data[1][TOTAL_SWABS_KEY] -
+            last_week_data[0][TOTAL_SWABS_KEY])
 
-    :param trend_cards:
-    :return:
-    """
-    daily_swabs = 0
-    new_positive = 0
-    for t in trend_cards:
-        if t["id"] == "tamponi_giornalieri":
-            daily_swabs = t["count"]
-        if t["id"] == "nuovi_positivi":
-            new_positive = t["count"]
-    if daily_swabs != 0:
-        positive_swabs_percentage = "{0:+}%".format(
-            round((new_positive / daily_swabs) * 100, 1)
+        last_week_new_positive = last_week_data[1][NEW_POSITIVE_KEY]
+        last_week_positive_swabs_percentage = (
+            last_week_new_positive / last_week_daily_swabs
         )
-    else:
-        positive_swabs_percentage = "n/a"
+        latest_positive_swabs_percentage = (
+                latest_new_positive / latest_daily_swabs)
+        positive_swabs_percentage = (
+                latest_positive_swabs_percentage /
+                last_week_positive_swabs_percentage
+        )
+        positive_swabs_percentage = round(positive_swabs_percentage, 1)
+        positive_swabs_percentage = (
+            "{0:+}%".format(positive_swabs_percentage))
     return positive_swabs_percentage
 
 
@@ -458,29 +476,118 @@ def get_notes(latest_data, area=None):
     return notes if notes is not None and not rubbish_notes(notes) else ""
 
 
+def string_parse_data(data):
+    """
+    Return a list of dicts like the one passed with the only difference:
+    each dict in data will have the value of its key, CP_DATE_KEY,
+    string-parsed to a datetime object
+     The
+    :param data: list
+    :return: data: list
+    """
+    for d in data:
+        d[CP_DATE_KEY] = dt.datetime.strptime(d[CP_DATE_KEY], CP_DATE_FMT)
+    return data
+
+
 def update_collections():
     """
     Update the collections on mongo with the latest
     national, regional, and provincial data from the CP repo
     :return: None
     """
-    national_data = requests.get(URL_NATIONAL_DATA).json()
-    regional_data = requests.get(URL_REGIONAL_DATA).json()
-    provincial_data = requests.get(URL_PROVINCIAL_DATA).json()
-    latest_regional_data = requests.get(URL_LATEST_REGIONAL_DATA).json()
-    latest_provincial_data = requests.get(URL_LATEST_PROVINCIAL_DATA).json()
-    app.logger.warning("Update national collection")
+    national_data = string_parse_data(
+        requests.get(URL_NATIONAL_DATA).json())
+    regional_data = string_parse_data(
+        requests.get(URL_REGIONAL_DATA).json())
+    provincial_data = string_parse_data(
+        requests.get(URL_PROVINCIAL_DATA).json())
+    latest_regional_data = string_parse_data(
+        requests.get(URL_LATEST_REGIONAL_DATA).json())
+    latest_provincial_data = string_parse_data(
+        requests.get(URL_LATEST_PROVINCIAL_DATA).json())
+    app.logger.warning("Dropping and recreating national collection")
     NATIONAL_COLLECTION.drop()
     NATIONAL_COLLECTION.insert_many(national_data)
-    app.logger.warning("Update regional collection")
+    app.logger.warning("Dropping and recreating regional collection")
     REGIONAL_COLLECTION.drop()
     REGIONAL_COLLECTION.insert_many(regional_data)
-    app.logger.warning("Update provincial collection")
+    app.logger.warning("Dropping and recreating provincial collection")
     PROVINCIAL_COLLECTION.drop()
     PROVINCIAL_COLLECTION.insert_many(provincial_data)
-    app.logger.warning("Update latest regional collection")
+    app.logger.warning("Dropping and recreating latest regional collection")
     LATEST_REGIONAL_COLLECTION.drop()
     LATEST_REGIONAL_COLLECTION.insert_many(latest_regional_data)
-    app.logger.warning("Update latest provincial collection")
+    app.logger.warning("Dropping and recreating latest provincial collection")
     LATEST_PROVINCIAL_COLLECTION.drop()
     LATEST_PROVINCIAL_COLLECTION.insert_many(latest_provincial_data)
+
+
+def need_update(payload):
+    """
+    Return a bool do_update and a list of modified_files
+    :param payload: dict
+    :return:
+        do_update: bool: if True will update collection, else will not
+        modified_files: list: last civil-protection commit modified files
+    """
+    modified_files = []
+    commits = payload.get("commits")
+    do_update = False
+    if commits is not None:
+        for c in commits:
+            commit_modified_files = c.get("modified")
+            if commit_modified_files is not None:
+                modified_files.extend(commit_modified_files)
+        app.logger.debug("Modified files: {}".format(modified_files))
+        if any(CP_DATAFILE_MONITOR in _file for _file in modified_files):
+            do_update = True
+    return do_update, modified_files
+
+
+def get_last_week_national_data():
+    """
+    Return the national data of the week before the last record in the db
+    :return: list
+    """
+    last_week_national_data = None
+    try:
+        cursor = NATIONAL_COLLECTION.find()
+        last = list(cursor)[-1][CP_DATE_KEY]
+        week_before_last = last - dt.timedelta(days=8)
+        cursor = NATIONAL_COLLECTION.find({
+            CP_DATE_KEY: {
+                "$gte": week_before_last,
+                "$lt": dt.datetime.today()
+            }
+        })
+        last_week_national_data = list(cursor)
+    except Exception as e:
+        app.logger.error("{}".format(e))
+    return last_week_national_data
+
+
+def get_last_week_regional_data(area=None):
+    """
+    Return the all the regional data of the week before the last record in
+    the db if area is None. Otherwise the data of the week before the last
+    record in the db corresponding to the provided area
+    :param area: str
+    :return: dict or list
+    """
+    cursor = REGIONAL_COLLECTION.find()
+    last = list(cursor)[-1][CP_DATE_KEY]
+    week_before_last = last - dt.timedelta(days=7)
+    if area is None:
+        query = {}
+    else:
+        query = {
+            REGION_KEY: area,
+            CP_DATE_KEY: {
+                "$gte": week_before_last,
+                "$lt": dt.datetime.today()
+            }
+        }
+    cursor = REGIONAL_COLLECTION.find(query)
+    last_week_regional_data = list(cursor)
+    return last_week_regional_data
