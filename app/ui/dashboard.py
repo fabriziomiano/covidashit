@@ -71,6 +71,7 @@ def area_view(areas, area):
     breakdown = {}
     positive_swabs_percentage = None
     try:
+        area = area.capitalize()
         if area in REGIONS:
             assert areas == "regions"
             areas = REGIONS
