@@ -38,7 +38,7 @@ def national_view():
     init_data()
     dates, series, trend_cards = parse_national_data(national_data)
     updated_at = latest_update(national_data)
-    positive_swabs_percentage = get_positive_swabs_percentage(trend_cards)
+    positive_swabs_percentage = get_positive_swabs_percentage(national_data)
     notes = get_notes([national_data[-1]])
     data = enrich_frontend_data(
         page_title=gettext("COVID-19 Italy"),
@@ -55,8 +55,7 @@ def national_view():
         scatterplot_series=SCATTERPLOT_SERIES,
         positive_swabs_percentage=positive_swabs_percentage,
         italy_map=ITALY_MAP,
-        notes=notes
-    )
+        notes=notes)
     return render_template("dashboard.html", **data)
 
 
@@ -70,6 +69,7 @@ def area_view(areas, area):
     """
     init_data()
     breakdown = {}
+    positive_swabs_percentage = None
     try:
         if area in REGIONS:
             assert areas == "regions"
@@ -81,6 +81,8 @@ def area_view(areas, area):
             breakdown = get_provincial_breakdown(latest_provincial_data, area)
             covid_data = regional_data
             area_index = REGIONS.index(area)
+            positive_swabs_percentage = get_positive_swabs_percentage(
+                covid_data, area=area)
         elif area in PROVINCES:
             assert areas == "provinces"
             areas = PROVINCES
@@ -91,11 +93,9 @@ def area_view(areas, area):
         else:
             raise AssertionError
         app.logger.debug(
-            "{} {} {}".format(area, area_index, len(areas)-1)
-        )
+            "{} {} {}".format(area, area_index, len(areas)-1))
         updated_at = latest_update(covid_data)
         dates, series, trend_cards = parse_area_data(covid_data, area)
-        positive_swabs_percentage = get_positive_swabs_percentage(trend_cards)
         notes = get_notes(covid_data, area=area)
         data = enrich_frontend_data(
             ts=int(time.time()),
@@ -115,8 +115,7 @@ def area_view(areas, area):
             scatterplot_series=SCATTERPLOT_SERIES,
             positive_swabs_percentage=positive_swabs_percentage,
             italy_map=ITALY_MAP,
-            notes=notes
-        )
+            notes=notes)
         template, status_code = render_template("dashboard.html", **data), 200
     except AssertionError:
         err_log_msg = "{}/{} is not a valid pattern".format(areas, area)

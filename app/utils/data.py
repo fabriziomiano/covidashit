@@ -16,7 +16,7 @@ from config import (
     PROVINCIAL_DATA_COLLECTION, URL_NATIONAL_DATA, URL_REGIONAL_DATA,
     URL_PROVINCIAL_DATA, URL_LATEST_REGIONAL_DATA, URL_LATEST_PROVINCIAL_DATA,
     LATEST_REGIONAL_DATA_COLLECTION, LATEST_PROVINCIAL_DATA_COLLECTION,
-    CP_DATAFILE_MONITOR
+    CP_DATAFILE_MONITOR, TOTAL_SWABS_KEY
 )
 
 NATIONAL_COLLECTION = mongo.db[NATIONAL_DATA_COLLECTION]
@@ -403,25 +403,40 @@ def get_provincial_breakdown(covid_data, region):
     }
 
 
-def get_positive_swabs_percentage(trend_cards):
+def get_positive_swabs_percentage(latest_data, area=None):
     """
+    Return the percentage of positive swabs
+    :param latest_data: list
+    :param area: str
+    :return: str
+    """
+    positive_swabs_percentage = "0%"
+    latest_new_positive = latest_data[-1][NEW_POSITIVE_KEY]
+    latest_daily_swabs = (
+        latest_data[-1][TOTAL_SWABS_KEY] - latest_data[-2][TOTAL_SWABS_KEY]
+    )
+    if latest_daily_swabs != 0:
+        if area is None:
+            last_week_data = get_last_week_national_data()
+        else:
+            last_week_data = get_last_week_regional_data(area)
+        last_week_daily_swabs = (
+            last_week_data[1][TOTAL_SWABS_KEY] -
+            last_week_data[0][TOTAL_SWABS_KEY])
 
-    :param trend_cards:
-    :return:
-    """
-    daily_swabs = 0
-    new_positive = 0
-    for t in trend_cards:
-        if t["id"] == "tamponi_giornalieri":
-            daily_swabs = t["count"]
-        if t["id"] == "nuovi_positivi":
-            new_positive = t["count"]
-    if daily_swabs != 0:
-        positive_swabs_percentage = "{0:+}%".format(
-            round((new_positive / daily_swabs) * 100, 1)
+        last_week_new_positive = last_week_data[1][NEW_POSITIVE_KEY]
+        last_week_positive_swabs_percentage = (
+            last_week_new_positive / last_week_daily_swabs
         )
-    else:
-        positive_swabs_percentage = "n/a"
+        latest_positive_swabs_percentage = (
+                latest_new_positive / latest_daily_swabs)
+        positive_swabs_percentage = (
+                latest_positive_swabs_percentage /
+                last_week_positive_swabs_percentage
+        )
+        positive_swabs_percentage = round(positive_swabs_percentage, 1)
+        positive_swabs_percentage = (
+            "{0:+}%".format(positive_swabs_percentage))
     return positive_swabs_percentage
 
 
@@ -528,3 +543,51 @@ def need_update(payload):
         if any(CP_DATAFILE_MONITOR in _file for _file in modified_files):
             do_update = True
     return do_update, modified_files
+
+
+def get_last_week_national_data():
+    """
+    Return the national data of the week before the last record in the db
+    :return: list
+    """
+    last_week_national_data = None
+    try:
+        cursor = NATIONAL_COLLECTION.find()
+        last = list(cursor)[-1][CP_DATE_KEY]
+        week_before_last = last - dt.timedelta(days=8)
+        cursor = NATIONAL_COLLECTION.find({
+            CP_DATE_KEY: {
+                "$gte": week_before_last,
+                "$lt": dt.datetime.today()
+            }
+        })
+        last_week_national_data = list(cursor)
+    except Exception as e:
+        app.logger.error("{}".format(e))
+    return last_week_national_data
+
+
+def get_last_week_regional_data(area=None):
+    """
+    Return the all the regional data of the week before the last record in
+    the db if area is None. Otherwise the data of the week before the last
+    record in the db corresponding to the provided area
+    :param area: str
+    :return: dict or list
+    """
+    cursor = REGIONAL_COLLECTION.find()
+    last = list(cursor)[-1][CP_DATE_KEY]
+    week_before_last = last - dt.timedelta(days=7)
+    if area is None:
+        query = {}
+    else:
+        query = {
+            REGION_KEY: area,
+            CP_DATE_KEY: {
+                "$gte": week_before_last,
+                "$lt": dt.datetime.today()
+            }
+        }
+    cursor = REGIONAL_COLLECTION.find(query)
+    last_week_regional_data = list(cursor)
+    return last_week_regional_data
