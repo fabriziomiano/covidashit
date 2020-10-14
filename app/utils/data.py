@@ -15,7 +15,8 @@ from config import (
     NATIONAL_DATA_COLLECTION, REGIONAL_DATA_COLLECTION,
     PROVINCIAL_DATA_COLLECTION, URL_NATIONAL_DATA, URL_REGIONAL_DATA,
     URL_PROVINCIAL_DATA, URL_LATEST_REGIONAL_DATA, URL_LATEST_PROVINCIAL_DATA,
-    LATEST_REGIONAL_DATA_COLLECTION, LATEST_PROVINCIAL_DATA_COLLECTION
+    LATEST_REGIONAL_DATA_COLLECTION, LATEST_PROVINCIAL_DATA_COLLECTION,
+    CP_DATAFILE_MONITOR
 )
 
 NATIONAL_COLLECTION = mongo.db[NATIONAL_DATA_COLLECTION]
@@ -232,8 +233,10 @@ def fill_data(datum, province=False):
                 )
         EXP_STATUS.append([datum[TOTAL_CASES_KEY], datum[NEW_POSITIVE_KEY]])
     else:
-        VARS_CONFIG[TOTAL_CASES_KEY]["data"].append(datum[TOTAL_CASES_KEY])
-    date_dt = dt.datetime.strptime(datum["data"], CP_DATE_FMT)
+        VARS_CONFIG[TOTAL_CASES_KEY][CP_DATE_KEY].append(
+            datum[TOTAL_CASES_KEY]
+        )
+    date_dt = datum[CP_DATE_KEY]
     date_str = date_dt.strftime(CHART_DATE_FMT)
     DATES.append(date_str)
 
@@ -257,7 +260,7 @@ def latest_update(data):
     :return: str
     """
     app.logger.debug("Getting latest update")
-    date_dt = dt.datetime.strptime(data[-1][CP_DATE_KEY], CP_DATE_FMT)
+    date_dt = data[-1][CP_DATE_KEY]
     return date_dt.strftime(UPDATE_FMT)
 
 
@@ -458,29 +461,70 @@ def get_notes(latest_data, area=None):
     return notes if notes is not None and not rubbish_notes(notes) else ""
 
 
+def string_parse_data(data):
+    """
+    Return a list of dicts like the one passed with the only difference:
+    each dict in data will have the value of its key, CP_DATE_KEY,
+    string-parsed to a datetime object
+     The
+    :param data: list
+    :return: data: list
+    """
+    for d in data:
+        d[CP_DATE_KEY] = dt.datetime.strptime(d[CP_DATE_KEY], CP_DATE_FMT)
+    return data
+
+
 def update_collections():
     """
     Update the collections on mongo with the latest
     national, regional, and provincial data from the CP repo
     :return: None
     """
-    national_data = requests.get(URL_NATIONAL_DATA).json()
-    regional_data = requests.get(URL_REGIONAL_DATA).json()
-    provincial_data = requests.get(URL_PROVINCIAL_DATA).json()
-    latest_regional_data = requests.get(URL_LATEST_REGIONAL_DATA).json()
-    latest_provincial_data = requests.get(URL_LATEST_PROVINCIAL_DATA).json()
-    app.logger.warning("Update national collection")
+    national_data = string_parse_data(
+        requests.get(URL_NATIONAL_DATA).json())
+    regional_data = string_parse_data(
+        requests.get(URL_REGIONAL_DATA).json())
+    provincial_data = string_parse_data(
+        requests.get(URL_PROVINCIAL_DATA).json())
+    latest_regional_data = string_parse_data(
+        requests.get(URL_LATEST_REGIONAL_DATA).json())
+    latest_provincial_data = string_parse_data(
+        requests.get(URL_LATEST_PROVINCIAL_DATA).json())
+    app.logger.warning("Dropping and recreating national collection")
     NATIONAL_COLLECTION.drop()
     NATIONAL_COLLECTION.insert_many(national_data)
-    app.logger.warning("Update regional collection")
+    app.logger.warning("Dropping and recreating regional collection")
     REGIONAL_COLLECTION.drop()
     REGIONAL_COLLECTION.insert_many(regional_data)
-    app.logger.warning("Update provincial collection")
+    app.logger.warning("Dropping and recreating provincial collection")
     PROVINCIAL_COLLECTION.drop()
     PROVINCIAL_COLLECTION.insert_many(provincial_data)
-    app.logger.warning("Update latest regional collection")
+    app.logger.warning("Dropping and recreating latest regional collection")
     LATEST_REGIONAL_COLLECTION.drop()
     LATEST_REGIONAL_COLLECTION.insert_many(latest_regional_data)
-    app.logger.warning("Update latest provincial collection")
+    app.logger.warning("Dropping and recreating latest provincial collection")
     LATEST_PROVINCIAL_COLLECTION.drop()
     LATEST_PROVINCIAL_COLLECTION.insert_many(latest_provincial_data)
+
+
+def need_update(payload):
+    """
+    Return a bool do_update and a list of modified_files
+    :param payload: dict
+    :return:
+        do_update: bool: if True will update collection, else will not
+        modified_files: list: last civil-protection commit modified files
+    """
+    modified_files = []
+    commits = payload.get("commits")
+    do_update = False
+    if commits is not None:
+        for c in commits:
+            commit_modified_files = c.get("modified")
+            if commit_modified_files is not None:
+                modified_files.extend(commit_modified_files)
+        app.logger.debug("Modified files: {}".format(modified_files))
+        if any(CP_DATAFILE_MONITOR in _file for _file in modified_files):
+            do_update = True
+    return do_update, modified_files
