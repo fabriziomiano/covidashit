@@ -79,13 +79,15 @@ def regional_view(area):
     breakdown = get_provincial_breakdown(latest_provincial_data, area)
     covid_data = regional_data
     area_index = REGIONS.index(area)
+    area_length = len(REGIONS)
     positive_swabs_percentage = get_positive_swabs_percentage(
         covid_data, area=area)
     view_data = dict(
         breakdown=breakdown,
         positive_swabs_percentage=positive_swabs_percentage
     )
-    return build_area_dashboard(area, area_index, covid_data, **view_data)
+    return build_area_dashboard(
+        area, area_index, area_length, covid_data, **view_data)
 
 
 @dashboard.route("/provinces/<area>")
@@ -105,14 +107,15 @@ def provincial_view(area):
         data_type="provincial", query_type="area", area=area)
     covid_data = provincial_data
     area_index = PROVINCES.index(area)
-    return build_area_dashboard(area, area_index, covid_data)
+    area_length = len(PROVINCES)
+    return build_area_dashboard(area, area_index, area_length, covid_data)
 
 
-def build_area_dashboard(area, area_index, covid_data, **kwargs):
+def build_area_dashboard(area, area_index, area_length, covid_data, **kwargs):
     breakdown = kwargs.get("breakdown")
     positive_swabs_percentage = kwargs.get("positive_swabs_percentage")
     app.logger.debug(
-        "{} {} {}".format(area, area_index, len(REGIONS) - 1))
+        "{} {} {}".format(area, area_index, area_length - 1))
     updated_at = latest_update(covid_data)
     dates, series, trend_cards = parse_area_data(covid_data, area)
     notes = get_notes(covid_data, area=area)
@@ -122,7 +125,7 @@ def build_area_dashboard(area, area_index, covid_data, **kwargs):
         dashboard_title=area,
         area=area,
         area_index=area_index,
-        areas_length=len(REGIONS),
+        areas_length=area_length,
         dates=dates,
         series=series,
         trend_cards=trend_cards,
