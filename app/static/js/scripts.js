@@ -72,18 +72,22 @@ let provincesUrl = '/provinces/';
             $("#areasCollapse").addClass('active');
             $("#areasDiv").addClass("text-success");
 
-        }
-        else {
+        } else {
             $("#nationalDataDiv").addClass("text-danger");
         }
     })
 
     $(function () {
-        $("#searchInput").autocomplete({
+        $('#searchInput').autocomplete({
             source: regionsAndProvinces,
-            trigger: "focus"
-        }).bind("autocompleteselect", function (event, ui) {
-            document.location.href = validateSearchInput(ui.item.value);
+            delay: 0,
+            autoFocus: true,
+            select: function (event, ui) {
+                document.location.href = validateSearchInput(ui.item.value);
+            },
+            focus: function (event, ui) {
+                event.preventDefault();
+            }
         });
     });
 
@@ -97,7 +101,6 @@ let provincesUrl = '/provinces/';
 
     function validateSearchInput(searchInput) {
         let url = "";
-        searchInput = searchInput.split(/\s+/).map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
         console.log(searchInput)
         if (regions.includes(searchInput)) {
             url = regionsUrl + searchInput;
