@@ -50,10 +50,12 @@ def update_db():
         do_update, modified_files = need_update(payload)
         if do_update:
             response["modified_files"] = modified_files
-            app.logger.warning("Start collections update")
+            app.logger.warning("New files added. Need to update collections")
             update_collections()
             message = "collections updated"
             app.logger.warning("Collections updated")
+        else:
+            app.logger.warning("No Update needed")
         response["status"] = "ok"
         response["message"] = message
     except Exception as e:

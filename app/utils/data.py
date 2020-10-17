@@ -476,7 +476,7 @@ def get_notes(latest_data, area=None):
     return notes if notes is not None and not rubbish_notes(notes) else ""
 
 
-def string_parse_data(data):
+def transform_data(data):
     """
     Return a list of dicts like the one passed with the only difference:
     each dict in data will have the value of its key, CP_DATE_KEY,
@@ -490,37 +490,56 @@ def string_parse_data(data):
     return data
 
 
-def update_collections():
+def drop_and_recreate(collection, data):
     """
-    Update the collections on mongo with the latest
-    national, regional, and provincial data from the CP repo
+    Drop a collection, recreate it and serially fill it with the given data
+    :param collection: pymongo collection
+    :param data: list
     :return: None
     """
-    national_data = string_parse_data(
-        requests.get(URL_NATIONAL_DATA).json())
-    regional_data = string_parse_data(
-        requests.get(URL_REGIONAL_DATA).json())
-    provincial_data = string_parse_data(
-        requests.get(URL_PROVINCIAL_DATA).json())
-    latest_regional_data = string_parse_data(
-        requests.get(URL_LATEST_REGIONAL_DATA).json())
-    latest_provincial_data = string_parse_data(
-        requests.get(URL_LATEST_PROVINCIAL_DATA).json())
+    collection.drop()
+    collection.insert_many(data, ordered=True)
+
+
+def get_cp_data(url):
+    """
+    Get data from CP repo
+    :param url: str
+    :return: list
+    """
+    data = []
+    try:
+        data = requests.get(url).json()
+    except Exception as e:
+        app.logger.error("{}".format(e))
+    return data
+
+
+def update_collections():
+    """
+    Update the collections on mongo with the various data from the CP repo
+    :return: None
+    """
+    national_cp_data = get_cp_data(URL_NATIONAL_DATA)
+    regional_cp_data = get_cp_data(URL_REGIONAL_DATA)
+    provincial_cp_data = get_cp_data(URL_PROVINCIAL_DATA)
+    latest_regional_pc_data = get_cp_data(URL_LATEST_REGIONAL_DATA)
+    latest_provincial_cp_data = get_cp_data(URL_LATEST_PROVINCIAL_DATA)
+    national_data = transform_data(national_cp_data)
+    regional_data = transform_data(regional_cp_data)
+    provincial_data = transform_data(provincial_cp_data)
+    latest_regional_data = transform_data(latest_regional_pc_data)
+    latest_provincial_data = transform_data(latest_provincial_cp_data)
     app.logger.warning("Dropping and recreating national collection")
-    NATIONAL_COLLECTION.drop()
-    NATIONAL_COLLECTION.insert_many(national_data)
+    drop_and_recreate(NATIONAL_COLLECTION, national_data)
     app.logger.warning("Dropping and recreating regional collection")
-    REGIONAL_COLLECTION.drop()
-    REGIONAL_COLLECTION.insert_many(regional_data)
+    drop_and_recreate(REGIONAL_COLLECTION, regional_data)
     app.logger.warning("Dropping and recreating provincial collection")
-    PROVINCIAL_COLLECTION.drop()
-    PROVINCIAL_COLLECTION.insert_many(provincial_data)
+    drop_and_recreate(PROVINCIAL_COLLECTION, provincial_data)
     app.logger.warning("Dropping and recreating latest regional collection")
-    LATEST_REGIONAL_COLLECTION.drop()
-    LATEST_REGIONAL_COLLECTION.insert_many(latest_regional_data)
+    drop_and_recreate(LATEST_REGIONAL_COLLECTION, latest_regional_data)
     app.logger.warning("Dropping and recreating latest provincial collection")
-    LATEST_PROVINCIAL_COLLECTION.drop()
-    LATEST_PROVINCIAL_COLLECTION.insert_many(latest_provincial_data)
+    drop_and_recreate(LATEST_PROVINCIAL_COLLECTION, latest_provincial_data)
 
 
 def need_update(payload):
