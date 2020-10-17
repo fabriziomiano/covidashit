@@ -18,16 +18,17 @@ def create_app():
     app.config["MONGO_URI"] = MONGO_URI
     mongo.init_app(app)
     babel = Babel(app)
-    app.config['SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS'] = True
+    app.config["SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS"] = True
     sitemap.init_app(app)
     set_error_handlers(app)
-    set_robots_route(app)
+    set_robots_txt_rule(app)
+    set_favicon_rule(app)
 
     @babel.localeselector
     def get_locale():
         return request.accept_languages.best_match(LANGUAGES.keys())
 
-    app.config['BABEL_TRANSLATION_DIRECTORIES'] = os.path.join(
+    app.config["BABEL_TRANSLATION_DIRECTORIES"] = os.path.join(
         app.root_path, TRANSLATION_DIRNAME
     )
 
@@ -40,7 +41,7 @@ def create_app():
         r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
         r.headers["Pragma"] = "no-cache"
         r.headers["Expires"] = "0"
-        r.headers['Cache-Control'] = 'public, max-age=0'
+        r.headers["Cache-Control"] = "public, max-age=0"
         return r
 
     from .ui import dashboard
@@ -66,7 +67,15 @@ def set_error_handlers(app):
         return render_template("errors/generic.html", error=e)
 
 
-def set_robots_route(app):
-    @app.route('/robots.txt')
+def set_robots_txt_rule(app):
+    @app.route("/robots.txt")
     def robots_txt():
         return send_from_directory(app.static_folder, request.path[1:])
+
+
+def set_favicon_rule(app):
+    @app.route("/favicon.ico")
+    def favicon():
+        return send_from_directory(
+            os.path.join(app.root_path, "static"),
+            "favicon.ico", mimetype="image/vnd.microsoft.icon")
