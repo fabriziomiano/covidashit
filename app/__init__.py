@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
 from flask_babel import Babel
 from flask_pymongo import PyMongo
 
@@ -17,6 +17,7 @@ def create_app():
     mongo.init_app(app)
     babel = Babel(app)
     set_error_handlers(app)
+    set_robots_route(app)
 
     @babel.localeselector
     def get_locale():
@@ -59,3 +60,9 @@ def set_error_handlers(app):
     def server_error(e):
         app.logger.error("{}".format(e))
         return render_template("errors/generic.html", error=e)
+
+
+def set_robots_route(app):
+    @app.route('/robots.txt')
+    def robots_txt():
+        return send_from_directory(app.static_folder, request.path[1:])
