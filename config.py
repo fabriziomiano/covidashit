@@ -374,32 +374,6 @@ BCR_TYPES = [
     TOTAL_CASES_KEY,
     TOTAL_SWABS_KEY
 ]
-DATA_TYPE = {
-    "national": {
-        "url": URL_NATIONAL_DATA,
-        "cache_file": NATIONAL_DATA_FILE
-    },
-    "provincial": {
-        "url": URL_PROVINCIAL_DATA,
-        "cache_file": PROVINCIAL_DATE_FILE
-    },
-    "regional": {
-        "url": URL_REGIONAL_DATA,
-        "cache_file": REGIONAL_DATA_FILE
-    },
-    "latest_national": {
-        "url": URL_LATEST_NATIONAL_DATA,
-        "cache_file": LATEST_NATIONAL_DATA_FILE
-    },
-    "latest_regional": {
-        "url": URL_LATEST_REGIONAL_DATA,
-        "cache_file": LATEST_REGIONAL_DATA_FILE
-    },
-    "latest_provincial": {
-        "url": URL_LATEST_PROVINCIAL_DATA,
-        "cache_file": LATEST_PROVINCIAL_DATE_FILE
-    }
-}
 ITALY_MAP = {
     'Abruzzo': ['Chieti', "L'Aquila", 'Pescara', 'Teramo'],
     'Basilicata': ['Matera', 'Potenza'],
