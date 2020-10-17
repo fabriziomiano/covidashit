@@ -1,37 +1,68 @@
-## Welcome to GitHub Pages
+# COVID-19 Italy Monitor | [\#StayAtHome](https://twitter.com/hashtag/StayAtHome)
 
-You can use the [editor on GitHub](https://github.com/fabriziomiano/covidashit/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+Versione Italiana [qui](https://github.com/fabriziomiano/covidashit/blob/master/README_IT.md)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+A simple dashboard to monitor the COVID-19 outbreak in Italy, using the dataset 
+provided by the [Civil Protection (CP)](https://github.com/pcm-dpc) 
 
-### Markdown
+## Preview
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Mobile          |  Desktop
+:-------------------------:|:-------------------------:
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/master/previews/mobile.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/master/previews/preview.png)
 
-```markdown
-Syntax highlighted code block
+##### The app is deployed on Heroku &#8594; [here](https://covidashit.herokuapp.com/)
 
-# Header 1
-## Header 2
-### Header 3
+##### The data is taken from the CP repo &#8594; [here](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+## For developers
 
-**Bold** and _Italic_ and `Code` text
+The WebApp uses a Flask server and gunicorn in front of it, and it only requires Python3.6+.
+Furthermore, it employs Flask-babel for the italian translation. The script `make_pot.sh` creates the needed files.
+A `Batch` version of the script is provided for Windows users. 
+The website's language is decided upon the client request. 
 
-[Link](url) and ![Image](src)
+The front-end is under `covidashit/templates` and it uses JS to create the chart object, 
+which is built using [HighCharts](https://www.highcharts.com/).
+Additionally, bar chart races are produced every day with a scheduled cron job that runs the 
+[BCR2Mongo](https://github.com/fabriziomiano/barchartrace2mongo) script.  
+
+Thanks to the [bar-chart-race](https://www.dexplo.org/bar_chart_race/) library maintainers.
+
+#### Setup a local version
+
+* create and activate a virtual environment [(follow this)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+* install the requirements in `requirements.txt`
+
+##### Development
+Clone the repo, `cd` into it, and
+```
+$ export FLASK_ENV=development
+$ export FLASK_DEBUG=1
+$ python -m flask run
+```
+Flask will be listening at [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+##### Production
+The provided Dockerfile is ready to be used to deploy the app on Heroku. 
+To test the production environment locally, uncomment L18 and L31 of the 
+Dockerfile, and run
+```
+$ docker build --tag covidashit:latest . 
+$ docker run --name covidashit -d -p 80:5000 covidashit
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+The docker container will be listening at [http://127.0.0.1](http://127.0.0.1)
 
-### Jekyll Themes
+##### Additional note
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/fabriziomiano/covidashit/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+The app can be deployed on Heroku either as a docker container or simply using the Procfile
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+
+## Donation
+
+If you liked this project or if I saved you some time, feel free to buy me a beer. Cheers!
+
+[![paypal](https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PMW6C23XTQDWG)
