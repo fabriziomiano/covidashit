@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-10-11 21:37+0200\n"
-"PO-Revision-Date: 2020-10-11 21:37+0200\n"
+"POT-Creation-Date: 2020-10-17 03:39+0200\n"
+"PO-Revision-Date: 2020-10-17 03:49+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -231,8 +231,8 @@ msgid "Latest Update:"
 msgstr "Ultimo aggiornamento:"
 
 #: app/templates/dashboard.html:16
-msgid "Positive swabs percentage:"
-msgstr "Percentuale tamponi positivi:"
+msgid "Positive swabs weekly percentage:"
+msgstr "Percentuale tamponi positivi settimanalmente:"
 
 #: app/templates/dashboard.html:25
 msgid "Notes:"
@@ -392,15 +392,15 @@ msgstr "Autore"
 msgid "Personal Website"
 msgstr "Sito Web Persoale"
 
-#: app/templates/base/sidebar.html:64
+#: app/templates/base/sidebar.html:63
 msgid "Days since Reopening"
 msgstr "Giorni dalla Riapertura"
 
-#: app/templates/base/sidebar.html:65
+#: app/templates/base/sidebar.html:64
 msgid "Days since \"Phase 2\""
 msgstr "Giorni dalla \"Fase 2\""
 
-#: app/templates/base/sidebar.html:66
+#: app/templates/base/sidebar.html:65
 msgid "Days in Lockdown"
 msgstr "Giorni di Lockdown"
 
@@ -473,19 +473,19 @@ msgstr "# Totale Casi"
 msgid "# New Positive"
 msgstr "# Nuovi Positivi"
 
-#: app/templates/dashboard/modal_tables.html:25
+#: app/templates/dashboard/modal_tables.html:26
 msgid "Area"
 msgstr "Area"
 
-#: app/templates/dashboard/modal_tables.html:26
+#: app/templates/dashboard/modal_tables.html:27
 msgid "Count"
 msgstr "Conteggi"
 
-#: app/templates/dashboard/modal_tables.html:44
+#: app/templates/dashboard/modal_tables.html:45
 msgid "Close"
 msgstr "Chiudi"
 
-#: app/ui/dashboard.py:44 app/ui/dashboard.py:102
+#: app/ui/dashboard.py:44 app/ui/dashboard.py:124
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
@@ -493,7 +493,7 @@ msgstr "COVID-19 Italia"
 msgid "National Dashboard"
 msgstr "Dashboard Nazionale"
 
-#: app/utils/data.py:154 app/utils/data.py:161
+#: app/utils/data.py:155 app/utils/data.py:162
 msgid "title"
 msgstr ""
 

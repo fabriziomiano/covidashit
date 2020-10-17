@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-10-11 21:37+0200\n"
+"POT-Creation-Date: 2020-10-17 03:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -213,7 +213,7 @@ msgid "Latest Update:"
 msgstr ""
 
 #: app/templates/dashboard.html:16
-msgid "Positive swabs percentage:"
+msgid "Positive swabs weekly percentage:"
 msgstr ""
 
 #: app/templates/dashboard.html:25
@@ -368,15 +368,15 @@ msgstr ""
 msgid "Personal Website"
 msgstr ""
 
-#: app/templates/base/sidebar.html:64
+#: app/templates/base/sidebar.html:63
 msgid "Days since Reopening"
 msgstr ""
 
-#: app/templates/base/sidebar.html:65
+#: app/templates/base/sidebar.html:64
 msgid "Days since \"Phase 2\""
 msgstr ""
 
-#: app/templates/base/sidebar.html:66
+#: app/templates/base/sidebar.html:65
 msgid "Days in Lockdown"
 msgstr ""
 
@@ -447,19 +447,19 @@ msgstr ""
 msgid "# New Positive"
 msgstr ""
 
-#: app/templates/dashboard/modal_tables.html:25
+#: app/templates/dashboard/modal_tables.html:26
 msgid "Area"
 msgstr ""
 
-#: app/templates/dashboard/modal_tables.html:26
+#: app/templates/dashboard/modal_tables.html:27
 msgid "Count"
 msgstr ""
 
-#: app/templates/dashboard/modal_tables.html:44
+#: app/templates/dashboard/modal_tables.html:45
 msgid "Close"
 msgstr ""
 
-#: app/ui/dashboard.py:44 app/ui/dashboard.py:102
+#: app/ui/dashboard.py:44 app/ui/dashboard.py:124
 msgid "COVID-19 Italy"
 msgstr ""
 
@@ -467,7 +467,7 @@ msgstr ""
 msgid "National Dashboard"
 msgstr ""
 
-#: app/utils/data.py:154 app/utils/data.py:161
+#: app/utils/data.py:155 app/utils/data.py:162
 msgid "title"
 msgstr ""
 
