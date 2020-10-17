@@ -3,12 +3,14 @@ import os
 from flask import Flask, request, render_template, send_from_directory
 from flask_babel import Babel
 from flask_pymongo import PyMongo
+from flask_sitemap import Sitemap
 
 from config import (
     LANGUAGES, TRANSLATION_DIRNAME, MONGO_URI
 )
 
 mongo = PyMongo()
+sitemap = Sitemap()
 
 
 def create_app():
@@ -16,6 +18,8 @@ def create_app():
     app.config["MONGO_URI"] = MONGO_URI
     mongo.init_app(app)
     babel = Babel(app)
+    app.config['SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS'] = True
+    sitemap.init_app(app)
     set_error_handlers(app)
     set_robots_route(app)
 
