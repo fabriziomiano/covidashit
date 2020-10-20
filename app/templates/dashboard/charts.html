@@ -1,6 +1,7 @@
 <!-- Chart -->
+
 <div class="row">
-    <div class="col-xl-6">
+    <div class="col-xl-12">
         <div class="card shadow mb-2" id="chartCard">
             <div class="card-header">
                 <i class="fas fa-chart-line mr-2"></i> {{ _("Trend") }} |
@@ -9,55 +10,44 @@
                 {% else %}
                     {{ _("National") }}
                 {% endif %}
-                {% if area not in provinces %}
-                    <div class="float-sm-right small">
-                        <label for="dataTypeSelector">
-                            <select class="form-control form-control-sm"
-                                    name="dataTypeSelector"
-                                    onmousedown="this.value='';"
-                                    onchange="dataTypeSelector(this.value);">
-                                <option value="default"
-                                        selected>{{ _("Select data (default Total Positive)") }}</option>
-                                {% for ds in data_series %}
-                                    <option value="{{ gettext(ds) }}">
-                                        {{ gettext(ds) }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                            <small class="form-text text-muted">{{ _("Visualize one series at a time") }}</small>
-                        </label>
+            </div>
+
+            <nav class="nav-pills nav-fill nav-justified">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-chart-daily-tab" data-toggle="tab" href="#chart-daily" role="tab" aria-controls="nav-daily" aria-selected="true">{{ _("Daily") }}</a>
+                    <a class="nav-item nav-link" id="nav-chart-current-tab" data-toggle="tab" href="#chart-current" role="tab" aria-controls="nav-current" aria-selected="false">{{ _("Current") }}</a>
+                    <a class="nav-item nav-link" id="nav-chart-cum-tab" data-toggle="tab" href="#chart-cum" role="tab" aria-controls="nav-cum" aria-selected="false">{{ _("Cumulative") }}</a>
+                </div>
+            </nav>
+
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="chart-daily" role="tabpanel" aria-labelledby="nav-daily-tab">
+                    <div id="chart-trend-daily" class="container-fluid px-2" style="border: none; width:100%; height: 450px; margin: 0 auto">
                     </div>
-                {% endif %}
+                </div>
+
+                <div class="tab-pane fade" id="chart-current" role="tabpanel" aria-labelledby="nav-current-tab">
+                    <div id="chart-trend-current" class="container-fluid px-2" style="border: none; width:100%; height: 450px; margin: 0 auto">
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="chart-cum" role="tabpanel" aria-labelledby="nav-chart-cum-tab">
+                    <div id="chart-trend-cum" class="container-fluid px-2" style="border: none; width:100%; height: 450px; margin: 0 auto">
+                    </div>
+                </div>
             </div>
-            <div id="chart-trend" class="container-fluid px-2"
-                 style="border: none; width:100%; height: 450px; margin: 0 auto">
-            </div>
+
         </div>
     </div>
 
-    {% if area not in provinces %}
-        <div class="col-xl-6">
-            <div class="card shadow mb-2" id="chartCard">
-                <div class="card-header">
-                    <i class="fas fa-chart-line mr-2"></i>
-                    {{ _("New Positive VS Total Cases") }} |
-                    {% if area %}
-                        {{ area }}
-                    {% else %} {{ _("National") }}
-                    {% endif %}
-                </div>
-                <div id="chart-iacopo" class="container-fluid px-2"
-                     style="border: none; width:100%; margin: 0 auto">
-                </div>
-            </div>
-        </div>
-    {% endif %}
 </div>
 
 <script>
-    let series = {{ series|safe }};
+    let seriesDaily = {{ series.daily|safe }};
+    let seriesCurrent = {{ series.current|safe }};
+    let seriesCum = {{ series.cum|safe }};
     let xAxis = {
-        categories: {{ dates|safe }},
+        categories: {{ series.dates|safe }},
         plotLines: [
             {
                 color: 'rgba(255,0,0)',
@@ -97,7 +87,7 @@
             {
                 color: 'rgba(0,255,0,.3)',
                 from: 112,
-                to: {{ dates|length }}
+                to: {{ series.dates|length }}
             }
         ]
     };
@@ -119,25 +109,11 @@
         };
     {% endif %}
     let subtitle = {
-        text: "{{ gettext("Source: <a href='https://github.com/pcm-dpc/COVID-19/tree/master/dati-json'>Civil Protection dataset</a>") }}",
+        text: "{{ gettext("Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection dataset</a>") }}",
         align: "left"
     };
     let credits = {
         href: "https://fabriziomiano.github.io",
         text: "{{ gettext("by Fabrizio Miano | Made with Highcharts.com") }}"
     };
-    let scatterData = {{ scatterplot_series|safe }};
-    let scatterXAxis = {
-        title: {
-            enabled: true,
-            text: "{{ gettext("# Total Cases") }}"
-        },
-        showLastLabel: true
-    };
-    let scatterYAxis = {
-        type: "logarithmic",
-        title: {
-            text: "{{ gettext("# New Positive") }}"
-        }
-    }
 </script>
