@@ -16,7 +16,7 @@ from config import (
     PROVINCIAL_DATA_COLLECTION, URL_NATIONAL_DATA, URL_REGIONAL_DATA,
     URL_PROVINCIAL_DATA, URL_LATEST_REGIONAL_DATA, URL_LATEST_PROVINCIAL_DATA,
     LATEST_REGIONAL_DATA_COLLECTION, LATEST_PROVINCIAL_DATA_COLLECTION,
-    CP_DATAFILE_MONITOR, TOTAL_SWABS_KEY
+    DATA_TO_MONITOR, TOTAL_SWABS_KEY
 )
 
 NATIONAL_COLLECTION = mongo.db[NATIONAL_DATA_COLLECTION]
@@ -544,24 +544,27 @@ def update_collections():
 
 def need_update(payload):
     """
-    Return a bool do_update and a list of modified_files
+    Return a bool do_update and a list of modified_json_files
     :param payload: dict
     :return:
         do_update: bool: if True will update collection, else will not
-        modified_files: list: last civil-protection commit modified files
+        modified_json_files: list: last civil-protection commit modified files
     """
-    modified_files = []
+    modified_json_files = []
     commits = payload.get("commits")
     do_update = False
     if commits is not None:
         for c in commits:
             commit_modified_files = c.get("modified")
             if commit_modified_files is not None:
-                modified_files.extend(commit_modified_files)
-        app.logger.debug("Modified files: {}".format(modified_files))
-        if any(CP_DATAFILE_MONITOR in _file for _file in modified_files):
+                modified_json_files.extend([
+                    cmf for cmf in commit_modified_files
+                    if cmf.endswith(DATA_TO_MONITOR)
+                ])
+        app.logger.debug("Modified JSON files: {}".format(modified_json_files))
+        if len(modified_json_files) > 0:
             do_update = True
-    return do_update, modified_files
+    return do_update, modified_json_files
 
 
 def get_last_week_national_data():

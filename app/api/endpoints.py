@@ -42,14 +42,14 @@ def update_db():
     *latest*.json file
     :return: dict
     """
-    app.logger.warning("Received db update request")
-    response = {"ts": dt.datetime.utcnow()}
+    app.logger.warning("Received db-update request")
+    response = {"ts": dt.datetime.utcnow(), "modified_json_files": []}
     message = "nothing to update"
     try:
         payload = request.json
-        do_update, modified_files = need_update(payload)
+        do_update, modified_json_files = need_update(payload)
         if do_update:
-            response["modified_files"] = modified_files
+            response["modified_json_files"] = modified_json_files
             app.logger.warning("New files added. Need to update collections")
             update_collections()
             message = "collections updated"
