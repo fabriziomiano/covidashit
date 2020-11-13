@@ -6,7 +6,7 @@ from app.db.collections import (
     NATIONAL_DATA, NATIONAL_TRENDS, NATIONAL_SERIES,
     REGIONAL_DATA, REGIONAL_TRENDS, REGIONAL_SERIES, REGIONAL_BREAKDOWN,
     PROVINCIAL_DATA, PROVINCIAL_TRENDS, PROVINCIAL_SERIES,
-    PROVINCIAL_BREAKDOWN, BARCHART_COLLECTION
+    PROVINCIAL_BREAKDOWN
 )
 from app.db.update import (
     augment_df, preprocess_df, augment_regional_df, augment_provincial_df,
@@ -15,32 +15,8 @@ from app.db.update import (
     build_regional_highcarts, build_provincial_highcharts
 )
 from config import (
-    BARCHART_DB_KEY, UPDATE_FMT,
     URL_NATIONAL_DATA, URL_REGIONAL_DATA, URL_PROVINCIAL_DATA
 )
-
-
-@api.route("/bcr/<string:var_name>")
-def get_bcr(var_name):
-    """
-    Bar-chart race API. Return a JSON with fields "html" and "ts".
-    The former contains the HTML code of the bar-chart race video,
-    the latter the timestamp at which the bar-chart race was created on the DB
-    :param: var_name: str
-    :return: flask.jsonify()
-    """
-    data = {}
-    try:
-        app.logger.info("Getting {} bcr from mongo".format(var_name))
-        data = next(BARCHART_COLLECTION.find({BARCHART_DB_KEY: var_name}))
-        data["ts"] = data["ts"].strftime(UPDATE_FMT)
-        data["status"] = "ok"
-    except StopIteration:
-        err_msg = "No {} bcr data in mongo".format(var_name)
-        app.logger.error(err_msg)
-        data["status"] = "ko"
-        data["error"] = err_msg
-    return jsonify(**data)
 
 
 def update_national_collections(response):
