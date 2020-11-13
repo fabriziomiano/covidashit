@@ -26,12 +26,6 @@
                     </div>
                 {% endif %}
 
-                {% if area in provinces %}
-                    <div class="small alert alert-warning font-weight-bold" role="alert">
-                        {{ _('Only the "Total Cases" data is shown') }}
-                    </div>
-                {% endif %}
-
                 {% include 'dashboard/cards.html' %}
                 {% include 'dashboard/charts.html' %}
                 {% include 'dashboard/modal_tables.html' %}
