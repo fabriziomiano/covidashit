@@ -4,12 +4,13 @@
 
     <div id="layoutSidenav_content">
         <main>
+            <a id="back2Top" title="Back to top" href="#">&#8673;</a>
             <div class="container-fluid mt-2">
                 <div class="d-sm-flex align-items-center justify-content-between">
                     <h1 class="h3 mb-0 text-gray-800">{{ dashboard_title }}</h1>
-                        <div class="text-info">
-                            <small><i class="fas fa-bullhorn mr-1"></i>{{ _("Latest Update:") }} <strong>{{ latest_update }}</strong></small>
-                        </div>
+                    <div class="text-info">
+                        <small><i class="fas fa-bullhorn mr-1"></i>{{ _("Latest Update:") }} <strong>{{ latest_update }}</strong></small>
+                    </div>
                     {% if area not in provinces %}
                         <div class="text-danger">
                             <small><i class="fas fa-vial mr-1"></i>
