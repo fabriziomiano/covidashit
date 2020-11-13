@@ -113,7 +113,7 @@ def build_trends(df):
         try:
             status = "stable"
             percentage_col = col + "_perc"
-            diff = "{0:+}%".format(
+            diff = "{0:+}".format(
                 round(df[col].values[-1] - df[col].values[-2]))
             try:
                 percentage = "{0:+}%".format(
@@ -168,7 +168,7 @@ def build_provincial_trends(df):
             try:
                 status = "stable"
                 percentage_col = col + "_perc"
-                diff = "{0:+}%".format(
+                diff = "{0:+}".format(
                     round(dfp[col].values[-1] - dfp[col].values[-2]))
                 try:
                     percentage = "{0:+}%".format(
