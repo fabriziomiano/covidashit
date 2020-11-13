@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-11-13 01:50+0100\n"
-"PO-Revision-Date: 2020-11-13 01:52+0100\n"
+"POT-Creation-Date: 2020-11-13 04:33+0100\n"
+"PO-Revision-Date: 2020-11-13 04:34+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -374,10 +374,6 @@ msgstr "Percentuale settimanale tamponi positivi:"
 msgid "Notes:"
 msgstr "Note:"
 
-#: app/templates/dashboard.html:31
-msgid "Only the \"Total Cases\" data is shown"
-msgstr "Solo la serie \"Totale Casi\" è mostrata"
-
 #: app/templates/base/head.html:18
 msgid "COVID-19 Italy outbreak dashboard"
 msgstr "Visualizzazione dati epidemia COVID-19 in Italia"
@@ -549,16 +545,16 @@ msgid "Loading..."
 msgstr "Carico..."
 
 #: app/templates/dashboard/cards.html:5 app/templates/dashboard/charts.html:17
-msgid "Daily"
-msgstr "Giornaliero"
+msgid "DAILY"
+msgstr "GIORNALIERO"
 
 #: app/templates/dashboard/cards.html:6 app/templates/dashboard/charts.html:18
-msgid "Current"
-msgstr "Attuale"
+msgid "CURRENT"
+msgstr "ATTUALE"
 
 #: app/templates/dashboard/cards.html:7 app/templates/dashboard/charts.html:19
-msgid "Cumulative"
-msgstr "Cumulativo"
+msgid "CUMULATIVE"
+msgstr "CUMULATO"
 
 #: app/templates/dashboard/charts.html:7
 msgid "Trend"
@@ -619,6 +615,22 @@ msgstr "COVID-19 Italia"
 #: app/ui/dashboard.py:62
 msgid "National Dashboard"
 msgstr "Dashboard Nazionale"
+
+#: app/utils/data.py:120 app/utils/data.py:122 app/utils/data.py:124
+msgid "name"
+msgstr ""
+
+#~ msgid "Only the \"Total Cases\" data is shown"
+#~ msgstr "Solo la serie \"Totale Casi\" è mostrata"
+
+#~ msgid "Daily"
+#~ msgstr "Giornaliero"
+
+#~ msgid "Current"
+#~ msgstr "Attuale"
+
+#~ msgid "Cumulative"
+#~ msgstr "Cumulativo"
 
 #~ msgid "Number of swabs performed today"
 #~ msgstr "Numero di tamponi eseguiti oggi"
