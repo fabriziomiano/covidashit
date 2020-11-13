@@ -1,6 +1,7 @@
 import re
 
 from flask import current_app as app
+from flask_babel import gettext
 
 from app.db.collections import (
     NATIONAL_DATA, NATIONAL_TRENDS, NATIONAL_SERIES,
@@ -114,18 +115,30 @@ def get_provincial_breakdown(region):
         {REGION_KEY: region}, {"_id": False})["breakdowns"]
 
 
+def translate_series_lang(series):
+    for s in series["daily"]:
+        s["name"] = gettext(s["name"])
+    for s in series["current"]:
+        s["name"] = gettext(s["name"])
+    for s in series["cum"]:
+        s["name"] = gettext(s["name"])
+    return series
+
+
 def get_national_series():
-    return NATIONAL_SERIES.find_one({}, {"_id": False})
+    series = NATIONAL_SERIES.find_one({}, {"_id": False})
+    return translate_series_lang(series)
 
 
 def get_regional_series(region):
-    return REGIONAL_SERIES.find_one(
-        {REGION_KEY: region}, {"_id": False})
+    series = REGIONAL_SERIES.find_one({REGION_KEY: region}, {"_id": False})
+    return translate_series_lang(series)
 
 
 def get_provincial_series(province):
-    return PROVINCIAL_SERIES.find_one(
+    series = PROVINCIAL_SERIES.find_one(
         {PROVINCE_KEY: province}, {"_id": False})
+    return translate_series_lang(series)
 
 
 def get_swabs_percentage(area_type="national"):
