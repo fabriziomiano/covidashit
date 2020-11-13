@@ -58,7 +58,7 @@ def update_db():
 
     national_records = df_national_augmented.to_dict(orient='records')
     try:
-        app.logger.debug("Updating collection: national")
+        app.logger.warning("Updating collection: national")
         NATIONAL_DATA.drop()
         NATIONAL_DATA.insert_many(national_records, ordered=True)
         response["collections_updated"].append("national")
@@ -73,7 +73,7 @@ def update_db():
 
     regional_records = df_regional_augmented.to_dict(orient='records')
     try:
-        app.logger.debug("Updating collection: regional")
+        app.logger.warning("Updating collection: regional")
         REGIONAL_DATA.drop()
         REGIONAL_DATA.insert_many(regional_records, ordered=True)
         response["collections_updated"].append("regional")
@@ -88,7 +88,7 @@ def update_db():
 
     provincial_records = df_provincial_augmented.to_dict(orient='records')
     try:
-        app.logger.debug("Updating collection: provincial")
+        app.logger.warning("Updating collection: provincial")
         PROVINCIAL_DATA.drop()
         PROVINCIAL_DATA.insert_many(provincial_records, ordered=True)
         response["collections_updated"].append("provincial")
@@ -99,7 +99,7 @@ def update_db():
 
     national_trends = build_trends(df_national_augmented)
     try:
-        app.logger.debug("Updating collection: national_trends")
+        app.logger.warning("Updating collection: national_trends")
         NATIONAL_TRENDS.drop()
         NATIONAL_TRENDS.insert_many(national_trends)
         response["collections_updated"].append("national_trends")
@@ -110,7 +110,7 @@ def update_db():
 
     regional_trends = build_regional_trends(df_regional_augmented)
     try:
-        app.logger.debug("Updating collection: regional_trends")
+        app.logger.warning("Updating collection: regional_trends")
         REGIONAL_TRENDS.drop()
         REGIONAL_TRENDS.insert_many(regional_trends)
         response["collections_updated"].append("regional_trends")
@@ -121,7 +121,7 @@ def update_db():
 
     provincial_trends = build_provincial_trends(df_provincial_augmented)
     try:
-        app.logger.debug("Updating collection: provincial_trends")
+        app.logger.warning("Updating collection: provincial_trends")
         PROVINCIAL_TRENDS.drop()
         PROVINCIAL_TRENDS.insert_many(provincial_trends)
         response["collections_updated"].append("provincial_trends")
@@ -132,7 +132,7 @@ def update_db():
 
     regional_breakdown = build_breakdown(df_regional_augmented)
     try:
-        app.logger.debug("Updating collection: regional_breakdown")
+        app.logger.warning("Updating collection: regional_breakdown")
         REGIONAL_BREAKDOWN.drop()
         REGIONAL_BREAKDOWN.insert_one(regional_breakdown)
         response["collections_updated"].append("regional_breakdown")
@@ -143,7 +143,7 @@ def update_db():
 
     provincial_breakdowns = build_provincial_breakdown(df_provincial_augmented)
     try:
-        app.logger.debug("Updating collection: provincial_breakdowns")
+        app.logger.warning("Updating collection: provincial_breakdowns")
         PROVINCIAL_BREAKDOWN.drop()
         PROVINCIAL_BREAKDOWN.insert_many(provincial_breakdowns)
         response["collections_updated"].append("provincial_breakdowns")
@@ -154,7 +154,7 @@ def update_db():
 
     national_series = build_national_highcarts(df_national_augmented)
     try:
-        app.logger.debug("Updating collection: national_series")
+        app.logger.warning("Updating collection: national_series")
         NATIONAL_SERIES.drop()
         NATIONAL_SERIES.insert_one(national_series)
         response["collections_updated"].append("national_series")
@@ -165,7 +165,7 @@ def update_db():
 
     regional_series = build_regional_highcarts(df_regional_augmented)
     try:
-        app.logger.debug("Updating collection: regional_series")
+        app.logger.warning("Updating collection: regional_series")
         REGIONAL_SERIES.drop()
         REGIONAL_SERIES.insert_many(regional_series)
         response["collections_updated"].append("regional_series")
@@ -176,7 +176,7 @@ def update_db():
 
     provincial_series = build_provincial_highcharts(df_provincial_augmented)
     try:
-        app.logger.debug("Updating collection: provincial_series")
+        app.logger.warning("Updating collection: provincial_series")
         PROVINCIAL_SERIES.drop()
         PROVINCIAL_SERIES.insert_many(provincial_series)
         response["collections_updated"].append("provincial_series")
