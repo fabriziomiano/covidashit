@@ -3,29 +3,42 @@ import os
 
 from flask_babel import gettext
 
-DAILY_SWABS_KEY = "tamponi_giornalieri"
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
+HOSPITALIZED_WITH_SYMPTOMS_D_KEY = "ricoverati_con_sintomi_g"
 ICU_KEY = "terapia_intensiva"
+ICU_D_KEY = "terapia_intensiva_g"
 TOTAL_HOSPITALIZED_KEY = "totale_ospedalizzati"
+TOTAL_HOSPITALIZED_D_KEY = "totale_ospedalizzati_g"
 SELF_ISOLATION_KEY = "isolamento_domiciliare"
+SELF_ISOLATION_D_KEY = "isolamento_domiciliare_g"
 TOTAL_POSITIVE_KEY = "totale_positivi"
+TOTAL_POSITIVE_D_KEY = "totale_positivi_g"
 TOTAL_POSITIVE_VARIATION_KEY = "variazione_totale_positivi"
+TOTAL_POSITIVE_VARIATION_D_KEY = "variazione_totale_positivi_g"
 NEW_POSITIVE_KEY = "nuovi_positivi"
+NEW_POSITIVE_D_KEY = "nuovi_positivi_g"
 TOTAL_HEALED_KEY = "dimessi_guariti"
+TOTAL_HEALED_D_KEY = "dimessi_guariti_g"
 TOTAL_DEATHS_KEY = "deceduti"
+TOTAL_DEATHS_D_KEY = "deceduti_g"
 TOTAL_CASES_KEY = "totale_casi"
+TOTAL_CASES_D_KEY = "totale_casi_g"
 TOTAL_SWABS_KEY = "tamponi"
-DAILY_DEATHS_KEY = "deceduti_giornalieri"
+TOTAL_SWABS_D_KEY = "tamponi_g"
 POSITIVE_SUSPECTED_KEY = "casi_da_sospetto_diagnostico"
+POSITIVE_SUSPECTED_D_KEY = "casi_da_sospetto_diagnostico_g"
 POSITIVE_FROM_SCREENING_KEY = "casi_da_screening"
-TOTAL_TESTED = "casi_testati"
+POSITIVE_FROM_SCREENING_D_KEY = "casi_da_screening_g"
+TOTAL_TESTED_KEY = "casi_testati"
+TOTAL_TESTED_D_KEY = "casi_testati_g"
 REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
+REGION_CODE = "codice_regione"
+PROVINCE_CODE = "codice_provincia"
 CP_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
-MONGO_QUERY_DT_FMT = "%Y-%m-%d"
 CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y %H:%M"
-CP_DATE_KEY = "data"
+DATE_KEY = "data"
 DATA_TO_MONITOR = "json"
 NOTE_KEY = "note"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
@@ -70,7 +83,23 @@ VARS_CONFIG = {
         "icon": "fas fa-hospital-symbol",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "current"
+    },
+    HOSPITALIZED_WITH_SYMPTOMS_D_KEY: {
+        "title": gettext("Daily Hospitalized With Symptoms"),
+        "desc": gettext(
+            "# of people with symptoms hospitalized every day"
+        ),
+        "longdesc": gettext(
+            "Daily count of people admitted in hospital "
+            "due to coronavirus with symptoms"
+        ),
+        "icon": "fas fa-hospital-symbol",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     ICU_KEY: {
         "title": gettext("Intensive Care Unit"),
@@ -81,7 +110,20 @@ VARS_CONFIG = {
         "icon": "fas fa-procedures",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "current"
+    },
+    ICU_D_KEY: {
+        "title": gettext("Daily Intensive Care Unit"),
+        "desc": gettext("# of people daily admitted in ICU"),
+        "longdesc": gettext(
+            "Daily count of people in ICU"
+        ),
+        "icon": "fas fa-procedures",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     TOTAL_HOSPITALIZED_KEY: {
         "title": gettext("Total Hospitalized"),
@@ -92,7 +134,20 @@ VARS_CONFIG = {
         "icon": "fas fa-hospital-symbol",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "current"
+    },
+    TOTAL_HOSPITALIZED_D_KEY: {
+        "title": gettext("Daily Hospitalized"),
+        "desc": gettext("# of people daily hospitalized"),
+        "longdesc": gettext(
+            "Daily count of people currently hospitalized. "
+            "It takes into account ICU"),
+        "icon": "fas fa-hospital-symbol",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     SELF_ISOLATION_KEY: {
         "title": gettext("Self Isolation"),
@@ -103,7 +158,18 @@ VARS_CONFIG = {
         "icon": "fas fa-house-user",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "current"
+    },
+    SELF_ISOLATION_D_KEY: {
+        "title": gettext("Daily self Isolation"),
+        "desc": gettext("Daily count of people in self isolation"),
+        "longdesc": gettext("Daily count of positive people put in isolation"),
+        "icon": "fas fa-house-user",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     TOTAL_POSITIVE_KEY: {
         "title": gettext("Total Positive"),
@@ -121,7 +187,27 @@ VARS_CONFIG = {
         "icon": "fas fa-viruses",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "current"
+    },
+    TOTAL_POSITIVE_D_KEY: {
+        "title": gettext("Daily Positive"),
+        "desc": gettext(
+            "Daily number of people hospitalized with symptoms"
+            " + ICU + self isolation"
+        ),
+        "longdesc": gettext(
+            "Daily number of people positive. "
+            "Unlike 'Total Cases' it does not take into account "
+            "'healed' and 'deaths'. By the end of the outbreak "
+            "this should tend to zero. In particular, it is: "
+            "total positive = total cases - total healed - total deaths"
+        ),
+        "icon": "fas fa-viruses",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     TOTAL_POSITIVE_VARIATION_KEY: {
         "title": gettext("Total Positive Variation"),
@@ -137,7 +223,25 @@ VARS_CONFIG = {
         "icon": "fas fa-chart-area",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "current"
+    },
+    TOTAL_POSITIVE_VARIATION_D_KEY: {
+        "title": gettext("Daily Positive Variation"),
+        "desc": gettext(
+            "Variation of daily # people currently positive "
+            "with respect to yesterday"
+        ),
+        "longdesc": gettext(
+            "Variation of the number of people currently positive "
+            "with respect to the previous day. It is negative when the number "
+            "of daily healed and deaths is larger than 'New positive'"
+        ),
+        "icon": "fas fa-chart-area",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     NEW_POSITIVE_KEY: {
         "title": gettext("New Positive"),
@@ -146,7 +250,18 @@ VARS_CONFIG = {
         "icon": "fas fa-user-plus",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "current"
+    },
+    NEW_POSITIVE_D_KEY: {
+        "title": gettext("Daily New Positive"),
+        "desc": gettext("Daily count of daily new positve cases"),
+        "longdesc": gettext("Daily count of daily new positve cases"),
+        "icon": "fas fa-user-plus",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     TOTAL_HEALED_KEY: {
         "title": gettext("Total Healed"),
@@ -157,7 +272,20 @@ VARS_CONFIG = {
         "icon": "fas fa-smile",
         "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
         "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "cum"
+    },
+    TOTAL_HEALED_D_KEY: {
+        "title": gettext("Daily Healed"),
+        "desc": gettext("Daily # of people healed"),
+        "longdesc": gettext(
+            "Daily number of people healed"
+        ),
+        "icon": "fas fa-smile",
+        "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     TOTAL_DEATHS_KEY: {
         "title": gettext("Total Deaths"),
@@ -168,7 +296,20 @@ VARS_CONFIG = {
         "icon": "fas fa-cross",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "cum"
+    },
+    TOTAL_DEATHS_D_KEY: {
+        "title": gettext("Daily Deaths"),
+        "desc": gettext("Daily deaths count"),
+        "longdesc": gettext(
+            "Daily deaths count"
+        ),
+        "icon": "fas fa-cross",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     TOTAL_CASES_KEY: {
         "title": gettext("Total Cases"),
@@ -183,7 +324,21 @@ VARS_CONFIG = {
         "icon": "fas fa-viruses",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "cum"
+    },
+    TOTAL_CASES_D_KEY: {
+        "title": gettext("Daily total Cases"),
+        "desc": gettext("Daily count of the positive tests"),
+        "longdesc": gettext(
+            "Total count of the positive tests since the"
+            " beginning of the outbreak"
+        ),
+        "icon": "fas fa-viruses",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     TOTAL_SWABS_KEY: {
         "title": gettext("Total Swabs"),
@@ -195,27 +350,21 @@ VARS_CONFIG = {
         "icon": "fas fa-vial",
         "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
         "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "cum"
     },
-    DAILY_SWABS_KEY: {
+    TOTAL_SWABS_D_KEY: {
         "title": gettext("Daily Swabs"),
-        "desc": gettext("# of swabs performed today"),
+        "desc": gettext("# of swabs performed daily"),
         "longdesc": gettext(
-            "Number of swabs performed today"
+            "Daily number of swabs performed since the beginning of "
+            "the outbreak"
         ),
         "icon": "fas fa-vial",
         "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
         "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
-    },
-    DAILY_DEATHS_KEY: {
-        "title": gettext("Daily deaths"),
-        "desc": gettext("Daily deaths count"),
-        "longdesc": gettext("Daily deaths count"),
-        "icon": "fas fa-cross",
-        "increase": TREND_SYMBOL_LOGIC["increase"],
-        "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     POSITIVE_SUSPECTED_KEY: {
         "title": gettext("Positive suspected case"),
@@ -224,7 +373,18 @@ VARS_CONFIG = {
         "icon": "fas fa-diagnoses",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "cum"
+    },
+    POSITIVE_SUSPECTED_D_KEY: {
+        "title": gettext("Daily positive suspected case"),
+        "desc": gettext("Positive cases emerged from clinical activity"),
+        "longdesc": gettext("Positive cases emerged from clinical activity"),
+        "icon": "fas fa-diagnoses",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
     },
     POSITIVE_FROM_SCREENING_KEY: {
         "title": gettext("Positive from screening"),
@@ -239,72 +399,58 @@ VARS_CONFIG = {
         "icon": "fas fa-stethoscope",
         "increase": TREND_SYMBOL_LOGIC["increase"],
         "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "cum"
     },
-    TOTAL_TESTED: {
+    POSITIVE_FROM_SCREENING_D_KEY: {
+        "title": gettext("Daily positive from screening"),
+        "desc": gettext(
+            "Daily positive cases emerging from surveys and tests, "
+            "planned at national or regional level"
+        ),
+        "longdesc": gettext(
+            "Daily positive cases emerging from surveys and tests,"
+            " planned at national or regional level"
+        ),
+        "icon": "fas fa-stethoscope",
+        "increase": TREND_SYMBOL_LOGIC["increase"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
+    },
+    TOTAL_TESTED_KEY: {
         "title": gettext("Total tested"),
         "desc": gettext("Total number of people tested"),
         "longdesc": gettext("Total number of people tested"),
         "icon": "fas fa-stethoscope",
-        "increase": TREND_SYMBOL_LOGIC["increase"],
-        "decrease": TREND_SYMBOL_LOGIC["decrease"],
-        "stable": TREND_SYMBOL_LOGIC["stable"]
+        "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "cum"
     },
+    TOTAL_TESTED_D_KEY: {
+        "title": gettext("Daily tested"),
+        "desc": gettext("Daily number of people tested"),
+        "longdesc": gettext("Daily number of people tested"),
+        "icon": "fas fa-stethoscope",
+        "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+        "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
+        "stable": TREND_SYMBOL_LOGIC["stable"],
+        "type": "daily"
+    }
 }
 
-NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale.json"
-LATEST_NATIONAL_DATA_FILE = "dpc-covid19-ita-andamento-nazionale-latest.json"
-REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni.json"
-LATEST_REGIONAL_DATA_FILE = "dpc-covid19-ita-regioni-latest.json"
-PROVINCIAL_DATE_FILE = "dpc-covid19-ita-province.json"
-LATEST_PROVINCIAL_DATE_FILE = "dpc-covid19-ita-province-latest.json"
+NATIONAL_DATA_FILE = (
+    "dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv")
+REGIONAL_DATA_FILE = "dati-regioni/dpc-covid19-ita-regioni.csv"
+PROVINCIAL_DATE_FILE = "dati-province/dpc-covid19-ita-province.csv"
 BASE_URL_DATA = (
-    "https://raw.githubusercontent.com"
-    "/pcm-dpc/COVID-19/master/dati-json/"
+    "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/"
 )
 URL_NATIONAL_DATA = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
-URL_LATEST_NATIONAL_DATA = os.path.join(
-    BASE_URL_DATA, LATEST_NATIONAL_DATA_FILE
-)
 URL_REGIONAL_DATA = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
-URL_LATEST_REGIONAL_DATA = os.path.join(
-    BASE_URL_DATA, LATEST_REGIONAL_DATA_FILE
-)
 URL_PROVINCIAL_DATA = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
-URL_LATEST_PROVINCIAL_DATA = os.path.join(
-    BASE_URL_DATA, LATEST_PROVINCIAL_DATE_FILE
-)
-#  The order here matters as it will be reflected in the webpage
-CARD_TYPES = [
-    NEW_POSITIVE_KEY,
-    HOSPITALIZED_WITH_SYMPTOMS_KEY,
-    ICU_KEY,
-    DAILY_SWABS_KEY,
-    DAILY_DEATHS_KEY,
-    SELF_ISOLATION_KEY,
-    POSITIVE_SUSPECTED_KEY,
-    POSITIVE_FROM_SCREENING_KEY,
-    TOTAL_TESTED,
-    TOTAL_POSITIVE_VARIATION_KEY,
-    TOTAL_POSITIVE_KEY,
-    TOTAL_HOSPITALIZED_KEY,
-    TOTAL_HEALED_KEY,
-    TOTAL_DEATHS_KEY,
-    TOTAL_SWABS_KEY,
-    TOTAL_CASES_KEY
-]
-CUSTOM_CARDS = [DAILY_DEATHS_KEY, DAILY_SWABS_KEY]
-CUMULATIVE_DATA_TYPES = [
-    TOTAL_TESTED,
-    TOTAL_POSITIVE_VARIATION_KEY,
-    TOTAL_HEALED_KEY,
-    TOTAL_SWABS_KEY,
-    TOTAL_CASES_KEY
-]
-CARD_MAP = {
-    DAILY_DEATHS_KEY: TOTAL_DEATHS_KEY,
-    DAILY_SWABS_KEY: TOTAL_SWABS_KEY
-}
+
 LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
 PHASE2_DAY = dt.datetime(2020, 5, 4)
 REOPENING_DAY = dt.datetime(2020, 5, 18)
@@ -352,16 +498,21 @@ DASHBOARD_DATA = {
 MONGO_URI = os.environ["MONGO_URI"]
 BAR_CHART_COLLECTION = os.environ["BAR_CHART_COLLECTION"]
 NATIONAL_DATA_COLLECTION = os.environ["NATIONAL_DATA_COLLECTION"]
+NATIONAL_TRENDS_COLLECTION = os.environ["NATIONAL_TRENDS_COLLECTION"]
+NATIONAL_SERIES_COLLECTION = os.environ["NATIONAL_SERIES_COLLECTION"]
 REGIONAL_DATA_COLLECTION = os.environ["REGIONAL_DATA_COLLECTION"]
-LATEST_REGIONAL_DATA_COLLECTION = os.environ["LATEST_REGIONAL_DATA_COLLECTION"]
+REGIONAL_TRENDS_COLLECTION = os.environ["REGIONAL_TRENDS_COLLECTION"]
+REGIONAL_SERIES_COLLECTION = os.environ["REGIONAL_SERIES_COLLECTION"]
+REGIONAL_BREAKDOWN_COLLECTION = os.environ["REGIONAL_BREAKDOWN_COLLECTION"]
 PROVINCIAL_DATA_COLLECTION = os.environ["PROVINCIAL_DATA_COLLECTION"]
-LATEST_PROVINCIAL_DATA_COLLECTION = os.environ[
-    "LATEST_PROVINCIAL_DATA_COLLECTION"]
+PROVINCIAL_TRENDS_COLLECTION = os.environ["PROVINCIAL_TRENDS_COLLECTION"]
+PROVINCIAL_SERIES_COLLECTION = os.environ["PROVINCIAL_SERIES_COLLECTION"]
+PROVINCIAL_BREAKDOWN_COLLECTION = os.environ["PROVINCIAL_BREAKDOWN_COLLECTION"]
+
 BARCHART_DB_KEY = "_id"
 DATA_SERIES = [
     VARS_CONFIG[key]["title"]
     for key in VARS_CONFIG
-    if key not in CUSTOM_CARDS
 ]
 #  The order here matters as it will be reflected in the webpage
 BCR_TYPES = [
