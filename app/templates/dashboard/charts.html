@@ -72,7 +72,16 @@
                 label: {
                     text: "{{ gettext("Phase 3") }}"
                 }
-            }],
+            },
+            {
+                color: 'rgb(255,0,0)',
+                width: 1,
+                value: 256,
+                label: {
+                    text: "{{ gettext("Criticity areas") }}"
+                }
+            }
+            ],
         plotBands: [
             {
                 color: 'rgba(255,0,0,.3)',
@@ -87,6 +96,11 @@
             {
                 color: 'rgba(0,255,0,.3)',
                 from: 112,
+                to: 256
+            },
+            {
+                color: 'rgba(255,0,0,.3)',
+                from: 256,
                 to: {{ series.dates|length }}
             }
         ]
