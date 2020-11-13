@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-11-13 20:39+0100\n"
-"PO-Revision-Date: 2020-11-13 20:39+0100\n"
+"POT-Creation-Date: 2020-11-13 21:07+0100\n"
+"PO-Revision-Date: 2020-11-13 21:07+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -525,20 +525,14 @@ msgid "Personal Website"
 msgstr "Sito Web Persoale"
 
 #: app/templates/base/sidebar.html:64
-#, fuzzy
-#| msgid "Days since Criticity areas"
 msgid "Days since \"Criticity areas\""
 msgstr "Giorni dall'introduzione di \"aree di criticità\""
 
 #: app/templates/base/sidebar.html:65
-#, fuzzy
-#| msgid "Days in Phase 3"
 msgid "Days in \"Phase 3\""
 msgstr "Giorni in \"Fase 3\""
 
 #: app/templates/base/sidebar.html:66
-#, fuzzy
-#| msgid "Days in Phase 2"
 msgid "Days in \"Phase 2\""
 msgstr "Giorni in \"Fase 2\""
 
@@ -580,7 +574,7 @@ msgstr "Fase 3"
 
 #: app/templates/dashboard/charts.html:81
 msgid "Criticity areas"
-msgstr ""
+msgstr "Aree di criticita"
 
 #: app/templates/dashboard/charts.html:110
 msgid "Counts"
