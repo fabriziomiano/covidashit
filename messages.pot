@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-11-13 01:50+0100\n"
+"POT-Creation-Date: 2020-11-13 04:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -344,10 +344,6 @@ msgstr ""
 msgid "Notes:"
 msgstr ""
 
-#: app/templates/dashboard.html:31
-msgid "Only the \"Total Cases\" data is shown"
-msgstr ""
-
 #: app/templates/base/head.html:18
 msgid "COVID-19 Italy outbreak dashboard"
 msgstr ""
@@ -513,15 +509,15 @@ msgid "Loading..."
 msgstr ""
 
 #: app/templates/dashboard/cards.html:5 app/templates/dashboard/charts.html:17
-msgid "Daily"
+msgid "DAILY"
 msgstr ""
 
 #: app/templates/dashboard/cards.html:6 app/templates/dashboard/charts.html:18
-msgid "Current"
+msgid "CURRENT"
 msgstr ""
 
 #: app/templates/dashboard/cards.html:7 app/templates/dashboard/charts.html:19
-msgid "Cumulative"
+msgid "CUMULATIVE"
 msgstr ""
 
 #: app/templates/dashboard/charts.html:7
@@ -580,5 +576,9 @@ msgstr ""
 
 #: app/ui/dashboard.py:62
 msgid "National Dashboard"
+msgstr ""
+
+#: app/utils/data.py:120 app/utils/data.py:122 app/utils/data.py:124
+msgid "name"
 msgstr ""
 
