@@ -113,6 +113,8 @@ def build_trends(df):
         try:
             status = "stable"
             percentage_col = col + "_perc"
+            diff = "{0:+}%".format(
+                round(df[col].values[-1] - df[col].values[-2]))
             try:
                 percentage = "{0:+}%".format(
                     round(df[percentage_col].values[-1]))
@@ -136,8 +138,7 @@ def build_trends(df):
                 "status_icon": VARS_CONFIG[col][status]["icon"],
                 "tooltip": VARS_CONFIG[col][status]["tooltip"],
                 "percentage_difference": percentage,
-                "today_yesterday_diff": round(
-                    df[col].values[-1] - df[col].values[-2])
+                "today_yesterday_diff": diff
             }
             trends.append(t)
         except KeyError as e:
@@ -167,6 +168,8 @@ def build_provincial_trends(df):
             try:
                 status = "stable"
                 percentage_col = col + "_perc"
+                diff = "{0:+}%".format(
+                    round(dfp[col].values[-1] - dfp[col].values[-2]))
                 try:
                     percentage = "{0:+}%".format(
                         round(dfp[percentage_col].values[-1]))
@@ -190,8 +193,7 @@ def build_provincial_trends(df):
                     "status_icon": VARS_CONFIG[col][status]["icon"],
                     "tooltip": VARS_CONFIG[col][status]["tooltip"],
                     "percentage_difference": percentage,
-                    "today_yesterday_diff": round(
-                        dfp[col].values[-1] - dfp[col].values[-2])
+                    "today_yesterday_diff": diff
                 }
                 province_trends.append(t)
             except KeyError as e:
