@@ -453,7 +453,8 @@ URL_PROVINCIAL_DATA = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
 
 LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
 PHASE2_DAY = dt.datetime(2020, 5, 4)
-REOPENING_DAY = dt.datetime(2020, 5, 18)
+PHASE3_DAY = dt.datetime(2020, 6, 15)
+CRITICITY_AREA_DAY = dt.datetime(2020, 11, 6)
 LANGUAGES = {
     "en": "English",
     "it_IT": "Italiano"
@@ -491,9 +492,11 @@ PROVINCES = [
 DASHBOARD_DATA = {
     "regions": REGIONS,
     "provinces": PROVINCES,
-    "days_since_phase2": (dt.datetime.today() - PHASE2_DAY).days,
-    "days_since_reopening": (dt.datetime.today() - REOPENING_DAY).days,
-    "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days
+    "days_in_phase3": (CRITICITY_AREA_DAY - PHASE3_DAY).days,
+    "days_in_phase2": (PHASE3_DAY - PHASE2_DAY).days,
+    "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days,
+    "days_since_criticity_areas": (
+            dt.datetime.today() - CRITICITY_AREA_DAY).days
 }
 MONGO_URI = os.environ["MONGO_URI"]
 BAR_CHART_COLLECTION = os.environ["BAR_CHART_COLLECTION"]
