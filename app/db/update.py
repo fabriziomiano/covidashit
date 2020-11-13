@@ -162,21 +162,21 @@ def build_provincial_trends(df):
     trends = []
     for cp in set(df[PROVINCE_CODE]):
         province_trends = []
-        df_prov = df[df[PROVINCE_CODE] == cp].copy()
+        dfp = df[df[PROVINCE_CODE] == cp].copy()
         for col in TREND_PROV_CARDS:
             try:
                 status = "stable"
                 percentage_col = col + "_perc"
                 try:
                     percentage = "{0:+}%".format(
-                        round(df[percentage_col].values[-1]))
+                        round(dfp[percentage_col].values[-1]))
                 except (OverflowError, TypeError):
                     percentage = "n/a"
-                if df[col].values[-1] < df[col].values[-2]:
+                if dfp[col].values[-1] < dfp[col].values[-2]:
                     status = "decrease"
-                if df[col].values[-1] > df[col].values[-2]:
+                if dfp[col].values[-1] > dfp[col].values[-2]:
                     status = "increase"
-                if df[col].values[-1] == df[col].values[-2]:
+                if dfp[col].values[-1] == dfp[col].values[-2]:
                     status = "stable"
                 t = {
                     "id": col,
@@ -184,21 +184,21 @@ def build_provincial_trends(df):
                     "title": VARS_CONFIG[col]["title"],
                     "desc": VARS_CONFIG[col]["desc"],
                     "longdesc": VARS_CONFIG[col]["longdesc"],
-                    "count": round(df[col].values[-1]),
+                    "count": round(dfp[col].values[-1]),
                     "colour": VARS_CONFIG[col][status]["colour"],
                     "icon": VARS_CONFIG[col]["icon"],
                     "status_icon": VARS_CONFIG[col][status]["icon"],
                     "tooltip": VARS_CONFIG[col][status]["tooltip"],
                     "percentage_difference": percentage,
                     "today_yesterday_diff": round(
-                        df[col].values[-1] - df[col].values[-2])
+                        dfp[col].values[-1] - dfp[col].values[-2])
                 }
                 province_trends.append(t)
             except KeyError as e:
                 print(e)
                 continue
         trends.append({
-            PROVINCE_KEY: df_prov[PROVINCE_KEY].values[-1],
+            PROVINCE_KEY: dfp[PROVINCE_KEY].values[-1],
             "trends": province_trends
         })
     return trends
@@ -336,14 +336,14 @@ def build_provincial_highcharts(df):
                 "name": VARS_CONFIG[col]["title"],
                 "data": df_area[col].values.tolist()
             }
-            for col in ['nuovi_positivi']
+            for col in ['nuovi_positivi_g']
         ]
         series_current = [
             {
                 "name": VARS_CONFIG[col]["title"],
                 "data": df_area[col].values.tolist()
             }
-            for col in ['nuovi_positivi_g']
+            for col in ['nuovi_positivi']
         ]
         series_cum = [
             {
