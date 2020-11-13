@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-11-13 04:33+0100\n"
+"POT-Creation-Date: 2020-11-13 21:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -332,15 +332,15 @@ msgstr ""
 msgid "Daily number of people tested"
 msgstr ""
 
-#: app/templates/dashboard.html:11 app/templates/dashboard/barChartRace.html:12
+#: app/templates/dashboard.html:12
 msgid "Latest Update:"
 msgstr ""
 
-#: app/templates/dashboard.html:16
+#: app/templates/dashboard.html:17
 msgid "Positive swabs weekly percentage:"
 msgstr ""
 
-#: app/templates/dashboard.html:25
+#: app/templates/dashboard.html:26
 msgid "Notes:"
 msgstr ""
 
@@ -489,23 +489,19 @@ msgid "Personal Website"
 msgstr ""
 
 #: app/templates/base/sidebar.html:64
-msgid "Days since Reopening"
+msgid "Days since \"Criticity areas\""
 msgstr ""
 
 #: app/templates/base/sidebar.html:65
-msgid "Days since \"Phase 2\""
+msgid "Days in \"Phase 3\""
 msgstr ""
 
 #: app/templates/base/sidebar.html:66
+msgid "Days in \"Phase 2\""
+msgstr ""
+
+#: app/templates/base/sidebar.html:67
 msgid "Days in Lockdown"
-msgstr ""
-
-#: app/templates/dashboard/barChartRace.html:17
-msgid "Play bar-chart race"
-msgstr ""
-
-#: app/templates/dashboard/barChartRace.html:23
-msgid "Loading..."
 msgstr ""
 
 #: app/templates/dashboard/cards.html:5 app/templates/dashboard/charts.html:17
@@ -540,21 +536,25 @@ msgstr ""
 msgid "Phase 3"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:96
+#: app/templates/dashboard/charts.html:81
+msgid "Criticity areas"
+msgstr ""
+
+#: app/templates/dashboard/charts.html:110
 msgid "Counts"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:102
+#: app/templates/dashboard/charts.html:116
 msgid "Italy"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:112
+#: app/templates/dashboard/charts.html:126
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection "
 "dataset</a>"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:117
+#: app/templates/dashboard/charts.html:131
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr ""
 

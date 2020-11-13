@@ -10282,3 +10282,23 @@ body {
 .border-bottom-dark {
   border-bottom: 0.25rem solid #5a5c69 !important;
 }
+#back2Top {
+    width: 40px;
+    line-height: 40px;
+    overflow: hidden;
+    z-index: 999;
+    display: none;
+    cursor: pointer;
+    position: fixed;
+    bottom: 100px;
+    right: 0;
+    background-color: #DDD;
+    color: mediumblue;
+    text-align: center;
+    font-size: 30px;
+    text-decoration: none;
+}
+#back2Top:hover {
+    background-color: mediumblue;
+    color: white;
+}

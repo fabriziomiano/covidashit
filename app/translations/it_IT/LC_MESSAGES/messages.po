@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-11-13 04:33+0100\n"
-"PO-Revision-Date: 2020-11-13 04:34+0100\n"
+"POT-Creation-Date: 2020-11-13 21:07+0100\n"
+"PO-Revision-Date: 2020-11-13 21:07+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -362,15 +362,15 @@ msgstr "Testati giornalieri"
 msgid "Daily number of people tested"
 msgstr "Persone testate giornalmente"
 
-#: app/templates/dashboard.html:11 app/templates/dashboard/barChartRace.html:12
+#: app/templates/dashboard.html:12
 msgid "Latest Update:"
 msgstr "Ultimo aggiornamento:"
 
-#: app/templates/dashboard.html:16
+#: app/templates/dashboard.html:17
 msgid "Positive swabs weekly percentage:"
 msgstr "Percentuale settimanale tamponi positivi:"
 
-#: app/templates/dashboard.html:25
+#: app/templates/dashboard.html:26
 msgid "Notes:"
 msgstr "Note:"
 
@@ -525,24 +525,20 @@ msgid "Personal Website"
 msgstr "Sito Web Persoale"
 
 #: app/templates/base/sidebar.html:64
-msgid "Days since Reopening"
-msgstr "Giorni dalla Riapertura"
+msgid "Days since \"Criticity areas\""
+msgstr "Giorni dall'introduzione di \"aree di criticità\""
 
 #: app/templates/base/sidebar.html:65
-msgid "Days since \"Phase 2\""
-msgstr "Giorni dalla \"Fase 2\""
+msgid "Days in \"Phase 3\""
+msgstr "Giorni in \"Fase 3\""
 
 #: app/templates/base/sidebar.html:66
+msgid "Days in \"Phase 2\""
+msgstr "Giorni in \"Fase 2\""
+
+#: app/templates/base/sidebar.html:67
 msgid "Days in Lockdown"
 msgstr "Giorni di Lockdown"
-
-#: app/templates/dashboard/barChartRace.html:17
-msgid "Play bar-chart race"
-msgstr "Riproduci bar chart race"
-
-#: app/templates/dashboard/barChartRace.html:23
-msgid "Loading..."
-msgstr "Carico..."
 
 #: app/templates/dashboard/cards.html:5 app/templates/dashboard/charts.html:17
 msgid "DAILY"
@@ -576,15 +572,19 @@ msgstr "Fase 2"
 msgid "Phase 3"
 msgstr "Fase 3"
 
-#: app/templates/dashboard/charts.html:96
+#: app/templates/dashboard/charts.html:81
+msgid "Criticity areas"
+msgstr "Aree di criticita"
+
+#: app/templates/dashboard/charts.html:110
 msgid "Counts"
 msgstr "Conteggi"
 
-#: app/templates/dashboard/charts.html:102
+#: app/templates/dashboard/charts.html:116
 msgid "Italy"
 msgstr "Italia"
 
-#: app/templates/dashboard/charts.html:112
+#: app/templates/dashboard/charts.html:126
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection "
 "dataset</a>"
@@ -592,7 +592,7 @@ msgstr ""
 "Fonte: <a href='https://github.com/pcm-dpc/COVID-19'>Dati Protezione Civile</"
 "a>"
 
-#: app/templates/dashboard/charts.html:117
+#: app/templates/dashboard/charts.html:131
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
@@ -619,6 +619,15 @@ msgstr "Dashboard Nazionale"
 #: app/utils/data.py:120 app/utils/data.py:122 app/utils/data.py:124
 msgid "name"
 msgstr ""
+
+#~ msgid "Days since Reopening"
+#~ msgstr "Giorni dalla Riapertura"
+
+#~ msgid "Play bar-chart race"
+#~ msgstr "Riproduci bar chart race"
+
+#~ msgid "Loading..."
+#~ msgstr "Carico..."
 
 #~ msgid "Only the \"Total Cases\" data is shown"
 #~ msgstr "Solo la serie \"Totale Casi\" è mostrata"
