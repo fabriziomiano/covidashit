@@ -18,16 +18,13 @@ Mobile          |  Desktop
 ## Per gli sviluppatori
 
 La WebApp gira su Python3.6+ ed usa un server Flask e gunicorn davanti.
-Inoltre, viene usato Flask-babel per la traduzione italiana dell'app. Lo script `make_pot.sh` crea i file necessari.
+Inoltre, viene usato Flask-babel per la traduzione italiana dell'app. 
+Lo script `make_pot.sh` crea i file necessari a babel per le traduzioni.
 Una versione `Batch` è fornita per gli utenti Windows. 
 La lingua di visualizzazione dipende dalla richiesta effettuata dal client.
 
 Il front-end sta in `covidashit/templates` ed usa JavaScript per costruire la chart che è 
-creata con [HighCharts](https://www.highcharts.com/). Inoltre, ogni giorno un cron job schedulato
-crea le bar chart race visibili nella dashboard lanciando lo script [BCR2Mongo](https://github.com/fabriziomiano/barchartrace2mongo).
-
-Grazie agli sviluppatori di [bar-chart-race](https://www.dexplo.org/bar_chart_race/).
-
+creata con [HighCharts](https://www.highcharts.com/). 
 #### Setup locale
 
 * creazione ed attivazione di un virtual environment [(seguire questi passaggi)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
