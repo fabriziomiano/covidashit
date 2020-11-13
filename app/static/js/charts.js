@@ -6,7 +6,7 @@ let chartTrendOptions = {
     title: title,
     xAxis: xAxis,
     yAxis: yAxis,
-    series: series,
+    series: [],
     tooltip: {
         crosshairs: {
             width: 1,
@@ -41,92 +41,31 @@ let chartTrendOptions = {
     credits: credits,
     plotOptions: {
         series: {
-            visible: false
+            visible: true
         }
     }
 }
 
-let chartIacopoOptions = {
-    chart: {
-        type: 'scatter',
-        zoomType: 'x'
-    },
-    legend: {
-        enabled: false
-    },
-    title: title,
-    subtitle: subtitle,
-    xAxis: scatterXAxis,
-    yAxis: scatterYAxis,
-    plotOptions: {
-        scatter: {
-            marker: {
-                radius: 3,
-                states: {
-                    hover: {
-                        enabled: true,
-                        lineColor: 'rgb(100,100,100)'
-                    }
-                }
-            },
-            states: {
-                hover: {
-                    marker: {
-                        enabled: false
-                    }
-                }
-            },
-        }
-    },
-    tooltip: {
-        crosshairs: {
-            width: 1,
-            color: 'gray',
-            dashStyle: 'ShortDashDot'
-        },
-        shared: true,
-        split: false,
-        enabled: true
-    },
-    exporting: {
-        buttons: {
-            linScale: {
-                text: 'Lin',
-                onclick: function () {
-                    this.yAxis[0].update({
-                        type: 'linear'
-                    });
-                }
-            },
-            logScale: {
-                text: 'Log',
-                onclick: function () {
-                    this.yAxis[0].update({
-                        type: 'logarithmic'
-                    });
-                }
-            },
-        }
-    },
-    series: [scatterData],
-    credits: credits
-}
 
-let chartTrend = Highcharts.chart('chart-trend', chartTrendOptions);
+let chartTrendDailyOptions = Object.assign({}, chartTrendOptions);
+chartTrendDailyOptions.series = seriesDaily;
+let chartTrendCurrentOptions = Object.assign({}, chartTrendOptions);
+chartTrendCurrentOptions.series = seriesCurrent;
+let chartTrendCumOptions = Object.assign({}, chartTrendOptions);
+chartTrendCumOptions.series = seriesCum;
 
-$(document).ready(function () {
-    if (!window.location.href.includes("provinces")) {
-        $("#chart-iacopo").highcharts(chartIacopoOptions);
-    }
-});
+let chartDailyTrend = Highcharts.chart('chart-trend-daily', chartTrendDailyOptions);
+let chartCurrentTrend = Highcharts.chart('chart-trend-current', chartTrendCurrentOptions);
+let chartCumTrend = Highcharts.chart('chart-trend-cum', chartTrendCumOptions);
 
-function dataTypeSelector(value) {
+
+function dataTypeSelector(chart, value) {
     if (value !== "default") {
-        for (let i = 0; i < chartTrend.series.length; i++) {
-            if (chartTrend.series[i].name === value) {
-                chartTrend.series[i].show()
+        for (let i = 0; i < chart.series.length; i++) {
+            if (chart.series[i].name === value) {
+                chart.series[i].show()
             } else {
-                chartTrend.series[i].hide()
+                chart.series[i].hide()
             }
         }
     }
@@ -152,16 +91,3 @@ function playBCR(bcr_id) {
         }
     })
 }
-
-let totPosStrIT = "Totale Positivi";
-let totPosStrEN = "Total Positive";
-(function ($) {
-    "use strict";
-    $(function () {
-        for (let i = 0; i < series.length; i++) {
-            if (series[i].name === totPosStrEN || series[i].name === totPosStrIT) {
-                chartTrend.series[i].show()
-            }
-        }
-    })
-})(jQuery);
