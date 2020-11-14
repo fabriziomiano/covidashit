@@ -15,7 +15,9 @@
             <nav class="nav-pills small nav-justified">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-chart-daily-tab" data-toggle="tab" href="#chart-daily" role="tab" aria-controls="nav-daily" aria-selected="true">{{ _("DAILY") }}</a>
-                    <a class="nav-item nav-link" id="nav-chart-current-tab" data-toggle="tab" href="#chart-current" role="tab" aria-controls="nav-current" aria-selected="false">{{ _("CURRENT") }}</a>
+                    {% if area not in provinces %}
+                        <a class="nav-item nav-link" id="nav-chart-current-tab" data-toggle="tab" href="#chart-current" role="tab" aria-controls="nav-current" aria-selected="false">{{ _("CURRENT") }}</a>
+                    {% endif %}
                     <a class="nav-item nav-link" id="nav-chart-cum-tab" data-toggle="tab" href="#chart-cum" role="tab" aria-controls="nav-cum" aria-selected="false">{{ _("CUMULATIVE") }}</a>
                 </div>
             </nav>
@@ -44,7 +46,9 @@
 
 <script>
     let seriesDaily = {{ series.daily|safe }};
+    {% if area not in provinces %}
     let seriesCurrent = {{ series.current|safe }};
+    {% endif %}
     let seriesCum = {{ series.cum|safe }};
     let xAxis = {
         categories: {{ series.dates|safe }},

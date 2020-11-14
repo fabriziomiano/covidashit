@@ -124,6 +124,7 @@ $(window).scroll(function () {
         $('#back2Top').fadeOut();
     }
 });
+
 $(document).ready(function () {
     $("#back2Top").click(function (event) {
         event.preventDefault();
@@ -131,4 +132,13 @@ $(document).ready(function () {
         return false;
     });
 
+});
+
+$(document).ready(function () {
+    let hasVisited = localStorage.getItem("hasVisited");
+    if (hasVisited === null) {
+        $('#welcomeModal').modal('show');
+        hasVisited = "yes";
+        localStorage.setItem("hasVisited", hasVisited)
+    }
 });
