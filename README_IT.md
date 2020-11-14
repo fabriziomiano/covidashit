@@ -17,14 +17,33 @@ Mobile          |  Desktop
 
 ## Per gli sviluppatori
 
-La WebApp gira su Python3.6+ ed usa un server Flask e gunicorn davanti.
-Inoltre, viene usato Flask-babel per la traduzione italiana dell'app. 
+La WebApp gira su Python3.6+, legge i dati da mongoDB ed usa un server 
+Flask e gunicorn davanti.
+Viene usato Flask-babel per la traduzione italiana dell'app. 
 Lo script `make_pot.sh` crea i file necessari a babel per le traduzioni.
 Una versione `Batch` è fornita per gli utenti Windows. 
 La lingua di visualizzazione dipende dalla richiesta effettuata dal client.
 
 Il front-end sta in `covidashit/templates` ed usa JavaScript per costruire la chart che è 
 creata con [HighCharts](https://www.highcharts.com/). 
+
+Perché l'app funzioni è necessario popolare un database mongo: 
+ - Vanno impostate le variabili d'ambiente :
+    * `MONGO_URI`
+    * `NATIONAL_DATA_COLLECTION`
+    * `NATIONAL_TRENDS_COLLECTION`
+    * `NATIONAL_SERIES_COLLECTION`
+    * `REGIONAL_DATA_COLLECTION`
+    * `REGIONAL_TRENDS_COLLECTION`
+    * `REGIONAL_SERIES_COLLECTION`
+    * `REGIONAL_BREAKDOWN_COLLECTION`
+    * `PROVINCIAL_DATA_COLLECTION`
+    * `PROVINCIAL_TRENDS_COLLECTION`
+    * `PROVINCIAL_SERIES_COLLECTION`
+    * `PROVINCIAL_BREAKDOWN_COLLECTION`
+ - Vanno fatte le POST a `/api/update/<collection_type>` che popoleranno le varie collezioni, 
+ ad es. ```POST /api/update/national```
+
 #### Setup locale
 
 * creazione ed attivazione di un virtual environment [(seguire questi passaggi)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
@@ -42,12 +61,12 @@ Flask sarà in ascolto all'url [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ##### Produzione
 Il Dockerfile fornito può essere usato per pubblicare l'app su Heroku.
-Per testare l'abmiente di produzione in locale decommentare la L18 e L31 e lanciare:
+Per testare l'abmiente di produzione in locale decommentare la L17, e 
+ settare le variabili d'ambiente summenzionate. Lanciare:
 ```
 $ docker build --tag covidashit:latest . 
 $ docker run --name covidashit -d -p 80:5000 covidashit
 ```
-
 Flask sarà in ascolto all'url [http://127.0.0.1](http://127.0.0.1) 
 
 ##### Additional note
