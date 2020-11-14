@@ -119,16 +119,20 @@ VARS[DAILY_HOSPITALIZED_KEY] = {
 }
 
 # Current-state variables
-VARS[HOSPITALIZED_WITH_SYMPTOMS_KEY] = {
-    "title": gettext("Hospitalized With Symptoms"),
+VARS[TOTAL_POSITIVE_KEY] = {
+    "title": gettext("Total Positive"),
     "desc": gettext(
-        "# of people currently hospitalized with symptoms"
+        "# of people currently "
+        "hospitalized with symptoms + ICU + self isolation"
     ),
     "longdesc": gettext(
-        "Total count of people currently in hospital "
-        "due to coronavirus with symptoms"
+        "People currently positive. "
+        "Unlike 'Total Cases' it does not take into account "
+        "'healed' and 'deaths'. By the end of the outbreak "
+        "this should tend to zero. In particular, it is: "
+        "total positive = total cases - total healed - total deaths"
     ),
-    "icon": "fas fa-hospital-symbol",
+    "icon": "fas fa-viruses",
     "increase": TREND_SYMBOL_LOGIC["increase"],
     "decrease": TREND_SYMBOL_LOGIC["decrease"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
@@ -146,6 +150,22 @@ VARS[ICU_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "current"
 }
+VARS[HOSPITALIZED_WITH_SYMPTOMS_KEY] = {
+    "title": gettext("Hospitalized With Symptoms"),
+    "desc": gettext(
+        "# of people currently hospitalized with symptoms"
+    ),
+    "longdesc": gettext(
+        "Total count of people currently in hospital "
+        "due to coronavirus with symptoms"
+    ),
+    "icon": "fas fa-hospital-symbol",
+    "increase": TREND_SYMBOL_LOGIC["increase"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "current"
+}
+
 VARS[TOTAL_HOSPITALIZED_KEY] = {
     "title": gettext("Total Hospitalized"),
     "desc": gettext("# of people currently hospitalized"),
@@ -170,51 +190,8 @@ VARS[SELF_ISOLATION_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "current"
 }
-VARS[TOTAL_POSITIVE_KEY] = {
-    "title": gettext("Total Positive"),
-    "desc": gettext(
-        "# of people currently "
-        "hospitalized with symptoms + ICU + self isolation"
-    ),
-    "longdesc": gettext(
-        "People currently positive. "
-        "Unlike 'Total Cases' it does not take into account "
-        "'healed' and 'deaths'. By the end of the outbreak "
-        "this should tend to zero. In particular, it is: "
-        "total positive = total cases - total healed - total deaths"
-    ),
-    "icon": "fas fa-viruses",
-    "increase": TREND_SYMBOL_LOGIC["increase"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "current"
-}
 
 # Cumulative variables
-VARS[TOTAL_HEALED_KEY] = {
-    "title": gettext("Total Healed"),
-    "desc": gettext("Cumulative # of people healed"),
-    "longdesc": gettext(
-        "Total number of people healed since the beginning of the outbreak"
-    ),
-    "icon": "fas fa-smile",
-    "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "cum"
-}
-VARS[TOTAL_DEATHS_KEY] = {
-    "title": gettext("Total Deaths"),
-    "desc": gettext("Total deaths count"),
-    "longdesc": gettext(
-        "Total deaths count since the beginning of the outbreak"
-    ),
-    "icon": "fas fa-cross",
-    "increase": TREND_SYMBOL_LOGIC["increase"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "cum"
-}
 VARS[TOTAL_CASES_KEY] = {
     "title": gettext("Total Cases"),
     "desc": gettext(
@@ -231,6 +208,19 @@ VARS[TOTAL_CASES_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "cum"
 }
+VARS[TOTAL_DEATHS_KEY] = {
+    "title": gettext("Total Deaths"),
+    "desc": gettext("Total deaths count"),
+    "longdesc": gettext(
+        "Total deaths count since the beginning of the outbreak"
+    ),
+    "icon": "fas fa-cross",
+    "increase": TREND_SYMBOL_LOGIC["increase"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "cum"
+}
+
 VARS[TOTAL_SWABS_KEY] = {
     "title": gettext("Total Swabs"),
     "desc": gettext("# of swabs performed"),
@@ -239,6 +229,18 @@ VARS[TOTAL_SWABS_KEY] = {
         "the outbreak"
     ),
     "icon": "fas fa-vial",
+    "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "cum"
+}
+VARS[TOTAL_HEALED_KEY] = {
+    "title": gettext("Total Healed"),
+    "desc": gettext("Cumulative # of people healed"),
+    "longdesc": gettext(
+        "Total number of people healed since the beginning of the outbreak"
+    ),
+    "icon": "fas fa-smile",
     "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
     "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
