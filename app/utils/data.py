@@ -97,11 +97,21 @@ def get_national_cards():
 
 
 def get_regional_cards(region):
+    """
+    Return a list of regional cards for a given region
+    :param region: str
+    :return: list
+    """
     doc = REGIONAL_TRENDS.find_one({REGION_KEY: region})
     return doc["trends"]
 
 
 def get_provincial_cards(province):
+    """
+    Return a list of provincial cards for a given province
+    :param province: str
+    :return: list
+    """
     doc = PROVINCIAL_TRENDS.find_one({PROVINCE_KEY: province})
     return doc["trends"]
 
@@ -116,6 +126,12 @@ def get_provincial_breakdown(region):
 
 
 def translate_series_lang(series):
+    """
+    Return a modified version of the series input dict with the
+    "name" values babel translated
+    :param series: dict
+    :return: dict
+    """
     daily_series = series.get("daily")
     current_series = series.get("current")
     cum_series = series.get("cum")
@@ -148,6 +164,13 @@ def get_provincial_series(province):
 
 
 def get_positivity_idx(area_type="national", area=None):
+    """
+    Return the positivity index for either the national or the regional
+    views
+    :param area_type: str: "national" or "regional"
+    :param area: str
+    :return: str
+    """
     query_menu = {
         "national": {
             "collection": NATIONAL_DATA,

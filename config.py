@@ -5,9 +5,8 @@ from flask_babel import gettext
 from collections import OrderedDict
 
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
-HOSPITALIZED_WITH_SYMPTOMS_D_KEY = "ricoverati_con_sintomi_g"
 ICU_KEY = "terapia_intensiva"
-ICU_D_KEY = "terapia_intensiva_g"
+DAILY_ICU = "terapia_intensiva_g"
 TOTAL_HOSPITALIZED_KEY = "totale_ospedalizzati"
 DAILY_HOSPITALIZED_KEY = "totale_ospedalizzati_g"
 SELF_ISOLATION_KEY = "isolamento_domiciliare"
@@ -28,7 +27,6 @@ CP_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y"
 DATE_KEY = "data"
-DATA_TO_MONITOR = "json"
 NOTE_KEY = "note"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
 TRANSLATION_DIRNAME = "translations"
@@ -84,7 +82,7 @@ VARS[DAILY_DEATHS_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "daily"
 }
-VARS[ICU_D_KEY] = {
+VARS[DAILY_ICU] = {
     "title": gettext("Daily Intensive Care Unit"),
     "desc": gettext("# of people daily admitted in ICU"),
     "longdesc": gettext("Daily count of people in ICU"),
@@ -121,16 +119,20 @@ VARS[DAILY_HOSPITALIZED_KEY] = {
 }
 
 # Current-state variables
-VARS[HOSPITALIZED_WITH_SYMPTOMS_KEY] = {
-    "title": gettext("Hospitalized With Symptoms"),
+VARS[TOTAL_POSITIVE_KEY] = {
+    "title": gettext("Total Positive"),
     "desc": gettext(
-        "# of people currently hospitalized with symptoms"
+        "# of people currently "
+        "hospitalized with symptoms + ICU + self isolation"
     ),
     "longdesc": gettext(
-        "Total count of people currently in hospital "
-        "due to coronavirus with symptoms"
+        "People currently positive. "
+        "Unlike 'Total Cases' it does not take into account "
+        "'healed' and 'deaths'. By the end of the outbreak "
+        "this should tend to zero. In particular, it is: "
+        "total positive = total cases - total healed - total deaths"
     ),
-    "icon": "fas fa-hospital-symbol",
+    "icon": "fas fa-viruses",
     "increase": TREND_SYMBOL_LOGIC["increase"],
     "decrease": TREND_SYMBOL_LOGIC["decrease"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
@@ -148,6 +150,22 @@ VARS[ICU_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "current"
 }
+VARS[HOSPITALIZED_WITH_SYMPTOMS_KEY] = {
+    "title": gettext("Hospitalized With Symptoms"),
+    "desc": gettext(
+        "# of people currently hospitalized with symptoms"
+    ),
+    "longdesc": gettext(
+        "Total count of people currently in hospital "
+        "due to coronavirus with symptoms"
+    ),
+    "icon": "fas fa-hospital-symbol",
+    "increase": TREND_SYMBOL_LOGIC["increase"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "current"
+}
+
 VARS[TOTAL_HOSPITALIZED_KEY] = {
     "title": gettext("Total Hospitalized"),
     "desc": gettext("# of people currently hospitalized"),
@@ -172,51 +190,8 @@ VARS[SELF_ISOLATION_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "current"
 }
-VARS[TOTAL_POSITIVE_KEY] = {
-    "title": gettext("Total Positive"),
-    "desc": gettext(
-        "# of people currently "
-        "hospitalized with symptoms + ICU + self isolation"
-    ),
-    "longdesc": gettext(
-        "People currently positive. "
-        "Unlike 'Total Cases' it does not take into account "
-        "'healed' and 'deaths'. By the end of the outbreak "
-        "this should tend to zero. In particular, it is: "
-        "total positive = total cases - total healed - total deaths"
-    ),
-    "icon": "fas fa-viruses",
-    "increase": TREND_SYMBOL_LOGIC["increase"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "current"
-}
 
 # Cumulative variables
-VARS[TOTAL_HEALED_KEY] = {
-    "title": gettext("Total Healed"),
-    "desc": gettext("Cumulative # of people healed"),
-    "longdesc": gettext(
-        "Total number of people healed since the beginning of the outbreak"
-    ),
-    "icon": "fas fa-smile",
-    "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "cum"
-}
-VARS[TOTAL_DEATHS_KEY] = {
-    "title": gettext("Total Deaths"),
-    "desc": gettext("Total deaths count"),
-    "longdesc": gettext(
-        "Total deaths count since the beginning of the outbreak"
-    ),
-    "icon": "fas fa-cross",
-    "increase": TREND_SYMBOL_LOGIC["increase"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "cum"
-}
 VARS[TOTAL_CASES_KEY] = {
     "title": gettext("Total Cases"),
     "desc": gettext(
@@ -233,6 +208,19 @@ VARS[TOTAL_CASES_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "cum"
 }
+VARS[TOTAL_DEATHS_KEY] = {
+    "title": gettext("Total Deaths"),
+    "desc": gettext("Total deaths count"),
+    "longdesc": gettext(
+        "Total deaths count since the beginning of the outbreak"
+    ),
+    "icon": "fas fa-cross",
+    "increase": TREND_SYMBOL_LOGIC["increase"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "cum"
+}
+
 VARS[TOTAL_SWABS_KEY] = {
     "title": gettext("Total Swabs"),
     "desc": gettext("# of swabs performed"),
@@ -241,6 +229,18 @@ VARS[TOTAL_SWABS_KEY] = {
         "the outbreak"
     ),
     "icon": "fas fa-vial",
+    "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "cum"
+}
+VARS[TOTAL_HEALED_KEY] = {
+    "title": gettext("Total Healed"),
+    "desc": gettext("Cumulative # of people healed"),
+    "longdesc": gettext(
+        "Total number of people healed since the beginning of the outbreak"
+    ),
+    "icon": "fas fa-smile",
     "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
     "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
@@ -305,34 +305,12 @@ DASHBOARD_DATA = {
     "days_since_critical_areas": (
             dt.datetime.today() - CRITICAL_AREAS_DAY).days
 }
-MONGO_URI = os.environ["MONGO_URI"]
-NATIONAL_DATA_COLLECTION = os.environ["NATIONAL_DATA_COLLECTION"]
-NATIONAL_TRENDS_COLLECTION = os.environ["NATIONAL_TRENDS_COLLECTION"]
-NATIONAL_SERIES_COLLECTION = os.environ["NATIONAL_SERIES_COLLECTION"]
-REGIONAL_DATA_COLLECTION = os.environ["REGIONAL_DATA_COLLECTION"]
-REGIONAL_TRENDS_COLLECTION = os.environ["REGIONAL_TRENDS_COLLECTION"]
-REGIONAL_SERIES_COLLECTION = os.environ["REGIONAL_SERIES_COLLECTION"]
-REGIONAL_BREAKDOWN_COLLECTION = os.environ["REGIONAL_BREAKDOWN_COLLECTION"]
-PROVINCIAL_DATA_COLLECTION = os.environ["PROVINCIAL_DATA_COLLECTION"]
-PROVINCIAL_TRENDS_COLLECTION = os.environ["PROVINCIAL_TRENDS_COLLECTION"]
-PROVINCIAL_SERIES_COLLECTION = os.environ["PROVINCIAL_SERIES_COLLECTION"]
-PROVINCIAL_BREAKDOWN_COLLECTION = os.environ["PROVINCIAL_BREAKDOWN_COLLECTION"]
 
 DATA_SERIES = [
     VARS[key]["title"]
     for key in VARS
 ]
-#  The order here matters as it will be reflected in the webpage
-BCR_TYPES = [
-    HOSPITALIZED_WITH_SYMPTOMS_KEY,
-    ICU_KEY,
-    TOTAL_HOSPITALIZED_KEY,
-    TOTAL_POSITIVE_KEY,
-    TOTAL_HEALED_KEY,
-    TOTAL_DEATHS_KEY,
-    TOTAL_CASES_KEY,
-    TOTAL_SWABS_KEY
-]
+
 ITALY_MAP = {
     'Abruzzo': ['Chieti', "L'Aquila", 'Pescara', 'Teramo'],
     'Basilicata': ['Matera', 'Potenza'],

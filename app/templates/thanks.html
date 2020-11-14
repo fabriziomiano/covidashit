@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block head %}
+    {% include 'base/head.html' %}
+{% endblock %}
+<body>
+
+    <div class="jumbotron text-center">
+        <img class="rounded-pill" src="{{ url_for('static', filename='img/me.png') }}" alt="thanks">
+        <h6 class="display-4">{{ _("Thank You!") }} &#10084;&#65039; </h6>
+        <p class="lead">
+            {{ _("I'm glad you liked the project and felt like it was worth to donate") }}
+        </p>
+        <p>{{ _("Stay Safe and wear a mask!") }}</p>
+      <hr>
+
+      <p class="lead">
+        <a class="btn btn-primary" href="/" role="button"><i class="fa fa-home"></i> {{ _("Go back to COVIDashIT") }}</a>
+      </p>
+    </div>
+
+</body>
+</html>

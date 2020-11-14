@@ -27,6 +27,24 @@ The website's language is decided upon the client request.
 The front-end is under `covidashit/templates` and it uses JS to create the chart object, 
 which is built using [HighCharts](https://www.highcharts.com/).
 
+For the app to be operational, a mongoDB must be populated:
+ - The following environmental variables must be set:
+    * `MONGO_URI`
+    * `NATIONAL_DATA_COLLECTION`
+    * `NATIONAL_TRENDS_COLLECTION`
+    * `NATIONAL_SERIES_COLLECTION`
+    * `REGIONAL_DATA_COLLECTION`
+    * `REGIONAL_TRENDS_COLLECTION`
+    * `REGIONAL_SERIES_COLLECTION`
+    * `REGIONAL_BREAKDOWN_COLLECTION`
+    * `PROVINCIAL_DATA_COLLECTION`
+    * `PROVINCIAL_TRENDS_COLLECTION`
+    * `PROVINCIAL_SERIES_COLLECTION`
+    * `PROVINCIAL_BREAKDOWN_COLLECTION`
+ - The API `/api/update/<collection_type>` can be called via POST requests to drop and recreate the
+ `national`, `regional` and `provincial` collections, e.g.
+ ```POST /api/update/national```
+ 
 #### Setup a local version
 
 * create and activate a virtual environment [(follow this)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
@@ -43,8 +61,8 @@ Flask will be listening at [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ##### Production
 The provided Dockerfile is ready to be used to deploy the app on Heroku. 
-To test the production environment locally, uncomment L18 and L31 of the 
-Dockerfile, and run
+To test the production environment locally, uncomment L17, add the 
+above-mentioned env variables, and run:
 ```
 $ docker build --tag covidashit:latest . 
 $ docker run --name covidashit -d -p 80:5000 covidashit
