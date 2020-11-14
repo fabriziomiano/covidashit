@@ -11,7 +11,7 @@ from app.utils.data import (
     get_provincial_cards, get_provincial_series
 )
 from config import (
-    DATA_SERIES, VARS, BCR_TYPES, REGIONS, PROVINCES, ITALY_MAP
+    DATA_SERIES, VARS, REGIONS, PROVINCES, ITALY_MAP
 )
 
 
@@ -21,8 +21,7 @@ def build_area_dashboard(area, area_index, area_length, cards, **kwargs):
     updated_at = kwargs.get("updated_at")
     notes = kwargs.get("notes")
     positivity_idx = kwargs.get("positivity_idx")
-    app.logger.debug(
-        "{} {} {}".format(area, area_index, area_length - 1))
+    app.logger.debug(f"{area} {area_index} {area_length - 1}")
     data = enrich_frontend_data(
         ts=int(time.time()),
         page_title="{} | {}".format(area, gettext("COVID-19 Italy")),
@@ -36,7 +35,6 @@ def build_area_dashboard(area, area_index, area_length, cards, **kwargs):
         data_series=DATA_SERIES,
         breakdown=breakdown,
         vars_config=VARS,
-        bcr_types=BCR_TYPES,
         positivity_idx=positivity_idx,
         italy_map=ITALY_MAP,
         notes=notes)
@@ -67,7 +65,6 @@ def new_national():
         data_series=DATA_SERIES,
         breakdown=breakdown,
         vars_config=VARS,
-        bcr_types=BCR_TYPES,
         positivity_idx=positivity_idx,
         italy_map=ITALY_MAP,
         notes=notes)
@@ -112,9 +109,7 @@ def provincial_view(province):
     :return: template
     """
     if province not in PROVINCES:
-        error = (
-            'Area "{}" not found. '
-            'Please try with "{}"'.format(province, province.capitalize()))
+        error = f'Area "{province}" not found.'
         return render_template("errors/404.html", error=error)
     cards = get_provincial_cards(province=province)
     app.logger.debug(f"Cards: {cards}")
@@ -130,3 +125,12 @@ def provincial_view(province):
     )
     return build_area_dashboard(
         province, province_index, n_provinces, cards, **view_data)
+
+
+@dashboard.route("/thanks")
+def thanks_view():
+    """
+    Render the "thank you" view
+    :return: HTML
+    """
+    return render_template("thanks.html")

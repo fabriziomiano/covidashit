@@ -5,9 +5,8 @@ from flask_babel import gettext
 from collections import OrderedDict
 
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
-HOSPITALIZED_WITH_SYMPTOMS_D_KEY = "ricoverati_con_sintomi_g"
 ICU_KEY = "terapia_intensiva"
-ICU_D_KEY = "terapia_intensiva_g"
+DAILY_ICU = "terapia_intensiva_g"
 TOTAL_HOSPITALIZED_KEY = "totale_ospedalizzati"
 DAILY_HOSPITALIZED_KEY = "totale_ospedalizzati_g"
 SELF_ISOLATION_KEY = "isolamento_domiciliare"
@@ -28,7 +27,6 @@ CP_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y"
 DATE_KEY = "data"
-DATA_TO_MONITOR = "json"
 NOTE_KEY = "note"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
 TRANSLATION_DIRNAME = "translations"
@@ -84,7 +82,7 @@ VARS[DAILY_DEATHS_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "daily"
 }
-VARS[ICU_D_KEY] = {
+VARS[DAILY_ICU] = {
     "title": gettext("Daily Intensive Care Unit"),
     "desc": gettext("# of people daily admitted in ICU"),
     "longdesc": gettext("Daily count of people in ICU"),
@@ -305,34 +303,12 @@ DASHBOARD_DATA = {
     "days_since_critical_areas": (
             dt.datetime.today() - CRITICAL_AREAS_DAY).days
 }
-MONGO_URI = os.environ["MONGO_URI"]
-NATIONAL_DATA_COLLECTION = os.environ["NATIONAL_DATA_COLLECTION"]
-NATIONAL_TRENDS_COLLECTION = os.environ["NATIONAL_TRENDS_COLLECTION"]
-NATIONAL_SERIES_COLLECTION = os.environ["NATIONAL_SERIES_COLLECTION"]
-REGIONAL_DATA_COLLECTION = os.environ["REGIONAL_DATA_COLLECTION"]
-REGIONAL_TRENDS_COLLECTION = os.environ["REGIONAL_TRENDS_COLLECTION"]
-REGIONAL_SERIES_COLLECTION = os.environ["REGIONAL_SERIES_COLLECTION"]
-REGIONAL_BREAKDOWN_COLLECTION = os.environ["REGIONAL_BREAKDOWN_COLLECTION"]
-PROVINCIAL_DATA_COLLECTION = os.environ["PROVINCIAL_DATA_COLLECTION"]
-PROVINCIAL_TRENDS_COLLECTION = os.environ["PROVINCIAL_TRENDS_COLLECTION"]
-PROVINCIAL_SERIES_COLLECTION = os.environ["PROVINCIAL_SERIES_COLLECTION"]
-PROVINCIAL_BREAKDOWN_COLLECTION = os.environ["PROVINCIAL_BREAKDOWN_COLLECTION"]
 
 DATA_SERIES = [
     VARS[key]["title"]
     for key in VARS
 ]
-#  The order here matters as it will be reflected in the webpage
-BCR_TYPES = [
-    HOSPITALIZED_WITH_SYMPTOMS_KEY,
-    ICU_KEY,
-    TOTAL_HOSPITALIZED_KEY,
-    TOTAL_POSITIVE_KEY,
-    TOTAL_HEALED_KEY,
-    TOTAL_DEATHS_KEY,
-    TOTAL_CASES_KEY,
-    TOTAL_SWABS_KEY
-]
+
 ITALY_MAP = {
     'Abruzzo': ['Chieti', "L'Aquila", 'Pescara', 'Teramo'],
     'Basilicata': ['Matera', 'Potenza'],
