@@ -9,8 +9,8 @@ from app.db.collections import (
     PROVINCIAL_DATA, PROVINCIAL_TRENDS, PROVINCIAL_SERIES, PROVINCIAL_BREAKDOWN
 )
 from config import (
-    PROVINCE_KEY, REGION_KEY, DATE_KEY, UPDATE_FMT,
-    DASHBOARD_DATA, RUBBISH_NOTE_REGEX, NOTE_KEY
+    PROVINCE_KEY, REGION_KEY, DATE_KEY, UPDATE_FMT, DASHBOARD_DATA,
+    RUBBISH_NOTE_REGEX, NOTE_KEY, DAILY_POSITIVITY_INDEX
 )
 
 
@@ -116,12 +116,18 @@ def get_provincial_breakdown(region):
 
 
 def translate_series_lang(series):
-    for s in series["daily"]:
-        s["name"] = gettext(s["name"])
-    for s in series["current"]:
-        s["name"] = gettext(s["name"])
-    for s in series["cum"]:
-        s["name"] = gettext(s["name"])
+    daily_series = series.get("daily")
+    current_series = series.get("current")
+    cum_series = series.get("cum")
+    if daily_series is not None:
+        for s in daily_series:
+            s["name"] = gettext(s["name"])
+    if current_series is not None:
+        for s in current_series:
+            s["name"] = gettext(s["name"])
+    if cum_series is not None:
+        for s in cum_series:
+            s["name"] = gettext(s["name"])
     return series
 
 
@@ -141,15 +147,18 @@ def get_provincial_series(province):
     return translate_series_lang(series)
 
 
-def get_swabs_percentage(area_type="national"):
+def get_positivity_idx(area_type="national", area=None):
     query_menu = {
         "national": {
-            "collection": NATIONAL_DATA
+            "collection": NATIONAL_DATA,
+            "query": {}
         },
         "regional": {
-            "collection": REGIONAL_DATA
+            "collection": REGIONAL_DATA,
+            "query": {REGION_KEY: area}
         }
     }
+    query = query_menu[area_type]["query"]
     collection = query_menu[area_type]["collection"]
-    doc = next(collection.find().sort([(DATE_KEY, -1)]).limit(1))
-    return "{0:+}%".format(round(doc["tamponi_perc"]))
+    doc = next(collection.find(query).sort([(DATE_KEY, -1)]).limit(1))
+    return f"{round(doc[DAILY_POSITIVITY_INDEX])}%"

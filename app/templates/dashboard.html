@@ -14,7 +14,7 @@
                     {% if area not in provinces %}
                         <div class="text-danger">
                             <small><i class="fas fa-vial mr-1"></i>
-                                {{ _("Positive swabs weekly percentage:") }} <strong>{{ positive_swabs_percentage }}</strong></small>
+                                {{ _("Positivity Index:") }} <strong>{{ positivity_idx }}</strong></small>
                         </div>
                     {% endif %}
                 </div>
@@ -23,7 +23,7 @@
 
                 {% if notes %}
                     <div class="small alert alert-info">
-                        <strong>{{ _("Notes:") }}</strong> {{ notes }}
+                        <i class="fas fa-info-circle"></i> {{ notes }}
                     </div>
                 {% endif %}
 

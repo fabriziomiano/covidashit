@@ -6,12 +6,12 @@ from flask_babel import gettext
 from app.ui import dashboard
 from app.utils.data import (
     latest_update, enrich_frontend_data, get_regional_breakdown,
-    get_notes, get_national_cards, get_national_series, get_swabs_percentage,
+    get_notes, get_national_cards, get_national_series, get_positivity_idx,
     get_regional_cards, get_regional_series, get_provincial_breakdown,
     get_provincial_cards, get_provincial_series
 )
 from config import (
-    DATA_SERIES, VARS_CONFIG, BCR_TYPES, REGIONS, PROVINCES, ITALY_MAP
+    DATA_SERIES, VARS, BCR_TYPES, REGIONS, PROVINCES, ITALY_MAP
 )
 
 
@@ -20,7 +20,7 @@ def build_area_dashboard(area, area_index, area_length, cards, **kwargs):
     series = kwargs.get("series")
     updated_at = kwargs.get("updated_at")
     notes = kwargs.get("notes")
-    positive_swabs_percentage = kwargs.get("positive_swabs_percentage")
+    positivity_idx = kwargs.get("positivity_idx")
     app.logger.debug(
         "{} {} {}".format(area, area_index, area_length - 1))
     data = enrich_frontend_data(
@@ -35,9 +35,9 @@ def build_area_dashboard(area, area_index, area_length, cards, **kwargs):
         latest_update=updated_at,
         data_series=DATA_SERIES,
         breakdown=breakdown,
-        vars_config=VARS_CONFIG,
+        vars_config=VARS,
         bcr_types=BCR_TYPES,
-        positive_swabs_percentage=positive_swabs_percentage,
+        positivity_idx=positivity_idx,
         italy_map=ITALY_MAP,
         notes=notes)
     return render_template("dashboard.html", **data)
@@ -56,7 +56,7 @@ def new_national():
     series = get_national_series()
     notes = get_notes(notes_type="national")
     updated_at = latest_update(data_type="national")
-    positive_swabs_percentage = get_swabs_percentage(area_type="national")
+    positivity_idx = get_positivity_idx(area_type="national")
     data = enrich_frontend_data(
         page_title=gettext("COVID-19 Italy"),
         dashboard_title=gettext("National Dashboard"),
@@ -66,9 +66,9 @@ def new_national():
         latest_update=updated_at,
         data_series=DATA_SERIES,
         breakdown=breakdown,
-        vars_config=VARS_CONFIG,
+        vars_config=VARS,
         bcr_types=BCR_TYPES,
-        positive_swabs_percentage=positive_swabs_percentage,
+        positivity_idx=positivity_idx,
         italy_map=ITALY_MAP,
         notes=notes)
     return render_template("dashboard.html", **data)
@@ -82,9 +82,7 @@ def regional_view(region):
     :return: template
     """
     if region not in REGIONS:
-        error = (
-            'Area "{}" not found. '
-            'Please try with "{}"'.format(region, region.capitalize()))
+        error = f'Area {region} not found'
         return render_template("errors/404.html", error=error)
     cards = get_regional_cards(region)
     app.logger.debug(f"Cards: {cards}")
@@ -92,12 +90,12 @@ def regional_view(region):
     series = get_regional_series(region=region)
     notes = get_notes(notes_type="regional", area=region)
     updated_at = latest_update(data_type="regional")
-    positive_swabs_percentage = get_swabs_percentage(area_type="regional")
+    positivity_idx = get_positivity_idx(area_type="regional", area=region)
     region_index = REGIONS.index(region)
     n_regions = len(REGIONS)
     view_data = dict(
         breakdown=breakdown,
-        positive_swabs_percentage=positive_swabs_percentage,
+        positivity_idx=positivity_idx,
         series=series,
         notes=notes,
         updated_at=updated_at
