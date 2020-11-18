@@ -69,9 +69,56 @@ $ docker run --name covidashit -d -p 80:5000 covidashit
 ```
 Flask sarà in ascolto all'url [http://127.0.0.1](http://127.0.0.1) 
 
-##### Additional note
+##### Note addizionali
 
 L'app puo' essere pubblicata su Heroku sia come docker container che semplicemente utilizzando il Procfile.
+
+
+## Plots API
+
+L'app fornisce delle API per produrre i plot delle variabili con `matplotlib`.
+Puo' tornare un JSON response con l'immagine codificata in base64 oppure il 
+contenuto in byte per scaricare il file.
+
+### Resource URL 
+
+`https://www.covidash.it/api/plot`
+
+### Parametri
+| Nome      | Richiesto                                        | Descrizione                                  | Valore di default | Esempio                                  |
+|-----------|-------------------------------------------------|----------------------------------------------|---------------|------------------------------------------|
+| data_type | Si                                             | Il data type da plottare                        |               | uno tra ["national" "regional" "provincial"] |
+| varname   | Si                                             | Il nome della variabile da plottare             |               | uno tra ["nuovi_positivi", "tamponi_g"...]    |
+| area      | Solo se data_type è "regional" o "provincial" | The name of the area to filter the data with |               | uno tra ["Sicilia", "Catania"...]                  |
+| download  | No                                              | The flag to download directly the file       | False         | "true"                                   |
+
+### Esempi
+
+#### Immagine codififcata in base64-encoded (JSON response)
+###### Request
+```
+curl --request GET \
+    --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi'
+```
+
+###### Response
+
+`{
+    "errors":[],
+    "img":"iVBORw0KGgoAA...",
+    "status":"ok"
+}`
+
+#### Per scaricare il file 
+###### Request 
+```
+curl --request GET \
+    --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi&download=true' \
+    --output plot.png
+```
+
+Il plot verrà scritto in `./plot.png`
+
 
 ## Donazione
 

@@ -1,12 +1,14 @@
 import re
 
+import pandas as pd
 from flask import current_app as app
 from flask_babel import gettext
 
 from app.db.collections import (
     NATIONAL_DATA, NATIONAL_TRENDS, NATIONAL_SERIES,
     REGIONAL_DATA, REGIONAL_TRENDS, REGIONAL_SERIES, REGIONAL_BREAKDOWN,
-    PROVINCIAL_DATA, PROVINCIAL_TRENDS, PROVINCIAL_SERIES, PROVINCIAL_BREAKDOWN
+    PROVINCIAL_DATA, PROVINCIAL_TRENDS, PROVINCIAL_SERIES,
+    PROVINCIAL_BREAKDOWN
 )
 from config import (
     PROVINCE_KEY, REGION_KEY, DATE_KEY, UPDATE_FMT, DASHBOARD_DATA,
@@ -185,3 +187,18 @@ def get_positivity_idx(area_type="national", area=None):
     collection = query_menu[area_type]["collection"]
     doc = next(collection.find(query).sort([(DATE_KEY, -1)]).limit(1))
     return f"{round(doc[DAILY_POSITIVITY_INDEX])}%"
+
+
+def get_national_data():
+    cursor = NATIONAL_DATA.find({})
+    return pd.DataFrame(list(cursor))
+
+
+def get_region_data(region):
+    cursor = REGIONAL_DATA.find({REGION_KEY: region})
+    return pd.DataFrame(list(cursor))
+
+
+def get_province_data(province):
+    cursor = PROVINCIAL_DATA.find({PROVINCE_KEY: province})
+    return pd.DataFrame(list(cursor))
