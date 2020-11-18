@@ -74,6 +74,52 @@ The docker container will be listening at [http://127.0.0.1](http://127.0.0.1)
 
 The app can be deployed on Heroku either as a docker container or simply using the Procfile
 
+## Plots API
+
+The app provides an API to produce a server-side plot with `matplotlib`.
+The API can return a JSON response with the base64-encoded image or 
+the bytes content to be saved as a file.
+
+### Resource URL 
+
+
+`https://www.covidash.it/api/plot`
+
+### Parameters
+| Name      | Required                                        | Description                                  | Default Value | Example                                  |
+|-----------|-------------------------------------------------|----------------------------------------------|---------------|------------------------------------------|
+| data_type | Yes                                             | The data type To plot                        |               | "national" or "regional" or "provincial" |
+| varname   | Yes                                             | The name of the variable to plot             |               | "nuovi_positivi", "tamponi_g"...         |
+| area      | Only if data_type is "regional" or "provincial" | The name of the area to filter the data with |               | "Sicilia", "Catania"...                  |
+| download  | No                                              | The flag to download directly the file       | False         | "true"                                   |
+
+### Examples
+
+#### To get the base64-encoded image in a JSON response
+###### Request
+```
+curl --request GET \
+    --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi'
+```
+
+###### Response
+
+`{
+    "errors":[],
+    "img":"iVBORw0KGgoAA...",
+    "status":"ok"
+}`
+
+#### To download the file
+###### Request 
+```
+curl --request GET \
+    --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi&download=true' \
+    --output plot.png
+```
+
+The plot will be written in `plot.png`
+
 
 
 ## Donation
