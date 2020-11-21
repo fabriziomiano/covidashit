@@ -1,5 +1,5 @@
 <!-- Modals with DataTables -->
-{% if area not in provinces %}
+{% if breakdown %}
     {% for items in breakdown.items() %}
         <div class="modal fade " id="ModalCenter_{{ items[0] }}" tabindex="-1"
              role="dialog"

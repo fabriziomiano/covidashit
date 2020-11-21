@@ -1,3 +1,4 @@
+import datetime as dt
 import re
 
 import pandas as pd
@@ -11,12 +12,31 @@ from app.db.collections import (
     PROVINCIAL_BREAKDOWN
 )
 from config import (
-    PROVINCE_KEY, REGION_KEY, DATE_KEY, UPDATE_FMT, DASHBOARD_DATA,
-    RUBBISH_NOTE_REGEX, NOTE_KEY, DAILY_POSITIVITY_INDEX
+    PROVINCE_KEY, REGION_KEY, DATE_KEY, UPDATE_FMT, RUBBISH_NOTE_REGEX, NOTE_KEY,
+    DAILY_POSITIVITY_INDEX, REGIONS, PROVINCES, CRITICAL_AREAS_DAY, PHASE3_DAY,
+    PHASE2_DAY, LOCKDOWN_DAY, VARS, VERSION, ITALY_MAP
 )
 
+DATA_SERIES = [
+    VARS[key]["title"]
+    for key in VARS
+]
+DASHBOARD_DATA = {
+    "vars_config": VARS,
+    "data_series": DATA_SERIES,
+    "italy_map": ITALY_MAP,
+    "VERSION": VERSION,
+    "regions": REGIONS,
+    "provinces": PROVINCES,
+    "days_in_phase3": (CRITICAL_AREAS_DAY - PHASE3_DAY).days,
+    "days_in_phase2": (PHASE3_DAY - PHASE2_DAY).days,
+    "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days,
+    "days_since_critical_areas": (
+            dt.datetime.today() - CRITICAL_AREAS_DAY).days
+}
 
-def latest_update(data_type="national"):
+
+def get_latest_update(data_type="national"):
     """
     Return the value of the key PCM_DATE_KEY of the last dict in data
     :return: str

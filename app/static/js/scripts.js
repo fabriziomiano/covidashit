@@ -1,4 +1,4 @@
-let provinces = [
+let PROVINCES = [
     'Agrigento', 'Alessandria', 'Ancona', 'Aosta', 'Arezzo',
     'Ascoli Piceno', 'Asti', 'Avellino', 'Bari',
     'Barletta-Andria-Trani', 'Belluno', 'Benevento', 'Bergamo',
@@ -22,7 +22,7 @@ let provinces = [
     'Verona', 'Vibo Valentia', 'Vicenza', 'Viterbo'
 ];
 
-let regions = [
+let REGIONS = [
     'Abruzzo', 'Basilicata', 'Calabria', 'Campania', 'Emilia-Romagna',
     'Friuli Venezia Giulia', 'Lazio', 'Liguria', 'Lombardia',
     'Marche', 'Molise', 'P.A. Bolzano', 'P.A. Trento', 'Piemonte',
@@ -30,16 +30,17 @@ let regions = [
     "Valle d'Aosta", 'Veneto'
 ];
 
-let regionsAndProvinces = regions.concat(provinces);
+let AREAS = REGIONS.concat(PROVINCES);
 
-let regionsUrl = '/regions/';
-let provincesUrl = '/provinces/';
+let URL_REGIONS = '/regions/';
+let URL_PROVINCES = '/provinces/';
 
+let SEARCHERRMSG = '{{ gettext("Region/province not in the right format") }}';
 
 (function ($) {
     "use strict";
 
-    // Add active state to sidbar nav links
+    // Add active state to sidebar nav links
     const path = window.location.href; // because the 'href' property of the DOM element is the absolute path
     $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
         if (this.href === path) {
@@ -79,13 +80,13 @@ let provincesUrl = '/provinces/';
 
     $(function () {
         $('#searchInput').autocomplete({
-            source: regionsAndProvinces,
+            source: AREAS,
             delay: 0,
             autoFocus: true,
             select: function (event, ui) {
                 document.location.href = validateSearchInput(ui.item.value);
             },
-            focus: function (event, ui) {
+            focus: function (event) {
                 event.preventDefault();
             }
         });
@@ -102,12 +103,12 @@ let provincesUrl = '/provinces/';
     function validateSearchInput(searchInput) {
         let url = "";
         console.log(searchInput)
-        if (regions.includes(searchInput)) {
-            url = regionsUrl + searchInput;
-        } else if (provinces.includes(searchInput)) {
-            url = provincesUrl + searchInput;
+        if (REGIONS.includes(searchInput)) {
+            url = URL_REGIONS + searchInput;
+        } else if (PROVINCES.includes(searchInput)) {
+            url = URL_PROVINCES + searchInput;
         } else {
-            alert(searchInputErrMsg);
+            alert(SEARCHERRMSG);
         }
         return url;
     }
@@ -134,11 +135,14 @@ $(document).ready(function () {
 
 });
 
+// check on new users
 $(document).ready(function () {
     let hasVisited = localStorage.getItem("hasVisited");
-    if (hasVisited === null) {
+    let localVersion = localStorage.getItem("version");
+    if (hasVisited === null || localVersion !== VERSION ) {
         $('#welcomeModal').modal('show');
-        hasVisited = "yes";
-        localStorage.setItem("hasVisited", hasVisited)
+        hasVisited = "yes"; // localStorage.setItem() only accepts strings
+        localStorage.setItem("hasVisited", hasVisited);
+        localStorage.setItem("version", VERSION);
     }
 });

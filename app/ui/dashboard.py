@@ -4,41 +4,17 @@ from flask import render_template, redirect, current_app as app
 from flask_babel import gettext
 
 from app.ui import dashboard
+from app.utils import region_of_province
 from app.utils.data import (
-    latest_update, enrich_frontend_data, get_regional_breakdown,
+    get_latest_update, enrich_frontend_data, get_regional_breakdown,
     get_notes, get_national_cards, get_national_series, get_positivity_idx,
     get_regional_cards, get_regional_series, get_provincial_breakdown,
     get_provincial_cards, get_provincial_series
 )
-from config import (
-    DATA_SERIES, VARS, REGIONS, PROVINCES, ITALY_MAP
-)
+from config import REGIONS, PROVINCES, ITALY_MAP
 
-
-def build_area_dashboard(area, area_index, area_length, cards, **kwargs):
-    breakdown = kwargs.get("breakdown")
-    series = kwargs.get("series")
-    updated_at = kwargs.get("updated_at")
-    notes = kwargs.get("notes")
-    positivity_idx = kwargs.get("positivity_idx")
-    app.logger.debug(f"{area} {area_index} {area_length - 1}")
-    data = enrich_frontend_data(
-        ts=int(time.time()),
-        page_title="{} | {}".format(area, gettext("COVID-19 Italy")),
-        dashboard_title=area,
-        area=area,
-        area_index=area_index,
-        areas_length=area_length,
-        series=series,
-        trend_cards=cards,
-        latest_update=updated_at,
-        data_series=DATA_SERIES,
-        breakdown=breakdown,
-        vars_config=VARS,
-        positivity_idx=positivity_idx,
-        italy_map=ITALY_MAP,
-        notes=notes)
-    return render_template("dashboard.html", **data)
+URL_REGIONS = "/regions"
+URL_PROVINCES = "/provinces"
 
 
 @dashboard.route("/national")
@@ -47,31 +23,32 @@ def old_national_view():
 
 
 @dashboard.route("/")
-def new_national():
+def national_view():
+    """
+    Render the national view
+    :return: template
+    """
     cards = get_national_cards()
     app.logger.debug(f"Cards: {cards}")
     breakdown = get_regional_breakdown()
     series = get_national_series()
     notes = get_notes(notes_type="national")
-    updated_at = latest_update(data_type="national")
+    updated_at = get_latest_update(data_type="national")
     positivity_idx = get_positivity_idx(area_type="national")
     data = enrich_frontend_data(
         page_title=gettext("COVID-19 Italy"),
-        dashboard_title=gettext("National Dashboard"),
+        dashboard_title=gettext("Italy"),
         ts=int(time.time()),
         trend_cards=cards,
         series=series,
         latest_update=updated_at,
-        data_series=DATA_SERIES,
         breakdown=breakdown,
-        vars_config=VARS,
         positivity_idx=positivity_idx,
-        italy_map=ITALY_MAP,
         notes=notes)
     return render_template("dashboard.html", **data)
 
 
-@dashboard.route("/regions/<region>")
+@dashboard.route(f"{URL_REGIONS}/<region>")
 def regional_view(region):
     """
     Render the regional view
@@ -86,22 +63,39 @@ def regional_view(region):
     breakdown = get_provincial_breakdown(region=region)
     series = get_regional_series(region=region)
     notes = get_notes(notes_type="regional", area=region)
-    updated_at = latest_update(data_type="regional")
+    latest_update = get_latest_update(data_type="regional")
     positivity_idx = get_positivity_idx(area_type="regional", area=region)
+    provinces = ITALY_MAP[region]
     region_index = REGIONS.index(region)
     n_regions = len(REGIONS)
+    previous_url = f"{URL_REGIONS}/{REGIONS[region_index - 1]}"
+    try:
+        next_region_url = f"{URL_REGIONS}/{REGIONS[region_index + 1]}"
+    except IndexError:
+        next_region_url = f"{URL_REGIONS}/{REGIONS[-1]}"
     view_data = dict(
+        ts=int(time.time()),
+        page_title="{} | {}".format(region, gettext("COVID-19 Italy")),
+        dashboard_title=region,
+        region=region,
+        region_provinces=provinces,
+        trend_cards=cards,
         breakdown=breakdown,
         positivity_idx=positivity_idx,
         series=series,
         notes=notes,
-        updated_at=updated_at
+        previous_area_url=previous_url,
+        next_area_url=next_region_url,
+        latest_update=latest_update,
+        areas_length=n_regions,
+        area_index=region_index,
+        cards=cards
     )
-    return build_area_dashboard(
-        region, region_index, n_regions, cards, **view_data)
+    dashboard_data = enrich_frontend_data(area=region, **view_data)
+    return render_template("dashboard.html", **dashboard_data)
 
 
-@dashboard.route("/provinces/<province>")
+@dashboard.route(f"{URL_PROVINCES}/<province>")
 def provincial_view(province):
     """
     Render the provincial view
@@ -115,16 +109,33 @@ def provincial_view(province):
     app.logger.debug(f"Cards: {cards}")
     series = get_provincial_series(province=province)
     notes = get_notes(notes_type="provincial", area=province)
-    updated_at = latest_update(data_type="provincial")
-    province_index = PROVINCES.index(province)
-    n_provinces = len(PROVINCES)
+    latest_update = get_latest_update(data_type="provincial")
+    province_region = region_of_province(province)
+    n_provinces = len(ITALY_MAP[province_region])
+    provinces = ITALY_MAP[province_region]
+    province_index = ITALY_MAP[province_region].index(province)
+    previous_url = f"{URL_PROVINCES}/{provinces[province_index - 1]}"
+    try:
+        next_province_url = f"{URL_PROVINCES}/{provinces[province_index + 1]}"
+    except IndexError:
+        next_province_url = f"{URL_PROVINCES}/{provinces[-1]}"
     view_data = dict(
+        ts=int(time.time()),
+        page_title="{} | {}".format(province, gettext("COVID-19 Italy")),
+        dashboard_title=province,
+        province=province,
+        region=province_region,
+        trend_cards=cards,
         series=series,
         notes=notes,
-        updated_at=updated_at
+        previous_area_url=previous_url,
+        next_area_url=next_province_url,
+        latest_update=latest_update,
+        areas_length=n_provinces,
+        area_index=province_index,
     )
-    return build_area_dashboard(
-        province, province_index, n_provinces, cards, **view_data)
+    dashboard_data = enrich_frontend_data(province, **view_data)
+    return render_template("dashboard.html", **dashboard_data)
 
 
 @dashboard.route("/thanks")
