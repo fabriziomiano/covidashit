@@ -4,6 +4,7 @@ import os
 from flask_babel import gettext
 from collections import OrderedDict
 
+VERSION = '2.5.0'
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
 DAILY_ICU = "terapia_intensiva_g"
@@ -326,20 +327,6 @@ PROVINCES = [
     "Terni", "Torino", "Trapani", "Trento", "Treviso", "Trieste",
     "Udine", "Varese", "Venezia", "Verbano-Cusio-Ossola", "Vercelli",
     "Verona", "Vibo Valentia", "Vicenza", "Viterbo"
-]
-DASHBOARD_DATA = {
-    "regions": REGIONS,
-    "provinces": PROVINCES,
-    "days_in_phase3": (CRITICAL_AREAS_DAY - PHASE3_DAY).days,
-    "days_in_phase2": (PHASE3_DAY - PHASE2_DAY).days,
-    "days_in_lockdown": (PHASE2_DAY - LOCKDOWN_DAY).days,
-    "days_since_critical_areas": (
-            dt.datetime.today() - CRITICAL_AREAS_DAY).days
-}
-
-DATA_SERIES = [
-    VARS[key]["title"]
-    for key in VARS
 ]
 
 ITALY_MAP = {

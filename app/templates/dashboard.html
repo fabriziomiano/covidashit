@@ -6,21 +6,66 @@
         <main>
             <a id="back2Top" title="Back to top" href="#">&#8673;</a>
             <div class="container-fluid mt-2">
+
+                <!-- Top-page data: Area - positivity index - latest update -->
                 <div class="d-sm-flex align-items-center justify-content-between">
-                    <h1 class="h3 mb-0 text-gray-800">{{ dashboard_title }}</h1>
-                    <div class="text-info">
-                        <small><i class="fas fa-bullhorn mr-1"></i>{{ _("Latest Update:") }} <strong>{{ latest_update }}</strong></small>
-                    </div>
-                    {% if area not in provinces %}
-                        <div class="text-danger">
-                            <small><i class="fas fa-vial mr-1"></i>
-                                {{ _("Positivity Index:") }} <strong>{{ positivity_idx }}</strong></small>
+
+                    <!-- Areas dropdown -->
+                    {% if area not in province %}
+                        <div class="btn-group dropright">
+                            <button type="button" class="btn btn-link dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                {{ dashboard_title }}
+                            </button>
+                            {% if area %}
+                                <button class="btn btn-link" type="submit" onclick="window.location.href='/'">
+                                    <i class="fas fa-level-up-alt"></i>
+                                </button>
+                            {% endif %}
+
+                            <div class="dropdown-menu">
+                                {% if not area %}
+                                    {% for r in regions %}
+                                        <a class="dropdown-item small" href="/regions/{{ r }}">{{ r }}</a>
+                                    {% endfor %}
+                                {% elif area in regions %}
+                                    {% for p in region_provinces %}
+                                        <a class="dropdown-item small" href="/provinces/{{ p }}">{{ p }}</a>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="btn-group">
+                            <h3 class="h3 mb-0 text-gray-800">{{ dashboard_title }}</h3>
+                            <button class="btn btn-link" type="submit" onclick="window.location.href='/regions/{{ region }}'">
+                                <i class="fas fa-level-up-alt"></i>
+                            </button>
                         </div>
                     {% endif %}
+
+                    <!-- Positivity idx -->
+                    {% if positivity_idx %}
+                        <div class="text-danger">
+                            <i class="fas fa-vial mr-1"></i>{{ _("Positivity Index:") }}
+                            <strong>
+                                 {{ positivity_idx }}
+                            </strong>
+                        </div>
+                    {% endif %}
+
+                    <!-- Latest Update -->
+                    <div class="text-info">
+                        <i class="fas fa-bullhorn mr-1"></i>{{ _("Latest Update:") }}
+                        <strong>{{ latest_update }}</strong>
+                    </div>
                 </div>
 
                 <hr class="mt-0">
 
+                <!-- Notes -->
                 {% if notes %}
                     <div class="small alert alert-info">
                         <i class="fas fa-info-circle"></i> {{ notes }}
@@ -32,6 +77,25 @@
                 {% include 'dashboard/modal_tables.html' %}
 
             </div>
+
+            <div class="container-fluid">
+                <footer class="py-4 bg-light mt-auto text-center">
+                    <p class="small">{{ _("This project is hosted on an Heroku paid dyno.") }}</p>
+                    <p class="small">{{ _(" Thanks for donating &#128513;") }}</p>
+                    <div class="container-fluid">
+                        <form action="https://www.paypal.com/donate" method="post" target="_blank">
+                            <input type="hidden" name="hosted_button_id" value="4LSC44UTDTDWA" />
+                            <input type="image" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"
+                                   border="0"
+                                   name="submit"
+                                   title="PayPal - The safer, easier way to pay online!"
+                                   alt="Donate with PayPal button" />
+                            <img alt="" border="0" src="https://www.paypal.com/en_IT/i/scr/pixel.gif" width="1" height="1" />
+                        </form>
+                    </div>
+                </footer>
+            </div>
+
         </main>
     </div>
 
