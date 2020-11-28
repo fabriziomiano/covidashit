@@ -7,14 +7,14 @@
         <!-- Navigation Buttons -->
         {% if area_index != 0 %}
             <div class="btn-group mr-2" role="group" aria-label='{{ _("Previous in alphabetical order") }}'>
-                <button id="previousAreaButton" class="btn btn-sm btn-info rounded-pill" onclick="window.location.href='{{ previous_area_url }}'">
+                <button id="previousAreaButton" class="btn btn-sm btn-info rounded-pill" onclick='window.location.href="{{ previous_area_url }}"'>
                     <i class="fas fa-chevron-left"></i>
                 </button>
             </div>
         {% endif %}
         {% if area_index < areas_length-1 %}
             <div class="btn-group mr-2" role="group" aria-label="{{ _("Next in alphabetical order") }}">
-                <button id="nextAreaButton" class="btn btn-sm btn-info rounded-pill" onclick="window.location.href='{{ next_area_url }}'">
+                <button id="nextAreaButton" class="btn btn-sm btn-info rounded-pill" onclick='window.location.href="{{ next_area_url }}"'>
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>

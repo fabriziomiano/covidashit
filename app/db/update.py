@@ -417,7 +417,7 @@ def build_provincial_series(df):
     return provincial_series
 
 
-def update_national_collections(response):
+def create_national_collections(response):
     """
     Update national collections
     :param response: dict
@@ -462,7 +462,7 @@ def update_national_collections(response):
     return response
 
 
-def update_regional_collections(response):
+def create_regional_collections(response):
     """
     Update regional collections
     :param response: dict
@@ -518,7 +518,7 @@ def update_regional_collections(response):
     return response
 
 
-def update_provincial_collections(response):
+def create_provincial_collections(response):
     """
     Update provincial collections
     :param response: dict
