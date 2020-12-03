@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-11-21 16:42+0100\n"
-"PO-Revision-Date: 2020-11-21 16:43+0100\n"
+"POT-Creation-Date: 2020-12-03 12:25+0100\n"
+"PO-Revision-Date: 2020-12-03 12:26+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -210,7 +210,7 @@ msgstr ""
 msgid "Lockdown"
 msgstr "Lockdown"
 
-#: app/templates/base/sidebar.html:74 config.py:270
+#: app/templates/base/sidebar.html:66 config.py:270
 msgid "Days in Lockdown"
 msgstr "Giorni di Lockdown"
 
@@ -218,7 +218,7 @@ msgstr "Giorni di Lockdown"
 msgid "Phase 2"
 msgstr "Fase 2"
 
-#: app/templates/base/sidebar.html:73 config.py:277
+#: app/templates/base/sidebar.html:65 config.py:277
 msgid "Days in \"Phase 2\""
 msgstr "Giorni in \"Fase 2\""
 
@@ -226,7 +226,7 @@ msgstr "Giorni in \"Fase 2\""
 msgid "Phase 3"
 msgstr "Fase 3"
 
-#: app/templates/base/sidebar.html:72 config.py:284
+#: app/templates/base/sidebar.html:64 config.py:284
 msgid "Days in \"Phase 3\""
 msgstr "Giorni in \"Fase 3\""
 
@@ -234,7 +234,7 @@ msgstr "Giorni in \"Fase 3\""
 msgid "Critical Areas"
 msgstr "Aree di criticità"
 
-#: app/plotter/__init__.py:51 app/templates/dashboard/charts.html:114
+#: app/plotter/__init__.py:50 app/templates/dashboard/charts.html:114
 msgid "Counts"
 msgstr "Conteggi"
 
@@ -252,7 +252,7 @@ msgstr "Questo progetto usa un piano Heroku a pagamento."
 
 #: app/templates/dashboard.html:84
 msgid " Thanks for donating &#128513;"
-msgstr "Le donazioni sono ben accette &#128513;"
+msgstr " Le donazioni sono ben accette &#128513;"
 
 #: app/templates/thanks.html:10
 msgid "Thank You!"
@@ -414,7 +414,7 @@ msgstr "Autore"
 msgid "Personal Website"
 msgstr "Sito Web Persoale"
 
-#: app/templates/base/sidebar.html:71
+#: app/templates/base/sidebar.html:63
 msgid "Days since \"Critical areas\""
 msgstr "Giorni dall'introduzione di \"aree di criticità\""
 
@@ -447,7 +447,7 @@ msgstr "Nazionale"
 msgid "Critical areas"
 msgstr "Aree di criticità"
 
-#: app/templates/dashboard/charts.html:120 app/ui/dashboard.py:36
+#: app/templates/dashboard/charts.html:120 app/ui/dashboard.py:39
 msgid "Italy"
 msgstr "Italia"
 
@@ -475,11 +475,11 @@ msgstr "Conteggi"
 msgid "Close"
 msgstr "Chiudi"
 
-#: app/ui/dashboard.py:35 app/ui/dashboard.py:74 app/ui/dashboard.py:120
+#: app/ui/dashboard.py:38 app/ui/dashboard.py:79 app/ui/dashboard.py:127
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
-#: app/utils/data.py:162 app/utils/data.py:165 app/utils/data.py:168
+#: app/utils/__init__.py:44 app/utils/__init__.py:47 app/utils/__init__.py:50
 msgid "name"
 msgstr ""
 

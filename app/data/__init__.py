@@ -1,21 +1,21 @@
 import datetime as dt
-import re
 
 import pandas as pd
 from flask import current_app as app
-from flask_babel import gettext
 
 from app.db.collections import (
-    NATIONAL_DATA, NATIONAL_TRENDS, NATIONAL_SERIES,
-    REGIONAL_DATA, REGIONAL_TRENDS, REGIONAL_SERIES, REGIONAL_BREAKDOWN,
-    PROVINCIAL_DATA, PROVINCIAL_TRENDS, PROVINCIAL_SERIES,
-    PROVINCIAL_BREAKDOWN
+    NATIONAL_DATA, REGIONAL_DATA, PROVINCIAL_DATA, NATIONAL_TRENDS,
+    REGIONAL_TRENDS, PROVINCIAL_TRENDS, REGIONAL_BREAKDOWN,
+    PROVINCIAL_BREAKDOWN, NATIONAL_SERIES, REGIONAL_SERIES, PROVINCIAL_SERIES
 )
+from app.utils import rubbish_notes, translate_series_lang
 from config import (
-    PROVINCE_KEY, REGION_KEY, DATE_KEY, UPDATE_FMT, RUBBISH_NOTE_REGEX, NOTE_KEY,
-    DAILY_POSITIVITY_INDEX, REGIONS, PROVINCES, CRITICAL_AREAS_DAY, PHASE3_DAY,
-    PHASE2_DAY, LOCKDOWN_DAY, VARS, VERSION, ITALY_MAP
+    REGION_KEY, PROVINCE_KEY, DATE_KEY, NOTE_KEY, DAILY_POSITIVITY_INDEX,
+    UPDATE_FMT, VARS, ITALY_MAP, VERSION, REGIONS, PROVINCES,
+    CRITICAL_AREAS_DAY, PHASE3_DAY, PHASE2_DAY, LOCKDOWN_DAY, TOTAL_CASES_KEY,
+    NEW_POSITIVE_KEY
 )
+
 
 DATA_SERIES = [
     VARS[key]["title"]
@@ -36,64 +36,26 @@ DASHBOARD_DATA = {
 }
 
 
-def get_latest_update(data_type="national"):
-    """
-    Return the value of the key PCM_DATE_KEY of the last dict in data
-    :return: str
-    """
-    app.logger.debug("Getting latest update")
-    query_menu = {
-        "national": {
-            "collection": NATIONAL_DATA
-        },
-        "regional": {
-            "collection": REGIONAL_DATA
-        },
-        "provincial": {
-            "collection": PROVINCIAL_DATA
-        }
-    }
-    collection = query_menu[data_type]["collection"]
-    doc = next(collection.find({}).sort([(DATE_KEY, -1)]).limit(1))
-    return doc[DATE_KEY].strftime(UPDATE_FMT)
+CUM_QUANTITIES = [
+    qty for qty in VARS
+    if VARS[qty]["type"] == "cum"]
+NON_CUM_QUANTITIES = [
+    qty for qty in VARS
+    if VARS[qty]["type"] == "current"]
+NON_CUM_DAILY_QUANTITIES = [
+    qty for qty in VARS
+    if VARS[qty]["type"] == "daily"]
+TREND_CARDS = CUM_QUANTITIES + NON_CUM_QUANTITIES + NON_CUM_DAILY_QUANTITIES
+PROV_TREND_CARDS = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY]
 
 
-def enrich_frontend_data(area=None, **data):
+def get_query_menu(area=None):
     """
-    Return a data dict to be rendered which is an augmented copy of
-    DASHBOARD_DATA defined in config.py
-    :param area: optional, str
-    :param data: **kwargs
+    Return the query menu
+    :param area: str
     :return: dict
     """
-    app.logger.debug("Enriching data to dashboard")
-    try:
-        data["area"] = area
-    except KeyError:
-        pass
-    data.update(DASHBOARD_DATA)
-    return data
-
-
-def rubbish_notes(notes):
-    """
-    Return True if note matches the regex, else otherwise
-    :param notes: str
-    :return: bool
-    """
-    regex = re.compile(RUBBISH_NOTE_REGEX)
-    return regex.search(notes)
-
-
-def get_notes(notes_type="national", area=None):
-    """
-    Return the notes in the data otherwise empty string when
-    the received note is 0 or matches the RUBBISH_NOTE_REGEX
-    :param notes_type: str
-    :param area: str
-    :return: str
-    """
-    query_menu = {
+    return {
         "national": {
             "query": {},
             "collection": NATIONAL_DATA
@@ -107,6 +69,17 @@ def get_notes(notes_type="national", area=None):
             "collection": PROVINCIAL_DATA
         }
     }
+
+
+def get_notes(notes_type="national", area=None):
+    """
+    Return the notes in the data otherwise empty string when
+    the received note is 0 or matches the RUBBISH_NOTE_REGEX
+    :param notes_type: str
+    :param area: str
+    :return: str
+    """
+    query_menu = get_query_menu(area)
     query = query_menu[notes_type]["query"]
     collection = query_menu[notes_type]["collection"]
     doc = next(collection.find(query).sort([(DATE_KEY, -1)]).limit(1))
@@ -147,28 +120,6 @@ def get_provincial_breakdown(region):
         {REGION_KEY: region}, {"_id": False})["breakdowns"]
 
 
-def translate_series_lang(series):
-    """
-    Return a modified version of the series input dict with the
-    "name" values babel translated
-    :param series: dict
-    :return: dict
-    """
-    daily_series = series.get("daily")
-    current_series = series.get("current")
-    cum_series = series.get("cum")
-    if daily_series is not None:
-        for s in daily_series:
-            s["name"] = gettext(s["name"])
-    if current_series is not None:
-        for s in current_series:
-            s["name"] = gettext(s["name"])
-    if cum_series is not None:
-        for s in cum_series:
-            s["name"] = gettext(s["name"])
-    return series
-
-
 def get_national_series():
     series = NATIONAL_SERIES.find_one({}, {"_id": False})
     return translate_series_lang(series)
@@ -193,16 +144,7 @@ def get_positivity_idx(area_type="national", area=None):
     :param area: str
     :return: str
     """
-    query_menu = {
-        "national": {
-            "collection": NATIONAL_DATA,
-            "query": {}
-        },
-        "regional": {
-            "collection": REGIONAL_DATA,
-            "query": {REGION_KEY: area}
-        }
-    }
+    query_menu = get_query_menu(area)
     query = query_menu[area_type]["query"]
     collection = query_menu[area_type]["collection"]
     doc = next(collection.find(query).sort([(DATE_KEY, -1)]).limit(1))
@@ -222,3 +164,32 @@ def get_region_data(region):
 def get_province_data(province):
     cursor = PROVINCIAL_DATA.find({PROVINCE_KEY: province})
     return pd.DataFrame(list(cursor))
+
+
+def get_latest_update(data_type="national"):
+    """
+    Return the value of the key PCM_DATE_KEY of the last dict in data
+    :return: str
+    """
+    app.logger.debug("Getting latest update")
+    query_menu = get_query_menu()
+    collection = query_menu[data_type]["collection"]
+    doc = next(collection.find({}).sort([(DATE_KEY, -1)]).limit(1))
+    return doc[DATE_KEY].strftime(UPDATE_FMT)
+
+
+def enrich_frontend_data(area=None, **data):
+    """
+    Return a data dict to be rendered which is an augmented copy of
+    DASHBOARD_DATA defined in config.py
+    :param area: optional, str
+    :param data: **kwargs
+    :return: dict
+    """
+    app.logger.debug("Enriching data to dashboard")
+    try:
+        data["area"] = area
+    except KeyError:
+        pass
+    data.update(DASHBOARD_DATA)
+    return data

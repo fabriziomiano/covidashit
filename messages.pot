@@ -1,21 +1,21 @@
-# Translations template for COVIdashIT.
+# Translations template for COVIDashIT.
 # Copyright (C) 2020 Fabrizio Miano
-# This file is distributed under the same license as the COVIdashIT project.
+# This file is distributed under the same license as the COVIDashIT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: COVIdashIT 1.1\n"
+"Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-11-21 16:42+0100\n"
+"POT-Creation-Date: 2020-12-03 12:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.0\n"
 
 #: config.py:38
 msgid "Stable with respect to yesterday"
@@ -195,7 +195,7 @@ msgstr ""
 msgid "Lockdown"
 msgstr ""
 
-#: app/templates/base/sidebar.html:74 config.py:270
+#: app/templates/base/sidebar.html:66 config.py:270
 msgid "Days in Lockdown"
 msgstr ""
 
@@ -203,7 +203,7 @@ msgstr ""
 msgid "Phase 2"
 msgstr ""
 
-#: app/templates/base/sidebar.html:73 config.py:277
+#: app/templates/base/sidebar.html:65 config.py:277
 msgid "Days in \"Phase 2\""
 msgstr ""
 
@@ -211,7 +211,7 @@ msgstr ""
 msgid "Phase 3"
 msgstr ""
 
-#: app/templates/base/sidebar.html:72 config.py:284
+#: app/templates/base/sidebar.html:64 config.py:284
 msgid "Days in \"Phase 3\""
 msgstr ""
 
@@ -219,7 +219,7 @@ msgstr ""
 msgid "Critical Areas"
 msgstr ""
 
-#: app/plotter/__init__.py:51 app/templates/dashboard/charts.html:114
+#: app/plotter/__init__.py:50 app/templates/dashboard/charts.html:114
 msgid "Counts"
 msgstr ""
 
@@ -391,7 +391,7 @@ msgstr ""
 msgid "Personal Website"
 msgstr ""
 
-#: app/templates/base/sidebar.html:71
+#: app/templates/base/sidebar.html:63
 msgid "Days since \"Critical areas\""
 msgstr ""
 
@@ -424,7 +424,7 @@ msgstr ""
 msgid "Critical areas"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:120 app/ui/dashboard.py:36
+#: app/templates/dashboard/charts.html:120 app/ui/dashboard.py:39
 msgid "Italy"
 msgstr ""
 
@@ -450,11 +450,11 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: app/ui/dashboard.py:35 app/ui/dashboard.py:74 app/ui/dashboard.py:120
+#: app/ui/dashboard.py:38 app/ui/dashboard.py:79 app/ui/dashboard.py:127
 msgid "COVID-19 Italy"
 msgstr ""
 
-#: app/utils/data.py:162 app/utils/data.py:165 app/utils/data.py:168
+#: app/utils/__init__.py:44 app/utils/__init__.py:47 app/utils/__init__.py:50
 msgid "name"
 msgstr ""
 

@@ -29,6 +29,7 @@ CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y"
 DATE_KEY = "data"
 NOTE_KEY = "note"
+STATE_KEY = "stato"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
 TRANSLATION_DIRNAME = "translations"
 TREND_SYMBOL_LOGIC = {

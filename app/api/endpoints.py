@@ -1,7 +1,8 @@
 from flask import jsonify, request, Response, current_app as app
+from flask_github_signature import verify_signature
 
 from app.api import api
-from app.db.update import (
+from app.db.recovery import (
     create_national_collections, create_regional_collections,
     create_provincial_collections
 )
@@ -9,6 +10,7 @@ from app.plotter import Plotter, validate_plot_request
 
 
 @api.route("/recovery/<coll>", methods=["POST"])
+@verify_signature
 def update_db(coll):
     """
     Trigger db-collection updates

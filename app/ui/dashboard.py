@@ -5,11 +5,11 @@ from flask_babel import gettext
 
 from app.ui import dashboard
 from app.utils import region_of_province
-from app.utils.data import (
-    get_latest_update, enrich_frontend_data, get_regional_breakdown,
-    get_notes, get_national_cards, get_national_series, get_positivity_idx,
-    get_regional_cards, get_regional_series, get_provincial_breakdown,
-    get_provincial_cards, get_provincial_series
+from app.data import (
+    get_notes, get_national_cards, get_regional_cards,
+    get_provincial_cards, get_regional_breakdown, get_provincial_breakdown,
+    get_national_series, get_regional_series, get_provincial_series,
+    get_positivity_idx, get_latest_update, enrich_frontend_data
 )
 from config import REGIONS, PROVINCES, ITALY_MAP
 
