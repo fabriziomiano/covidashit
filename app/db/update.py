@@ -1,3 +1,6 @@
+"""
+DB Update
+"""
 import pandas as pd
 from flask import current_app as app
 
@@ -38,8 +41,6 @@ def update_national_collection():
                 response["n_inserted_docs"] = len(inserted_ids)
                 response["inserted_ids"] = inserted_ids
                 response["status"] = "ok"
-            else:
-                msg = f"Nothing to update in {NAT_DATA_COLL.name}"
         else:
             msg = f"Filling empty {NAT_DATA_COLL.name}"
             app.logger.warning(msg)
@@ -179,7 +180,7 @@ def update_regional_series_collection():
 
 
 def update_regional_trends_collection():
-    """"""
+    """Update regional trends collection"""
     n_docs = 0
     response = {"status": "ko", "regions": [], "updated": False, "errors": []}
     try:
