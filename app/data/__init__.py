@@ -3,10 +3,10 @@ import datetime as dt
 import pandas as pd
 from flask import current_app as app
 
-from app.db.collections import (
-    NATIONAL_DATA, REGIONAL_DATA, PROVINCIAL_DATA, NATIONAL_TRENDS,
-    REGIONAL_TRENDS, PROVINCIAL_TRENDS, REGIONAL_BREAKDOWN,
-    PROVINCIAL_BREAKDOWN, NATIONAL_SERIES, REGIONAL_SERIES, PROVINCIAL_SERIES
+from app.db import (
+    NAT_DATA_COLL, NAT_TRENDS_COLL,  NAT_SERIES_COLL, REG_DATA_COLL,
+    REG_TRENDS_COLL, REG_SERIES_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL,
+    PROV_TRENDS_COLL, PROV_SERIES_COLL, PROV_BREAKDOWN_COLL
 )
 from app.utils import rubbish_notes, translate_series_lang
 from config import (
@@ -58,15 +58,15 @@ def get_query_menu(area=None):
     return {
         "national": {
             "query": {},
-            "collection": NATIONAL_DATA
+            "collection": NAT_DATA_COLL
         },
         "regional": {
             "query": {REGION_KEY: area},
-            "collection": REGIONAL_DATA
+            "collection": REG_DATA_COLL
         },
         "provincial": {
             "query": {PROVINCE_KEY: area},
-            "collection": PROVINCIAL_DATA
+            "collection": PROV_DATA_COLL
         }
     }
 
@@ -88,7 +88,7 @@ def get_notes(notes_type="national", area=None):
 
 
 def get_national_cards():
-    return list(NATIONAL_TRENDS.find({}))
+    return list(NAT_TRENDS_COLL.find({}))
 
 
 def get_regional_cards(region):
@@ -97,7 +97,7 @@ def get_regional_cards(region):
     :param region: str
     :return: list
     """
-    doc = REGIONAL_TRENDS.find_one({REGION_KEY: region})
+    doc = REG_TRENDS_COLL.find_one({REGION_KEY: region})
     return doc["trends"]
 
 
@@ -107,31 +107,31 @@ def get_provincial_cards(province):
     :param province: str
     :return: list
     """
-    doc = PROVINCIAL_TRENDS.find_one({PROVINCE_KEY: province})
+    doc = PROV_TRENDS_COLL.find_one({PROVINCE_KEY: province})
     return doc["trends"]
 
 
 def get_regional_breakdown():
-    return REGIONAL_BREAKDOWN.find_one({}, {"_id": False})
+    return REG_BREAKDOWN_COLL.find_one({}, {"_id": False})
 
 
 def get_provincial_breakdown(region):
-    return PROVINCIAL_BREAKDOWN.find_one(
+    return PROV_BREAKDOWN_COLL.find_one(
         {REGION_KEY: region}, {"_id": False})["breakdowns"]
 
 
 def get_national_series():
-    series = NATIONAL_SERIES.find_one({}, {"_id": False})
+    series = NAT_SERIES_COLL.find_one({}, {"_id": False})
     return translate_series_lang(series)
 
 
 def get_regional_series(region):
-    series = REGIONAL_SERIES.find_one({REGION_KEY: region}, {"_id": False})
+    series = REG_SERIES_COLL.find_one({REGION_KEY: region}, {"_id": False})
     return translate_series_lang(series)
 
 
 def get_provincial_series(province):
-    series = PROVINCIAL_SERIES.find_one(
+    series = PROV_SERIES_COLL.find_one(
         {PROVINCE_KEY: province}, {"_id": False})
     return translate_series_lang(series)
 
@@ -152,17 +152,17 @@ def get_positivity_idx(area_type="national", area=None):
 
 
 def get_national_data():
-    cursor = NATIONAL_DATA.find({})
+    cursor = NAT_DATA_COLL.find({})
     return pd.DataFrame(list(cursor))
 
 
 def get_region_data(region):
-    cursor = REGIONAL_DATA.find({REGION_KEY: region})
+    cursor = REG_DATA_COLL.find({REGION_KEY: region})
     return pd.DataFrame(list(cursor))
 
 
 def get_province_data(province):
-    cursor = PROVINCIAL_DATA.find({PROVINCE_KEY: province})
+    cursor = PROV_DATA_COLL.find({PROVINCE_KEY: province})
     return pd.DataFrame(list(cursor))
 
 

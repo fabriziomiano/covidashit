@@ -8,13 +8,13 @@ from app.data.etl import (
     build_national_series, build_regional_series, build_provincial_series,
     COLUMNS_TO_DROP
 )
-from app.db.collections import (
-    NATIONAL_DATA, NATIONAL_TRENDS, NATIONAL_SERIES, REGIONAL_DATA,
-    REGIONAL_TRENDS, REGIONAL_BREAKDOWN, REGIONAL_SERIES, PROVINCIAL_DATA,
-    PROVINCIAL_TRENDS, PROVINCIAL_BREAKDOWN, PROVINCIAL_SERIES
+from app.db import (
+    NAT_DATA_COLL, NAT_TRENDS_COLL, NAT_SERIES_COLL, REG_DATA_COLL,
+    REG_TRENDS_COLL, REG_SERIES_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL,
+    PROV_TRENDS_COLL, PROV_SERIES_COLL, PROV_BREAKDOWN_COLL
 )
 from config import (
-    URL_NATIONAL_DATA, URL_REGIONAL_DATA, URL_PROVINCIAL_DATA, DATE_KEY
+    URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, DATE_KEY
 )
 
 
@@ -24,16 +24,16 @@ def create_national_collections(response):
     :param response: dict
     :return: dict
     """
-    df = pd.read_csv(URL_NATIONAL_DATA, parse_dates=[DATE_KEY])
+    df = pd.read_csv(URL_NATIONAL, parse_dates=[DATE_KEY])
     df.drop(columns=COLUMNS_TO_DROP, inplace=True)
     df_national_augmented = augment_national_df(df)
 
     national_records = df_national_augmented.to_dict(orient='records')
     try:
-        app.logger.warning("Updating collection: national")
-        NATIONAL_DATA.drop()
-        NATIONAL_DATA.insert_many(national_records, ordered=True)
-        response["collections_updated"].append("national")
+        app.logger.warning("Doing national")
+        NAT_DATA_COLL.drop()
+        NAT_DATA_COLL.insert_many(national_records, ordered=True)
+        response["collections_created"].append("national")
     except Exception as e:
         app.logger.error(e)
         response["errors"].append("{}".format(e))
@@ -41,10 +41,10 @@ def create_national_collections(response):
 
     national_trends = build_national_trends(df_national_augmented)
     try:
-        app.logger.warning("Updating collection: national_trends")
-        NATIONAL_TRENDS.drop()
-        NATIONAL_TRENDS.insert_many(national_trends)
-        response["collections_updated"].append("national_trends")
+        app.logger.warning("Doing national_trends")
+        NAT_TRENDS_COLL.drop()
+        NAT_TRENDS_COLL.insert_many(national_trends)
+        response["collections_created"].append("national_trends")
     except Exception as e:
         app.logger.error(e)
         response["errors"].append("{}".format(e))
@@ -52,10 +52,10 @@ def create_national_collections(response):
 
     national_series = build_national_series(df_national_augmented)
     try:
-        app.logger.warning("Updating collection: national_series")
-        NATIONAL_SERIES.drop()
-        NATIONAL_SERIES.insert_one(national_series)
-        response["collections_updated"].append("national_series")
+        app.logger.warning("Doing national_series")
+        NAT_SERIES_COLL.drop()
+        NAT_SERIES_COLL.insert_one(national_series)
+        response["collections_created"].append("national_series")
     except Exception as e:
         app.logger.error(e)
         response["errors"].append("{}".format(e))
@@ -69,53 +69,57 @@ def create_regional_collections(response):
     :param response: dict
     :return: dict
     """
-    df = pd.read_csv(URL_REGIONAL_DATA, parse_dates=[DATE_KEY])
+    df = pd.read_csv(URL_REGIONAL, parse_dates=[DATE_KEY])
     df.drop(columns=COLUMNS_TO_DROP, inplace=True)
     df_regional_augmented = augment_regional_df(df)
 
     regional_records = df_regional_augmented.to_dict(orient='records')
     try:
-        app.logger.warning("Updating collection: regional")
-        REGIONAL_DATA.drop()
-        REGIONAL_DATA.insert_many(regional_records, ordered=True)
-        response["collections_updated"].append("regional")
+        app.logger.warning("Doing regional")
+        REG_DATA_COLL.drop()
+        REG_DATA_COLL.insert_many(regional_records, ordered=True)
+        response["collections_created"].append("regional")
+        response["status"] = "ok"
     except Exception as e:
         app.logger.error(e)
         response["errors"].append("{}".format(e))
-        response["status"] = "ok"
+        response["status"] = "ko"
 
     regional_trends = build_regional_trends(df_regional_augmented)
     try:
-        app.logger.warning("Updating collection: regional_trends")
-        REGIONAL_TRENDS.drop()
-        REGIONAL_TRENDS.insert_many(regional_trends)
-        response["collections_updated"].append("regional_trends")
+        app.logger.warning("Doing regional_trends")
+        REG_TRENDS_COLL.drop()
+        REG_TRENDS_COLL.insert_many(regional_trends)
+        response["collections_created"].append("regional_trends")
+        response["status"] = "ok"
     except Exception as e:
         app.logger.error(e)
         response["errors"].append("{}".format(e))
-        response["status"] = "ok"
+        response["status"] = "ko"
 
     regional_breakdown = build_regional_breakdown(df_regional_augmented)
     try:
-        app.logger.warning("Updating collection: regional_breakdown")
-        REGIONAL_BREAKDOWN.drop()
-        REGIONAL_BREAKDOWN.insert_one(regional_breakdown)
-        response["collections_updated"].append("regional_breakdown")
+        app.logger.warning("Doing regional_breakdown")
+        REG_BREAKDOWN_COLL.drop()
+        REG_BREAKDOWN_COLL.insert_one(regional_breakdown)
+        response["collections_created"].append("regional_breakdown")
+        response["status"] = "ok"
     except Exception as e:
         app.logger.error(e)
         response["errors"].append("{}".format(e))
-        response["status"] = "ok"
+        response["status"] = "ko"
 
     regional_series = build_regional_series(df_regional_augmented)
     try:
-        app.logger.warning("Updating collection: regional_series")
-        REGIONAL_SERIES.drop()
-        REGIONAL_SERIES.insert_many(regional_series)
-        response["collections_updated"].append("regional_series")
+        app.logger.warning("Doing regional_series")
+        REG_SERIES_COLL.drop()
+        REG_SERIES_COLL.insert_many(regional_series)
+        response["collections_created"].append("regional_series")
+        response["status"] = "ok"
     except Exception as e:
         app.logger.error(e)
         response["errors"].append("{}".format(e))
-        response["status"] = "ok"
+        response["status"] = "ko"
     return response
 
 
@@ -125,16 +129,16 @@ def create_provincial_collections(response):
     :param response: dict
     :return: dict
     """
-    df = pd.read_csv(URL_PROVINCIAL_DATA, parse_dates=[DATE_KEY])
+    df = pd.read_csv(URL_PROVINCIAL, parse_dates=[DATE_KEY])
     df.drop(columns=COLUMNS_TO_DROP, inplace=True)
     df_provincial_augmented = augment_provincial_df(df)
 
     provincial_records = df_provincial_augmented.to_dict(orient='records')
     try:
-        app.logger.warning("Updating collection: provincial")
-        PROVINCIAL_DATA.drop()
-        PROVINCIAL_DATA.insert_many(provincial_records, ordered=True)
-        response["collections_updated"].append("provincial")
+        app.logger.warning("Doing provincial")
+        PROV_DATA_COLL.drop()
+        PROV_DATA_COLL.insert_many(provincial_records, ordered=True)
+        response["collections_created"].append("provincial")
     except Exception as e:
         app.logger.error(e)
         response["errors"].append("{}".format(e))
@@ -142,10 +146,10 @@ def create_provincial_collections(response):
 
     provincial_trends = build_provincial_trends(df_provincial_augmented)
     try:
-        app.logger.warning("Updating collection: provincial_trends")
-        PROVINCIAL_TRENDS.drop()
-        PROVINCIAL_TRENDS.insert_many(provincial_trends)
-        response["collections_updated"].append("provincial_trends")
+        app.logger.warning("Doing provincial_trends")
+        PROV_TRENDS_COLL.drop()
+        PROV_TRENDS_COLL.insert_many(provincial_trends)
+        response["collections_created"].append("provincial_trends")
     except Exception as e:
         app.logger.error(e)
         response["errors"].append("{}".format(e))
@@ -154,10 +158,10 @@ def create_provincial_collections(response):
     provincial_breakdowns = build_provincial_breakdowns(
         df_provincial_augmented)
     try:
-        app.logger.warning("Updating collection: provincial_breakdowns")
-        PROVINCIAL_BREAKDOWN.drop()
-        PROVINCIAL_BREAKDOWN.insert_many(provincial_breakdowns)
-        response["collections_updated"].append("provincial_breakdowns")
+        app.logger.warning("Doing provincial_breakdowns")
+        PROV_BREAKDOWN_COLL.drop()
+        PROV_BREAKDOWN_COLL.insert_many(provincial_breakdowns)
+        response["collections_created"].append("provincial_breakdowns")
     except Exception as e:
         app.logger.error(e)
         response["errors"].append("{}".format(e))
@@ -166,9 +170,9 @@ def create_provincial_collections(response):
     provincial_series = build_provincial_series(
         df_provincial_augmented)
     try:
-        app.logger.warning("Updating collection: provincial_series")
-        PROVINCIAL_SERIES.drop()
-        PROVINCIAL_SERIES.insert_many(provincial_series)
+        app.logger.warning("Doing provincial_series")
+        PROV_SERIES_COLL.drop()
+        PROV_SERIES_COLL.insert_many(provincial_series)
         response["collections_updated"].append("provincial_series")
     except Exception as e:
         app.logger.error(e)

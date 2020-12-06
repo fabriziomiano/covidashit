@@ -5,8 +5,7 @@ from flask_babel import Babel
 from flask_pymongo import PyMongo
 from flask_sitemap import Sitemap
 
-from app.db import MONGO_URI
-from config import LANGUAGES, TRANSLATION_DIRNAME
+from config import LANGUAGES, TRANSLATION_DIRNAME, MONGO_URI
 
 mongo = PyMongo()
 babel = Babel()

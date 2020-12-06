@@ -4,7 +4,7 @@ import os
 from flask_babel import gettext
 from collections import OrderedDict
 
-VERSION = '2.5.0'
+VERSION = '2.6.0'
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
 DAILY_ICU = "terapia_intensiva_g"
@@ -32,6 +32,7 @@ NOTE_KEY = "note"
 STATE_KEY = "stato"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
 TRANSLATION_DIRNAME = "translations"
+MONGO_URI = os.environ["MONGO_URI"]
 TREND_SYMBOL_LOGIC = {
     "stable": {
         "colour": "text-info",
@@ -252,13 +253,15 @@ VARS[TOTAL_HEALED_KEY] = {
 NATIONAL_DATA_FILE = (
     "dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv")
 REGIONAL_DATA_FILE = "dati-regioni/dpc-covid19-ita-regioni.csv"
+REGIONAL_LATEST_DATA_FILE = "dati-regioni/dpc-covid19-ita-regioni-latest.csv"
 PROVINCIAL_DATE_FILE = "dati-province/dpc-covid19-ita-province.csv"
 BASE_URL_DATA = (
     "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/"
 )
-URL_NATIONAL_DATA = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
-URL_REGIONAL_DATA = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
-URL_PROVINCIAL_DATA = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
+URL_NATIONAL = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
+URL_REGIONAL = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
+URL_PROVINCIAL = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
+URL_REGIONAL_LATEST = os.path.join(BASE_URL_DATA, REGIONAL_LATEST_DATA_FILE)
 
 LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
 PHASE2_DAY = dt.datetime(2020, 5, 4)
@@ -299,36 +302,6 @@ LANGUAGES = {
     "en": "English",
     "it_IT": "Italiano"
 }
-REGIONS = [
-    "Abruzzo", "Basilicata", "Calabria", "Campania", "Emilia-Romagna",
-    "Friuli Venezia Giulia", "Lazio", "Liguria", "Lombardia",
-    "Marche", "Molise", "P.A. Bolzano", "P.A. Trento", "Piemonte",
-    "Puglia", "Sardegna", "Sicilia", "Toscana", "Umbria",
-    "Valle d'Aosta", "Veneto"
-]
-PROVINCES = [
-    "Agrigento", "Alessandria", "Ancona", "Aosta", "Arezzo",
-    "Ascoli Piceno", "Asti", "Avellino", "Bari",
-    "Barletta-Andria-Trani", "Belluno", "Benevento", "Bergamo",
-    "Biella", "Bologna", "Bolzano", "Brescia", "Brindisi", "Cagliari",
-    "Caltanissetta", "Campobasso", "Caserta", "Catania", "Catanzaro",
-    "Chieti", "Como", "Cosenza", "Cremona", "Crotone", "Cuneo",
-    "Enna", "Fermo", "Ferrara", "Firenze", "Foggia", "Forlì-Cesena",
-    "Frosinone", "Genova", "Gorizia", "Grosseto", "Imperia",
-    "Isernia", "L'Aquila", "La Spezia", "Latina", "Lecce", "Lecco",
-    "Livorno", "Lodi", "Lucca", "Macerata", "Mantova",
-    "Massa Carrara", "Matera", "Messina", "Milano", "Modena",
-    "Monza e della Brianza", "Napoli", "Novara", "Nuoro", "Oristano",
-    "Padova", "Palermo", "Parma", "Pavia", "Perugia",
-    "Pesaro e Urbino", "Pescara", "Piacenza", "Pisa", "Pistoia",
-    "Pordenone", "Potenza", "Prato", "Ragusa", "Ravenna",
-    "Reggio di Calabria", "Reggio nell'Emilia", "Rieti", "Rimini",
-    "Roma", "Rovigo", "Salerno", "Sassari", "Savona", "Siena",
-    "Siracusa", "Sondrio", "Sud Sardegna", "Taranto", "Teramo",
-    "Terni", "Torino", "Trapani", "Trento", "Treviso", "Trieste",
-    "Udine", "Varese", "Venezia", "Verbano-Cusio-Ossola", "Vercelli",
-    "Verona", "Vibo Valentia", "Vicenza", "Viterbo"
-]
 
 ITALY_MAP = {
     'Abruzzo': ['Chieti', "L'Aquila", 'Pescara', 'Teramo'],
@@ -415,3 +388,5 @@ ITALY_MAP = {
                'Verona',
                'Vicenza']
 }
+REGIONS = [key for key in ITALY_MAP]
+PROVINCES = [p for pp in ITALY_MAP.values() for p in pp]

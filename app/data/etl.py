@@ -13,6 +13,17 @@ from config import (
 COLUMNS_TO_DROP = [STATE_KEY]
 
 
+def load_df(url):
+    """
+    Return a CP dataframe without the columns defined in COLUMNS_TO_DROP
+    :param url: str: CP-repository data URL
+    :return: pd.DataFrame
+    """
+    df = pd.read_csv(url, parse_dates=[DATE_KEY])
+    df.drop(columns=COLUMNS_TO_DROP, inplace=True)
+    return df
+
+
 def add_delta(df):
     """
     Add a difference column "*_g" for all the daily-type variables in VARS
