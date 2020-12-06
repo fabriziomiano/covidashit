@@ -35,13 +35,11 @@ def update_national_collection():
                 new_records = df_to_db.to_dict(orient='records')
                 r = NAT_DATA_COLL.insert_many(new_records, ordered=True)
                 inserted_ids.extend(r.inserted_ids)
-                msg = f"Updated {NAT_DATA_COLL.name}"
                 response["n_inserted_docs"] = len(inserted_ids)
                 response["inserted_ids"] = inserted_ids
                 response["status"] = "ok"
             else:
                 msg = f"Nothing to update in {NAT_DATA_COLL.name}"
-            app.logger.warning(msg)
         else:
             msg = f"Filling empty {NAT_DATA_COLL.name}"
             app.logger.warning(msg)
@@ -50,7 +48,8 @@ def update_national_collection():
             response["n_inserted_docs"] = len(inserted_ids)
             response["status"] = "ok"
             response["msg"] = msg
-        app.logger.warning(f"{msg}, inserted {len(inserted_ids)}")
+        msg = f"{len(inserted_ids)} docs updated in {NAT_DATA_COLL.name}"
+        app.logger.warning(msg)
     except Exception as e:
         response["errors"], response["msg"] = f"{e}", f"{e}"
     return response
@@ -95,8 +94,6 @@ def update_national_trends_collection():
             results = NAT_TRENDS_COLL.update_one(_filter, trend, upsert=True)
             if results.modified_count:
                 n_docs += 1
-                msg = f"Updated {col} trend in {NAT_TRENDS_COLL.name}"
-                app.logger.warning(msg)
                 response["ids"].append(col)
         except Exception as e:
             response["status"] = "ko"
@@ -128,8 +125,8 @@ def update_regional_collection():
             app.logger.warning("Latest data missing! Updating...")
             new_records = df.to_dict(orient='records')
             r = REG_DATA_COLL.insert_many(new_records, ordered=True)
-            msg = f"Updated collection {REG_DATA_COLL.name}"
             inserted_ids.extend(r.inserted_ids)
+            msg = f"{len(inserted_ids)} docs updated in {REG_DATA_COLL.name}"
             response["updated"] = True
         response["status"], response["msg"] = "ok", msg
         app.logger.warning(f"{msg}, inserted {len(inserted_ids)}")
@@ -164,12 +161,12 @@ def update_regional_series_collection():
             results = REG_SERIES_COLL.update_one(_filter, update, upsert=True)
             if results.modified_count:
                 n_docs += 1
-                msg = f"Updated {r} in {REG_SERIES_COLL.name}"
-                app.logger.warning(msg)
                 response["regions"].append(r)
                 response["n_docs"] = n_docs
                 response["updated"] = results.acknowledged
                 updated = True
+        msg = f"{n_docs} docs updated in {REG_DATA_COLL.name}"
+        response["msg"] = msg
         if not updated:
             msg = f"Nothing to update in {REG_SERIES_COLL.name}"
             app.logger.warning(msg)
@@ -199,11 +196,11 @@ def update_regional_trends_collection():
             results = REG_TRENDS_COLL.update_one(_filter, update, upsert=True)
             if results.modified_count:
                 n_docs += 1
-                msg = f"Updated {r} in {REG_TRENDS_COLL.name}"
-                app.logger.warning(msg)
                 response["regions"].append(r)
                 response["n_docs"] = n_docs
                 response["updated"] = results.acknowledged
+        msg = f"{n_docs} docs updated in {REG_TRENDS_COLL.name}"
+        response["msg"] = msg
         if not response["updated"]:
             msg = f"Nothing to update in {REG_TRENDS_COLL.name}"
             app.logger.warning(msg)
@@ -260,9 +257,9 @@ def update_provincial_collection():
             df = df[df[DATE_KEY] > latest_dt_db]
             new_records = df.to_dict(orient='records')
             r = PROV_DATA_COLL.insert_many(new_records, ordered=True)
-            msg = f"Updated collection {PROV_DATA_COLL.name}"
             inserted_ids.extend(r.inserted_ids)
-            app.logger.warning(f"{msg}, inserted {len(inserted_ids)}")
+            msg = f"{len(inserted_ids)} docs updated in {PROV_DATA_COLL.name}"
+            app.logger.warning(msg)
             response["updated"] = True
         response["status"], response["msg"] = "ok", msg
     except Exception as e:
@@ -290,13 +287,12 @@ def update_provincial_breakdown_collection():
             res = PROV_BREAKDOWN_COLL.update_one(_filter, update, upsert=True)
             if res.modified_count:
                 n_docs += 1
-                msg = f"Updated {b[REGION_KEY]} in {PROV_BREAKDOWN_COLL.name}"
-                app.logger.warning(msg)
                 response["regions"].append(b[REGION_KEY])
                 response["n_docs"] = n_docs
                 response["updated"] = res.acknowledged
                 updated = True
         msg = f"Updated {n_docs} docs in {PROV_BREAKDOWN_COLL.name}"
+        app.logger.warning(msg)
         if not updated:
             msg = f"Nothing to update in {PROV_BREAKDOWN_COLL.name}"
             app.logger.warning(msg)
@@ -334,13 +330,12 @@ def update_provincial_series_or_trends_collection(coll_type):
             results = coll.update_one(_filter, update, upsert=True)
             if results.modified_count:
                 n_docs += 1
-                msg = f"Updated {r[PROVINCE_KEY]} in {coll.name}"
-                app.logger.warning(msg)
                 response["provs"].append(r[PROVINCE_KEY])
                 response["n_docs"] = n_docs
                 response["updated"] = results.acknowledged
                 updated = True
         msg = f"Updated {n_docs} docs in {PROV_BREAKDOWN_COLL.name}"
+        app.logger.warning(msg)
         if not updated:
             msg = f"Nothing to update in {PROV_BREAKDOWN_COLL.name}"
             app.logger.warning(msg)
