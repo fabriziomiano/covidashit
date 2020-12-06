@@ -1,10 +1,17 @@
+"""
+API endpoints
+"""
 from flask import jsonify, request, Response, current_app as app
 from flask_github_signature import verify_signature
 
 from app.api import api
 from app.db.recovery import (
-    create_national_collections, create_regional_collections,
-    create_provincial_collections
+    create_national_collection, create_national_series_collection,
+    create_national_trends_collection, create_regional_collection,
+    create_regional_breakdown_collection, create_regional_series_collection,
+    create_regional_trends_collection, create_provincial_collections,
+    create_provincial_breakdown_collection,
+    create_provincial_series_collection, create_provincial_trends_collection
 )
 from app.db.update import (
     update_national_collection, update_national_series_collection,
@@ -15,6 +22,7 @@ from app.db.update import (
     update_provincial_series_or_trends_collection
 )
 from app.plotter import Plotter, validate_plot_request
+from app.utils import apikey_required
 
 
 @api.route("/plot")
@@ -73,37 +81,79 @@ def plot_trend():
     return response, status
 
 
-@api.route("/recovery/<coll>", methods=["POST"])
-@verify_signature
-def recovery_collection(coll):
-    """
-    Create and fill collections
-        - national,
-        - national_series,
-        - national_trends,
-        - regional,
-        - regional_series,
-        - regional_trends,
-        - regional_breakdown,
-        - provincial,
-        - provincial_series,
-        - provincial_trends,
-        - provincial_breakdown
-    """
-    response = {"status": "ko", "collections_created": [], "errors": []}
-    if coll == "national":
-        app.logger.warning("Triggered national collections recovery")
-        response = create_national_collections(response)
-    elif coll == "regional":
-        app.logger.warning("Triggered regional collections recovery")
-        response = create_regional_collections(response)
-    elif coll == "provincial":
-        app.logger.warning("Triggered provincial collections recovery")
-        response = create_provincial_collections(response)
-    else:
-        app.logger.error("Received invalid collection type")
-        response["errors"] = "Invalid collection type"
-    return jsonify(**response)
+@api.route("/recovery/national", methods=["PUT"])
+@apikey_required
+def trigger_national_collection_creation():
+    """Trigger national collection drop and recreation"""
+    app.logger.warning("Triggered national collections recovery")
+    response, status = create_national_collection()
+    return jsonify(**response), status
+
+
+@api.route("/recovery/national/<coll_type>", methods=["PUT"])
+@apikey_required
+def trigger_national_type_collection_creation(coll_type):
+    """Trigger national-type collection drop and recreation"""
+    creation_menu = {
+        "series": create_national_series_collection(),
+        "trends": create_national_trends_collection()
+    }
+    if coll_type not in creation_menu:
+        return jsonify({"errors": "Invalid collection type"}), 400
+    app.logger.warning(f"Triggered national {coll_type} collections recovery")
+    response, status = create_national_series_collection()
+    return jsonify(**response), status
+
+
+@api.route("/recovery/regional", methods=["PUT"])
+@apikey_required
+def trigger_regional_collection_creation():
+    """Trigger regional collection drop and recreation"""
+    app.logger.warning("Triggered regional collections recovery")
+    response, status = create_regional_collection()
+    return jsonify(**response), status
+
+
+@api.route("/recovery/regional/<coll_type>", methods=["PUT"])
+@apikey_required
+def trigger_regional_type_collection_creation(coll_type):
+    """Trigger regional-type collection drop and creation"""
+    creation_menu = {
+        "breakdown": create_regional_breakdown_collection(),
+        "series": create_regional_series_collection(),
+        "trends": create_regional_trends_collection()
+    }
+    if coll_type not in creation_menu:
+        return jsonify({"errors": "Invalid collection type"}), 400
+    app.logger.warning(f"Triggered regional {coll_type} collections recovery")
+    response, status = creation_menu[coll_type]
+    return jsonify(**response), status
+
+
+@api.route("/recovery/provincial", methods=["PUT"])
+@apikey_required
+def trigger_provincial_collection_creation():
+    """Trigger provincial collection drop and recreation"""
+    app.logger.warning("Triggered provincial collections recovery")
+    response, status = create_provincial_collections()
+    return jsonify(**response), status
+
+
+@api.route("/recovery/provincial/<coll_type>", methods=["PUT"])
+@apikey_required
+def trigger_provincial_type_collection_creation(coll_type):
+    """Trigger provincial-type collection drop and creation"""
+    creation_menu = {
+        "breakdown": create_provincial_breakdown_collection(),
+        "series": create_provincial_series_collection(),
+        "trends": create_provincial_trends_collection()
+    }
+    if coll_type not in creation_menu:
+        return jsonify({"errors": "Invalid collection type"}), 400
+    msg = f"Triggered provincial {coll_type} collections recovery"
+    app.logger.warning(msg)
+    response, status = creation_menu[coll_type]
+    return jsonify(**response), status
 
 
 @api.route("/update/national", methods=["POST"])
@@ -162,7 +212,7 @@ def trigger_regional_trends_collection_update():
 @api.route("update/regional/breakdown", methods=["POST"])
 @verify_signature
 def trigger_regional_breakdown_collection_update():
-    """Trigger regional breakdown update"""
+    """Trigger regional breakdown collection update"""
     app.logger.warning("Triggered regional breakdown update")
     response = update_regional_breakdown_collection()
     return jsonify(**response)
@@ -180,7 +230,7 @@ def trigger_provincial_collection_update():
 @api.route("/update/provincial/breakdown", methods=["POST"])
 @verify_signature
 def trigger_provincial_breakdown_collection_update():
-    """Trigger provincial breakdown update"""
+    """Trigger provincial breakdown collection update"""
     app.logger.warning("Triggered provincial breakdown update")
     response = update_provincial_breakdown_collection()
     return jsonify(**response)
@@ -189,6 +239,7 @@ def trigger_provincial_breakdown_collection_update():
 @api.route("/update/provincial/<coll_type>", methods=["POST"])
 @verify_signature
 def trigger_provincial_series_or_trends_collection_update(coll_type):
+    """Trigger provincial series OR trends collections update"""
     app.logger.warning(f"Triggered provincial {coll_type} update")
     response = update_provincial_series_or_trends_collection(coll_type)
     return jsonify(**response)
