@@ -1,3 +1,6 @@
+"""
+Flask application factory
+"""
 import os
 
 from flask import Flask, request, render_template, send_from_directory
@@ -14,37 +17,47 @@ sitemap = Sitemap()
 
 @babel.localeselector
 def get_locale():
+    """Return the locale that best match the client request"""
     return request.accept_languages.best_match(LANGUAGES.keys())
 
 
 def set_error_handlers(app):
+    """Error handler"""
     @app.errorhandler(404)
     def page_not_found(e):
+        """Page not found"""
         app.logger.error("{}".format(e))
         return render_template("errors/404.html", error=e), 404
 
     @app.errorhandler(500)
     def server_error(e):
+        """Generic server error"""
         app.logger.error("{}".format(e))
         return render_template("errors/generic.html", error=e)
 
 
 def set_robots_txt_rule(app):
+    """Bots rule"""
     @app.route("/robots.txt")
     def robots_txt():
+        """Serve the robots.txt file"""
         return send_from_directory(app.static_folder, request.path[1:])
 
 
 def set_favicon_rule(app):
+    """Favicon rule"""
     @app.route("/favicon.ico")
     def favicon():
+        """Serve the favicon.ico file"""
         return send_from_directory(
             os.path.join(app.root_path, "static"),
             "favicon.ico", mimetype="image/vnd.microsoft.icon")
 
 
 def create_app():
+    """Create the flask application"""
     app = Flask(__name__)
+    app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
     app.config["MONGO_URI"] = MONGO_URI
     app.config["SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS"] = True
     translation_dir = os.path.join(app.root_path, TRANSLATION_DIRNAME)

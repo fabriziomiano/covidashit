@@ -1,3 +1,6 @@
+"""
+Dashboard blueprint views
+"""
 import time
 
 from flask import render_template, redirect, current_app as app
@@ -19,6 +22,7 @@ URL_PROVINCES = "/provinces"
 
 @dashboard.route("/national")
 def old_national_view():
+    """Redirect old national view to home"""
     return redirect('/')
 
 

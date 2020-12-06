@@ -1,3 +1,6 @@
+"""
+DB Module
+"""
 import os
 
 from app import mongo
