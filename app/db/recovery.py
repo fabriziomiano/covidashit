@@ -223,7 +223,7 @@ def create_provincial_series_collection():
         app.logger.warning("Doing provincial_series")
         PROV_SERIES_COLL.drop()
         PROV_SERIES_COLL.insert_many(provincial_series)
-        response["collections_updated"].append("provincial_series")
+        response["collections_created"].append("provincial_series")
         response["status"] = "ok"
         status = 200
     except Exception as e:
