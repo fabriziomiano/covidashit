@@ -9,9 +9,9 @@ from app.data import (
     PROV_TREND_CARDS
 )
 from config import (
-    VARS, DAILY_POSITIVITY_INDEX, NEW_POSITIVE_KEY,
-    DAILY_SWABS_KEY, REGION_CODE, PROVINCE_CODE, TOTAL_CASES_KEY, REGION_KEY,
-    PROVINCE_KEY, REGIONS, PROVINCES, DATE_KEY, CHART_DATE_FMT, STATE_KEY
+    VARS, DAILY_POSITIVITY_INDEX, NEW_POSITIVE_KEY, DAILY_SWABS_KEY,
+    REGION_CODE, PROVINCE_CODE, TOTAL_CASES_KEY, REGION_KEY, PROVINCE_KEY,
+    REGIONS, PROVINCES, DATE_KEY, CHART_DATE_FMT, STATE_KEY
 )
 COLUMNS_TO_DROP = [STATE_KEY]
 
@@ -313,27 +313,30 @@ def build_series(df):
     :return: tuple
     """
     dates = df[DATE_KEY].apply(lambda x: x.strftime(CHART_DATE_FMT)).tolist()
-    series_daily = [
+    series_daily = sorted([
         {
+            "id": col,
             "name": VARS[col]["title"],
             "data": df[col].values.tolist()
         }
         for col in NON_CUM_DAILY_QUANTITIES
-    ]
-    series_cum = [
+    ], key=lambda x: max(x["data"]), reverse=True)
+    series_cum = sorted([
         {
+            "id": col,
             "name": VARS[col]["title"],
             "data": df[col].values.tolist()
         }
         for col in CUM_QUANTITIES
-    ]
-    series_current = [
+    ], key=lambda x: max(x["data"]), reverse=True)
+    series_current = sorted([
         {
+            "id": col,
             "name": VARS[col]["title"],
             "data": df[col].values.tolist()
         }
         for col in NON_CUM_QUANTITIES
-    ]
+    ], key=lambda x: max(x["data"]), reverse=True)
     series = (dates, series_daily, series_current, series_cum)
     return series
 
@@ -387,14 +390,16 @@ def build_provincial_series(df):
             lambda x: x.strftime(CHART_DATE_FMT)).tolist()
         series_daily = [
             {
-                "name": VARS["nuovi_positivi"]["title"],
-                "data": df_area["nuovi_positivi"].values.tolist()
+                "id": NEW_POSITIVE_KEY,
+                "name": VARS[NEW_POSITIVE_KEY]["title"],
+                "data": df_area[NEW_POSITIVE_KEY].values.tolist()
             }
         ]
         series_cum = [
             {
-                "name": VARS["totale_casi"]["title"],
-                "data": df_area["totale_casi"].values.tolist()
+                "id": TOTAL_CASES_KEY,
+                "name": VARS[TOTAL_CASES_KEY]["title"],
+                "data": df_area[TOTAL_CASES_KEY].values.tolist()
             }
         ]
         provincial_series.append({

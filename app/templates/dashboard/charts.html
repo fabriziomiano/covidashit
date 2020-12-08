@@ -46,8 +46,9 @@
 
 <script>
     let seriesDaily = {{ series.daily|safe }};
+    let seriesCurrent = null;
     {% if area not in provinces %}
-    let seriesCurrent = {{ series.current|safe }};
+        seriesCurrent = {{ series.current|safe }};
     {% endif %}
     let seriesCum = {{ series.cum|safe }};
     let xAxis = {
@@ -58,7 +59,10 @@
                 width: 1,
                 value: 13,
                 label: {
-                    text: "{{ gettext("Lockdown") }}"
+                    text: "{{ gettext("Lockdown") }}",
+                    style: {
+                        fontWeight: 'bold'
+                    }
                 }
             },
             {
@@ -66,7 +70,10 @@
                 width: 1,
                 value: 70,
                 label: {
-                    text: "{{ gettext("Phase 2") }}"
+                    text: "{{ gettext("Phase 2") }}",
+                    style: {
+                        fontWeight: 'bold'
+                    }
                 }
             },
             {
@@ -74,7 +81,10 @@
                 width: 1,
                 value: 112,
                 label: {
-                    text: "{{ gettext("Phase 3") }}"
+                    text: "{{ gettext("Phase 3") }}",
+                    style: {
+                        fontWeight: 'bold'
+                    }
                 }
             },
             {
@@ -82,28 +92,31 @@
                 width: 1,
                 value: 256,
                 label: {
-                    text: "{{ gettext("Critical areas") }}"
+                    text: "{{ gettext("Critical areas") }}",
+                    style: {
+                        fontWeight: 'bold'
+                    }
                 }
             }
             ],
         plotBands: [
             {
-                color: 'rgba(255,0,0,.3)',
+                color: 'rgba(255,0,0,.5)',
                 from: 13,
                 to: 70
             },
             {
-                color: 'rgba(252,115,3,.3)',
+                color: 'rgba(252,115,3,.5)',
                 from: 70,
                 to: 112
             },
             {
-                color: 'rgba(0,255,0,.3)',
+                color: 'rgba(0,255,0,.5)',
                 from: 112,
                 to: 256
             },
             {
-                color: 'rgba(255,0,0,.3)',
+                color: 'rgba(255,0,0,.5)',
                 from: 256,
                 to: {{ series.dates|length }}
             }
