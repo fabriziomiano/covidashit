@@ -1,6 +1,6 @@
-let chartTrendOptions = {
+let chartCommon = {
     chart: {
-        type: 'line',
+        type: 'areaspline',
         zoomType: 'x'
     },
     title: title,
@@ -38,26 +38,34 @@ let chartTrendOptions = {
         }
     },
     subtitle: subtitle,
-    credits: credits,
-    plotOptions: {
-        series: {
-            visible: true
-        }
+    credits: credits
+}
+
+// daily chart
+let chartDailyTrend = Object.assign(
+    chartCommon,
+    {series: seriesDaily}
+    );
+for (let i = 0; i < seriesDaily.length ; i++) {
+    if (seriesDaily[i].id === "tamponi_g") {
+        seriesDaily[i].visible = false
     }
 }
+Highcharts.chart('chart-trend-daily', chartDailyTrend);
 
-
-let chartTrendDailyOptions = Object.assign({}, chartTrendOptions);
-chartTrendDailyOptions.series = seriesDaily;
-let chartDailyTrend = Highcharts.chart('chart-trend-daily', chartTrendDailyOptions);
-
-let chartTrendCumOptions = Object.assign({}, chartTrendOptions);
-chartTrendCumOptions.series = seriesCum;
-let chartCumTrend = Highcharts.chart('chart-trend-cum', chartTrendCumOptions);
-
-if (seriesCurrent !== undefined) {
-    let chartTrendCurrentOptions = Object.assign({}, chartTrendOptions);
-    chartTrendCurrentOptions.series = seriesCurrent;
-    let chartCurrentTrend = Highcharts.chart('chart-trend-current', chartTrendCurrentOptions);
+// current chart
+if (seriesCurrent !== null) {
+    let chartCurrentTrend = Object.assign(
+        chartCommon,
+        {series: seriesCurrent}
+        );
+    Highcharts.chart('chart-trend-current', chartCurrentTrend);
 
 }
+
+// cum chart
+let chartCumTrend = Object.assign(
+    chartCommon,
+    {yAxis: {type: 'logarithmic'}, series: seriesCum}
+    );
+Highcharts.chart('chart-trend-cum', chartCumTrend);

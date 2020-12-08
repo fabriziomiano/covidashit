@@ -41,9 +41,10 @@ For the app to be operational, a mongoDB must be populated:
     * `PROVINCIAL_TRENDS_COLLECTION`
     * `PROVINCIAL_SERIES_COLLECTION`
     * `PROVINCIAL_BREAKDOWN_COLLECTION`
- - The API `/api/update/<collection_type>` can be called via POST requests to drop and recreate the
- `national`, `regional` and `provincial` collections, e.g.
- ```POST /api/update/national```
+ - The collections can be created/recovered with the APIs
+    - POST `/recovery/<coll>` (`national`, `regional`, `provincial`)
+    - POST `/recovery/<coll>/<type>` (`series`, `trends` for `coll=national` or `breakdown`, `series`, `trendws` for `coll=regional, provincial`)
+    
  
 #### Setup a local version
 

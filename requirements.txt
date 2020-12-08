@@ -9,3 +9,4 @@ Flask-Sitemap==0.3.0
 pandas==1.1.4
 matplotlib==3.3.3
 flask-github-signature==0.0.1
+python-dotenv==0.15.0

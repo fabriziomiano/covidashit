@@ -41,8 +41,10 @@ Perché l'app funzioni è necessario popolare un database mongo:
     * `PROVINCIAL_TRENDS_COLLECTION`
     * `PROVINCIAL_SERIES_COLLECTION`
     * `PROVINCIAL_BREAKDOWN_COLLECTION`
- - Vanno fatte le POST a `/api/update/<collection_type>` che popoleranno le varie collezioni, 
- ad es. ```POST /api/update/national```
+ - le collezioni possono essere popolate tramite le APIs
+    - POST `/recovery/<coll>` (`national`, `regional`, `provincial`)
+    - POST `/recovery/<coll>/<type>` (`series`, `trends` for `coll=national` or `breakdown`, `series`, `trendws` for `coll=regional, provincial`)
+    
 
 #### Setup locale
 
