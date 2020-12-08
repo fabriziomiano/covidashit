@@ -20,4 +20,4 @@ dpc*.json
 *.log
 
 # env vars
-.env
+*.env

@@ -67,7 +67,7 @@ def create_app():
     app.config["SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS"] = True
     translation_dir = os.path.join(app.root_path, TRANSLATION_DIRNAME)
     app.config["BABEL_TRANSLATION_DIRECTORIES"] = translation_dir
-    app.config["TESTING"] = os.getenv("TESTING", default=0)
+    app.config["TESTING"] = int(os.getenv("TESTING", default=0))
     mongo.init_app(app)
     babel.init_app(app)
     sitemap.init_app(app)
