@@ -18,3 +18,6 @@ dpc*.json
 
 # log files
 *.log
+
+# env vars
+.env
