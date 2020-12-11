@@ -5,13 +5,14 @@ import pandas as pd
 from flask import current_app as app
 
 from app.data import (
-    CUM_QUANTITIES, NON_CUM_QUANTITIES, NON_CUM_DAILY_QUANTITIES, TREND_CARDS,
+    CUM_QUANTITIES, NON_CUM_QUANTITIES, DAILY_QUANTITIES, TREND_CARDS,
     PROV_TREND_CARDS
 )
 from config import (
     VARS, DAILY_POSITIVITY_INDEX, NEW_POSITIVE_KEY, DAILY_SWABS_KEY,
     REGION_CODE, PROVINCE_CODE, TOTAL_CASES_KEY, REGION_KEY, PROVINCE_KEY,
-    REGIONS, PROVINCES, DATE_KEY, CHART_DATE_FMT, STATE_KEY
+    REGIONS, PROVINCES, DATE_KEY, CHART_DATE_FMT, STATE_KEY,
+    NEW_POSITIVE_MA_KEY
 )
 COLUMNS_TO_DROP = [STATE_KEY]
 
@@ -72,6 +73,22 @@ def add_positivity_idx(df):
     return df
 
 
+def add_moving_avg(df):
+    """Add weekly moving average to the daily quantities"""
+    cols = [
+        col for col in VARS
+        if VARS[col]["type"] == "daily" and not col.endswith("_ma")
+    ]
+    for col in cols:
+        try:
+            df[col + '_ma'] = df[col].rolling(7).mean()
+            df[col + '_ma'] = clean_df(df[col + '_ma'])
+            df[col + '_ma'] = df[col + '_ma'].astype(int)
+        except KeyError:
+            continue
+    return df
+
+
 def clean_df(df):
     """
     Replace all nan values with None and then with 0
@@ -92,6 +109,7 @@ def augment_national_df(df):
     """
     df_augmented = df.copy()
     df_augmented = add_delta(df_augmented)
+    df_augmented = add_moving_avg(df_augmented)
     df_augmented = add_percentages(df_augmented)
     df_augmented = add_positivity_idx(df_augmented)
     df_augmented = clean_df(df_augmented)
@@ -110,6 +128,7 @@ def augment_regional_df(df):
     for cr in set(df[REGION_CODE]):
         df_region = df[df[REGION_CODE] == cr].copy()
         df_region = add_delta(df_region)
+        df_region = add_moving_avg(df_region)
         df_region = add_percentages(df_region)
         df_region = add_positivity_idx(df_region)
         dfs.append(df_region)
@@ -134,6 +153,7 @@ def augment_provincial_df(df):
             dfp[NEW_POSITIVE_KEY].shift(1)) * 100
         dfp["totale_casi_perc"] = (
                 dfp[NEW_POSITIVE_KEY].div(dfp[TOTAL_CASES_KEY].shift(1)) * 100)
+        dfp = add_moving_avg(dfp)
         dfs.append(dfp)
     df_augmented = pd.concat(dfs)
     df_augmented = clean_df(df_augmented)
@@ -189,7 +209,7 @@ def build_national_trends(df):
     :return: list
     """
     trends = []
-    for col in VARS:
+    for col in TREND_CARDS:
         try:
             t = build_trend(df, col)
             trends.append(t)
@@ -319,8 +339,8 @@ def build_series(df):
             "name": VARS[col]["title"],
             "data": df[col].values.tolist()
         }
-        for col in NON_CUM_DAILY_QUANTITIES
-    ], key=lambda x: max(x["data"]), reverse=True)
+        for col in DAILY_QUANTITIES
+    ], key=lambda x: max(x[DATE_KEY]), reverse=True)
     series_cum = sorted([
         {
             "id": col,
@@ -328,7 +348,7 @@ def build_series(df):
             "data": df[col].values.tolist()
         }
         for col in CUM_QUANTITIES
-    ], key=lambda x: max(x["data"]), reverse=True)
+    ], key=lambda x: max(x[DATE_KEY]), reverse=True)
     series_current = sorted([
         {
             "id": col,
@@ -336,7 +356,7 @@ def build_series(df):
             "data": df[col].values.tolist()
         }
         for col in NON_CUM_QUANTITIES
-    ], key=lambda x: max(x["data"]), reverse=True)
+    ], key=lambda x: max(x[DATE_KEY]), reverse=True)
     series = (dates, series_daily, series_current, series_cum)
     return series
 
@@ -390,10 +410,11 @@ def build_provincial_series(df):
             lambda x: x.strftime(CHART_DATE_FMT)).tolist()
         series_daily = [
             {
-                "id": NEW_POSITIVE_KEY,
-                "name": VARS[NEW_POSITIVE_KEY]["title"],
-                "data": df_area[NEW_POSITIVE_KEY].values.tolist()
+                "id": var,
+                "name": VARS[var]["title"],
+                "data": df_area[var].values.tolist()
             }
+            for var in [NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY]
         ]
         series_cum = [
             {
