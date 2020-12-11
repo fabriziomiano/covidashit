@@ -20,10 +20,7 @@ from config import (
 )
 
 
-DATA_SERIES = [
-    VARS[key]["title"]
-    for key in VARS
-]
+DATA_SERIES = [VARS[key]["title"] for key in VARS]
 DASHBOARD_DATA = {
     "vars_config": VARS,
     "data_series": DATA_SERIES,
@@ -39,16 +36,10 @@ DASHBOARD_DATA = {
 }
 
 
-CUM_QUANTITIES = [
-    qty for qty in VARS
-    if VARS[qty]["type"] == "cum"]
-NON_CUM_QUANTITIES = [
-    qty for qty in VARS
-    if VARS[qty]["type"] == "current"]
-NON_CUM_DAILY_QUANTITIES = [
-    qty for qty in VARS
-    if VARS[qty]["type"] == "daily"]
-TREND_CARDS = CUM_QUANTITIES + NON_CUM_QUANTITIES + NON_CUM_DAILY_QUANTITIES
+CUM_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "cum"]
+NON_CUM_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "current"]
+DAILY_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "daily"]
+TREND_CARDS = [qty for qty in VARS if not qty.endswith("_ma")]
 PROV_TREND_CARDS = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY]
 
 

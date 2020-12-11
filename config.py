@@ -1,24 +1,32 @@
+"""
+General configuration file
+"""
 import datetime as dt
 import os
 
 from flask_babel import gettext
 from collections import OrderedDict
 
-VERSION = '2.6.0'
+VERSION = '2.11.0'
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
-DAILY_ICU = "terapia_intensiva_g"
+DAILY_ICU_KEY = "terapia_intensiva_g"
+DAILY_ICU_MA_KEY = "terapia_intensiva_g_ma"
 TOTAL_HOSPITALIZED_KEY = "totale_ospedalizzati"
 DAILY_HOSPITALIZED_KEY = "totale_ospedalizzati_g"
+DAILY_HOSPITALIZED_MA_KEY = "totale_ospedalizzati_g_ma"
 SELF_ISOLATION_KEY = "isolamento_domiciliare"
 TOTAL_POSITIVE_KEY = "totale_positivi"
 NEW_POSITIVE_KEY = "nuovi_positivi"
+NEW_POSITIVE_MA_KEY = "nuovi_positivi_ma"
 TOTAL_HEALED_KEY = "dimessi_guariti"
 TOTAL_DEATHS_KEY = "deceduti"
 DAILY_DEATHS_KEY = "deceduti_g"
+DAILY_DEATHS_MA_KEY = "deceduti_g_ma"
 TOTAL_CASES_KEY = "totale_casi"
 TOTAL_SWABS_KEY = "tamponi"
 DAILY_SWABS_KEY = "tamponi_g"
+DAILY_SWABS_MA_KEY = "tamponi_g_ma"
 DAILY_POSITIVITY_INDEX = "indice_positivita"
 REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
@@ -85,7 +93,7 @@ VARS[DAILY_DEATHS_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "daily"
 }
-VARS[DAILY_ICU] = {
+VARS[DAILY_ICU_KEY] = {
     "title": gettext("Daily Intensive Care Unit"),
     "desc": gettext("# of people daily admitted in ICU"),
     "longdesc": gettext("Daily count of people in ICU"),
@@ -110,6 +118,63 @@ VARS[DAILY_SWABS_KEY] = {
 }
 VARS[DAILY_HOSPITALIZED_KEY] = {
     "title": gettext("Daily Hospitalized"),
+    "desc": gettext("# of people daily hospitalized"),
+    "longdesc": gettext(
+        "Daily count of people currently hospitalized. "
+        "It takes into account ICU"),
+    "icon": "fas fa-hospital-symbol",
+    "increase": TREND_SYMBOL_LOGIC["increase"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "daily"
+}
+VARS[NEW_POSITIVE_MA_KEY] = {
+    "title": gettext("New Positive (7-day MA)"),
+    "desc": gettext("Daily count of new positve cases"),
+    "longdesc": gettext("Daily count of new positve cases"),
+    "icon": "fas fa-user-plus",
+    "increase": TREND_SYMBOL_LOGIC["increase"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "daily"
+}
+VARS[DAILY_DEATHS_MA_KEY] = {
+    "title": gettext("Daily Deaths (7-day MA)"),
+    "desc": gettext("Daily deaths count"),
+    "longdesc": gettext(
+        "Daily deaths count"
+    ),
+    "icon": "fas fa-cross",
+    "increase": TREND_SYMBOL_LOGIC["increase"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "daily"
+}
+VARS[DAILY_ICU_MA_KEY] = {
+    "title": gettext("Daily Intensive Care Unit (7-day MA)"),
+    "desc": gettext("# of people daily admitted in ICU"),
+    "longdesc": gettext("Daily count of people in ICU"),
+    "icon": "fas fa-procedures",
+    "increase": TREND_SYMBOL_LOGIC["increase"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "daily"
+}
+VARS[DAILY_SWABS_MA_KEY] = {
+    "title": gettext("Daily Swabs (7-day MA)"),
+    "desc": gettext("# of swabs performed daily"),
+    "longdesc": gettext(
+        "Daily number of swabs performed since the beginning of "
+        "the outbreak"
+    ),
+    "icon": "fas fa-vial",
+    "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "daily"
+}
+VARS[DAILY_HOSPITALIZED_MA_KEY] = {
+    "title": gettext("Daily Hospitalized (7-day MA)"),
     "desc": gettext("# of people daily hospitalized"),
     "longdesc": gettext(
         "Daily count of people currently hospitalized. "

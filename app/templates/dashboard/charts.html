@@ -98,28 +98,6 @@
                     }
                 }
             }
-            ],
-        plotBands: [
-            {
-                color: 'rgba(255,0,0,.5)',
-                from: 13,
-                to: 70
-            },
-            {
-                color: 'rgba(252,115,3,.5)',
-                from: 70,
-                to: 112
-            },
-            {
-                color: 'rgba(0,255,0,.5)',
-                from: 112,
-                to: 256
-            },
-            {
-                color: 'rgba(255,0,0,.5)',
-                from: 256,
-                to: {{ series.dates|length }}
-            }
         ]
     };
     let yAxis = {
@@ -127,17 +105,13 @@
             text: "{{ gettext("Counts") }}"
         }
     };
-    let title;
+    let title = {
+        align: "left"
+    };
     {% if not area %}
-        title = {
-            text: "{{ gettext("Italy") }}",
-            align: "left"
-        };
+        title.text = "{{ gettext("Italy") }}"
     {% else %}
-        title = {
-            text: "{{ area }}",
-            align: "left"
-        };
+        title.text = "{{ area }}"
     {% endif %}
     let subtitle = {
         text: "{{ gettext("Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection dataset</a>") }}",
