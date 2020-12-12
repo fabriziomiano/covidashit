@@ -7,7 +7,7 @@ from flask import current_app as app
 from app.data import (
     NAT_DATA_COLL, NAT_TRENDS_COLL, NAT_SERIES_COLL, REG_DATA_COLL,
     REG_TRENDS_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL, PROV_SERIES_COLL,
-    PROV_BREAKDOWN_COLL, PROV_TRENDS_COLL, REG_SERIES_COLL
+    PROV_BREAKDOWN_COLL, PROV_TRENDS_COLL, REG_SERIES_COLL, TREND_CARDS
 )
 from app.data.etl import (
     load_df, build_series, build_national_trends, build_provincial_series,
@@ -16,7 +16,7 @@ from app.data.etl import (
     augment_national_df, augment_regional_df, augment_provincial_df
 )
 from config import (
-    VARS, DATE_KEY, PROVINCES, PROVINCE_KEY, REGIONS, REGION_KEY,
+    DATE_KEY, PROVINCES, PROVINCE_KEY, REGIONS, REGION_KEY,
     URL_PROVINCIAL, URL_REGIONAL, URL_NATIONAL
 )
 
@@ -87,7 +87,7 @@ def update_national_trends_collection():
     df = load_df(URL_NATIONAL)
     df = augment_national_df(df)
     n_docs = 0
-    for col in VARS:
+    for col in TREND_CARDS:
         response["status"] = "ok"
         try:
             _filter = {'id': col}

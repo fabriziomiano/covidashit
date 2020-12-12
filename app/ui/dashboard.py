@@ -3,7 +3,7 @@ Dashboard blueprint views
 """
 import time
 
-from flask import render_template, redirect, current_app as app
+from flask import render_template, redirect
 from flask_babel import gettext
 
 from app.ui import dashboard
@@ -34,7 +34,6 @@ def national_view():
     """
     data_type = "national"
     cards = get_national_cards()
-    app.logger.debug(f"Cards: {cards}")
     breakdown = get_regional_breakdown()
     series = get_national_series()
     notes = get_notes(notes_type=data_type)
@@ -66,7 +65,6 @@ def regional_view(region):
         error = f'Area {region} not found'
         return render_template("errors/404.html", error=error)
     cards = get_regional_cards(region)
-    app.logger.debug(f"Cards: {cards}")
     breakdown = get_provincial_breakdown(region=region)
     series = get_regional_series(region=region)
     notes = get_notes(notes_type=data_type, area=region)
@@ -115,7 +113,6 @@ def provincial_view(province):
         error = f'Area "{province}" not found.'
         return render_template("errors/404.html", error=error)
     cards = get_provincial_cards(province=province)
-    app.logger.debug(f"Cards: {cards}")
     series = get_provincial_series(province=province)
     notes = get_notes(notes_type=data_type, area=province)
     latest_update = get_latest_update(data_type=data_type)
