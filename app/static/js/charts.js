@@ -72,8 +72,8 @@ let chartCommon = {
 seriesDaily.forEach(function (entry, i) {
     entry.visible = (entry.id.endsWith("_ma") && !entry.id.includes("tamponi"));
     if (!entry.id.endsWith("_ma")) {
-        entry.type = 'line';
-        entry.dashStyle = 'Dash';
+        entry.type = 'spline';
+        entry.dashStyle = 'Dot';
     }
     entry.showInLegend = entry.id.endsWith("_ma");
 })
@@ -120,4 +120,5 @@ let chartCumTrend = Object.assign({}, chartCommon);
 chartCumTrend.series = seriesCum
 chartCumTrend.yAxis = {type: 'logarithmic'}
 delete chartCumTrend.exporting.buttons.weeklyMovAvg;
+delete chartCumTrend.exporting.buttons.originalData;
 Highcharts.chart('chart-trend-cum', chartCumTrend);
