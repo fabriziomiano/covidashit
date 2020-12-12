@@ -35,7 +35,6 @@ let AREAS = REGIONS.concat(PROVINCES);
 let URL_REGIONS = '/regions/';
 let URL_PROVINCES = '/provinces/';
 
-let SEARCHERRMSG = '{{ gettext("Region/province not in the right format") }}';
 
 (function ($) {
     "use strict";
@@ -108,7 +107,8 @@ let SEARCHERRMSG = '{{ gettext("Region/province not in the right format") }}';
         } else if (PROVINCES.includes(searchInput)) {
             url = URL_PROVINCES + searchInput;
         } else {
-            alert(SEARCHERRMSG);
+            let err_msg = "Please Choose one from the list";
+            alert(err_msg);
         }
         return url;
     }
