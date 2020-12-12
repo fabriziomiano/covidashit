@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-12-11 02:25+0100\n"
-"PO-Revision-Date: 2020-12-11 02:27+0100\n"
+"POT-Creation-Date: 2020-12-12 23:31+0100\n"
+"PO-Revision-Date: 2020-12-12 23:33+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -258,6 +258,10 @@ msgstr "Aree di criticità"
 msgid "Counts"
 msgstr "Conteggi"
 
+#: app/static/js/scripts.js:110
+msgid "Region/province not in the right format"
+msgstr "Formato provincia/regione non corretto"
+
 #: app/templates/dashboard.html:52
 msgid "Positivity Index:"
 msgstr "Indice di positività:"
@@ -279,18 +283,17 @@ msgid "Thank You!"
 msgstr "Grazie!"
 
 #: app/templates/thanks.html:12
-msgid "I'm glad you liked the project and felt like it was worth to donate"
+msgid "I'm glad you liked the project and felt like it was worth donating"
 msgstr ""
-"Sono felice che il progetto venga apprezzato e che si pensi che valga la "
-"pena effettuare una donazione"
+"Sono felice ti sia piaciuto il progetto e che pensi valga la pena contribuire"
 
 #: app/templates/thanks.html:14
 msgid "Stay Safe and wear a mask!"
 msgstr "Bisogna fare attenzione e mettere la mascherina!"
 
 #: app/templates/thanks.html:18
-msgid "Go back to COVIDashIT"
-msgstr "Torna alla home di COVIDashIT"
+msgid "Back to COVIDashIT"
+msgstr "Torna alla Dashboard"
 
 #: app/templates/base/head.html:18
 msgid "COVID-19 Italy outbreak dashboard"
@@ -305,82 +308,56 @@ msgid "Data visualization of the COVID-19 outbreak in Italy"
 msgstr "Visualizzazione dei dati dell'epidemia COVID-19 in Italia"
 
 #: app/templates/base/modal.html:9
-msgid "Welcome to COVIDashIT 2.0!"
-msgstr "Benvenuto in COVIDashIT 2.0!"
+msgid "Welcome to COVIDashIT !"
+msgstr "Benvenuto in COVIDashIT !"
 
 #: app/templates/base/modal.html:18
 msgid "Cards"
 msgstr "Schede"
 
 #: app/templates/base/modal.html:22
-msgid ""
-"Click on a card to visualize the breakdown of the relevant regions/provinces"
-msgstr ""
-"Clicca su una scheda per visualizzare la lista delle regioni/province "
-"pertinenti"
+msgid "Click to drill down the area breakdown"
+msgstr "Clicca per il conteggio delle sotto aree"
 
 #: app/templates/base/modal.html:25
 msgid "Hover or tap the icon "
 msgstr "Passa sopra col mouse o tocca l'icona "
 
 #: app/templates/base/modal.html:27
-msgid " next to the card title to read the description of the data"
-msgstr " accanto al titolo della scheda per leggere la descrizione del dato"
+msgid " for the data description"
+msgstr " per la descrizione"
 
 #: app/templates/base/modal.html:32
 msgid "Charts"
 msgstr "Grafici"
 
-#: app/templates/base/modal.html:32
+#: app/templates/base/modal.html:32 app/templates/base/modal.html:36
 msgid "New"
 msgstr "Novità"
 
-#: app/templates/base/modal.html:36
-msgid ""
-"Click on \"7d MAvg\" to toggle on/off the 7-day moving average of the daily "
-"series"
-msgstr ""
-"Clicca su \"7d MAvg\" per attivare le serie calcolate con media mobile su 7 "
-"giorni"
+#: app/templates/base/modal.html:37
+msgid "Click on the legend to toggle series visibility"
+msgstr "Clicca sulla legenda per modificare la visibilità"
 
-#: app/templates/base/modal.html:39
-msgid ""
-"Click the name of the series at the bottom of the chart to toggle on/off"
-msgstr ""
-"Clicca sui nomi delle serie sotto al grafico per attivarne/disattivarne la "
-"visualizzazione"
+#: app/templates/base/modal.html:40
+msgid "Drag/pinch to zoom; use the 'Reset Zoom' button to reset"
+msgstr "Trascina per lo zoom; usa 'Reset Zoom' per resettare"
 
-#: app/templates/base/modal.html:42
-msgid ""
-"Drag to zoom in or use pinch to zoom. Use the 'Reset Zoom' button to reset "
-"the original chart"
-msgstr "Trascina per zoomare. Usa il bottone 'Reset Zoom' per ripristinare"
+#: app/templates/base/modal.html:45
+msgid "Search bar (desktop only)"
+msgstr "Barra di ricerca (solo desktop)"
 
-#: app/templates/base/modal.html:47
-msgid "Search bar (desktop version only)"
-msgstr "Barra di ricerca (solo versione desktop)"
+#: app/templates/base/modal.html:49
+msgid "Use autocompletion to jump to a area"
+msgstr "Usa l'autocompletamento per visualizzare un'area"
 
-#: app/templates/base/modal.html:51
-msgid "Type the name of the area you want to visualize and use autocompletion"
-msgstr ""
-"Inizia a digitare il nome dell'area che vuoi visualizzare e usa l'auto "
-"completamento"
-
-#: app/templates/base/modal.html:59
+#: app/templates/base/modal.html:57
 msgid "Who made this?"
 msgstr "Chi è l'autore?"
 
-#: app/templates/base/modal.html:63
+#: app/templates/base/modal.html:61
 msgid "Got it!"
 msgstr "Ok!"
-
-#: app/templates/base/modal.html:66
-msgid "NOTE:"
-msgstr "NOTA:"
-
-#: app/templates/base/modal.html:66
-msgid "Only \"Total cases\" is provided for the provinces."
-msgstr "Solo i \"Casi totali\" vengono forniti per le province."
 
 #: app/templates/base/navbar.html:9
 msgid "Previous in alphabetical order"
@@ -394,23 +371,23 @@ msgstr "Successivo in ordine alfabetico"
 msgid "Search region/province"
 msgstr "Cerca regione/provincia"
 
-#: app/templates/base/navbar.html:39
+#: app/templates/base/navbar.html:40
 msgid "Author Page"
 msgstr "Pagina dell'autore"
 
-#: app/templates/base/navbar.html:42
+#: app/templates/base/navbar.html:43
 msgid "Civil Protection Dpt"
 msgstr "Dipartimento Protezione Civile"
 
-#: app/templates/base/navbar.html:43
+#: app/templates/base/navbar.html:44
 msgid "Data source: Civil Protection"
 msgstr "Fonte dati: Protezione Civile"
 
-#: app/templates/base/navbar.html:46
+#: app/templates/base/navbar.html:47
 msgid "Made with"
 msgstr "Realizzato con"
 
-#: app/templates/base/navbar.html:46
+#: app/templates/base/navbar.html:47
 msgid "in Catania"
 msgstr "a Catania"
 
@@ -479,7 +456,7 @@ msgstr "Nazionale"
 msgid "Critical areas"
 msgstr "Aree di criticità"
 
-#: app/templates/dashboard/charts.html:112 app/ui/dashboard.py:45
+#: app/templates/dashboard/charts.html:112 app/ui/dashboard.py:44
 msgid "Italy"
 msgstr "Italia"
 
@@ -503,7 +480,7 @@ msgstr "Area"
 msgid "Count"
 msgstr "Conteggi"
 
-#: app/ui/dashboard.py:44 app/ui/dashboard.py:85 app/ui/dashboard.py:133
+#: app/ui/dashboard.py:43 app/ui/dashboard.py:83 app/ui/dashboard.py:130
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
@@ -511,11 +488,43 @@ msgstr "COVID-19 Italia"
 msgid "name"
 msgstr ""
 
+#~ msgid ""
+#~ "Click on a card to visualize the breakdown of the relevant regions/"
+#~ "provinces"
+#~ msgstr ""
+#~ "Clicca su una scheda per visualizzare la lista delle regioni/province "
+#~ "pertinenti"
+
+#~ msgid " next to the card title to read the description of the data"
+#~ msgstr " accanto al titolo della scheda per leggere la descrizione del dato"
+
+#~ msgid ""
+#~ "Click on \"7d MAvg\" to toggle on/off the 7-day moving average of the "
+#~ "daily series"
+#~ msgstr ""
+#~ "Clicca su \"7d MAvg\" per attivare le serie calcolate con media mobile su "
+#~ "7 giorni"
+
+#~ msgid ""
+#~ "Click the name of the series at the bottom of the chart to toggle on/off"
+#~ msgstr ""
+#~ "Clicca sui nomi delle serie sotto al grafico per attivarne/disattivarne "
+#~ "la visualizzazione"
+
+#~ msgid ""
+#~ "Type the name of the area you want to visualize and use autocompletion"
+#~ msgstr ""
+#~ "Inizia a digitare il nome dell'area che vuoi visualizzare e usa l'auto "
+#~ "completamento"
+
+#~ msgid "NOTE:"
+#~ msgstr "NOTA:"
+
+#~ msgid "Only \"Total cases\" is provided for the provinces."
+#~ msgstr "Solo i \"Casi totali\" vengono forniti per le province."
+
 #~ msgid "Close"
 #~ msgstr "Chiudi"
-
-#~ msgid "Region/province not in the right format"
-#~ msgstr "Formato provincia/regione non corretto"
 
 #~ msgid "National Dashboard"
 #~ msgstr "Dashboard Nazionale"

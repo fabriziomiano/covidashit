@@ -7,7 +7,7 @@ import os
 from flask_babel import gettext
 from collections import OrderedDict
 
-VERSION = '2.11.0'
+VERSION = '2.11.5'
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
 DAILY_ICU_KEY = "terapia_intensiva_g"
