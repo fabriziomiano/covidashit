@@ -11,6 +11,7 @@ from flask_sitemap import Sitemap
 
 from config import LANGUAGES, TRANSLATION_DIRNAME, MONGO_URI
 
+load_dotenv()
 mongo = PyMongo()
 babel = Babel()
 sitemap = Sitemap()
@@ -60,7 +61,6 @@ def set_favicon_rule(app):
 
 def create_app():
     """Create the flask application"""
-    load_dotenv()
     app = Flask(__name__)
     app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
     app.config["MONGO_URI"] = MONGO_URI

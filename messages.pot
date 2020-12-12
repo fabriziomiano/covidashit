@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-12-11 02:25+0100\n"
+"POT-Creation-Date: 2020-12-12 23:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -243,6 +243,10 @@ msgstr ""
 msgid "Counts"
 msgstr ""
 
+#: app/static/js/scripts.js:110
+msgid "Region/province not in the right format"
+msgstr ""
+
 #: app/templates/dashboard.html:52
 msgid "Positivity Index:"
 msgstr ""
@@ -264,7 +268,7 @@ msgid "Thank You!"
 msgstr ""
 
 #: app/templates/thanks.html:12
-msgid "I'm glad you liked the project and felt like it was worth to donate"
+msgid "I'm glad you liked the project and felt like it was worth donating"
 msgstr ""
 
 #: app/templates/thanks.html:14
@@ -272,7 +276,7 @@ msgid "Stay Safe and wear a mask!"
 msgstr ""
 
 #: app/templates/thanks.html:18
-msgid "Go back to COVIDashIT"
+msgid "Back to COVIDashIT"
 msgstr ""
 
 #: app/templates/base/head.html:18
@@ -288,7 +292,7 @@ msgid "Data visualization of the COVID-19 outbreak in Italy"
 msgstr ""
 
 #: app/templates/base/modal.html:9
-msgid "Welcome to COVIDashIT 2.0!"
+msgid "Welcome to COVIDashIT !"
 msgstr ""
 
 #: app/templates/base/modal.html:18
@@ -296,9 +300,7 @@ msgid "Cards"
 msgstr ""
 
 #: app/templates/base/modal.html:22
-msgid ""
-"Click on a card to visualize the breakdown of the relevant "
-"regions/provinces"
+msgid "Click to drill down the area breakdown"
 msgstr ""
 
 #: app/templates/base/modal.html:25
@@ -306,55 +308,39 @@ msgid "Hover or tap the icon "
 msgstr ""
 
 #: app/templates/base/modal.html:27
-msgid " next to the card title to read the description of the data"
+msgid " for the data description"
 msgstr ""
 
 #: app/templates/base/modal.html:32
 msgid "Charts"
 msgstr ""
 
-#: app/templates/base/modal.html:32
+#: app/templates/base/modal.html:32 app/templates/base/modal.html:36
 msgid "New"
 msgstr ""
 
-#: app/templates/base/modal.html:36
-msgid ""
-"Click on \"7d MAvg\" to toggle on/off the 7-day moving average of the "
-"daily series"
+#: app/templates/base/modal.html:37
+msgid "Click on the legend to toggle series visibility"
 msgstr ""
 
-#: app/templates/base/modal.html:39
-msgid "Click the name of the series at the bottom of the chart to toggle on/off"
+#: app/templates/base/modal.html:40
+msgid "Drag/pinch to zoom; use the 'Reset Zoom' button to reset"
 msgstr ""
 
-#: app/templates/base/modal.html:42
-msgid ""
-"Drag to zoom in or use pinch to zoom. Use the 'Reset Zoom' button to "
-"reset the original chart"
+#: app/templates/base/modal.html:45
+msgid "Search bar (desktop only)"
 msgstr ""
 
-#: app/templates/base/modal.html:47
-msgid "Search bar (desktop version only)"
+#: app/templates/base/modal.html:49
+msgid "Use autocompletion to jump to a area"
 msgstr ""
 
-#: app/templates/base/modal.html:51
-msgid "Type the name of the area you want to visualize and use autocompletion"
-msgstr ""
-
-#: app/templates/base/modal.html:59
+#: app/templates/base/modal.html:57
 msgid "Who made this?"
 msgstr ""
 
-#: app/templates/base/modal.html:63
+#: app/templates/base/modal.html:61
 msgid "Got it!"
-msgstr ""
-
-#: app/templates/base/modal.html:66
-msgid "NOTE:"
-msgstr ""
-
-#: app/templates/base/modal.html:66
-msgid "Only \"Total cases\" is provided for the provinces."
 msgstr ""
 
 #: app/templates/base/navbar.html:9
@@ -369,23 +355,23 @@ msgstr ""
 msgid "Search region/province"
 msgstr ""
 
-#: app/templates/base/navbar.html:39
+#: app/templates/base/navbar.html:40
 msgid "Author Page"
 msgstr ""
 
-#: app/templates/base/navbar.html:42
+#: app/templates/base/navbar.html:43
 msgid "Civil Protection Dpt"
 msgstr ""
 
-#: app/templates/base/navbar.html:43
+#: app/templates/base/navbar.html:44
 msgid "Data source: Civil Protection"
 msgstr ""
 
-#: app/templates/base/navbar.html:46
+#: app/templates/base/navbar.html:47
 msgid "Made with"
 msgstr ""
 
-#: app/templates/base/navbar.html:46
+#: app/templates/base/navbar.html:47
 msgid "in Catania"
 msgstr ""
 
@@ -454,7 +440,7 @@ msgstr ""
 msgid "Critical areas"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:112 app/ui/dashboard.py:45
+#: app/templates/dashboard/charts.html:112 app/ui/dashboard.py:44
 msgid "Italy"
 msgstr ""
 
@@ -476,7 +462,7 @@ msgstr ""
 msgid "Count"
 msgstr ""
 
-#: app/ui/dashboard.py:44 app/ui/dashboard.py:85 app/ui/dashboard.py:133
+#: app/ui/dashboard.py:43 app/ui/dashboard.py:83 app/ui/dashboard.py:130
 msgid "COVID-19 Italy"
 msgstr ""
 

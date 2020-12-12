@@ -6,7 +6,7 @@
         <div class="modal-content bg-light">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{ _('Welcome to COVIDashIT 2.0!') }}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ _('Welcome to COVIDashIT !') }}</h5>
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -14,41 +14,37 @@
             </div>
 
             <div class="modal-body">
-                <h5>
-                    <i class="far fa-clipboard mr-2"></i>{{ _("Cards") }}
-                </h5>
+                <h6><i class="far fa-clipboard mr-2"></i>{{ _("Cards") }}</h6>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        {{ _('Click on a card to visualize the breakdown of the relevant regions/provinces') }}
+                        {{ _('Click to drill down the area breakdown') }}
                     </li>
                     <li class="list-group-item">
                         {{ _('Hover or tap the icon ') }}
                         <i class="fas fa-info-circle text-black-50"></i>
-                        {{ _(' next to the card title to read the description of the data') }}
+                        {{ _(' for the data description') }}
                     </li>
                 </ul>
 
-                <h5 class="mt-4">
+                <h6 class="mt-4">
                     <i class="fas fa-chart-line mr-2"></i>{{ _("Charts") }} <span class="badge badge-secondary">{{ _('New') }}</span>
-                </h5>
+                </h6>
                 <ul class="list-group">
                     <li class="list-group-item">
-                         {{ _('Click on "7d MAvg" to toggle on/off the 7-day moving average of the daily series') }}
+                        <span class="badge badge-secondary">{{ _('New') }}</span>
+                        {{ _('Click on the legend to toggle series visibility') }}
                     </li>
                     <li class="list-group-item">
-                        {{ _('Click the name of the series at the bottom of the chart to toggle on/off') }}
-                    </li>
-                    <li class="list-group-item">
-                        {{ _("Drag to zoom in or use pinch to zoom. Use the 'Reset Zoom' button to reset the original chart") }}
+                        {{ _("Drag/pinch to zoom; use the 'Reset Zoom' button to reset") }}
                     </li>
                 </ul>
 
-                <h5 class="mt-4">
-                    <i class="fas fa-search mr-2"></i>{{ _("Search bar (desktop version only)") }}
-                </h5>
+                <h6 class="mt-4">
+                    <i class="fas fa-search mr-2"></i>{{ _("Search bar (desktop only)") }}
+                </h6>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        {{ _('Type the name of the area you want to visualize and use autocompletion') }}
+                        {{ _('Use autocompletion to jump to a area') }}
                     </li>
                 </ul>
             </div>
@@ -62,11 +58,8 @@
                         data-dismiss="modal">
                     <i class="far fa-thumbs-up mr-2"></i>{{ _("Got it!") }}
                 </button>
-                <div class="small">
-                    <b>{{ _("NOTE:") }}</b> {{ _('Only "Total cases" is provided for the provinces.') }}
-                </div>
             </div>
-
+            <div class="container"><p class="small">v{{ VERSION }}</p></div>
         </div>
     </div>
 </div>
