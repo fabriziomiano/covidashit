@@ -4,7 +4,6 @@ Data Module
 import datetime as dt
 
 import pandas as pd
-from flask import current_app as app
 
 from app.db import (
     NAT_DATA_COLL, NAT_TRENDS_COLL,  NAT_SERIES_COLL, REG_DATA_COLL,
@@ -176,7 +175,6 @@ def get_latest_update(data_type="national"):
     Return the value of the key PCM_DATE_KEY of the last dict in data
     :return: str
     """
-    app.logger.debug("Getting latest update")
     query_menu = get_query_menu()
     collection = query_menu[data_type]["collection"]
     doc = next(collection.find({}).sort([(DATE_KEY, -1)]).limit(1))
@@ -191,7 +189,6 @@ def enrich_frontend_data(area=None, **data):
     :param data: **kwargs
     :return: dict
     """
-    app.logger.debug("Enriching data to dashboard")
     try:
         data["area"] = area
     except KeyError:
