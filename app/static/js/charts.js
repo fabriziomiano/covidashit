@@ -1,7 +1,33 @@
+Highcharts.theme = {
+    colors: [
+        '#0520c6', '#08a4e8', '#3b6d00', '#ff0000', '#24CBE5'
+    ],
+    subtitle: {
+        style: {
+            color: '#666666',
+            font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
+        }
+    },
+    legend: {
+        itemStyle: {
+            font: '9pt Trebuchet MS, Verdana, sans-serif',
+            color: 'black'
+        },
+        itemHoverStyle:{
+            color: 'gray'
+        }
+    }
+};
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);
+
 let chartCommon = {
     chart: {
         type: 'areaspline',
-        zoomType: 'x'
+        zoomType: 'xy'
+    },
+    legend: {
+        enabled: true
     },
     title: title,
     xAxis: xAxis,
@@ -43,23 +69,35 @@ let chartCommon = {
 
 
 // daily chart
-seriesDaily.forEach(function (entry) {
-    entry.visible = !(entry.id.endsWith("_ma") || entry.id.includes("tamponi"));
+seriesDaily.forEach(function (entry, i) {
+    entry.visible = (entry.id.endsWith("_ma") && !entry.id.includes("tamponi"));
+    if (!entry.id.endsWith("_ma")) {
+        entry.type = 'line';
+        entry.dashStyle = 'Dash';
+    }
+    entry.showInLegend = entry.id.endsWith("_ma");
 })
 
 let chartDailyTrend = Object.assign({}, chartCommon);
 chartDailyTrend.series = seriesDaily;
-chartDailyTrend.exporting.buttons.weeklyMovAvg = {
-    text: '7d MAvg',
+chartDailyTrend.exporting.buttons.originalData = {
+    text: 'Original',
     onclick: function () {
         this.series.forEach(function (entry) {
-            let seriesId = entry.userOptions.id
+            let seriesId = entry.userOptions.id;
+            if (!seriesId.endsWith("_ma") && !seriesId.includes("tamponi")) {
+                (entry.visible) ? entry.hide() : entry.show()
+            }
+        })
+    }
+}
+chartDailyTrend.exporting.buttons.weeklyMovAvg = {
+    text: '7d MA',
+    onclick: function () {
+        this.series.forEach(function (entry) {
+            let seriesId = entry.userOptions.id;
             if (seriesId.endsWith("_ma") && !seriesId.includes("tamponi")) {
-                if (!entry.visible) {
-                    entry.show()
-                } else {
-                    entry.hide()
-                }
+                (!entry.visible) ? entry.show() : entry.hide()
             }
         })
     }
@@ -72,6 +110,7 @@ if (seriesCurrent !== null) {
     let chartCurrentTrend = Object.assign({}, chartCommon);
     chartCurrentTrend.series = seriesCurrent;
     delete chartCurrentTrend.exporting.buttons.weeklyMovAvg;
+    delete chartCurrentTrend.exporting.buttons.originalData;
     Highcharts.chart('chart-trend-current', chartCurrentTrend);
 }
 
