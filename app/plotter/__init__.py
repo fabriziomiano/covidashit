@@ -11,7 +11,7 @@ from flask_babel import gettext
 from app.data import get_national_data, get_region_data, get_province_data
 from config import (
     REGION_KEY, REGIONS, PROVINCE_KEY, DATE_KEY, VARS, PROVINCES, KEY_PERIODS,
-    TOTAL_CASES_KEY, NEW_POSITIVE_KEY
+    TOTAL_CASES_KEY, NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY
 )
 
 plt.rcParams['ytick.labelsize'] = 16
@@ -128,7 +128,14 @@ def validate_plot_request(varname, data_type, area):
     else:
         if data_type == "national":
             if varname in VARS:
-                is_valid = True
+                if area is None:
+                    is_valid = True
+                else:
+                    error = (
+                        "No area should be provided when using "
+                        f"data_type=national; remove area={area} "
+                        "from query string"
+                    )
             else:
                 error = (
                     "Accepted 'varname' for 'national' data_type: [{}]; "
@@ -144,7 +151,7 @@ def validate_plot_request(varname, data_type, area):
                         ", ".join([var for var in VARS]),
                         ", ".join([r for r in REGIONS])))
         elif data_type == "provincial":
-            varnames = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY]
+            varnames = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY]
             if area in PROVINCES and varname in varnames:
                 is_valid = True
             else:
