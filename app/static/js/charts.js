@@ -76,6 +76,7 @@ seriesDaily.forEach(function (entry, i) {
         entry.dashStyle = 'Dot';
     }
     entry.showInLegend = entry.id.endsWith("_ma");
+    entry.type = 'spline';
 })
 
 let chartDailyTrend = Object.assign({}, chartCommon);
