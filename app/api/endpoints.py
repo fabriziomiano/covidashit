@@ -5,14 +5,6 @@ from flask import jsonify, request, Response, current_app as app
 from flask_github_signature import verify_signature
 
 from app.api import api
-from app.db.recovery import (
-    create_national_collection, create_national_series_collection,
-    create_national_trends_collection, create_regional_collection,
-    create_regional_breakdown_collection, create_regional_series_collection,
-    create_regional_trends_collection, create_provincial_collections,
-    create_provincial_breakdown_collection,
-    create_provincial_series_collection, create_provincial_trends_collection
-)
 from app.db.update import (
     update_national_collection, update_national_series_collection,
     update_national_trends_collection, update_regional_collection,
@@ -22,7 +14,6 @@ from app.db.update import (
     update_provincial_series_or_trends_collection
 )
 from app.plotter import Plotter, validate_plot_request
-from app.utils import apikey_required
 
 
 @api.route("/plot")
@@ -79,81 +70,6 @@ def plot_trend():
     else:
         response["errors"].append(err)
     return response, status
-
-
-@api.route("/recovery/national", methods=["PUT"])
-@apikey_required
-def trigger_national_collection_creation():
-    """Trigger national collection drop and recreation"""
-    app.logger.warning("Triggered national collections recovery")
-    response, status = create_national_collection()
-    return jsonify(**response), status
-
-
-@api.route("/recovery/national/<coll_type>", methods=["PUT"])
-@apikey_required
-def trigger_national_type_collection_creation(coll_type):
-    """Trigger national-type collection drop and recreation"""
-    creation_menu = {
-        "series": create_national_series_collection(),
-        "trends": create_national_trends_collection()
-    }
-    if coll_type not in creation_menu:
-        return jsonify({"errors": "Invalid collection type"}), 400
-    app.logger.warning(f"Triggered national {coll_type} collections recovery")
-    response, status = create_national_series_collection()
-    return jsonify(**response), status
-
-
-@api.route("/recovery/regional", methods=["PUT"])
-@apikey_required
-def trigger_regional_collection_creation():
-    """Trigger regional collection drop and recreation"""
-    app.logger.warning("Triggered regional collections recovery")
-    response, status = create_regional_collection()
-    return jsonify(**response), status
-
-
-@api.route("/recovery/regional/<coll_type>", methods=["PUT"])
-@apikey_required
-def trigger_regional_type_collection_creation(coll_type):
-    """Trigger regional-type collection drop and creation"""
-    creation_menu = {
-        "breakdown": create_regional_breakdown_collection(),
-        "series": create_regional_series_collection(),
-        "trends": create_regional_trends_collection()
-    }
-    if coll_type not in creation_menu:
-        return jsonify({"errors": "Invalid collection type"}), 400
-    app.logger.warning(f"Triggered regional {coll_type} collections recovery")
-    response, status = creation_menu[coll_type]
-    return jsonify(**response), status
-
-
-@api.route("/recovery/provincial", methods=["PUT"])
-@apikey_required
-def trigger_provincial_collection_creation():
-    """Trigger provincial collection drop and recreation"""
-    app.logger.warning("Triggered provincial collections recovery")
-    response, status = create_provincial_collections()
-    return jsonify(**response), status
-
-
-@api.route("/recovery/provincial/<coll_type>", methods=["PUT"])
-@apikey_required
-def trigger_provincial_type_collection_creation(coll_type):
-    """Trigger provincial-type collection drop and creation"""
-    creation_menu = {
-        "breakdown": create_provincial_breakdown_collection(),
-        "series": create_provincial_series_collection(),
-        "trends": create_provincial_trends_collection()
-    }
-    if coll_type not in creation_menu:
-        return jsonify({"errors": "Invalid collection type"}), 400
-    msg = f"Triggered provincial {coll_type} collections recovery"
-    app.logger.warning(msg)
-    response, status = creation_menu[coll_type]
-    return jsonify(**response), status
 
 
 @api.route("/update/national", methods=["POST"])

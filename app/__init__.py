@@ -93,29 +93,30 @@ def create_app():
     from .api import api
     app.register_blueprint(api)
 
-    if not app.config["TESTING"]:
-        """Create and fill the collections if on production server"""
-        from app.db.recovery import (
-            create_national_collection, create_national_series_collection,
-            create_national_trends_collection, create_regional_collection,
-            create_regional_breakdown_collection,
-            create_regional_series_collection,
-            create_regional_trends_collection, create_provincial_collections,
-            create_provincial_breakdown_collection,
-            create_provincial_series_collection,
-            create_provincial_trends_collection
-        )
-        with app.app_context():
-            create_national_collection()
-            create_national_series_collection()
-            create_national_trends_collection()
-            create_regional_collection()
-            create_regional_breakdown_collection()
-            create_regional_series_collection()
-            create_regional_trends_collection()
-            create_provincial_collections()
-            create_provincial_breakdown_collection()
-            create_provincial_series_collection()
-            create_provincial_trends_collection()
+    from app.db.recovery import (
+        create_national_collection, create_national_series_collection,
+        create_national_trends_collection, create_regional_collection,
+        create_regional_breakdown_collection,
+        create_regional_series_collection,
+        create_regional_trends_collection, create_provincial_collections,
+        create_provincial_breakdown_collection,
+        create_provincial_series_collection,
+        create_provincial_trends_collection
+    )
+
+    @app.cli.command("create-collections")
+    def populate_db():
+        """Populate collection on mongoDB"""
+        create_national_collection()
+        create_national_series_collection()
+        create_national_trends_collection()
+        create_regional_collection()
+        create_regional_breakdown_collection()
+        create_regional_series_collection()
+        create_regional_trends_collection()
+        create_provincial_collections()
+        create_provincial_breakdown_collection()
+        create_provincial_series_collection()
+        create_provincial_trends_collection()
 
     return app
