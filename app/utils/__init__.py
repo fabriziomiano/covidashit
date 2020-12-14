@@ -2,9 +2,7 @@
 Utils
 """
 import re
-from functools import wraps
 
-from flask import request, current_app as app, jsonify
 from flask_babel import gettext
 
 from config import ITALY_MAP, RUBBISH_NOTE_REGEX
@@ -54,17 +52,3 @@ def translate_series_lang(series):
         for s in cum_series:
             s["name"] = gettext(s["name"])
     return series
-
-
-def apikey_required(view_function):
-    """Decorator to secure API"""
-    @wraps(view_function)
-    def f(*args, **kwargs):
-        """API Auth decorator"""
-        if (request.headers and
-                request.headers.get("x-api-key") is not None and
-                request.headers["x-api-key"] == app.config["SECRET_KEY"]):
-            return view_function(*args, **kwargs)
-        else:
-            return jsonify({"errors": "Invalid API Key"})
-    return f

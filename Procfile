@@ -1,1 +1,2 @@
-web: gunicorn wsgi:app --log-level info
+release: python -m flask create-collections
+web: gunicorn wsgi:app
