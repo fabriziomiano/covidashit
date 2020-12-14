@@ -93,7 +93,7 @@ def create_app():
     from .api import api
     app.register_blueprint(api)
 
-    from app.db.recovery import (
+    from app.db.create import (
         create_national_collection, create_national_series_collection,
         create_national_trends_collection, create_regional_collection,
         create_regional_breakdown_collection,
