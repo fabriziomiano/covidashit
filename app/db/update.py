@@ -72,10 +72,10 @@ def update_national_series_collection():
         msg = f"Updated {NAT_SERIES_COLL.name}"
         app.logger.warning(msg)
         response["status"], response["updated"] = "ok", r.acknowledged
+        app.logger.warning(msg)
     except StopIteration:
         r = NAT_SERIES_COLL.insert_one(national_series)
         msg = f"Filled empty collection {NAT_SERIES_COLL.name}"
-        app.logger.warning(msg)
         response["status"], response["updated"] = "ok", r.acknowledged
     response["msg"] = msg
     return response
@@ -130,7 +130,7 @@ def update_regional_collection():
             msg = f"{len(inserted_ids)} docs updated in {REG_DATA_COLL.name}"
             response["updated"] = True
         response["status"], response["msg"] = "ok", msg
-        app.logger.warning(f"{msg}, inserted {len(inserted_ids)}")
+        app.logger.warning(msg)
     except Exception as e:
         err = f"{e}"
         app.logger.error(err)
@@ -170,9 +170,9 @@ def update_regional_series_collection():
         response["msg"] = msg
         if not updated:
             msg = f"Nothing to update in {REG_SERIES_COLL.name}"
-            app.logger.warning(msg)
             response["msg"] = msg
         response["status"] = "ok"
+        app.logger.warning(msg)
     except Exception as e:
         response["errors"].append(f"{e}")
         app.logger.error(f"{e}")
@@ -204,9 +204,9 @@ def update_regional_trends_collection():
         response["msg"] = msg
         if not response["updated"]:
             msg = f"Nothing to update in {REG_TRENDS_COLL.name}"
-            app.logger.warning(msg)
             response["msg"] = msg
         response["status"] = "ok"
+        app.logger.warning(msg)
     except Exception as e:
         response["errors"].append(f"{e}")
         app.logger.error(f"{e}")
@@ -260,9 +260,9 @@ def update_provincial_collection():
             r = PROV_DATA_COLL.insert_many(new_records, ordered=True)
             inserted_ids.extend(r.inserted_ids)
             msg = f"{len(inserted_ids)} docs updated in {PROV_DATA_COLL.name}"
-            app.logger.warning(msg)
             response["updated"] = True
         response["status"], response["msg"] = "ok", msg
+        app.logger.warning(msg)
     except Exception as e:
         err = f"{e}"
         app.logger.error(err)
@@ -293,11 +293,11 @@ def update_provincial_breakdown_collection():
                 response["updated"] = res.acknowledged
                 updated = True
         msg = f"Updated {n_docs} docs in {PROV_BREAKDOWN_COLL.name}"
-        app.logger.warning(msg)
         if not updated:
             msg = f"Nothing to update in {PROV_BREAKDOWN_COLL.name}"
             app.logger.warning(msg)
         response["status"], response["msg"] = "ok", msg
+        app.logger.warning(msg)
     except Exception as e:
         response["errors"].append(f"{e}")
         app.logger.error(f"{e}")
@@ -336,10 +336,9 @@ def update_provincial_series_or_trends_collection(coll_type):
                 response["updated"] = results.acknowledged
                 updated = True
         msg = f"Updated {n_docs} docs in {PROV_BREAKDOWN_COLL.name}"
-        app.logger.warning(msg)
         if not updated:
             msg = f"Nothing to update in {PROV_BREAKDOWN_COLL.name}"
-            app.logger.warning(msg)
+        app.logger.warning(msg)
         response["status"], response["msg"] = "ok", msg
     except Exception as e:
         response["errors"].append(f"{e}")
