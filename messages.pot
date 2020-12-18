@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-12-12 23:31+0100\n"
+"POT-Creation-Date: 2020-12-18 21:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,23 +38,23 @@ msgid "Daily count of new positve cases"
 msgstr ""
 
 #: config.py:85
-msgid "Daily Deaths"
+msgid "Daily ICU"
 msgstr ""
 
-#: config.py:86 config.py:87 config.py:143 config.py:144
-msgid "Daily deaths count"
-msgstr ""
-
-#: config.py:97
-msgid "Daily Intensive Care Unit"
-msgstr ""
-
-#: config.py:98 config.py:155
+#: config.py:86 config.py:155
 msgid "# of people daily admitted in ICU"
 msgstr ""
 
-#: config.py:99 config.py:156
+#: config.py:87 config.py:156
 msgid "Daily count of people in ICU"
+msgstr ""
+
+#: config.py:95
+msgid "Daily Deaths"
+msgstr ""
+
+#: config.py:96 config.py:97 config.py:143 config.py:144
+msgid "Daily deaths count"
 msgstr ""
 
 #: config.py:107
@@ -90,7 +90,7 @@ msgid "Daily Deaths (7-day MA)"
 msgstr ""
 
 #: config.py:154
-msgid "Daily Intensive Care Unit (7-day MA)"
+msgid "Daily ICU (7-day MA)"
 msgstr ""
 
 #: config.py:164
@@ -243,10 +243,6 @@ msgstr ""
 msgid "Counts"
 msgstr ""
 
-#: app/static/js/scripts.js:110
-msgid "Region/province not in the right format"
-msgstr ""
-
 #: app/templates/dashboard.html:52
 msgid "Positivity Index:"
 msgstr ""
@@ -295,51 +291,55 @@ msgstr ""
 msgid "Welcome to COVIDashIT !"
 msgstr ""
 
-#: app/templates/base/modal.html:18
+#: app/templates/base/modal.html:17
 msgid "Cards"
 msgstr ""
 
-#: app/templates/base/modal.html:22
-msgid "Click to drill down the area breakdown"
-msgstr ""
-
-#: app/templates/base/modal.html:25
-msgid "Hover or tap the icon "
-msgstr ""
-
-#: app/templates/base/modal.html:27
-msgid " for the data description"
-msgstr ""
-
-#: app/templates/base/modal.html:32
-msgid "Charts"
-msgstr ""
-
-#: app/templates/base/modal.html:32 app/templates/base/modal.html:36
+#: app/templates/base/modal.html:20 app/templates/base/modal.html:38
 msgid "New"
 msgstr ""
 
-#: app/templates/base/modal.html:37
+#: app/templates/base/modal.html:21 app/templates/base/modal.html:39
+msgid "Added \"Daily ICU admissions\""
+msgstr ""
+
+#: app/templates/base/modal.html:24
+msgid "Click to drill down the area breakdown"
+msgstr ""
+
+#: app/templates/base/modal.html:27
+msgid "Hover or tap the icon "
+msgstr ""
+
+#: app/templates/base/modal.html:29
+msgid " for the data description"
+msgstr ""
+
+#: app/templates/base/modal.html:34
+msgid "Charts"
+msgstr ""
+
+#: app/templates/base/modal.html:42
 msgid "Click on the legend to toggle series visibility"
 msgstr ""
 
-#: app/templates/base/modal.html:40
+#: app/templates/base/modal.html:45
 msgid "Drag/pinch to zoom; use the 'Reset Zoom' button to reset"
 msgstr ""
 
-#: app/templates/base/modal.html:45
+#: app/templates/base/modal.html:50
 msgid "Search bar (desktop only)"
 msgstr ""
 
-#: app/templates/base/modal.html:49
-msgid "Use autocompletion to jump to a area"
+#: app/templates/base/modal.html:54
+msgid "Use autocompletion to jump to an area"
 msgstr ""
 
-#: app/templates/base/modal.html:57
+#: app/templates/base/modal.html:62
 msgid "Who made this?"
 msgstr ""
 
-#: app/templates/base/modal.html:61
+#: app/templates/base/modal.html:66
 msgid "Got it!"
 msgstr ""
 
@@ -355,23 +355,23 @@ msgstr ""
 msgid "Search region/province"
 msgstr ""
 
-#: app/templates/base/navbar.html:40
+#: app/templates/base/navbar.html:39
 msgid "Author Page"
 msgstr ""
 
-#: app/templates/base/navbar.html:43
+#: app/templates/base/navbar.html:42
 msgid "Civil Protection Dpt"
 msgstr ""
 
-#: app/templates/base/navbar.html:44
+#: app/templates/base/navbar.html:43
 msgid "Data source: Civil Protection"
 msgstr ""
 
-#: app/templates/base/navbar.html:47
+#: app/templates/base/navbar.html:46
 msgid "Made with"
 msgstr ""
 
-#: app/templates/base/navbar.html:47
+#: app/templates/base/navbar.html:46
 msgid "in Catania"
 msgstr ""
 
@@ -466,7 +466,7 @@ msgstr ""
 msgid "COVID-19 Italy"
 msgstr ""
 
-#: app/utils/__init__.py:49 app/utils/__init__.py:52 app/utils/__init__.py:55
+#: app/utils/__init__.py:47 app/utils/__init__.py:50 app/utils/__init__.py:53
 msgid "name"
 msgstr ""
 
