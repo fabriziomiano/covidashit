@@ -7,7 +7,7 @@ import os
 from flask_babel import gettext
 from collections import OrderedDict
 
-VERSION = '2.11.5'
+VERSION = '2.11.6'
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
 DAILY_ICU_KEY = "terapia_intensiva_g"
@@ -81,6 +81,16 @@ VARS[NEW_POSITIVE_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "daily"
 }
+VARS[DAILY_ICU_KEY] = {
+    "title": gettext("Daily Intensive Care Unit"),
+    "desc": gettext("# of people daily admitted in ICU"),
+    "longdesc": gettext("Daily count of people in ICU"),
+    "icon": "fas fa-procedures",
+    "increase": TREND_SYMBOL_LOGIC["increase"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "daily"
+}
 VARS[DAILY_DEATHS_KEY] = {
     "title": gettext("Daily Deaths"),
     "desc": gettext("Daily deaths count"),
@@ -88,16 +98,6 @@ VARS[DAILY_DEATHS_KEY] = {
         "Daily deaths count"
     ),
     "icon": "fas fa-cross",
-    "increase": TREND_SYMBOL_LOGIC["increase"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "daily"
-}
-VARS[DAILY_ICU_KEY] = {
-    "title": gettext("Daily Intensive Care Unit"),
-    "desc": gettext("# of people daily admitted in ICU"),
-    "longdesc": gettext("Daily count of people in ICU"),
-    "icon": "fas fa-procedures",
     "increase": TREND_SYMBOL_LOGIC["increase"],
     "decrease": TREND_SYMBOL_LOGIC["decrease"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
