@@ -56,7 +56,7 @@ def add_percentages(df):
     for col in VARS:
         try:
             diff_df = df[col].diff()
-            df[col + "_perc"] = diff_df.div(df[col].shift(1)) * 100
+            df[col + "_perc"] = diff_df.div(df[col].shift(1).abs()) * 100
         except KeyError:
             continue
     return df
@@ -150,9 +150,10 @@ def augment_provincial_df(df):
         dfp[NEW_POSITIVE_KEY] = dfp[TOTAL_CASES_KEY].diff()
         df_new_pos_diff = dfp[NEW_POSITIVE_KEY].diff()
         dfp["nuovi_positivi_perc"] = df_new_pos_diff.div(
-            dfp[NEW_POSITIVE_KEY].shift(1)) * 100
+            dfp[NEW_POSITIVE_KEY].shift(1).abs()) * 100
         dfp["totale_casi_perc"] = (
-                dfp[NEW_POSITIVE_KEY].div(dfp[TOTAL_CASES_KEY].shift(1)) * 100)
+                dfp[NEW_POSITIVE_KEY].div(
+                    dfp[TOTAL_CASES_KEY].shift(1).abs()) * 100)
         dfp = add_moving_avg(dfp)
         dfs.append(dfp)
     df_augmented = pd.concat(dfs)
@@ -251,7 +252,7 @@ def build_provincial_trends(df):
                 trend = build_trend(df_province, col)
                 province_trends.append(trend)
             except KeyError as e:
-                print(e)
+                app.logger.error(f"Error in build_provincial_trends: {e}")
                 continue
         trends.append({
             PROVINCE_KEY: df_province[PROVINCE_KEY].values[-1],

@@ -88,8 +88,8 @@ let colorMap = {
     "totale_ospedalizzati_g_ma": colors[2],
     "deceduti_g": colors[3],
     "deceduti_g_ma": colors[3],
-    "terapia_intensiva_g": colors[4],
-    "terapia_intensiva_g_ma": colors[4]
+    "ingressi_terapia_intensiva": colors[4],
+    "ingressi_terapia_intensiva_ma": colors[4]
 }
 seriesDaily.forEach(function (entry, i) {
     entry.showInLegend = entry.id.endsWith("_ma");

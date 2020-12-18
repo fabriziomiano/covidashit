@@ -7,11 +7,11 @@ import os
 from flask_babel import gettext
 from collections import OrderedDict
 
-VERSION = '2.11.5'
+VERSION = '2.12.0'
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
-DAILY_ICU_KEY = "terapia_intensiva_g"
-DAILY_ICU_MA_KEY = "terapia_intensiva_g_ma"
+DAILY_ICU_KEY = "ingressi_terapia_intensiva"
+DAILY_ICU_MA_KEY = "ingressi_terapia_intensiva_ma"
 TOTAL_HOSPITALIZED_KEY = "totale_ospedalizzati"
 DAILY_HOSPITALIZED_KEY = "totale_ospedalizzati_g"
 DAILY_HOSPITALIZED_MA_KEY = "totale_ospedalizzati_g_ma"
@@ -81,6 +81,16 @@ VARS[NEW_POSITIVE_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "daily"
 }
+VARS[DAILY_ICU_KEY] = {
+    "title": gettext("Daily ICU"),
+    "desc": gettext("# of people daily admitted in ICU"),
+    "longdesc": gettext("Daily count of people in ICU"),
+    "icon": "fas fa-procedures",
+    "increase": TREND_SYMBOL_LOGIC["increase"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "daily"
+}
 VARS[DAILY_DEATHS_KEY] = {
     "title": gettext("Daily Deaths"),
     "desc": gettext("Daily deaths count"),
@@ -88,16 +98,6 @@ VARS[DAILY_DEATHS_KEY] = {
         "Daily deaths count"
     ),
     "icon": "fas fa-cross",
-    "increase": TREND_SYMBOL_LOGIC["increase"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "daily"
-}
-VARS[DAILY_ICU_KEY] = {
-    "title": gettext("Daily Intensive Care Unit"),
-    "desc": gettext("# of people daily admitted in ICU"),
-    "longdesc": gettext("Daily count of people in ICU"),
-    "icon": "fas fa-procedures",
     "increase": TREND_SYMBOL_LOGIC["increase"],
     "decrease": TREND_SYMBOL_LOGIC["decrease"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
@@ -151,7 +151,7 @@ VARS[DAILY_DEATHS_MA_KEY] = {
     "type": "daily"
 }
 VARS[DAILY_ICU_MA_KEY] = {
-    "title": gettext("Daily Intensive Care Unit (7-day MA)"),
+    "title": gettext("Daily ICU (7-day MA)"),
     "desc": gettext("# of people daily admitted in ICU"),
     "longdesc": gettext("Daily count of people in ICU"),
     "icon": "fas fa-procedures",
