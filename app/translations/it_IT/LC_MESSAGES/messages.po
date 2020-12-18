@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2020-12-12 23:31+0100\n"
-"PO-Revision-Date: 2020-12-12 23:33+0100\n"
+"POT-Creation-Date: 2020-12-18 21:51+0100\n"
+"PO-Revision-Date: 2020-12-18 21:55+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -40,24 +40,24 @@ msgid "Daily count of new positve cases"
 msgstr "Conteggio giornaliero dei nuovi casi positivi"
 
 #: config.py:85
+msgid "Daily ICU"
+msgstr "T.I. giornaliere"
+
+#: config.py:86 config.py:155
+msgid "# of people daily admitted in ICU"
+msgstr "Ingressi giornalieri in terapia intensiva"
+
+#: config.py:87 config.py:156
+msgid "Daily count of people in ICU"
+msgstr "Conteggio giornaliero degli ingressi in TI"
+
+#: config.py:95
 msgid "Daily Deaths"
 msgstr "Decessi giornalieri"
 
-#: config.py:86 config.py:87 config.py:143 config.py:144
+#: config.py:96 config.py:97 config.py:143 config.py:144
 msgid "Daily deaths count"
 msgstr "Conteggio decessi giornalieri"
-
-#: config.py:97
-msgid "Daily Intensive Care Unit"
-msgstr "Terapia intensiva giornaliera"
-
-#: config.py:98 config.py:155
-msgid "# of people daily admitted in ICU"
-msgstr "Numero di persone giornalmente messe in terapia intensiva"
-
-#: config.py:99 config.py:156
-msgid "Daily count of people in ICU"
-msgstr "Conteggio giornaliero delle persone in messe in terapia intensiva"
 
 #: config.py:107
 msgid "Daily Swabs"
@@ -94,8 +94,8 @@ msgid "Daily Deaths (7-day MA)"
 msgstr "Decessi giornalieri (7gg MM)"
 
 #: config.py:154
-msgid "Daily Intensive Care Unit (7-day MA)"
-msgstr "Terapia intensiva giornaliera (7gg MM)"
+msgid "Daily ICU (7-day MA)"
+msgstr "T.I. giornaliere (7gg MM)"
 
 #: config.py:164
 msgid "Daily Swabs (7-day MA)"
@@ -258,10 +258,6 @@ msgstr "Aree di criticità"
 msgid "Counts"
 msgstr "Conteggi"
 
-#: app/static/js/scripts.js:110
-msgid "Region/province not in the right format"
-msgstr "Formato provincia/regione non corretto"
-
 #: app/templates/dashboard.html:52
 msgid "Positivity Index:"
 msgstr "Indice di positività:"
@@ -311,51 +307,55 @@ msgstr "Visualizzazione dei dati dell'epidemia COVID-19 in Italia"
 msgid "Welcome to COVIDashIT !"
 msgstr "Benvenuto in COVIDashIT !"
 
-#: app/templates/base/modal.html:18
+#: app/templates/base/modal.html:17
 msgid "Cards"
 msgstr "Schede"
 
-#: app/templates/base/modal.html:22
-msgid "Click to drill down the area breakdown"
-msgstr "Clicca per il conteggio delle sotto aree"
-
-#: app/templates/base/modal.html:25
-msgid "Hover or tap the icon "
-msgstr "Passa sopra col mouse o tocca l'icona "
-
-#: app/templates/base/modal.html:27
-msgid " for the data description"
-msgstr " per la descrizione"
-
-#: app/templates/base/modal.html:32
-msgid "Charts"
-msgstr "Grafici"
-
-#: app/templates/base/modal.html:32 app/templates/base/modal.html:36
+#: app/templates/base/modal.html:20 app/templates/base/modal.html:38
 msgid "New"
 msgstr "Novità"
 
-#: app/templates/base/modal.html:37
+#: app/templates/base/modal.html:21 app/templates/base/modal.html:39
+msgid "Added \"Daily ICU admissions\""
+msgstr "Aggiunto \"T.I. giornaliere\""
+
+#: app/templates/base/modal.html:24
+msgid "Click to drill down the area breakdown"
+msgstr "Clicca per il conteggio delle sotto aree"
+
+#: app/templates/base/modal.html:27
+msgid "Hover or tap the icon "
+msgstr "Passa sopra col mouse o tocca l'icona "
+
+#: app/templates/base/modal.html:29
+msgid " for the data description"
+msgstr " per la descrizione"
+
+#: app/templates/base/modal.html:34
+msgid "Charts"
+msgstr "Grafici"
+
+#: app/templates/base/modal.html:42
 msgid "Click on the legend to toggle series visibility"
 msgstr "Clicca sulla legenda per modificare la visibilità"
 
-#: app/templates/base/modal.html:40
+#: app/templates/base/modal.html:45
 msgid "Drag/pinch to zoom; use the 'Reset Zoom' button to reset"
 msgstr "Trascina per lo zoom; usa 'Reset Zoom' per resettare"
 
-#: app/templates/base/modal.html:45
+#: app/templates/base/modal.html:50
 msgid "Search bar (desktop only)"
 msgstr "Barra di ricerca (solo desktop)"
 
-#: app/templates/base/modal.html:49
-msgid "Use autocompletion to jump to a area"
-msgstr "Usa l'autocompletamento per visualizzare un'area"
+#: app/templates/base/modal.html:54
+msgid "Use autocompletion to jump to an area"
+msgstr "Usa la barra di ricerca per visualizzare un'area"
 
-#: app/templates/base/modal.html:57
+#: app/templates/base/modal.html:62
 msgid "Who made this?"
 msgstr "Chi è l'autore?"
 
-#: app/templates/base/modal.html:61
+#: app/templates/base/modal.html:66
 msgid "Got it!"
 msgstr "Ok!"
 
@@ -371,23 +371,23 @@ msgstr "Successivo in ordine alfabetico"
 msgid "Search region/province"
 msgstr "Cerca regione/provincia"
 
-#: app/templates/base/navbar.html:40
+#: app/templates/base/navbar.html:39
 msgid "Author Page"
 msgstr "Pagina dell'autore"
 
-#: app/templates/base/navbar.html:43
+#: app/templates/base/navbar.html:42
 msgid "Civil Protection Dpt"
 msgstr "Dipartimento Protezione Civile"
 
-#: app/templates/base/navbar.html:44
+#: app/templates/base/navbar.html:43
 msgid "Data source: Civil Protection"
 msgstr "Fonte dati: Protezione Civile"
 
-#: app/templates/base/navbar.html:47
+#: app/templates/base/navbar.html:46
 msgid "Made with"
 msgstr "Realizzato con"
 
-#: app/templates/base/navbar.html:47
+#: app/templates/base/navbar.html:46
 msgid "in Catania"
 msgstr "a Catania"
 
@@ -484,9 +484,18 @@ msgstr "Conteggi"
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
-#: app/utils/__init__.py:49 app/utils/__init__.py:52 app/utils/__init__.py:55
+#: app/utils/__init__.py:47 app/utils/__init__.py:50 app/utils/__init__.py:53
 msgid "name"
 msgstr ""
+
+#~ msgid "Daily Intensive Care Unit (7-day MA)"
+#~ msgstr "Terapia intensiva giornaliera (7gg MM)"
+
+#~ msgid "Daily Intensive Care Unit"
+#~ msgstr "Terapia intensiva giornaliera"
+
+#~ msgid "Region/province not in the right format"
+#~ msgstr "Formato provincia/regione non corretto"
 
 #~ msgid ""
 #~ "Click on a card to visualize the breakdown of the relevant regions/"
@@ -685,9 +694,6 @@ msgstr ""
 
 #~ msgid "Only the \"Total Cases\" data is shown"
 #~ msgstr "Solo la serie \"Totale Casi\" è mostrata"
-
-#~ msgid "Daily"
-#~ msgstr "Giornaliero"
 
 #~ msgid "Current"
 #~ msgstr "Attuale"
