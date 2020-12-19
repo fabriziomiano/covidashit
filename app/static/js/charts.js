@@ -75,8 +75,8 @@ let links = {
     "totale_ospedalizzati_g_ma": "totale_ospedalizzati_g",
     "deceduti_g": "deceduti_g_ma",
     "deceduti_g_ma": "deceduti_g",
-    "terapia_intensiva_g": "terapia_intensiva_g_ma",
-    "terapia_intensiva_g_ma": "terapia_intensiva_g"
+    "ingressi_terapia_intensiva": "ingressi_terapia_intensiva_ma",
+    "ingressi_terapia_intensiva_ma": "ingressi_terapia_intensiva"
 }
 let colors = ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce']
 let colorMap = {
