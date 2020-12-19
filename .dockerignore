@@ -1,4 +1,12 @@
+# images
 *.png
+
+# py notebooks
 *.ipynb
+
+# git / github stuff
+.github/
 *.gitignore
+
+# misc
 *.log

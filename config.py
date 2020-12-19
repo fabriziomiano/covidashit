@@ -3,9 +3,9 @@ General configuration file
 """
 import datetime as dt
 import os
+from collections import OrderedDict
 
 from flask_babel import gettext
-from collections import OrderedDict
 
 VERSION = '2.12.0'
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
@@ -40,7 +40,6 @@ NOTE_KEY = "note"
 STATE_KEY = "stato"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
 TRANSLATION_DIRNAME = "translations"
-MONGO_URI = os.environ["MONGO_URI"]
 TREND_SYMBOL_LOGIC = {
     "stable": {
         "colour": "text-info",
