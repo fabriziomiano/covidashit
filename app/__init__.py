@@ -9,7 +9,7 @@ from flask_babel import Babel
 from flask_pymongo import PyMongo
 from flask_sitemap import Sitemap
 
-from config import LANGUAGES, TRANSLATION_DIRNAME, MONGO_URI
+from config import LANGUAGES, TRANSLATION_DIRNAME
 
 load_dotenv()
 mongo = PyMongo()
@@ -63,7 +63,7 @@ def create_app():
     """Create the flask application"""
     app = Flask(__name__)
     app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
-    app.config["MONGO_URI"] = MONGO_URI
+    app.config["MONGO_URI"] = os.environ["MONGO_URI"]
     app.config["SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS"] = True
     translation_dir = os.path.join(app.root_path, TRANSLATION_DIRNAME)
     app.config["BABEL_TRANSLATION_DIRECTORIES"] = translation_dir
