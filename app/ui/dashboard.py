@@ -9,8 +9,8 @@ from flask_babel import gettext
 from app.ui import dashboard
 from app.utils import region_of_province
 from app.data import (
-    get_notes, get_national_cards, get_regional_cards,
-    get_provincial_cards, get_regional_breakdown, get_provincial_breakdown,
+    get_notes, get_national_trends, get_regional_trends,
+    get_provincial_trends, get_regional_breakdown, get_provincial_breakdown,
     get_national_series, get_regional_series, get_provincial_series,
     get_positivity_idx, get_latest_update, enrich_frontend_data
 )
@@ -33,7 +33,7 @@ def national_view():
     :return: template
     """
     data_type = "national"
-    cards = get_national_cards()
+    cards = get_national_trends()
     breakdown = get_regional_breakdown()
     series = get_national_series()
     notes = get_notes(notes_type=data_type)
@@ -64,7 +64,7 @@ def regional_view(region):
     if region not in REGIONS:
         error = f'Area {region} not found'
         return render_template("errors/404.html", error=error)
-    cards = get_regional_cards(region)
+    cards = get_regional_trends(region)
     breakdown = get_provincial_breakdown(region=region)
     series = get_regional_series(region=region)
     notes = get_notes(notes_type=data_type, area=region)
@@ -112,7 +112,7 @@ def provincial_view(province):
     if province not in PROVINCES:
         error = f'Area "{province}" not found.'
         return render_template("errors/404.html", error=error)
-    cards = get_provincial_cards(province=province)
+    cards = get_provincial_trends(province=province)
     series = get_provincial_series(province=province)
     notes = get_notes(notes_type=data_type, area=province)
     latest_update = get_latest_update(data_type=data_type)
