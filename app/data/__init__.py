@@ -80,14 +80,17 @@ def get_notes(notes_type="national", area=None):
     return notes if notes is not None and not rubbish_notes(notes) else ""
 
 
-def get_national_cards():
-    """Return national cards from DB"""
-    return list(NAT_TRENDS_COLL.find({}))
+def get_national_trends():
+    """Return national trends from DB"""
+    return sorted(
+        list(NAT_TRENDS_COLL.find({})),
+        key=lambda x: list(VARS.keys()).index(x['id'])
+    )
 
 
-def get_regional_cards(region):
+def get_regional_trends(region):
     """
-    Return a list of regional cards for a given region
+    Return a list of regional trends for a given region
     :param region: str
     :return: list
     """
@@ -95,9 +98,9 @@ def get_regional_cards(region):
     return doc["trends"]
 
 
-def get_provincial_cards(province):
+def get_provincial_trends(province):
     """
-    Return a list of provincial cards for a given province
+    Return a list of provincial trends for a given province
     :param province: str
     :return: list
     """
