@@ -115,12 +115,14 @@ curl --request GET \
 ###### Request 
 ```
 curl --request GET \
-    --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi&download=true' \
+    --url 'https://www.covidash.it/api/plot?data_type=national&varname=terapia_intensiva&download=true' \
     --output plot.png
 ```
 
 The plot will be written in `plot.png`
 
+## Plot preview
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/plot.png) 
 
 
 ## Donation

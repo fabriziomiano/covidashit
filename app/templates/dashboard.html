@@ -13,36 +13,50 @@
                     <!-- Areas dropdown -->
                     {% if area not in province %}
                         <div class="btn-group dropright">
-                            <button type="button" class="btn btn-link dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                {{ dashboard_title }}
-                            </button>
                             {% if area %}
-                                <button class="btn btn-link" type="submit" onclick="window.location.href='/'">
+                                <button class="btn btn-primary" type="submit"
+                                        onclick="window.location.href='/'">
                                     <i class="fas fa-level-up-alt"></i>
                                 </button>
                             {% endif %}
+                            <button type="button"
+                                    class="btn btn-primary dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                <i class="fas fa-map-marked-alt"></i> {{ dashboard_title }}
+                            </button>
+
 
                             <div class="dropdown-menu">
                                 {% if not area %}
                                     {% for r in regions %}
-                                        <a class="dropdown-item small" href="/regions/{{ r }}">{{ r }}</a>
+                                        <a class="dropdown-item small"
+                                           href="/regions/{{ r }}">{{ r }}</a>
                                     {% endfor %}
                                 {% elif area in regions %}
                                     {% for p in region_provinces %}
-                                        <a class="dropdown-item small" href="/provinces/{{ p }}">{{ p }}</a>
+                                        <a class="dropdown-item small"
+                                           href="/provinces/{{ p }}">{{ p }}</a>
                                     {% endfor %}
                                 {% endif %}
                             </div>
                         </div>
                     {% else %}
                         <div class="btn-group">
-                            <h3 class="h3 mb-0 text-gray-800">{{ dashboard_title }}</h3>
-                            <button class="btn btn-link" type="submit" onclick='window.location.href="/regions/{{ region }}"'>
+                            <button class="btn btn-primary" type="submit"
+                                    onclick='window.location.href="/regions/{{ region }}"'>
                                 <i class="fas fa-level-up-alt"></i>
                             </button>
+                            <button type="button"
+                                    class="btn btn-primary"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                <i class="fas fa-map-marked-alt"></i> {{ dashboard_title }}
+                            </button>
+
+
                         </div>
                     {% endif %}
 
@@ -51,7 +65,7 @@
                         <div class="text-danger">
                             <i class="fas fa-vial mr-1"></i>{{ _("Positivity Index:") }}
                             <strong>
-                                 {{ positivity_idx }}
+                                {{ positivity_idx }}
                             </strong>
                         </div>
                     {% endif %}
@@ -83,13 +97,16 @@
                     <p class="small">{{ _("This project is hosted on an Heroku paid dyno.") }}</p>
                     <p class="small">{{ _(" Thanks for donating &#128513;") }}</p>
                     <div class="container-fluid">
-                        <form action="https://www.paypal.com/donate" method="post" target="_blank">
-                            <input type="hidden" name="hosted_button_id" value="4LSC44UTDTDWA" />
-                            <input type="image" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"
+                        <form action="https://www.paypal.com/donate"
+                              method="post" target="_blank">
+                            <input type="hidden" name="hosted_button_id"
+                                   value="4LSC44UTDTDWA"/>
+                            <input type="image"
+                                   src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"
                                    border="0"
                                    name="submit"
                                    title="PayPal - The safer, easier way to pay online!"
-                                   alt="Donate with PayPal button" />
+                                   alt="Donate with PayPal button"/>
                         </form>
                     </div>
                 </footer>
