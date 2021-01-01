@@ -92,7 +92,7 @@ let URL_PROVINCES = '/provinces/';
     });
 
     $(function () {
-        $("#searchInput").on('change', function (e) {
+        $("#searchInput").on('submit', function (e) {
             e.preventDefault();
             let url = validateSearchInput($("#searchInput").val());
             $("#searchForm").removeAttr('action').attr('action', url);

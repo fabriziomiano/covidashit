@@ -2,25 +2,18 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <div class="card shadow mb-2" id="chartCard">
-            <div class="card-header">
-                <i class="fas fa-chart-line mr-2"></i> {{ _("Trend") }} |
-                {% if area %}
-                    {{ area }}
-                {% else %}
-                    {{ _("National") }}
-                {% endif %}
-            </div>
 
-            <nav class="nav-pills small nav-justified">
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-chart-daily-tab" data-toggle="tab" href="#chart-daily" role="tab" aria-controls="nav-daily" aria-selected="true">{{ _("DAILY") }}</a>
-                    {% if area not in provinces %}
-                        <a class="nav-item nav-link" id="nav-chart-current-tab" data-toggle="tab" href="#chart-current" role="tab" aria-controls="nav-current" aria-selected="false">{{ _("CURRENT") }}</a>
-                    {% endif %}
-                    <a class="nav-item nav-link" id="nav-chart-cum-tab" data-toggle="tab" href="#chart-cum" role="tab" aria-controls="nav-cum" aria-selected="false">{{ _("CUMULATIVE") }}</a>
-                </div>
-            </nav>
+        <nav class="nav-pills nav-justified">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-chart-daily-tab" data-toggle="tab" href="#chart-daily" role="tab" aria-controls="nav-daily" aria-selected="true">{{ _("DAILY") }}</a>
+                {% if area not in provinces %}
+                    <a class="nav-item nav-link" id="nav-chart-current-tab" data-toggle="tab" href="#chart-current" role="tab" aria-controls="nav-current" aria-selected="false">{{ _("CURRENT") }}</a>
+                {% endif %}
+                <a class="nav-item nav-link" id="nav-chart-cum-tab" data-toggle="tab" href="#chart-cum" role="tab" aria-controls="nav-cum" aria-selected="false">{{ _("CUMULATIVE") }}</a>
+            </div>
+        </nav>
+
+        <div class="card shadow mb-2" id="chartCard">
 
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="chart-daily" role="tabpanel" aria-labelledby="nav-daily-tab">
