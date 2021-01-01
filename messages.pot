@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-01-01 05:05+0100\n"
+"POT-Creation-Date: 2021-01-01 05:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -256,7 +256,9 @@ msgid "Days since \"Critical areas\""
 msgstr ""
 
 #: app/templates/dashboard.html:72
-msgid "This project is hosted on an Heroku paid dyno."
+msgid ""
+"This project is <a href='https://github.com/fabriziomiano/covidashit' "
+"target='_blank'>open source</a> and it is hosted on an Heroku paid dyno."
 msgstr ""
 
 #: app/templates/dashboard.html:73
@@ -339,7 +341,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: app/templates/base/modal.html:46
+#: app/templates/base/modal.html:47
 msgid ""
 "Made with <span style=\"color: #e25555;\">&#9829;</span> in <a "
 "href=\"https://goo.gl/maps/rk3BGAvv1HmG3NSs8\" "

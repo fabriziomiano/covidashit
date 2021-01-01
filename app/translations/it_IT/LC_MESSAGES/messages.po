@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-01-01 05:05+0100\n"
-"PO-Revision-Date: 2021-01-01 05:11+0100\n"
+"POT-Creation-Date: 2021-01-01 05:48+0100\n"
+"PO-Revision-Date: 2021-01-01 05:49+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -271,8 +271,12 @@ msgid "Days since \"Critical areas\""
 msgstr "Giorni dall'introduzione di \"aree di criticità\""
 
 #: app/templates/dashboard.html:72
-msgid "This project is hosted on an Heroku paid dyno."
-msgstr "Questo progetto usa un piano Heroku a pagamento."
+msgid ""
+"This project is <a href='https://github.com/fabriziomiano/covidashit' "
+"target='_blank'>open source</a> and it is hosted on an Heroku paid dyno."
+msgstr ""
+"Questo progetto è <a href='https://github.com/fabriziomiano/covidashit' "
+"target='_blank'>open source</a> ed utilizza un piano a pagamento su Heroku."
 
 #: app/templates/dashboard.html:73
 msgid " Thanks for donating &#128513;"
@@ -357,7 +361,7 @@ msgid ""
 "area of interest"
 msgstr ""
 "Nella versione desktop la barra di ricerca in alto a destra permette di "
-"saltare ad un'area d'interesse."
+"saltare ad un'area d'interesse"
 
 #: app/templates/base/modal.html:37
 msgid "Who made this?"
@@ -367,7 +371,7 @@ msgstr "Chi è l'autore?"
 msgid "Close"
 msgstr "Chiudi"
 
-#: app/templates/base/modal.html:46
+#: app/templates/base/modal.html:47
 msgid ""
 "Made with <span style=\"color: #e25555;\">&#9829;</span> in <a href="
 "\"https://goo.gl/maps/rk3BGAvv1HmG3NSs8\" target=\"_blank\">Catania</a>"
@@ -439,6 +443,9 @@ msgstr "COVID-19 Italia"
 #: app/utils/__init__.py:47 app/utils/__init__.py:50 app/utils/__init__.py:53
 msgid "name"
 msgstr ""
+
+#~ msgid "This project is hosted on an Heroku paid dyno."
+#~ msgstr "Questo progetto usa un piano Heroku a pagamento."
 
 #~ msgid "Cards"
 #~ msgstr "Schede"
