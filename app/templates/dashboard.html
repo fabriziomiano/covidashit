@@ -2,117 +2,83 @@
 
 {% block content %}
 
-    <div id="layoutSidenav_content">
-        <main>
-            <a id="back2Top" title="Back to top" href="#">&#8673;</a>
-            <div class="container-fluid mt-2">
+    <main>
+        <a id="back2Top" title="Back to top" href="#">&#8673;</a>
+        <div class="container-fluid mt-2">
 
-                <!-- Top-page data: Area - positivity index - latest update -->
-                <div class="d-sm-flex align-items-center justify-content-between">
-
-                    <!-- Areas dropdown -->
-                    {% if area not in province %}
-                        <div class="btn-group dropright">
-                            {% if area %}
-                                <button class="btn btn-primary" type="submit"
-                                        onclick="window.location.href='/'">
-                                    <i class="fas fa-level-up-alt"></i>
-                                </button>
-                            {% endif %}
-                            <button type="button"
-                                    class="btn btn-primary dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                <i class="fas fa-map-marked-alt"></i> {{ dashboard_title }}
-                            </button>
-
-
-                            <div class="dropdown-menu">
-                                {% if not area %}
-                                    {% for r in regions %}
-                                        <a class="dropdown-item small"
-                                           href="/regions/{{ r }}">{{ r }}</a>
-                                    {% endfor %}
-                                {% elif area in regions %}
-                                    {% for p in region_provinces %}
-                                        <a class="dropdown-item small"
-                                           href="/provinces/{{ p }}">{{ p }}</a>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% else %}
-                        <div class="btn-group">
-                            <button class="btn btn-primary" type="submit"
-                                    onclick='window.location.href="/regions/{{ region }}"'>
-                                <i class="fas fa-level-up-alt"></i>
-                            </button>
-                            <button type="button"
-                                    class="btn btn-primary"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                <i class="fas fa-map-marked-alt"></i> {{ dashboard_title }}
-                            </button>
-
-
-                        </div>
+            <!-- Top-page data: Area - positivity index - latest update -->
+            <!-- Area collapse -->
+            {% if area not in province %}
+                <button class="btn btn-dark btn-raised dropdown-toggle" type="button" data-toggle="collapse" data-target="#areaCollapse" aria-expanded="false" aria-controls="areaCollapse">
+                    <i class="fas fa-map-marked-alt mr-2"></i> {{ dashboard_title }}
+                </button>
+            {% else %}
+                <button class="btn btn-dark"><i class="fas fa-map-marked-alt mr-2"></i>{{ dashboard_title }}</button>
+            {% endif %}
+            <div class="collapse" id="areaCollapse">
+                <div class="align-items-center">
+                    {% if not area %}
+                        {% for r in regions %}
+                            <button type="submit" class="btn btn-secondary" onclick="window.location.href='/regions/{{ r }}'">{{ r }}</button>
+                        {% endfor %}
+                    {% elif area in regions %}
+                        {% for p in region_provinces %}
+                            <button type="submit" class="btn btn-secondary" onclick="window.location.href='/provinces/{{ p }}'">{{ p }}</button>
+                        {% endfor %}
                     {% endif %}
-
-                    <!-- Positivity idx -->
-                    {% if positivity_idx %}
-                        <div class="text-danger">
-                            <i class="fas fa-vial mr-1"></i>{{ _("Positivity Index:") }}
-                            <strong>
-                                {{ positivity_idx }}
-                            </strong>
-                        </div>
-                    {% endif %}
-
-                    <!-- Latest Update -->
-                    <div class="text-info">
-                        <i class="fas fa-bullhorn mr-1"></i>{{ _("Latest Update:") }}
-                        <strong>{{ latest_update }}</strong>
-                    </div>
                 </div>
+            </div>
 
-                <hr class="mt-0">
-
-                <!-- Notes -->
-                {% if notes %}
-                    <div class="small alert alert-info">
-                        <i class="fas fa-info-circle"></i> {{ notes }}
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <!-- Positivity idx -->
+                {% if positivity_idx %}
+                    <div class="text-danger">
+                        <i class="fas fa-vial mr-1"></i>{{ _("Positivity Index:") }}
+                        <strong>{{ positivity_idx }}</strong>
                     </div>
                 {% endif %}
 
-                {% include 'dashboard/cards.html' %}
-                {% include 'dashboard/charts.html' %}
-                {% include 'dashboard/modal_tables.html' %}
-
+                <!-- Latest Update -->
+                <div class="text-info">
+                    <i class="fas fa-bullhorn mr-1"></i>{{ _("Latest Update:") }}
+                    <strong>{{ latest_update }}</strong>
+                </div>
             </div>
 
+            <hr class="mt-0">
+
+            <!-- Notes -->
+            {% if notes %}
+                <div class="small alert alert-info">
+                    <i class="fas fa-info-circle"></i> &#127470;&#127481; {{ notes }}
+                </div>
+            {% endif %}
+
+            {% include 'dashboard/cards.html' %}
+            {% include 'dashboard/charts.html' %}
+            {% include 'dashboard/modal_tables.html' %}
+
+        </div>
+
+        <!-- Footers -->
+        <footer class="py-4 bg-light mt-auto text-center">
+            <p class="text-dark small">
+                {{ _('Days since "Critical areas"') }}: {{ days_since_critical_areas }}<br>
+                {{ _('Days in "Phase 3"') }}: {{ days_in_phase3 }}<br>
+                {{ _('Days in "Phase 2"') }}: {{ days_in_phase2 }}<br>
+                {{ _('Days in Lockdown') }}: {{ days_in_lockdown }}
+            </p>
+            <hr class="mt-0">
+            <p class="small">{{ _("This project is hosted on an Heroku paid dyno.") }}</p>
+            <p class="small">{{ _(" Thanks for donating &#128513;") }}</p>
             <div class="container-fluid">
-                <footer class="py-4 bg-light mt-auto text-center">
-                    <p class="small">{{ _("This project is hosted on an Heroku paid dyno.") }}</p>
-                    <p class="small">{{ _(" Thanks for donating &#128513;") }}</p>
-                    <div class="container-fluid">
-                        <form action="https://www.paypal.com/donate"
-                              method="post" target="_blank">
-                            <input type="hidden" name="hosted_button_id"
-                                   value="4LSC44UTDTDWA"/>
-                            <input type="image"
-                                   src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"
-                                   border="0"
-                                   name="submit"
-                                   title="PayPal - The safer, easier way to pay online!"
-                                   alt="Donate with PayPal button"/>
-                        </form>
-                    </div>
-                </footer>
+                <form action="https://www.paypal.com/donate" method="post" target="_blank">
+                    <input type="hidden" name="hosted_button_id" value="4LSC44UTDTDWA"/>
+                    <input type="image" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button"/>
+                </form>
             </div>
+        </footer>
 
-        </main>
-    </div>
+    </main>
 
 {% endblock %}

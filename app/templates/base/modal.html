@@ -1,72 +1,51 @@
 <!-- Modal -->
-<div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog"
-     aria-labelledby="welcomeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-         role="document">
-        <div class="modal-content bg-light">
+<div class="modal fade bd-example-modal-lg" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{ _('Welcome to COVIDashIT !') }}</h5>
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
+                <h5 class="modal-title">{{ _('&#128075; Welcome to COVIDash') }} &#127470;&#127481;</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <div class="modal-body">
-                <h6><i class="far fa-clipboard mr-2"></i>{{ _("Cards") }}</h6>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <span class="badge badge-secondary">{{ _('New') }}</span>
-                        {{ _('Added "Daily ICU admissions"') }}
-                    </li>
-                    <li class="list-group-item">
-                        {{ _('Click to drill down the area breakdown') }}
-                    </li>
-                    <li class="list-group-item">
-                        {{ _('Hover or tap the icon ') }}
-                        <i class="fas fa-info-circle text-black-50"></i>
-                        {{ _(' for the data description') }}
-                    </li>
-                </ul>
-
-                <h6 class="mt-4">
-                    <i class="fas fa-chart-line mr-2"></i>{{ _("Charts") }}
-                </h6>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <span class="badge badge-secondary">{{ _('New') }}</span>
-                        {{ _('Added "Daily ICU admissions"') }}
-                    </li>
-                    <li class="list-group-item">
-                        {{ _('Click on the legend to toggle series visibility') }}
-                    </li>
-                    <li class="list-group-item">
-                        {{ _("Drag/pinch to zoom; use the 'Reset Zoom' button to reset") }}
-                    </li>
-                </ul>
-
-                <h6 class="mt-4">
-                    <i class="fas fa-search mr-2"></i>{{ _("Search bar (desktop only)") }}
-                </h6>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        {{ _('Use autocompletion to jump to an area') }}
-                    </li>
-                </ul>
+                <p>
+                    <i class="fas fa-info-circle"></i> {{ _("COVIDash is a dashboard that displays the official COVID-19 pandemic Italian data.") }}
+                </p>
+                <p>
+                    <i class="fas fa-info-circle"></i> {{ _("The data are divided in <code>DAILY</code>, <code>CURRENT</code>, and <code>CUMULATIVE</code>.") }}
+                </p>
+                <p>
+                    <i class="fas fa-info-circle"></i> {{ _("The button on the top-left corner and those on the navigation bar can be used to navigate through the areas.") }}
+                </p>
+                <p>
+                    <i class="fas fa-info-circle"></i> {{ _("Some of the cards display the breakdown of the relevant sub-areas when clicked.") }}
+                </p>
+                <p>
+                    <i class="fas fa-info-circle"></i> {{ _("The responsive charts allow for x(y)-axis zoom, and the legend can be used to toggle on/off the series.") }}
+                </p>
+                <p>
+                    <i class="fas fa-info-circle"></i> {{ _("The desktop version provides a search bar that can be used to jump to an area of interest") }}
+                </p>
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-info"
-                        onclick=" window.open('https://fabriziomiano.github.io','_blank')">
-                    <i class="fas fa-user-circle mr-2"></i>{{ _('Who made this?') }}
-                </button>
-                <button type="button" class="btn btn-success"
-                        data-dismiss="modal">
-                    <i class="far fa-thumbs-up mr-2"></i>{{ _("Got it!") }}
-                </button>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-info" onclick=" window.open('https://fabriziomiano.github.io','_blank')">
+                        {{ _('Who made this?') }}
+                    </button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">
+                        {{ _("Close") }}
+                    </button>
+                </div>
             </div>
-            <div class="container"><p class="small">v{{ VERSION }}</p></div>
+
+            <div class="container-fluid">
+                <p class="small">{{ _('Made with <span style="color: #e25555;">&#9829;</span> in <a href="https://goo.gl/maps/rk3BGAvv1HmG3NSs8" target="_blank">Catania</a>') }} - v{{ VERSION }}</p>
+            </div>
         </div>
     </div>
 </div>
+
