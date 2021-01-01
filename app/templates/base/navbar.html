@@ -1,56 +1,51 @@
 <!-- Navbar -->
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="/"><img src="../../static/img/virussketch_32.png" width="32" height="32" alt=""> COVIDashIT</a>
-    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+<nav class="navbar fixed-top navbar-dark navbar-expand bg-dark">
+    <a class="navbar-brand" href="/"><img src="../../static/img/virussketch_32.png" width="24" height="24" alt=""> COVIDash</a>
 
     {% if area %}
         <!-- Navigation Buttons -->
         {% if area_index != 0 %}
-            <div class="btn-group mr-2" role="group" aria-label='{{ _("Previous in alphabetical order") }}'>
-                <button id="previousAreaButton" class="btn btn-sm btn-info rounded-pill" onclick='window.location.href="{{ previous_area_url }}"'>
+            <div class="btn-group" role="group" aria-label='{{ _("Previous in alphabetical order") }}'>
+                <button id="previousAreaButton" class="btn btn-sm btn-raised btn-info" onclick='window.location.href="{{ previous_area_url }}"'>
                     <i class="fas fa-chevron-left"></i>
                 </button>
             </div>
         {% endif %}
         {% if area_index < areas_length-1 %}
-            <div class="btn-group mr-2" role="group" aria-label="{{ _("Next in alphabetical order") }}">
-                <button id="nextAreaButton" class="btn btn-sm btn-info rounded-pill" onclick='window.location.href="{{ next_area_url }}"'>
+            <div class="btn-group mr-1" role="group" aria-label="{{ _("Next in alphabetical order") }}">
+                <button id="nextAreaButton" class="btn btn-sm btn-raised btn-info" onclick='window.location.href="{{ next_area_url }}"'>
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
+        {% endif %}
+
+        {% if area in regions %}
+        <button class="btn btn-sm btn-raised btn-primary" type="submit" onclick='window.location.href="/"'>
+            <i class="fas fa-level-up-alt"></i>
+        </button>
+        {% elif area in provinces %}
+            <button class="btn btn-sm btn-raised btn-primary" type="submit" onclick='window.location.href="/regions/{{ region }}"'>
+                <i class="fas fa-level-up-alt"></i>
+            </button>
         {% endif %}
     {% endif %}
 
     <!-- Navbar Search-->
     <form id="searchForm" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
-            <input id="searchInput" class="form-control" type="text" placeholder="{{ _("Search region/province") }}" aria-label="Search" aria-describedby="basic-addon2"/>
+            <input id="searchInput" class="form-control" type="text" placeholder="{{ _("Search region/province") }}" aria-label="Search"/>
             <div class="input-group-append">
                 <button id="searchBtn" class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
             </div>
         </div>
     </form>
 
-    <!-- Navbar-->
+    <!-- Navbar Extra -->
     <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navDropdown">
-                <a class="dropdown-item small" href="https://fabriziomiano.github.io/" target="_blank"><i class="far fa-address-card mr-2"></i>{{ _("Author Page") }}</a>
-                <a class="dropdown-item small" href="https://github.com/fabriziomiano/covidashit" target="_blank"><i class="fas fa-code mr-2"></i>Dashboard Repository</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item small" href="http://www.protezionecivile.gov.it/" target="_blank"><i class="far fa-newspaper mr-2"></i>{{ _("Civil Protection Dpt") }}</a>
-                <a class="dropdown-item small" href="https://github.com/pcm-dpc/COVID-19" target="_blank"><i class="fas fa-table mr-2"></i>{{ _("Data source: Civil Protection") }}</a>
-                <div class="dropdown-divider"></div>
-                <div class="sb-sidenav-footer">
-                    <div class="small text-center text-sm text-info">{{ _("Made with") }} <span style="color: #e25555;">&#9829;</span> {{ _("in Catania") }}</div>
-                    <div class="small text-center text-sm text-info">
-                        <a class="text-small mr-2" href="https://flask.palletsprojects.com" target="_blank"><img src="https://flask.palletsprojects.com/en/1.1.x/_static/flask-icon.png" width="20" height="20" alt="Flask"></a>
-                        <a class="text-small mr-2" href="https://getbootstrap.com" target="_blank"><img src="https://getbootstrap.com/docs/4.5/assets/img/favicons/favicon.ico" width="20" height="20" alt="Bootstrap"></a>
-                        <a class="text-small mr-2" href="https://www.highcharts.com" target="_blank"><img src="https://www.highcharts.com/images/ico/favicon-32x32.png" width="20" height="20" alt="Highcharts"></a>
-                    </div>
-                </div>
-            </div>
+        <li class="nav-item">
+            <button class="btn btn-sm btn-raised btn-dark" data-toggle="modal" data-target="#welcomeModal">
+                <i class="fas fa-info-circle"></i>
+            </button>
         </li>
     </ul>
 
