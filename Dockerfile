@@ -11,7 +11,7 @@ ADD . /opt/app/
 WORKDIR /opt/app
 
 # Uncomment for development purposes only as $PORT is automatically set by Heroku
-ENV PORT 5000
+# ENV PORT 5000
 
 # Run the app.  CMD is required to run on Heroku
 # crate the collections on DB before running the gunicorn server
