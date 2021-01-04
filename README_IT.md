@@ -25,6 +25,20 @@ creata con [HighCharts](https://www.highcharts.com/).
 
 Perché l'app funzioni è necessario popolare un database mongo 
 ([qui](https://docs.atlas.mongodb.com/tutorial/create-new-cluster) per documentazione mongoDB su creazione cluster Atlas).
+Inoltre, le collezioni del DB devono essere aggiornate giornalmente. Per questo motivo, l'app contiene delle API che vengono chiamate da un GitHub Webhook che viene lanciato quando il branch `master` della repository della PC viene aggiornato (vedi GitHub workflow nel mio fork della repo della PC [qui](https://github.com/fabriziomiano/COVID-19/blob/master/.github/workflows/merge-upstream.yml)).
+Infine, bisogna settare i vari webhooks sul fork della repo della PC per le seguenti API: 
+
+ * `/update/national`
+ * `/update/national/series`
+ * `/update/national/trends`
+ * `/update/regional`
+ * `/update/regional/breakdown`
+ * `/update/regional/series`
+ * `/update/regional/trends`
+ * `/update/provincial`
+ * `/update/provincial/breakdown`
+ * `/update/provincial/series`
+ * `/update/provincial/trends`
 
 #### Setup locale
 * creazione ed attivazione di un virtual environment [(seguire questi passaggi)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)

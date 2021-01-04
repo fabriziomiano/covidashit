@@ -27,6 +27,21 @@ which is built using [HighCharts](https://www.highcharts.com/).
 
 In order for the app to be operational, a mongoDB must be populated 
 ([see here](https://docs.atlas.mongodb.com/tutorial/create-new-cluster) for the creation of an Atlas mongoDB free cluster).
+Additionally, mongo collections must be updated on a daily basis. The Flask contains a number of API whose purpose is to 
+update the DB every time the `master` branch of the CP Dept repository is updated, via a GitHub webhook (see the GitHub workflow [here](https://github.com/fabriziomiano/COVID-19/blob/master/.github/workflows/merge-upstream.yml)).
+Ultimately, the webhooks for the following APIs must be set on the CP forked repository:
+
+ * `/update/national`
+ * `/update/national/series`
+ * `/update/national/trends`
+ * `/update/regional`
+ * `/update/regional/breakdown`
+ * `/update/regional/series`
+ * `/update/regional/trends`
+ * `/update/provincial`
+ * `/update/provincial/breakdown`
+ * `/update/provincial/series`
+ * `/update/provincial/trends`
 
 #### Setup a local version
 * create and activate a virtual environment [(follow this)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
