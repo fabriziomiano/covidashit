@@ -1,14 +1,14 @@
-# Translations template for COVIdashIT.
+# Translations template for COVIDashIT.
 # Copyright (C) 2021 Fabrizio Miano
-# This file is distributed under the same license as the COVIdashIT project.
+# This file is distributed under the same license as the COVIDashIT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: COVIdashIT 1.1\n"
+"Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-01-06 07:25+0100\n"
+"POT-Creation-Date: 2021-01-06 14:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -303,26 +303,31 @@ msgid ""
 "Italian data"
 msgstr ""
 
-#: app/templates/base/modal.html:23
-msgid ""
-"The data are divided in <code>DAILY</code>, <code>CURRENT</code>, and "
-"<code>CUMULATIVE</code>;"
+#: app/templates/base/modal.html:23 app/templates/base/modal.html:26
+#: app/templates/base/modal.html:29
+msgid "New"
 msgstr ""
 
-#: app/templates/base/modal.html:26
+#: app/templates/base/modal.html:23
 msgid ""
 "Use the navigation buttons on the navigation bar when in the "
 "regional/provincial views;"
 msgstr ""
 
-#: app/templates/base/modal.html:29
+#: app/templates/base/modal.html:26
 msgid "Use the search bar to jump to a desired area;"
+msgstr ""
+
+#: app/templates/base/modal.html:29
+msgid ""
+"Some cards, where possible, can be expanded to visualize the breakdown of"
+" the sub-areas;"
 msgstr ""
 
 #: app/templates/base/modal.html:32
 msgid ""
-"Some cards, where possible, can be expanded to visualize the breakdown of"
-" the sub-areas;"
+"The data are divided in <code>DAILY</code>, <code>CURRENT</code>, and "
+"<code>CUMULATIVE</code>;"
 msgstr ""
 
 #: app/templates/base/modal.html:35
@@ -350,13 +355,13 @@ msgid ""
 "target=_blank> Fabrizio Miano</a>"
 msgstr ""
 
-#: app/templates/base/navbar.html:75
+#: app/templates/base/navbar.html:74
 msgid "Start typing"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:25 app/templates/dashboard/cards.html:77
-#: app/templates/dashboard/cards.html:177
-#: app/templates/dashboard/cards.html:276
+#: app/templates/dashboard/cards.html:25 app/templates/dashboard/cards.html:76
+#: app/templates/dashboard/cards.html:185
+#: app/templates/dashboard/cards.html:294
 msgid "Yesterday: "
 msgstr ""
 
@@ -372,30 +377,27 @@ msgstr ""
 msgid "CUMULATIVE"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:94 app/templates/dashboard/cards.html:194
-#: app/templates/dashboard/cards.html:293
+#: app/templates/dashboard/cards.html:93 app/templates/dashboard/cards.html:202
+#: app/templates/dashboard/cards.html:311
 msgid "Breakdown"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:106
-#: app/templates/dashboard/cards.html:205
-#: app/templates/dashboard/cards.html:304
+#: app/templates/dashboard/cards.html:105
+#: app/templates/dashboard/cards.html:214
+#: app/templates/dashboard/cards.html:323
 msgid "Area"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:107
-#: app/templates/dashboard/cards.html:206
-#: app/templates/dashboard/cards.html:305
+#: app/templates/dashboard/cards.html:106
+#: app/templates/dashboard/cards.html:215
+#: app/templates/dashboard/cards.html:324
 msgid "Count"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:138
+#: app/templates/dashboard/cards.html:137
+#: app/templates/dashboard/cards.html:246
+#: app/templates/dashboard/cards.html:355
 msgid "No data from the CP Dept."
-msgstr ""
-
-#: app/templates/dashboard/cards.html:237
-#: app/templates/dashboard/cards.html:336
-msgid "No data provided"
 msgstr ""
 
 #: app/templates/dashboard/charts.html:105
