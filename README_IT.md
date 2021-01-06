@@ -3,10 +3,27 @@ English Version [here](https://github.com/fabriziomiano/covidashit/blob/main/REA
 
 Una semplice dashboard per la visualizzazione e il monitoraggio dei dati ufficiali sulla pandemia da COVID-19 rilasciati giornalmente dal [Dipartimento della Protezione Civile](https://github.com/pcm-dpc) 
 
-## Anteprima
+## Anteprime
+
+### Welcome Modal 
 Mobile          |  Desktop
 :-------------------------:|:-------------------------:
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/mobile_it.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/preview_it.png)
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/welcome_mobile_it.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/welcome_it.png)
+
+### National View 
+Mobile          |  Desktop
+:-------------------------:|:-------------------------:
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/national_mobile_it.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/national_it.png)
+
+### Regional View
+Mobile          |  Desktop
+:-------------------------:|:-------------------------:
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/regional_mobile_it.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/regional_it.png)
+
+### Provincial View
+Mobile          |  Desktop
+:-------------------------:|:-------------------------:
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/provincial_mobile_it.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/provincial_it.png)
 
 ##### La WebApp è pubblicata su Heroku &#8594; [qui](https://www/covidash.it)
 

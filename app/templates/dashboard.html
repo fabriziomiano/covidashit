@@ -3,60 +3,110 @@
 {% block content %}
 
     <main>
-        <a id="back2Top" title="Back to top" href="#">&#8673;</a>
-        <div class="container-fluid mt-2">
+        <a class="btn btn-primary btn-floating" id="back2Top" title="Back to top"
+           href="#">
+            <i class="fas fa-chevron-up"></i>
+        </a>
 
-            <!-- Top-page data: Area - positivity index - latest update -->
-            <!-- Area collapse -->
+        <!-- Top-page data -->
+        <div class="container-fluid">
+
+            <!-- Area accordion -->
             {% if area not in province %}
-                <button class="btn btn-dark btn-raised dropdown-toggle" type="button" data-toggle="collapse" data-target="#areaCollapse" aria-expanded="false" aria-controls="areaCollapse">
-                    <i class="fas fa-map-marked-alt mr-2"></i> {{ dashboard_title }}
-                </button>
-            {% else %}
-                <button class="btn btn-dark"><i class="fas fa-map-marked-alt mr-2"></i>{{ dashboard_title }}</button>
-            {% endif %}
-            <div class="collapse" id="areaCollapse">
-                <div class="align-items-center">
-                    {% if not area %}
-                        {% for r in regions %}
-                            <button type="submit" class="btn btn-secondary" onclick="window.location.href='/regions/{{ r }}'">{{ r }}</button>
-                        {% endfor %}
-                    {% elif area in regions %}
-                        {% for p in region_provinces %}
-                            <button type="submit" class="btn btn-secondary" onclick="window.location.href='/provinces/{{ p }}'">{{ p }}</button>
-                        {% endfor %}
-                    {% endif %}
+                <div class="accordion mb-2" id="areasAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header"
+                            id="flush-headingOne">
+                            <button class="accordion-button text-uppercase collapsed"
+                                    type="button"
+                                    data-mdb-toggle="collapse"
+                                    data-mdb-target="#flush-collapseOne"
+                                    aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
+                                <i class="fas fa-map-marked-alt me-2"></i>{{ dashboard_title }}
+                            </button>
+                        </h2>
+                    </div>
                 </div>
-            </div>
 
-            <div class="d-sm-flex align-items-center justify-content-between">
-                <!-- Positivity idx -->
+                <!-- Accordion items -->
+                <div id="flush-collapseOne"
+                     class="accordion-collapse collapse"
+                     aria-labelledby="flush-headingOne"
+                     data-mdb-parent="#areasAccordion">
+                    <div class="accordion-body">
+                        {% if not area %}
+                            <div class="btn-toolbar"
+                                 role="toolbar"
+                                 aria-label="Toolbar with button groups">
+                                {% for r in regions %}
+                                    <div class="btn-group me-1 mb-1"
+                                         role="group">
+                                        <a class="btn btn-sm btn-light"
+                                           href="/regions/{{ r }}">{{ r }}</a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% elif area in regions %}
+                            <div class="btn-toolbar"
+                                 role="toolbar"
+                                 aria-label="Toolbar with button groups">
+                                {% for p in region_provinces %}
+                                    <div class="btn-group me-1 mb-1"
+                                         role="group">
+                                        <a class="btn btn-sm btn-light"
+                                           href="/provinces/{{ p }}">{{ p }}
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Latest update -->
+                    <p class="mb-0 text-info">
+                        <i class="fas fa-bullhorn me-2"></i>{{ latest_update }}
+                    </p>
+
+                <!-- Positive Rate -->
                 {% if positivity_idx %}
-                    <div class="text-danger">
-                        <i class="fas fa-vial mr-1"></i>{{ _("Positivity Index:") }}
-                        <strong>{{ positivity_idx }}</strong>
+                    <p class="mb-0">
+                        <i class="fas fa-vial me-2"></i>{{ _("Positive Rate:") }}&nbsp;<strong>{{ positivity_idx }}</strong>
+                    </p>
+                    <div class="progress mb-2">
+                        <div class="progress-bar bg-danger"
+                             role="progressbar"
+                             style="width: {{ positivity_idx }}"
+                             aria-valuenow="{{ positivity_idx.split('%')[0] }}"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                        ></div>
                     </div>
                 {% endif %}
+            {% else %}
+                <p class="display-6 mb-0">
+                    <i class="fas fa-map-marked-alt me-2"></i>{{ dashboard_title }}
+                </p>
+                <p class="mb-0 text-info">
+                    <i class="fas fa-bullhorn me-2"></i>{{ latest_update }}
+                </p>
+            {% endif %}
 
-                <!-- Latest Update -->
-                <div class="text-info">
-                    <i class="fas fa-bullhorn mr-1"></i>{{ _("Latest Update:") }}
-                    <strong>{{ latest_update }}</strong>
-                </div>
-            </div>
 
-            <hr class="mt-0">
+
+
+            <hr class="mt-0 mb-2">
 
             <!-- Notes -->
             {% if notes %}
-                <div class="small alert alert-info">
-                    <i class="fas fa-info-circle"></i> &#127470;&#127481; {{ notes }}
+                <div class="small alert alert-info mb-0">
+                    <i class="fas fa-info-circle"></i>
+                    &#127470;&#127481; {{ notes }}
                 </div>
             {% endif %}
 
             {% include 'dashboard/cards.html' %}
             {% include 'dashboard/charts.html' %}
-            {% include 'dashboard/modal_tables.html' %}
 
         </div>
 
@@ -68,13 +118,21 @@
                 {{ _('Days in "Phase 2"') }}: {{ days_in_phase2 }}<br>
                 {{ _('Days in Lockdown') }}: {{ days_in_lockdown }}
             </p>
+
             <hr class="mt-0">
+
             <p class="small">{{ _("This project is <a href='https://github.com/fabriziomiano/covidashit' target='_blank'>open source</a> and it is hosted on an Heroku paid dyno.") }}</p>
             <p class="small">{{ _(" Thanks for donating &#128513;") }}</p>
             <div class="container-fluid">
-                <form action="https://www.paypal.com/donate" method="post" target="_blank">
-                    <input type="hidden" name="hosted_button_id" value="4LSC44UTDTDWA"/>
-                    <input type="image" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button"/>
+                <form action="https://www.paypal.com/donate" method="post"
+                      target="_blank">
+                    <input type="hidden" name="hosted_button_id"
+                           value="4LSC44UTDTDWA"/>
+                    <input type="image"
+                           src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"
+                           border="0" name="submit"
+                           title="PayPal - The safer, easier way to pay online!"
+                           alt="Donate with PayPal button"/>
                 </form>
             </div>
         </footer>
