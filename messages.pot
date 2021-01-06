@@ -1,14 +1,14 @@
-# Translations template for COVIDashIT.
+# Translations template for COVIdashIT.
 # Copyright (C) 2021 Fabrizio Miano
-# This file is distributed under the same license as the COVIDashIT project.
+# This file is distributed under the same license as the COVIdashIT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: COVIDashIT 2.0\n"
+"Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-01-01 05:48+0100\n"
+"POT-Creation-Date: 2021-01-06 07:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,19 +33,19 @@ msgstr ""
 msgid "New Positive"
 msgstr ""
 
-#: config.py:75 config.py:76 config.py:132 config.py:133
-msgid "Daily count of new positve cases"
+#: config.py:75 config.py:76
+msgid "Daily count of new positive cases"
 msgstr ""
 
 #: config.py:84
 msgid "Daily ICU"
 msgstr ""
 
-#: config.py:85 config.py:154
+#: config.py:85 config.py:153
 msgid "# of people daily admitted in ICU"
 msgstr ""
 
-#: config.py:86 config.py:155
+#: config.py:86 config.py:154
 msgid "Daily count of people in ICU"
 msgstr ""
 
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Daily Deaths"
 msgstr ""
 
-#: config.py:95 config.py:96 config.py:142 config.py:143
+#: config.py:95 config.py:96 config.py:141 config.py:142
 msgid "Daily deaths count"
 msgstr ""
 
@@ -61,55 +61,59 @@ msgstr ""
 msgid "Daily Swabs"
 msgstr ""
 
-#: config.py:107 config.py:164
+#: config.py:107 config.py:163
 msgid "# of swabs performed daily"
 msgstr ""
 
-#: config.py:108 config.py:165
-msgid "Daily number of swabs performed since the beginning of the outbreak"
+#: config.py:108 config.py:164
+msgid "Daily number of swabs performed"
 msgstr ""
 
-#: config.py:119
+#: config.py:118
 msgid "Daily Hospitalized"
 msgstr ""
 
-#: config.py:120 config.py:177
+#: config.py:119 config.py:175
 msgid "# of people daily hospitalized"
 msgstr ""
 
-#: config.py:121 config.py:178
+#: config.py:120 config.py:176
 msgid "Daily count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 
-#: config.py:131
+#: config.py:130
 msgid "New Positive (7-day MA)"
 msgstr ""
 
-#: config.py:141
+#: config.py:131 config.py:132
+msgid "Daily count of new positve cases"
+msgstr ""
+
+#: config.py:140
 msgid "Daily Deaths (7-day MA)"
 msgstr ""
 
-#: config.py:153
+#: config.py:152
 msgid "Daily ICU (7-day MA)"
 msgstr ""
 
-#: config.py:163
+#: config.py:162
 msgid "Daily Swabs (7-day MA)"
 msgstr ""
 
-#: config.py:176
+#: config.py:174
 msgid "Daily Hospitalized (7-day MA)"
 msgstr ""
 
-#: config.py:190
+#: config.py:188
 msgid "Total Positive"
 msgstr ""
 
-#: config.py:191
+#: config.py:189
 msgid "# of people currently hospitalized with symptoms + ICU + self isolation"
 msgstr ""
 
-#: config.py:195
+#: config.py:193
 msgid ""
 "People currently positive. Unlike 'Total Cases' it does not take into "
 "account 'healed' and 'deaths'. By the end of the outbreak this should "
@@ -117,151 +121,147 @@ msgid ""
 "healed - total deaths"
 msgstr ""
 
-#: config.py:209
+#: config.py:207
 msgid "Intensive Care Unit"
 msgstr ""
 
-#: config.py:210
+#: config.py:208
 msgid "# of people currently in ICU"
 msgstr ""
 
-#: config.py:211
+#: config.py:209
 msgid "Total count of people currently in ICU and positive to COVID-19"
 msgstr ""
 
-#: config.py:221
+#: config.py:219
 msgid "Hospitalized With Symptoms"
 msgstr ""
 
-#: config.py:222
+#: config.py:220
 msgid "# of people currently hospitalized with symptoms"
 msgstr ""
 
-#: config.py:225
+#: config.py:223
 msgid ""
 "Total count of people currently in hospital due to coronavirus with "
 "symptoms"
 msgstr ""
 
-#: config.py:237
+#: config.py:235
 msgid "Total Hospitalized"
 msgstr ""
 
-#: config.py:238
+#: config.py:236
 msgid "# of people currently hospitalized"
 msgstr ""
 
-#: config.py:239
+#: config.py:237
 msgid "Total count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 
-#: config.py:249
+#: config.py:247
 msgid "Self Isolation"
 msgstr ""
 
-#: config.py:250
+#: config.py:248
 msgid "# of people currently in self isolation"
 msgstr ""
 
-#: config.py:251
+#: config.py:249
 msgid "People currently positive but who do not need hospitalization"
 msgstr ""
 
-#: config.py:263
+#: config.py:261
 msgid "Total Cases"
 msgstr ""
 
-#: config.py:264 config.py:268
+#: config.py:262 config.py:266
 msgid "Total count of the positive tests since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:279
+#: config.py:277
 msgid "Total Deaths"
 msgstr ""
 
-#: config.py:280
+#: config.py:278
 msgid "Total deaths count"
 msgstr ""
 
-#: config.py:281
+#: config.py:279
 msgid "Total deaths count since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:292
+#: config.py:290
 msgid "Total Swabs"
 msgstr ""
 
-#: config.py:293
+#: config.py:291
 msgid "# of swabs performed"
 msgstr ""
 
-#: config.py:294
+#: config.py:292
 msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr ""
 
-#: config.py:305
+#: config.py:302
 msgid "Total Healed"
 msgstr ""
 
-#: config.py:306
+#: config.py:303
 msgid "Cumulative # of people healed"
 msgstr ""
 
-#: config.py:307
+#: config.py:304
 msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:55 config.py:337
+#: app/templates/dashboard/charts.html:72 config.py:334
 msgid "Lockdown"
 msgstr ""
 
-#: app/templates/dashboard.html:69 config.py:338
+#: app/templates/dashboard.html:119 config.py:335
 msgid "Days in Lockdown"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:66 config.py:344
+#: app/templates/dashboard/charts.html:83 config.py:341
 msgid "Phase 2"
 msgstr ""
 
-#: app/templates/dashboard.html:68 config.py:345
+#: app/templates/dashboard.html:118 config.py:342
 msgid "Days in \"Phase 2\""
 msgstr ""
 
-#: app/templates/dashboard/charts.html:77 config.py:351
+#: app/templates/dashboard/charts.html:94 config.py:348
 msgid "Phase 3"
 msgstr ""
 
-#: app/templates/dashboard.html:67 config.py:352
+#: app/templates/dashboard.html:117 config.py:349
 msgid "Days in \"Phase 3\""
 msgstr ""
 
-#: config.py:358
+#: config.py:355
 msgid "Critical Areas"
 msgstr ""
 
-#: app/plotter/__init__.py:53 app/templates/dashboard/charts.html:98
+#: app/plotter/__init__.py:53 app/templates/dashboard/charts.html:115
 msgid "Counts"
 msgstr ""
 
-#: app/templates/dashboard.html:36
-msgid "Positivity Index:"
+#: app/templates/dashboard.html:74
+msgid "Positive Rate:"
 msgstr ""
 
-#: app/templates/dashboard.html:43
-msgid "Latest Update:"
-msgstr ""
-
-#: app/templates/dashboard.html:66
+#: app/templates/dashboard.html:116
 msgid "Days since \"Critical areas\""
 msgstr ""
 
-#: app/templates/dashboard.html:72
+#: app/templates/dashboard.html:124
 msgid ""
 "This project is <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> and it is hosted on an Heroku paid dyno."
 msgstr ""
 
-#: app/templates/dashboard.html:73
+#: app/templates/dashboard.html:125
 msgid " Thanks for donating &#128513;"
 msgstr ""
 
@@ -278,7 +278,7 @@ msgid "Stay Safe and wear a mask!"
 msgstr ""
 
 #: app/templates/thanks.html:18
-msgid "Back to COVIDashIT"
+msgid "Back to COVIDash"
 msgstr ""
 
 #: app/templates/base/head.html:18
@@ -293,114 +293,135 @@ msgstr ""
 msgid "Data visualization of the COVID-19 outbreak in Italy"
 msgstr ""
 
-#: app/templates/base/modal.html:7
+#: app/templates/base/modal.html:10
 msgid "&#128075; Welcome to COVIDash"
 msgstr ""
 
-#: app/templates/base/modal.html:15
+#: app/templates/base/modal.html:20
 msgid ""
 "COVIDash is a dashboard that displays the official COVID-19 pandemic "
-"Italian data."
+"Italian data"
 msgstr ""
 
-#: app/templates/base/modal.html:18
+#: app/templates/base/modal.html:23
 msgid ""
 "The data are divided in <code>DAILY</code>, <code>CURRENT</code>, and "
-"<code>CUMULATIVE</code>."
+"<code>CUMULATIVE</code>;"
 msgstr ""
 
-#: app/templates/base/modal.html:21
+#: app/templates/base/modal.html:26
 msgid ""
-"The button on the top-left corner and those on the navigation bar can be "
-"used to navigate through the areas."
+"Use the navigation buttons on the navigation bar when in the "
+"regional/provincial views;"
 msgstr ""
 
-#: app/templates/base/modal.html:24
+#: app/templates/base/modal.html:29
+msgid "Use the search bar to jump to a desired area;"
+msgstr ""
+
+#: app/templates/base/modal.html:32
 msgid ""
-"Some of the cards display the breakdown of the relevant sub-areas when "
-"clicked."
+"Some cards, where possible, can be expanded to visualize the breakdown of"
+" the sub-areas;"
 msgstr ""
 
-#: app/templates/base/modal.html:27
-msgid ""
-"The responsive charts allow for x(y)-axis zoom, and the legend can be "
-"used to toggle on/off the series."
+#: app/templates/base/modal.html:35
+msgid "The interactive charts allow to zoom in along the x- and y-axis;"
 msgstr ""
 
-#: app/templates/base/modal.html:30
-msgid ""
-"The desktop version provides a search bar that can be used to jump to an "
-"area of interest"
+#: app/templates/base/modal.html:38
+msgid "The chart legend can be used to toggle on/off the data series;"
 msgstr ""
 
-#: app/templates/base/modal.html:37
+#: app/templates/base/modal.html:45
 msgid "Who made this?"
 msgstr ""
 
-#: app/templates/base/modal.html:40
+#: app/templates/base/modal.html:50
 msgid "Close"
 msgstr ""
 
-#: app/templates/base/modal.html:47
+#: app/templates/base/modal.html:57
 msgid ""
-"Made with <span style=\"color: #e25555;\">&#9829;</span> in <a "
-"href=\"https://goo.gl/maps/rk3BGAvv1HmG3NSs8\" "
-"target=\"_blank\">Catania</a>"
+"Made with <span style=\"color: #e25555;\">&#9829;</span> in\n"
+"                        <a href=\"https://goo.gl/maps/rk3BGAvv1HmG3NSs8\""
+" target=\"_blank\">Catania</a>\n"
+"                        by <a href=https://fabriziomiano.github.io "
+"target=_blank> Fabrizio Miano</a>"
 msgstr ""
 
-#: app/templates/base/navbar.html:8
-msgid "Previous in alphabetical order"
+#: app/templates/base/navbar.html:75
+msgid "Start typing"
 msgstr ""
 
-#: app/templates/base/navbar.html:15
-msgid "Next in alphabetical order"
-msgstr ""
-
-#: app/templates/base/navbar.html:36
-msgid "Search region/province"
-msgstr ""
-
-#: app/templates/dashboard/cards.html:5 app/templates/dashboard/charts.html:8
-msgid "DAILY"
-msgstr ""
-
-#: app/templates/dashboard/cards.html:7 app/templates/dashboard/charts.html:10
-msgid "CURRENT"
-msgstr ""
-
-#: app/templates/dashboard/cards.html:9 app/templates/dashboard/charts.html:12
-msgid "CUMULATIVE"
-msgstr ""
-
-#: app/templates/dashboard/cards.html:31 app/templates/dashboard/cards.html:69
-#: app/templates/dashboard/cards.html:107
+#: app/templates/dashboard/cards.html:25 app/templates/dashboard/cards.html:77
+#: app/templates/dashboard/cards.html:177
+#: app/templates/dashboard/cards.html:276
 msgid "Yesterday: "
 msgstr ""
 
-#: app/templates/dashboard/charts.html:88
+#: app/templates/dashboard/cards.html:37 app/templates/dashboard/charts.html:11
+msgid "DAILY"
+msgstr ""
+
+#: app/templates/dashboard/cards.html:41 app/templates/dashboard/charts.html:18
+msgid "CURRENT"
+msgstr ""
+
+#: app/templates/dashboard/cards.html:45 app/templates/dashboard/charts.html:25
+msgid "CUMULATIVE"
+msgstr ""
+
+#: app/templates/dashboard/cards.html:94 app/templates/dashboard/cards.html:194
+#: app/templates/dashboard/cards.html:293
+msgid "Breakdown"
+msgstr ""
+
+#: app/templates/dashboard/cards.html:106
+#: app/templates/dashboard/cards.html:205
+#: app/templates/dashboard/cards.html:304
+msgid "Area"
+msgstr ""
+
+#: app/templates/dashboard/cards.html:107
+#: app/templates/dashboard/cards.html:206
+#: app/templates/dashboard/cards.html:305
+msgid "Count"
+msgstr ""
+
+#: app/templates/dashboard/cards.html:138
+msgid "No data from the CP Dept."
+msgstr ""
+
+#: app/templates/dashboard/cards.html:237
+#: app/templates/dashboard/cards.html:336
+msgid "No data provided"
+msgstr ""
+
+#: app/templates/dashboard/charts.html:105
 msgid "Critical areas"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:105 app/ui/dashboard.py:44
+#: app/templates/dashboard/charts.html:122 app/ui/dashboard.py:44
 msgid "Italy"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:110
+#: app/templates/dashboard/charts.html:127
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection "
 "dataset</a>"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:115
+#: app/templates/dashboard/charts.html:132
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr ""
 
-#: app/templates/dashboard/modal_tables.html:26
-msgid "Area"
+#: app/templates/errors/generic.html:18
+msgid "Please use this button to report any bug"
 msgstr ""
 
-#: app/templates/dashboard/modal_tables.html:27
-msgid "Count"
+#: app/templates/errors/generic.html:19
+msgid "Contact admin"
 msgstr ""
 
 #: app/ui/dashboard.py:43 app/ui/dashboard.py:83 app/ui/dashboard.py:130

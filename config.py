@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 from flask_babel import gettext
 
-VERSION = '3.0.0'
+VERSION = '3.1.0'
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
 DAILY_ICU_KEY = "ingressi_terapia_intensiva"
@@ -72,9 +72,9 @@ VARS = OrderedDict()
 # Daily variables
 VARS[NEW_POSITIVE_KEY] = {
     "title": gettext("New Positive"),
-    "desc": gettext("Daily count of new positve cases"),
-    "longdesc": gettext("Daily count of new positve cases"),
-    "icon": "fas fa-user-plus",
+    "desc": gettext("Daily count of new positive cases"),
+    "longdesc": gettext("Daily count of new positive cases"),
+    "icon": "fas fa-head-side-cough",
     "increase": TREND_SYMBOL_LOGIC["increase"],
     "decrease": TREND_SYMBOL_LOGIC["decrease"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
@@ -106,8 +106,7 @@ VARS[DAILY_SWABS_KEY] = {
     "title": gettext("Daily Swabs"),
     "desc": gettext("# of swabs performed daily"),
     "longdesc": gettext(
-        "Daily number of swabs performed since the beginning of "
-        "the outbreak"
+        "Daily number of swabs performed"
     ),
     "icon": "fas fa-vial",
     "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
@@ -131,7 +130,7 @@ VARS[NEW_POSITIVE_MA_KEY] = {
     "title": gettext("New Positive (7-day MA)"),
     "desc": gettext("Daily count of new positve cases"),
     "longdesc": gettext("Daily count of new positve cases"),
-    "icon": "fas fa-user-plus",
+    "icon": "fas fa-head-side-cough",
     "increase": TREND_SYMBOL_LOGIC["increase"],
     "decrease": TREND_SYMBOL_LOGIC["decrease"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
@@ -163,8 +162,7 @@ VARS[DAILY_SWABS_MA_KEY] = {
     "title": gettext("Daily Swabs (7-day MA)"),
     "desc": gettext("# of swabs performed daily"),
     "longdesc": gettext(
-        "Daily number of swabs performed since the beginning of "
-        "the outbreak"
+        "Daily number of swabs performed"
     ),
     "icon": "fas fa-vial",
     "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
@@ -292,8 +290,7 @@ VARS[TOTAL_SWABS_KEY] = {
     "title": gettext("Total Swabs"),
     "desc": gettext("# of swabs performed"),
     "longdesc": gettext(
-        "Total number of swabs performed since the beginning of "
-        "the outbreak"
+        "Total number of swabs performed since the beginning of the outbreak"
     ),
     "icon": "fas fa-vial",
     "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
