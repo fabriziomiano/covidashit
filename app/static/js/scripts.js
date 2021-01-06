@@ -41,29 +41,10 @@ let URL_PROVINCES = '/provinces/';
 
     // Add active state to sidebar nav links
     const path = window.location.href; // because the 'href' property of the DOM element is the absolute path
-    $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
-        if (this.href === path) {
-            $(this).addClass("active");
-        }
-    });
-
-    // Toggle the side navigation
-    $("#sidebarToggle").on("click", function (e) {
-        e.preventDefault();
-        $("body").toggleClass("sb-sidenav-toggled");
-        $(window).resize();
-    });
 
     // activate tooltips
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
-    })
-
-    // activate data tables
-    $(function () {
-        $('[class="table table-bordered"]').DataTable({
-            "order": [[1, "desc"]]
-        })
     })
 
 
@@ -116,7 +97,7 @@ let URL_PROVINCES = '/provinces/';
 })(jQuery);
 
 
-/*Scroll to top when arrow up clicked BEGIN*/
+/*Scroll to top when arrow up clicked*/
 $(window).scroll(function () {
     let height = $(window).scrollTop();
     if (height > 100) {
@@ -129,7 +110,7 @@ $(window).scroll(function () {
 $(document).ready(function () {
     $("#back2Top").click(function (event) {
         event.preventDefault();
-        $("html, body").animate({ scrollTop: 0 }, "slow");
+        $("html, body").animate({scrollTop: 0}, "slow");
         return false;
     });
 
@@ -139,7 +120,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     let hasVisited = localStorage.getItem("hasVisited");
     let localVersion = localStorage.getItem("version");
-    if (hasVisited === null || localVersion !== VERSION ) {
+    if (hasVisited === null || localVersion !== VERSION) {
         $('#welcomeModal').modal('show');
         hasVisited = "yes"; // localStorage.setItem() only accepts strings
         localStorage.setItem("hasVisited", hasVisited);

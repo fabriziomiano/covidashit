@@ -1,53 +1,71 @@
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+<div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog"
+     aria-labelledby="welcomeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+         role="document">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">{{ _('&#128075; Welcome to COVIDash') }} &#127470;&#127481;</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">
+                    {{ _('&#128075; Welcome to COVIDash') }}
+                    &#127470;&#127481;</h5>
+                <button type="button" class="close" data-mdb-dismiss="modal" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <div class="modal-body">
-                <p>
-                    <i class="fas fa-info-circle"></i> {{ _("COVIDash is a dashboard that displays the official COVID-19 pandemic Italian data.") }}
+                <p class="lead">
+                    {{ _("COVIDash is a dashboard that displays the official COVID-19 pandemic Italian data") }}
                 </p>
                 <p>
-                    <i class="fas fa-info-circle"></i> {{ _("The data are divided in <code>DAILY</code>, <code>CURRENT</code>, and <code>CUMULATIVE</code>.") }}
+                    <span class="badge badge-pill bg-danger me-2">{{ _("New") }}</span><i class="fas fa-mouse-pointer me-2"></i>{{ _("Use the navigation buttons on the navigation bar when in the regional/provincial views;") }}
                 </p>
                 <p>
-                    <i class="fas fa-info-circle"></i> {{ _("The button on the top-left corner and those on the navigation bar can be used to navigate through the areas.") }}
+                    <span class="badge badge-pill bg-danger me-2">{{ _("New") }}</span><i class="fas fa-search me-2"></i>{{ _("Use the search bar to jump to a desired area;") }}
                 </p>
                 <p>
-                    <i class="fas fa-info-circle"></i> {{ _("Some of the cards display the breakdown of the relevant sub-areas when clicked.") }}
+                    <span class="badge badge-pill bg-danger me-2">{{ _("New") }}</span><i class="fas fa-list-ul me-2"></i>{{ _("Some cards, where possible, can be expanded to visualize the breakdown of the sub-areas;") }}
                 </p>
                 <p>
-                    <i class="fas fa-info-circle"></i> {{ _("The responsive charts allow for x(y)-axis zoom, and the legend can be used to toggle on/off the series.") }}
+                    <i class="fas fa-table me-2"></i>{{ _("The data are divided in <code>DAILY</code>, <code>CURRENT</code>, and <code>CUMULATIVE</code>;") }}
                 </p>
                 <p>
-                    <i class="fas fa-info-circle"></i> {{ _("The desktop version provides a search bar that can be used to jump to an area of interest") }}
+                    <i class="fas fa-search-plus me-2"></i>{{ _("The interactive charts allow to zoom in along the x- and y-axis;") }}
+                </p>
+                <p>
+                    <i class="fas fa-toggle-on me-2"></i>{{ _("The chart legend can be used to toggle on/off the data series;") }}
                 </p>
             </div>
 
             <div class="modal-footer">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-info" onclick=" window.open('https://fabriziomiano.github.io','_blank')">
-                        {{ _('Who made this?') }}
-                    </button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">
-                        {{ _("Close") }}
-                    </button>
-                </div>
+                <button type="button" class="btn btn-primary"
+                        onclick=" window.open('https://fabriziomiano.github.io','_blank')">
+                    {{ _('Who made this?') }}
+                </button>
+                <button type="button" class="btn btn-success"
+                        data-mdb-dismiss="modal"
+                        data-dismiss="modal">
+                    {{ _("Close") }}
+                </button>
             </div>
 
             <div class="container-fluid">
-                <p class="small">
-                    {{ _('Made with <span style="color: #e25555;">&#9829;</span> in <a href="https://goo.gl/maps/rk3BGAvv1HmG3NSs8" target="_blank">Catania</a>') }} -
-                    <a href='https://github.com/fabriziomiano/covidashit' target='_blank'>v{{ VERSION }}</a></p>
+                <p class="mb-0">
+                    <small>
+                        {{ _('Made with <span style="color: #e25555;">&#9829;</span> in
+                        <a href="https://goo.gl/maps/rk3BGAvv1HmG3NSs8" target="_blank">Catania</a>
+                        by <a href=https://fabriziomiano.github.io target=_blank> Fabrizio Miano</a>') }}
+                    </small>
+                </p>
+                <p>
+                    <small>
+                        <a href='https://github.com/fabriziomiano/covidashit'
+                           target='_blank'>v{{ VERSION }}</a>
+                    </small>
+                </p>
             </div>
         </div>
     </div>
 </div>
-

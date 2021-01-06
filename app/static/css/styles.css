@@ -75,12 +75,9 @@
     display: none;
     cursor: pointer;
     position: fixed;
-    bottom: 100px;
-    right: 0;
-    background-color: #DDD;
-    color: mediumblue;
+    bottom: 15px;
+    right: 15px;
     text-align: center;
-    font-size: 30px;
     text-decoration: none;
 }
 #back2Top:hover {

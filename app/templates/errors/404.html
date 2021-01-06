@@ -2,8 +2,9 @@
 <html lang="en">
 
 {% include 'base/head.html' %}
+{% include 'base/navbar.html' %}
 
-<body>
+<body style="padding-top: 65px;">
 
 <div id="layoutError">
     <div id="layoutError_content">
@@ -13,8 +14,8 @@
                     <div class="col-lg-6">
                         <div class="text-center mt-4">
                             <img class="mb-4 img-error" src="../../static/img/error-404-monochrome.svg"/>
-                            <p class="lead">{{ error }}</p>
-                            <a href="/"><i class="fas fa-arrow-left mr-1"></i>Return to Dashboard</a>
+                            <p class="small">{{ error }}</p>
+                            <a href="/"><i class="fas fa-home me-2"></i>Return to Dashboard</a>
                         </div>
                     </div>
                 </div>
@@ -22,9 +23,6 @@
         </main>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-<script src="../../static/js/scripts.js"></script>
+
 </body>
 </html>

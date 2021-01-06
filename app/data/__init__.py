@@ -110,13 +110,20 @@ def get_provincial_trends(province):
 
 def get_regional_breakdown():
     """Return regional breakdown from DB"""
-    return REG_BREAKDOWN_COLL.find_one({}, {"_id": False})
+    doc = REG_BREAKDOWN_COLL.find_one({}, {"_id": False})
+    return {
+        key: sorted(doc[key], key=lambda x: x['count'], reverse=True)
+        for key in doc
+    }
 
 
 def get_provincial_breakdown(region):
     """Return provincial breakdown from DB"""
-    return PROV_BREAKDOWN_COLL.find_one(
-        {REGION_KEY: region}, {"_id": False})["breakdowns"]
+    doc = PROV_BREAKDOWN_COLL.find_one({REGION_KEY: region}, {"_id": False})
+    b = doc["breakdowns"]
+    for key in b.keys():
+        b[key] = sorted(b[key], key=lambda x: x['count'], reverse=True)
+    return b
 
 
 def get_national_series():
