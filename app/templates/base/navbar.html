@@ -1,86 +1,59 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <!-- Container wrapper -->
+<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark"
+     aria-label="Third navbar example">
     <div class="container-fluid">
-        <!-- Navbar brand -->
-        <a class="navbar-brand me-3 d-flex align-items-center" href="/">
-            <img src="../../static/img/virussketch_32.png" height="20"/>
-            <small>COVIDash</small></a>
+        <a class="navbar-brand mb-0 h1" href="/">
+            <img src="../../static/img/virussketch_32.png" width="20" height="20" alt="corona image"/>COVIDash
+        </a>
 
         <!-- Navigation Buttons -->
         {% if area %}
-            <ul class="navbar-nav d-flex flex-row">
-                {% if area_index != 0 %}
-                    <!-- Icons -->
-                    <li class="nav-item me-3 me-lg-0">
-                        <a class="nav-link" href="{{ previous_area_url }}">
-                            <i class="fas fa-chevron-left"></i>
-                        </a>
-                    </li>
-                {% endif %}
-                {% if area_index < areas_length-1 %}
-                    <li class="nav-item me-3 me-lg-0">
-                        <a class="nav-link" href="{{ next_area_url }}">
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
-                    </li>
-                {% endif %}
-                {% if area in regions %}
-                    <li class="nav-item me-3 me-lg-0">
-                        <a class="nav-link" href="/">
-                            <i class="fas fa-level-up-alt"></i>
-                        </a>
-                    </li>
-                {% elif area in provinces %}
-                    <li class="nav-item me-3 me-lg-0">
-                        <a class="nav-link" href="/regions/{{ region }}">
-                            <i class="fas fa-level-up-alt"></i>
-                        </a>
-                    </li>
-                {% endif %}
-            </ul>
+            {% if area_index != 0 %}
+                <!-- Icons -->
+                <a class="btn btn-sm btn-primary me-2 me-sm-2 me-md-2" href="{{ previous_area_url }}">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            {% endif %}
+            {% if area_index < areas_length-1 %}
+                <a class="btn btn-sm btn-primary me-2 me-sm-2 me-md-2" href="{{ next_area_url }}">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            {% endif %}
+            {% if area in regions %}
+                <a class="btn btn-sm btn-secondary" href="/">
+                    <i class="fas fa-level-up-alt"></i>
+                </a>
+            {% elif area in provinces %}
+                <a class="btn btn-sm btn-secondary" href="/regions/{{ region }}">
+                    <i class="fas fa-level-up-alt"></i>
+                </a>
+            {% endif %}
         {% endif %}
 
-        <!-- Toggle button -->
-        <div class="btn-toolbar" role="toolbar"
-             aria-label="Toolbar with button groups">
-            <div class="btn-group me-2" role="group" aria-label="First group">
-                <button class="btn btn-sm btn-raised btn-dark"
-                        data-toggle="modal" data-target="#welcomeModal">
-                    <i class="fas fa-info-circle"></i>
-                </button>
-                <button class="navbar-toggler" type="button"
-                        data-mdb-toggle="collapse"
-                        data-mdb-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample03"
+                aria-controls="navbarsExample03" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon small"></span>
+        </button>
 
-            </div>
-        </div>
-
-
-        <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left links -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse" id="navbarsExample03">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item active">
+                    <a class="nav-link" aria-current="page" href="#"
+                       data-bs-toggle="modal" data-bs-target="#welcomeModal">
+                        <i class="fas fa-info-circle me-2"></i>Info
+                    </a>
+                </li>
             </ul>
-
-            <!-- Search form -->
-            <form class="d-flex input-group w-auto">
-                <input id="searchInput" type="search" class="form-control"
+            <form class="d-flex">
+                <input id="searchInput" class="form-control me-2" type="search"
                        placeholder="{{ _("Start typing") }}"
-                       aria-label="Search"/>
-                <button class="btn btn-primary" type="button">
+                       aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
-
         </div>
-        <!-- Collapsible wrapper -->
+
     </div>
-    <!-- Container wrapper -->
 </nav>
-<!-- Navbar -->
