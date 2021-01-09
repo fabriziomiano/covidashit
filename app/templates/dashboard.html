@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <main>
-        <a class="btn btn-primary btn-floating" id="back2Top" title="Back to top"
+    <main class="mt-2">
+        <a class="btn btn-primary" id="back2Top" title="Back to top"
            href="#">
             <i class="fas fa-chevron-up"></i>
         </a>
@@ -13,7 +13,7 @@
             <div class="row">
 
                 {% if area not in province %}
-                    <div class="col-6 col-md-8 col-lg-8">
+                    <div class="col-7 col-md-8 col-lg-8">
                         <!-- Area accordion -->
                         <div class="accordion mb-2" id="areasAccordion">
                             <div class="accordion-item">
@@ -21,8 +21,8 @@
                                     id="flush-headingOne">
                                     <button class="accordion-button text-uppercase collapsed"
                                             type="button"
-                                            data-mdb-toggle="collapse"
-                                            data-mdb-target="#flush-collapseOne"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseOne"
                                             aria-expanded="false"
                                             aria-controls="flush-collapseOne">
                                         <i class="fas fa-map-marked-alt me-2"></i>{{ dashboard_title }}
@@ -32,28 +32,27 @@
                         </div>
                     </div>
 
-                    <div class="col-6 col-md-4 col-lg-4">
+                    <div class="col-5 col-md-4 col-lg-4">
                         <div class="row">
                             <!-- Latest update -->
-                            <p class="mb-0 text-info">
+                            <p class="small mb-0 text-info">
                                 <i class="fas fa-bullhorn me-2"></i>{{ latest_update }}
                             </p>
                         </div>
 
                         <!-- Positive Rate -->
                         {% if positivity_idx %}
-                            <p class="mb-0">
-                                <i class="fas fa-vial me-2"></i>{{ _("Positive Rate:") }}&nbsp;<strong>{{ positivity_idx }}</strong>
+                            <p class="small mb-0">
+                                <i class="fas fa-vial me-2"></i>{{ _("Positive Rate: ") }}<strong>{{ positivity_idx }}</strong>
                             </p>
-                            <div class="progress mb-2">
-                                <div class="progress-bar bg-danger"
-                                     role="progressbar"
-                                     style="width: {{ positivity_idx }}"
-                                     aria-valuenow="{{ positivity_idx.split('%')[0] }}"
-                                     aria-valuemin="0"
-                                     aria-valuemax="100"
-                                ></div>
+                            <div class="progress mb-1" style="height: 5px;">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                                     role="progressbar" aria-valuenow="{{ positivity_idx.split('%')[0] }}"
+                                     aria-valuemin="0" aria-valuemax="100"
+                                     style="width: {{ positivity_idx }}">
+                                </div>
                             </div>
+
                         {% endif %}
                     </div>
 
@@ -73,7 +72,7 @@
 
             <!-- Notes -->
             {% if notes %}
-                <div class="small alert alert-info mb-0">
+                <div class="small alert alert-info mb-2">
                     <i class="fas fa-info-circle"></i>
                     &#127470;&#127481; {{ notes }}
                 </div>
@@ -83,7 +82,7 @@
             <div id="flush-collapseOne"
                  class="accordion-collapse collapse"
                  aria-labelledby="flush-headingOne"
-                 data-mdb-parent="#areasAccordion">
+                 data-bs-parent="#areasAccordion">
                 <div class="accordion-body">
                     {% if not area %}
                         <div class="btn-toolbar"
@@ -92,7 +91,7 @@
                             {% for r in regions %}
                                 <div class="btn-group me-1 mb-1"
                                      role="group">
-                                    <a class="btn btn-sm btn-light"
+                                    <a class="btn btn-light text-uppercase"
                                        href="/regions/{{ r }}">{{ r }}</a>
                                 </div>
                             {% endfor %}
@@ -104,7 +103,7 @@
                             {% for p in region_provinces %}
                                 <div class="btn-group me-1 mb-1"
                                      role="group">
-                                    <a class="btn btn-sm btn-light"
+                                    <a class="btn btn-light text-uppercase"
                                        href="/provinces/{{ p }}">{{ p }}
                                     </a>
                                 </div>

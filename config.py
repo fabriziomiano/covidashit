@@ -43,27 +43,27 @@ TRANSLATION_DIRNAME = "translations"
 TREND_SYMBOL_LOGIC = {
     "stable": {
         "colour": "text-info",
-        "icon": "fas fa-minus",
+        "icon": "bi bi-dash",
         "tooltip": gettext("Stable with respect to yesterday")
     },
     "increase": {
         "colour": "text-danger",
-        "icon": "fas fa-long-arrow-alt-up",
+        "icon": "bi bi-arrow-up-right",
         "tooltip": gettext("Increased with respect to yesterday")
     },
     "increase_inverted": {
         "colour": "text-success",
-        "icon": "fas fa-long-arrow-alt-up",
+        "icon": "bi bi-arrow-up-right",
         "tooltip": gettext("Increased with respect to yesterday")
     },
     "decrease": {
         "colour": "text-success",
-        "icon": "fas fa-long-arrow-alt-down",
+        "icon": "bi bi-arrow-down-left",
         "tooltip": gettext("Decreased with respect to yesterday")
     },
     "decrease_inverted": {
         "colour": "text-danger",
-        "icon": "fas fa-long-arrow-alt-down",
+        "icon": "bi bi-arrow-down-left",
         "tooltip": gettext("Decreased with respect to yesterday")
     }
 }

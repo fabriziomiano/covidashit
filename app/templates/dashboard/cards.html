@@ -2,25 +2,29 @@
 {% if area in province %}
     <div class="row">
         {% for t in trend_cards %}
-            <div class="col-lg col-md- mb-2">
-                <div class="card border-left-{{ t.colour.split('-')[1] }} shadow" data-toggle="modal" data-target="#ModalCenter_{{ t.id }}">
+            <div class="col-lg-6 col-md-6 mb-2">
+                <div class="card border-left-{{ t.colour.split('-')[1] }} shadow"
+                     data-bs-toggle="modal"
+                     data-target="#ModalCenter_{{ t.id }}">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
                                 <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                             </p>
                         </div>
+
                         <div class="d-flex justify-content-between">
                             <div>
                                 <p class="h6 text-gray-800 mb-0">{{ t.count }}</p>
                             </div>
                             <div>
                                 <p class="{{ t.colour }} mb-0">
-                                    <strong>{{ t.percentage_difference|safe }}</strong>
-                                    <i class="{{ t.status_icon }}" data-toggle="tooltip" data-placement="auto" data-original-title="{{ _(t.tooltip) }}"></i>
+                                    <span><i class="{{ t.status_icon }}"></i></span>
+                                    <span>{{ t.percentage_difference|safe }}</span>
                                 </p>
                             </div>
                         </div>
+
                         <p class="small mb-0">
                             <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
                         </p>
@@ -34,27 +38,35 @@
     <!-- Card Tabs -->
     <ul class="nav nav-tabs nav-justified mb-1" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="nav-daily-tab" data-toggle="tab" href="#daily" role="tab" aria-controls="nav-daily" aria-selected="true">{{ _("DAILY") }}</a>
+            <a class="nav-link active" id="nav-daily-tab" data-bs-toggle="tab"
+               href="#daily" role="tab" aria-controls="nav-daily"
+               aria-selected="true">{{ _("DAILY") }}</a>
         </li>
         {% if area not in provinces %}
             <li class="nav-item" role="presentation">
-                <a class="nav-item nav-link" id="nav-current-tab" data-toggle="tab" href="#current" role="tab" aria-controls="nav-current" aria-selected="false">{{ _("CURRENT") }}</a>
+                <a class="nav-item nav-link" id="nav-current-tab"
+                   data-bs-toggle="tab" href="#current" role="tab"
+                   aria-controls="nav-current"
+                   aria-selected="false">{{ _("CURRENT") }}</a>
             </li>
         {% endif %}
         <li class="nav-item" role="presentation">
-            <a class="nav-item nav-link" id="nav-cum-tab" data-toggle="tab" href="#cum" role="tab" aria-controls="nav-cum" aria-selected="false">{{ _("CUMULATIVE") }}</a>
+            <a class="nav-item nav-link" id="nav-cum-tab" data-bs-toggle="tab"
+               href="#cum" role="tab" aria-controls="nav-cum"
+               aria-selected="false">{{ _("CUMULATIVE") }}</a>
         </li>
     </ul>
 
     <!-- Cards -->
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="nav-daily-tab">
+        <div class="tab-pane fade show active" id="daily" role="tabpanel"
+             aria-labelledby="nav-daily-tab">
             <div class="row">
                 {% for t in trend_cards %}
                     {% if t.type == "daily" %}
                         <div class="col-lg col-md- mb-2">
 
-                            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow" >
+                            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
@@ -67,8 +79,8 @@
                                         </div>
                                         <div>
                                             <p class="{{ t.colour }} mb-0">
-                                                <strong>{{ t.percentage_difference|safe }}</strong>
-                                                <i class="{{ t.status_icon }}"></i>
+                                                <span><i class="{{ t.status_icon }}"></i></span>
+                                                <span>{{ t.percentage_difference|safe }}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -81,25 +93,29 @@
                                 {% for data_type, data in breakdown.items() %}
                                     {% if data_type == t.id %}
                                         {% set ns.found=true %}
-                                        <div class="accordion" id="areasAccordion">
+                                        <div class="accordion"
+                                             id="areasAccordion">
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-areas">
+                                                <h2 class="accordion-header"
+                                                    id="flush-areas">
                                                     <button class="accordion-button btn-sm collapsed"
                                                             type="button"
-                                                            data-mdb-toggle="collapse"
-                                                            data-mdb-target="#flush-{{ t.id }}"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#flush-{{ t.id }}"
                                                             aria-expanded="false"
                                                             aria-controls="flush-{{ t.id }}">
-                                                        <strong>{{ _("Breakdown") }}</strong>
+                                                        <small>{{ _("Breakdown") }}</small>
                                                     </button>
                                                 </h2>
                                                 <div id="flush-{{ t.id }}"
                                                      class="accordion-collapse collapse"
                                                      aria-labelledby="flush-areas"
-                                                     data-mdb-parent="#areasAccordion">
+                                                     data-bs-parent="#areasAccordion">
                                                     <div class="accordion-body">
-                                                        <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>{{ t.longdesc }}</p>
-                                                        <table class="table table-sm">
+                                                        <p class="small mb-0">
+                                                            <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
+                                                        </p>
+                                                        <table class="table table-sm table-hover">
                                                             <thead class="table-light">
                                                             <tr>
                                                                 <th>{{ _("Area") }}</th>
@@ -107,14 +123,14 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {% for d in breakdown[t.id] %}
-                                                                    <tr>
-                                                                        <td>
-                                                                            <a href="{{ d.url }}"> {{ d.area }}</a>
-                                                                        </td>
-                                                                        <td>{{ d.count }}</td>
-                                                                    </tr>
-                                                                {% endfor %}
+                                                            {% for d in breakdown[t.id] %}
+                                                                <tr>
+                                                                    <td>
+                                                                        <a href="{{ d.url }}"> {{ d.area }}</a>
+                                                                    </td>
+                                                                    <td>{{ d.count }}</td>
+                                                                </tr>
+                                                            {% endfor %}
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -125,25 +141,29 @@
                                 {% endfor %}
 
                                 {% if not ns.found %}
-                                    <div class="accordion bg-warning" id="areasAccordion">
+                                    <div class="accordion bg-warning"
+                                         id="areasAccordion">
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-areas">
+                                            <h2 class="accordion-header"
+                                                id="flush-areas">
                                                 <button class="accordion-button btn-sm collapsed"
                                                         type="button"
-                                                        data-mdb-toggle="collapse"
-                                                        data-mdb-target="#flush-{{ t.id }}"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-{{ t.id }}"
                                                         aria-expanded="false"
                                                         aria-controls="flush-{{ t.id }}">
-                                                    <strong>{{ _("No data from the CP Dept.") }}</strong>
+                                                    <small>{{ _("No data from the CP Dept.") }}</small>
                                                 </button>
                                             </h2>
                                             <div id="flush-{{ t.id }}"
                                                  class="accordion-collapse collapse"
                                                  aria-labelledby="flush-areas"
-                                                 data-mdb-parent="#areasAccordion">
+                                                 data-bs-parent="#areasAccordion">
                                                 <div class="accordion-body">
                                                     <p>No data</p>
-                                                    <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>{{ t.longdesc }}</p>
+                                                    <p class="small mb-0">
+                                                        <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -157,13 +177,14 @@
             </div>
         </div>
 
-        <div class="tab-pane fade" id="current" role="tabpanel" aria-labelledby="nav-current-tab">
+        <div class="tab-pane fade" id="current" role="tabpanel"
+             aria-labelledby="nav-current-tab">
             <div class="row">
                 {% for t in trend_cards %}
                     {% if t.type == "current" %}
                         <div class="col-lg col-md- mb-2">
 
-                            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow" >
+                            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
@@ -176,8 +197,8 @@
                                         </div>
                                         <div>
                                             <p class="{{ t.colour }} mb-0">
-                                                <strong>{{ t.percentage_difference|safe }}</strong>
-                                                <i class="{{ t.status_icon }}"></i>
+                                                <span><i class="{{ t.status_icon }}"></i></span>
+                                                <span>{{ t.percentage_difference|safe }}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -190,25 +211,29 @@
                                 {% for data_type, data in breakdown.items() %}
                                     {% if data_type == t.id %}
                                         {% set ns.found=true %}
-                                        <div class="accordion" id="areasAccordion">
+                                        <div class="accordion"
+                                             id="areasAccordion">
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-areas">
+                                                <h2 class="accordion-header"
+                                                    id="flush-areas">
                                                     <button class="accordion-button btn-sm collapsed"
                                                             type="button"
-                                                            data-mdb-toggle="collapse"
-                                                            data-mdb-target="#flush-{{ t.id }}"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#flush-{{ t.id }}"
                                                             aria-expanded="false"
                                                             aria-controls="flush-{{ t.id }}">
-                                                        <strong>{{ _("Breakdown") }}</strong>
+                                                        <small>{{ _("Breakdown") }}</small>
                                                     </button>
                                                 </h2>
                                                 <div id="flush-{{ t.id }}"
                                                      class="accordion-collapse collapse"
                                                      aria-labelledby="flush-areas"
-                                                     data-mdb-parent="#areasAccordion">
+                                                     data-bs-parent="#areasAccordion">
                                                     <div class="accordion-body">
-                                                        <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>{{ t.longdesc }}</p>
-                                                        <table class="table table-sm">
+                                                        <p class="small mb-0">
+                                                            <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
+                                                        </p>
+                                                        <table class="table table-sm table-hover">
                                                             <thead class="table-light">
                                                             <tr>
                                                                 <th>{{ _("Area") }}</th>
@@ -216,14 +241,14 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {% for d in breakdown[t.id] %}
-                                                                    <tr>
-                                                                        <td>
-                                                                            <a href="{{ d.url }}"> {{ d.area }}</a>
-                                                                        </td>
-                                                                        <td>{{ d.count }}</td>
-                                                                    </tr>
-                                                                {% endfor %}
+                                                            {% for d in breakdown[t.id] %}
+                                                                <tr>
+                                                                    <td>
+                                                                        <a href="{{ d.url }}"> {{ d.area }}</a>
+                                                                    </td>
+                                                                    <td>{{ d.count }}</td>
+                                                                </tr>
+                                                            {% endfor %}
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -234,25 +259,29 @@
                                 {% endfor %}
 
                                 {% if not ns.found %}
-                                    <div class="accordion bg-warning" id="areasAccordion">
+                                    <div class="accordion bg-warning"
+                                         id="areasAccordion">
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-areas">
+                                            <h2 class="accordion-header"
+                                                id="flush-areas">
                                                 <button class="accordion-button btn-sm collapsed"
                                                         type="button"
-                                                        data-mdb-toggle="collapse"
-                                                        data-mdb-target="#flush-{{ t.id }}"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-{{ t.id }}"
                                                         aria-expanded="false"
                                                         aria-controls="flush-{{ t.id }}">
-                                                    <strong>{{ _("No data from the CP Dept.") }}</strong>
+                                                    <small>{{ _("No data from the CP Dept.") }}</small>
                                                 </button>
                                             </h2>
                                             <div id="flush-{{ t.id }}"
                                                  class="accordion-collapse collapse"
                                                  aria-labelledby="flush-areas"
-                                                 data-mdb-parent="#areasAccordion">
+                                                 data-bs-parent="#areasAccordion">
                                                 <div class="accordion-body">
                                                     <p>No data</p>
-                                                    <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>{{ t.longdesc }}</p>
+                                                    <p class="small mb-0">
+                                                        <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -266,13 +295,14 @@
             </div>
         </div>
 
-        <div class="tab-pane fade" id="cum" role="tabpanel" aria-labelledby="nav-cum-tab">
+        <div class="tab-pane fade" id="cum" role="tabpanel"
+             aria-labelledby="nav-cum-tab">
             <div class="row">
                 {% for t in trend_cards %}
                     {% if t.type == "cum" %}
-                         <div class="col-lg col-md- mb-2">
+                        <div class="col-lg col-md- mb-2">
 
-                            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow" >
+                            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
@@ -285,8 +315,8 @@
                                         </div>
                                         <div>
                                             <p class="{{ t.colour }} mb-0">
-                                                <strong>{{ t.percentage_difference|safe }}</strong>
-                                                <i class="{{ t.status_icon }}"></i>
+                                                <span><i class="{{ t.status_icon }}"></i></span>
+                                                <span>{{ t.percentage_difference|safe }}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -299,25 +329,29 @@
                                 {% for data_type, data in breakdown.items() %}
                                     {% if data_type == t.id %}
                                         {% set ns.found=true %}
-                                        <div class="accordion" id="areasAccordion">
+                                        <div class="accordion"
+                                             id="areasAccordion">
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-areas">
+                                                <h2 class="accordion-header"
+                                                    id="flush-areas">
                                                     <button class="accordion-button btn-sm collapsed"
                                                             type="button"
-                                                            data-mdb-toggle="collapse"
-                                                            data-mdb-target="#flush-{{ t.id }}"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#flush-{{ t.id }}"
                                                             aria-expanded="false"
                                                             aria-controls="flush-{{ t.id }}">
-                                                        <strong>{{ _("Breakdown") }}</strong>
+                                                        <small>{{ _("Breakdown") }}</small>
                                                     </button>
                                                 </h2>
                                                 <div id="flush-{{ t.id }}"
                                                      class="accordion-collapse collapse"
                                                      aria-labelledby="flush-areas"
-                                                     data-mdb-parent="#areasAccordion">
+                                                     data-bs-parent="#areasAccordion">
                                                     <div class="accordion-body">
-                                                        <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>{{ t.longdesc }}</p>
-                                                        <table class="table table-sm">
+                                                        <p class="small mb-0">
+                                                            <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
+                                                        </p>
+                                                        <table class="table table-sm table-hover">
                                                             <thead class="table-light">
                                                             <tr>
                                                                 <th>{{ _("Area") }}</th>
@@ -325,14 +359,14 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {% for d in breakdown[t.id] %}
-                                                                    <tr>
-                                                                        <td>
-                                                                            <a href="{{ d.url }}"> {{ d.area }}</a>
-                                                                        </td>
-                                                                        <td>{{ d.count }}</td>
-                                                                    </tr>
-                                                                {% endfor %}
+                                                            {% for d in breakdown[t.id] %}
+                                                                <tr>
+                                                                    <td>
+                                                                        <a href="{{ d.url }}"> {{ d.area }}</a>
+                                                                    </td>
+                                                                    <td>{{ d.count }}</td>
+                                                                </tr>
+                                                            {% endfor %}
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -343,25 +377,29 @@
                                 {% endfor %}
 
                                 {% if not ns.found %}
-                                    <div class="accordion bg-warning" id="areasAccordion">
+                                    <div class="accordion bg-warning"
+                                         id="areasAccordion">
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-areas">
+                                            <h2 class="accordion-header"
+                                                id="flush-areas">
                                                 <button class="accordion-button btn-sm collapsed"
                                                         type="button"
-                                                        data-mdb-toggle="collapse"
-                                                        data-mdb-target="#flush-{{ t.id }}"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-{{ t.id }}"
                                                         aria-expanded="false"
                                                         aria-controls="flush-{{ t.id }}">
-                                                    <strong>{{ _("No data from the CP Dept.") }}</strong>
+                                                    <small>{{ _("No data from the CP Dept.") }}</small>
                                                 </button>
                                             </h2>
                                             <div id="flush-{{ t.id }}"
                                                  class="accordion-collapse collapse"
                                                  aria-labelledby="flush-areas"
-                                                 data-mdb-parent="#areasAccordion">
+                                                 data-bs-parent="#areasAccordion">
                                                 <div class="accordion-body">
                                                     <p>No data</p>
-                                                    <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>{{ t.longdesc }}</p>
+                                                    <p class="small mb-0">
+                                                        <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
