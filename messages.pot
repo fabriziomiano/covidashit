@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-01-06 14:37+0100\n"
+"POT-Creation-Date: 2021-01-09 22:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -215,27 +215,27 @@ msgstr ""
 msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:72 config.py:334
+#: app/templates/dashboard/charts.html:94 config.py:334
 msgid "Lockdown"
 msgstr ""
 
-#: app/templates/dashboard.html:119 config.py:335
+#: app/templates/dashboard.html:130 config.py:335
 msgid "Days in Lockdown"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:83 config.py:341
+#: app/templates/dashboard/charts.html:105 config.py:341
 msgid "Phase 2"
 msgstr ""
 
-#: app/templates/dashboard.html:118 config.py:342
+#: app/templates/dashboard.html:129 config.py:342
 msgid "Days in \"Phase 2\""
 msgstr ""
 
-#: app/templates/dashboard/charts.html:94 config.py:348
+#: app/templates/dashboard/charts.html:116 config.py:348
 msgid "Phase 3"
 msgstr ""
 
-#: app/templates/dashboard.html:117 config.py:349
+#: app/templates/dashboard.html:128 config.py:349
 msgid "Days in \"Phase 3\""
 msgstr ""
 
@@ -243,25 +243,25 @@ msgstr ""
 msgid "Critical Areas"
 msgstr ""
 
-#: app/plotter/__init__.py:53 app/templates/dashboard/charts.html:115
+#: app/plotter/__init__.py:53 app/templates/dashboard/charts.html:137
 msgid "Counts"
 msgstr ""
 
-#: app/templates/dashboard.html:74
-msgid "Positive Rate:"
+#: app/templates/dashboard.html:46
+msgid "Positive Rate: "
 msgstr ""
 
-#: app/templates/dashboard.html:116
+#: app/templates/dashboard.html:127
 msgid "Days since \"Critical areas\""
 msgstr ""
 
-#: app/templates/dashboard.html:124
+#: app/templates/dashboard.html:135
 msgid ""
 "This project is <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> and it is hosted on an Heroku paid dyno."
 msgstr ""
 
-#: app/templates/dashboard.html:125
+#: app/templates/dashboard.html:136
 msgid " Thanks for donating &#128513;"
 msgstr ""
 
@@ -297,56 +297,56 @@ msgstr ""
 msgid "&#128075; Welcome to COVIDash"
 msgstr ""
 
-#: app/templates/base/modal.html:20
+#: app/templates/base/modal.html:18
 msgid ""
 "COVIDash is a dashboard that displays the official COVID-19 pandemic "
 "Italian data"
 msgstr ""
 
-#: app/templates/base/modal.html:23 app/templates/base/modal.html:26
-#: app/templates/base/modal.html:29
+#: app/templates/base/modal.html:21 app/templates/base/modal.html:24
+#: app/templates/base/modal.html:27
 msgid "New"
 msgstr ""
 
-#: app/templates/base/modal.html:23
+#: app/templates/base/modal.html:21
 msgid ""
 "Use the navigation buttons on the navigation bar when in the "
 "regional/provincial views;"
 msgstr ""
 
-#: app/templates/base/modal.html:26
+#: app/templates/base/modal.html:24
 msgid "Use the search bar to jump to a desired area;"
 msgstr ""
 
-#: app/templates/base/modal.html:29
+#: app/templates/base/modal.html:27
 msgid ""
 "Some cards, where possible, can be expanded to visualize the breakdown of"
 " the sub-areas;"
 msgstr ""
 
-#: app/templates/base/modal.html:32
+#: app/templates/base/modal.html:30
 msgid ""
 "The data are divided in <code>DAILY</code>, <code>CURRENT</code>, and "
 "<code>CUMULATIVE</code>;"
 msgstr ""
 
-#: app/templates/base/modal.html:35
+#: app/templates/base/modal.html:33
 msgid "The interactive charts allow to zoom in along the x- and y-axis;"
 msgstr ""
 
-#: app/templates/base/modal.html:38
+#: app/templates/base/modal.html:36
 msgid "The chart legend can be used to toggle on/off the data series;"
 msgstr ""
 
-#: app/templates/base/modal.html:45
+#: app/templates/base/modal.html:43
 msgid "Who made this?"
 msgstr ""
 
-#: app/templates/base/modal.html:50
+#: app/templates/base/modal.html:46
 msgid "Close"
 msgstr ""
 
-#: app/templates/base/modal.html:57
+#: app/templates/base/modal.html:53
 msgid ""
 "Made with <span style=\"color: #e25555;\">&#9829;</span> in\n"
 "                        <a href=\"https://goo.gl/maps/rk3BGAvv1HmG3NSs8\""
@@ -355,66 +355,67 @@ msgid ""
 "target=_blank> Fabrizio Miano</a>"
 msgstr ""
 
-#: app/templates/base/navbar.html:74
+#: app/templates/base/navbar.html:50
 msgid "Start typing"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:25 app/templates/dashboard/cards.html:76
-#: app/templates/dashboard/cards.html:185
-#: app/templates/dashboard/cards.html:294
+#: app/templates/dashboard/cards.html:29 app/templates/dashboard/cards.html:88
+#: app/templates/dashboard/cards.html:206
+#: app/templates/dashboard/cards.html:324
 msgid "Yesterday: "
 msgstr ""
 
-#: app/templates/dashboard/cards.html:37 app/templates/dashboard/charts.html:11
+#: app/templates/dashboard/cards.html:43 app/templates/dashboard/charts.html:14
 msgid "DAILY"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:41 app/templates/dashboard/charts.html:18
+#: app/templates/dashboard/cards.html:50 app/templates/dashboard/charts.html:21
 msgid "CURRENT"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:45 app/templates/dashboard/charts.html:25
+#: app/templates/dashboard/cards.html:56 app/templates/dashboard/charts.html:27
 msgid "CUMULATIVE"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:93 app/templates/dashboard/cards.html:202
-#: app/templates/dashboard/cards.html:311
+#: app/templates/dashboard/cards.html:107
+#: app/templates/dashboard/cards.html:225
+#: app/templates/dashboard/cards.html:343
 msgid "Breakdown"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:105
-#: app/templates/dashboard/cards.html:214
-#: app/templates/dashboard/cards.html:323
+#: app/templates/dashboard/cards.html:121
+#: app/templates/dashboard/cards.html:239
+#: app/templates/dashboard/cards.html:357
 msgid "Area"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:106
-#: app/templates/dashboard/cards.html:215
-#: app/templates/dashboard/cards.html:324
+#: app/templates/dashboard/cards.html:122
+#: app/templates/dashboard/cards.html:240
+#: app/templates/dashboard/cards.html:358
 msgid "Count"
 msgstr ""
 
-#: app/templates/dashboard/cards.html:137
-#: app/templates/dashboard/cards.html:246
-#: app/templates/dashboard/cards.html:355
+#: app/templates/dashboard/cards.html:155
+#: app/templates/dashboard/cards.html:273
+#: app/templates/dashboard/cards.html:391
 msgid "No data from the CP Dept."
 msgstr ""
 
-#: app/templates/dashboard/charts.html:105
+#: app/templates/dashboard/charts.html:127
 msgid "Critical areas"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:122 app/ui/dashboard.py:44
+#: app/templates/dashboard/charts.html:144 app/ui/dashboard.py:44
 msgid "Italy"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:127
+#: app/templates/dashboard/charts.html:149
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection "
 "dataset</a>"
 msgstr ""
 
-#: app/templates/dashboard/charts.html:132
+#: app/templates/dashboard/charts.html:154
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr ""
 
