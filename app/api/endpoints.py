@@ -11,7 +11,7 @@ from app.db.update import (
     update_regional_series_collection, update_regional_trends_collection,
     update_regional_breakdown_collection, update_provincial_collection,
     update_provincial_breakdown_collection,
-    update_provincial_series_or_trends_collection
+    update_provincial_series_or_trends_collection, update_vax_collection
 )
 from app.plotter import Plotter, validate_plot_request
 
@@ -158,4 +158,22 @@ def trigger_provincial_series_or_trends_collection_update(coll_type):
     """Trigger provincial series OR trends collections update"""
     app.logger.warning(f"Triggered provincial {coll_type} update")
     response = update_provincial_series_or_trends_collection(coll_type)
+    return jsonify(**response)
+
+
+@api.route("/update/vax", methods=["POST"])
+@verify_signature
+def trigger_vax_collection_update():
+    """Trigger vax or vax summary collection update"""
+    app.logger.warning(f"Triggered vax collection update")
+    response = update_vax_collection()
+    return jsonify(**response)
+
+
+@api.route("/update/vax/summary", methods=["POST"])
+@verify_signature
+def trigger_vax_summary_collection_update():
+    """Trigger vax or vax summary collection update"""
+    app.logger.warning(f"Triggered vax collection update")
+    response = update_vax_collection(summary=True)
     return jsonify(**response)

@@ -9,15 +9,17 @@ from app.data.etl import (
     build_national_trends, build_regional_trends, build_provincial_trends,
     build_regional_breakdown, build_provincial_breakdowns,
     build_national_series, build_regional_series, build_provincial_series,
-    COLUMNS_TO_DROP
+    COLUMNS_TO_DROP, augment_vax_df, augment_summary_vax_df
 )
 from app.db import (
     NAT_DATA_COLL, NAT_TRENDS_COLL, NAT_SERIES_COLL, REG_DATA_COLL,
     REG_TRENDS_COLL, REG_SERIES_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL,
-    PROV_TRENDS_COLL, PROV_SERIES_COLL, PROV_BREAKDOWN_COLL
+    PROV_TRENDS_COLL, PROV_SERIES_COLL, PROV_BREAKDOWN_COLL, VAX_COLL,
+    VAX_SUMMARY_COLL
 )
 from config import (
-    URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, DATE_KEY
+    URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, DATE_KEY, URL_VAX_DATA,
+    URL_VAX_SUMMARY_DATA, VAX_DATE_KEY
 )
 
 
@@ -250,4 +252,48 @@ def create_provincial_trends_collection():
     except Exception as e:
         app.logger.error(e)
         response["errors"].append("{}".format(e))
+    return response, status
+
+
+def create_vax_collection():
+    """Create vaccine-data colleciton"""
+    status = 500
+    response = {"status": "ko", "collections_created": [], "errors": []}
+    info_msg = "Doing Vax Collection"
+    err_msg = "While creating vax collection:"
+    df = pd.read_csv(URL_VAX_DATA, parse_dates=[VAX_DATE_KEY])
+    df = augment_vax_df(df)
+    records = df.to_dict(orient='records')
+    try:
+        app.logger.warning(info_msg)
+        VAX_COLL.drop()
+        VAX_COLL.insert_many(records, ordered=True)
+        response["collections_created"].append(VAX_COLL.name)
+        response["status"] = "ok"
+        status = 200
+    except Exception as e:
+        app.logger.error(f"{err_msg} {e}")
+        response["errors"].append(f"{e}")
+    return response, status
+
+
+def create_vax_summary_collection():
+    """Create vax summary collection"""
+    status = 500
+    response = {"status": "ko", "collections_created": [], "errors": []}
+    info_msg = "Doing Vax Summary Collection"
+    err_msg = "While creating vax summary collection:"
+    df = pd.read_csv(URL_VAX_SUMMARY_DATA, parse_dates=[VAX_DATE_KEY])
+    df = augment_summary_vax_df(df)
+    records = df.to_dict(orient='records')
+    try:
+        app.logger.warning(info_msg)
+        VAX_SUMMARY_COLL.drop()
+        VAX_SUMMARY_COLL.insert_many(records, ordered=True)
+        response["collections_created"].append(VAX_SUMMARY_COLL.name)
+        response["status"] = "ok"
+        status = 200
+    except Exception as e:
+        app.logger.error(f"{err_msg} {e}")
+        response["errors"].append(f"{e}")
     return response, status

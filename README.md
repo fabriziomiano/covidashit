@@ -6,25 +6,11 @@ A simple dashboard to display and monitor the official data of the COVID-19 outb
 
 ## Previews
 
-### Welcome Modal 
-Mobile          |  Desktop
-:-------------------------:|:-------------------------:
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/welcome_mobile.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/welcome.png)
+### Pandemic View 
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/pandemic.png)
 
-### National View 
-Mobile          |  Desktop
-:-------------------------:|:-------------------------:
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/national_mobile.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/national.png)
-
-### Regional View
-Mobile          |  Desktop
-:-------------------------:|:-------------------------:
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/regional_mobile.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/regional.png)
-
-### Provincial View
-Mobile          |  Desktop
-:-------------------------:|:-------------------------:
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/provincial_mobile.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/provincial.png)
+### Vaccines View
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/vaccines.png)
 
 ##### The app is deployed on Heroku &#8594; [here](https://www.covidash.it/)
 
