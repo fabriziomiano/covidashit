@@ -3,21 +3,25 @@ DB Update
 """
 import pandas as pd
 from flask import current_app as app
+from pymongo import UpdateOne
 
 from app.data import (
     NAT_DATA_COLL, NAT_TRENDS_COLL, NAT_SERIES_COLL, REG_DATA_COLL,
     REG_TRENDS_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL, PROV_SERIES_COLL,
-    PROV_BREAKDOWN_COLL, PROV_TRENDS_COLL, REG_SERIES_COLL, TREND_CARDS
+    PROV_BREAKDOWN_COLL, PROV_TRENDS_COLL, REG_SERIES_COLL, TREND_CARDS,
+    VAX_COLL, VAX_SUMMARY_COLL
 )
 from app.data.etl import (
     load_df, build_series, build_national_trends, build_provincial_series,
     build_provincial_trends, build_regional_breakdown,
     build_provincial_breakdowns, build_national_series, build_trend,
-    augment_national_df, augment_regional_df, augment_provincial_df
+    augment_national_df, augment_regional_df, augment_provincial_df,
+    augment_vax_df, augment_summary_vax_df
 )
 from config import (
     DATE_KEY, PROVINCES, PROVINCE_KEY, REGIONS, REGION_KEY,
-    URL_PROVINCIAL, URL_REGIONAL, URL_NATIONAL
+    URL_PROVINCIAL, URL_REGIONAL, URL_NATIONAL, URL_VAX_DATA,
+    URL_VAX_SUMMARY_DATA, VAX_DATE_KEY
 )
 
 
@@ -33,7 +37,7 @@ def update_national_collection():
         if records_in_db:
             df_mongo = pd.DataFrame(records_in_db)
             common = df.merge(df_mongo, on=[DATE_KEY])
-            df_to_db = df[(~df.data.isin(common.data))]
+            df_to_db = df[(~df[DATE_KEY].isin(common[DATE_KEY]))]
             if not df_to_db.empty:
                 new_records = df_to_db.to_dict(orient='records')
                 r = NAT_DATA_COLL.insert_many(new_records, ordered=True)
@@ -343,4 +347,55 @@ def update_provincial_series_or_trends_collection(coll_type):
     except Exception as e:
         response["errors"].append(f"{e}")
         app.logger.error(f"{e}")
+    return response
+
+
+def update_vax_collection(summary=False):
+    """Update vax / vax_summary collection"""
+    response = {"status": "ko", "n_inserted_docs": 0, "errors": []}
+    inserted_ids = []
+    if not summary:
+        collection = VAX_COLL
+        df = pd.read_csv(URL_VAX_DATA, parse_dates=[VAX_DATE_KEY])
+        df = augment_vax_df(df)
+    else:
+        collection = VAX_SUMMARY_COLL
+        df = pd.read_csv(URL_VAX_SUMMARY_DATA, parse_dates=[VAX_DATE_KEY])
+        df = augment_summary_vax_df(df)
+    try:
+        records_in_db = list(collection.find())
+        if records_in_db:
+            df_mongo = pd.DataFrame(records_in_db)
+            latest_dt_target = df_mongo[VAX_DATE_KEY].max()
+            latest_dt_source = df[VAX_DATE_KEY].max()
+            if latest_dt_target < latest_dt_source:
+                df_to_db = df[df[VAX_DATE_KEY] > latest_dt_target]
+                new_records = df_to_db.to_dict(orient='records')
+                r = collection.insert_many(new_records, ordered=True)
+                inserted_ids.extend(r.inserted_ids)
+            elif latest_dt_target == latest_dt_source:
+                df = df[df[VAX_DATE_KEY] == latest_dt_source]
+                operations = []
+                for index, row in df.iterrows():
+                    _id = row['_id']
+                    new_value = row.to_dict()
+                    operations.append(
+                        UpdateOne({'_id': _id}, {'$set': new_value})
+                    )
+                r = collection.bulk_write(operations)
+                response['bulk_update'] = r.bulk_api_result
+            response["status"] = "ok"
+        else:
+            msg = f"Filling empty {collection.name}"
+            app.logger.warning(msg)
+            r = collection.insert_many(df.to_dict(orient='records'))
+            inserted_ids.extend(r.inserted_ids)
+            response["status"] = "ok"
+            response["msg"] = msg
+        response["n_inserted_docs"] = len(inserted_ids)
+        msg = f"{len(inserted_ids)} docs updated in {collection.name}"
+        app.logger.warning(msg)
+    except Exception as e:
+        app.logger.error(f"While updating vax collection: {e}")
+        response["errors"], response["msg"] = f"{e}", f"{e}"
     return response

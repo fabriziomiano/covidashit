@@ -7,7 +7,8 @@ from collections import OrderedDict
 
 from flask_babel import gettext
 
-VERSION = '3.1.0'
+VERSION = "4.0"
+PAGE_BASE_TITLE = gettext("COVID-19 Italy")
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
 DAILY_ICU_KEY = "ingressi_terapia_intensiva"
@@ -32,12 +33,23 @@ REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
 REGION_CODE = "codice_regione"
 PROVINCE_CODE = "codice_provincia"
+VAX_LATEST_UPDATE_KEY = "ultimo_aggiornamento"
 CP_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
+VAX_DATE_FMT = "%Y-%m-%dT%H:%M:%S.%f%z"
 CHART_DATE_FMT = "%d %b"
 UPDATE_FMT = "%d/%m/%Y"
+VAX_UPDATE_FMT = "%d/%m/%Y %H:%M"
 DATE_KEY = "data"
 NOTE_KEY = "note"
 STATE_KEY = "stato"
+VAX_DATE_KEY = "data_somministrazione"
+VAX_AREA_KEY = "area"
+VAX_AGE_KEY = "fascia_anagrafica"
+F_SEX_KEY = "sesso_femminile"
+M_SEX_KEY = "sesso_maschile"
+HEALTHCARE_PERS = "categoria_operatori_sanitari_sociosanitari"
+NONHEALTHCARE_PERS = "categoria_personale_non_sanitario"
+HFE_GUESTS = "categoria_ospiti_rsa"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
 TRANSLATION_DIRNAME = "translations"
 TREND_SYMBOL_LOGIC = {
@@ -311,52 +323,95 @@ VARS[TOTAL_HEALED_KEY] = {
     "type": "cum"
 }
 
+# Vax variables
+VARS[HEALTHCARE_PERS] = {
+    "title": gettext("Healthcare Personnel"),
+    "type": "vax"
+}
+VARS[NONHEALTHCARE_PERS] = {
+    "title": gettext("Non-healthcare Personnel"),
+    "type": "vax"
+}
+VARS[HFE_GUESTS] = {
+    "title": gettext("HFE Guests"),
+    "type": "vax"
+}
+
+# Data URLs: Pandemic
+BASE_URL_DATA = (
+    "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/"
+)
 NATIONAL_DATA_FILE = (
     "dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv")
 REGIONAL_DATA_FILE = "dati-regioni/dpc-covid19-ita-regioni.csv"
 REGIONAL_LATEST_DATA_FILE = "dati-regioni/dpc-covid19-ita-regioni-latest.csv"
 PROVINCIAL_DATE_FILE = "dati-province/dpc-covid19-ita-province.csv"
-BASE_URL_DATA = (
-    "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/"
-)
+
 URL_NATIONAL = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
 URL_REGIONAL = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
 URL_PROVINCIAL = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
 URL_REGIONAL_LATEST = os.path.join(BASE_URL_DATA, REGIONAL_LATEST_DATA_FILE)
 
+# Data URLs: Vaccines
+BASE_URL_VAX_DATA = (
+    "https://raw.githubusercontent.com/"
+    "italia/covid19-opendata-vaccini/master/dati/"
+)
+VAX_FILE = "somministrazioni-vaccini-latest.csv"
+VAX_SUMMARY_FILE = "somministrazioni-vaccini-summary-latest.csv"
+VAX_LATEST_UPDATE_JSON = "last-update-dataset.json"
+URL_VAX_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_FILE)
+URL_VAX_SUMMARY_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_SUMMARY_FILE)
+URL_VAX_LATEST_UPDATE = os.path.join(BASE_URL_VAX_DATA, VAX_LATEST_UPDATE_JSON)
+
+# Key Dates
 LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
 PHASE2_DAY = dt.datetime(2020, 5, 4)
 PHASE3_DAY = dt.datetime(2020, 6, 15)
 CRITICAL_AREAS_DAY = dt.datetime(2020, 11, 6)
+VACCINE_DAY = dt.datetime(2020, 12, 27)
 
+# Key Periods
 KEY_PERIODS = OrderedDict()
 KEY_PERIODS["lockdown"] = {
     "title": gettext("Lockdown"),
     "text": gettext('Days in Lockdown'),
     "color": "red",
     "from": LOCKDOWN_DAY,
-    "to": PHASE2_DAY
+    "to": PHASE2_DAY,
+    "n_days": (PHASE2_DAY - LOCKDOWN_DAY).days
 }
 KEY_PERIODS["phase2"] = {
     "title": gettext("Phase 2"),
     "text": gettext('Days in "Phase 2"'),
     "color": "orange",
     "from": PHASE2_DAY,
-    "to": PHASE3_DAY
+    "to": PHASE3_DAY,
+    "n_days": (PHASE3_DAY - PHASE2_DAY).days,
 }
 KEY_PERIODS["phase3"] = {
     "title": gettext("Phase 3"),
     "text": gettext('Days in "Phase 3"'),
     "color": "green",
     "from": PHASE3_DAY,
-    "to": CRITICAL_AREAS_DAY
+    "to": CRITICAL_AREAS_DAY,
+    "n_days": (CRITICAL_AREAS_DAY - PHASE3_DAY).days,
 }
 KEY_PERIODS["critical_areas"] = {
     "title": gettext("Critical Areas"),
-    "text": 'Days since "Critical areas"',
+    "text": gettext('Days since "Critical areas"'),
     "color": "red",
     "from": CRITICAL_AREAS_DAY,
-    "to": dt.datetime.today()
+    "to": dt.datetime.today(),
+    "n_days": (dt.datetime.today() - CRITICAL_AREAS_DAY).days
+}
+KEY_PERIODS["vaccine_day"] = {
+    "title": gettext("Vaccine day"),
+    "text": gettext('Days since "Vaccine day"'),
+    "color": "blue",
+    "from": VACCINE_DAY,
+    "to": dt.datetime.today(),
+    "n_days": (dt.datetime.today() - VACCINE_DAY).days
 }
 
 LANGUAGES = {
@@ -451,3 +506,73 @@ ITALY_MAP = {
 }
 REGIONS = [key for key in ITALY_MAP]
 PROVINCES = [p for pp in ITALY_MAP.values() for p in pp]
+ITALY_POPULATION = {
+    'Piemonte': 4311217,
+    "Valle d'Aosta": 125034,
+    'Lombardia': 10027602,
+    'P.A. Bolzano': 532250,
+    'P.A. Trento': 542214,
+    'Veneto': 4879133,
+    'Friuli Venezia Giulia': 1206216,
+    'Liguria': 1524826,
+    'Emilia-Romagna': 4464119,
+    'Toscana': 3692555,
+    'Umbria': 870165,
+    'Marche': 1512672,
+    'Lazio': 5755700,
+    'Abruzzo': 1293941,
+    'Molise': 300516,
+    'Campania': 5712143,
+    'Puglia': 3953305,
+    'Basilicata': 553254,
+    'Calabria': 1894110,
+    'Sicilia': 4875290,
+    'Sardegna': 1611621,
+    'Italia': 59641488
+}
+PC_TO_OD_MAP = {
+    'Abruzzo': 'ABR',
+    'Basilicata': 'BAS',
+    'Calabria': 'CAL',
+    'Campania': 'CAM',
+    'Emilia-Romagna': 'EMR',
+    'Friuli Venezia Giulia': 'FVG',
+    'Lazio': 'LAZ',
+    'Liguria': 'LIG',
+    'Lombardia': 'LOM',
+    'Marche': 'MAR',
+    'Molise': 'MOL',
+    'P.A. Bolzano': 'PAB',
+    'P.A. Trento': 'PAT',
+    'Piemonte': 'PIE',
+    'Puglia': 'PUG',
+    'Sardegna': 'SAR',
+    'Sicilia': 'SIC',
+    'Toscana': 'TOS',
+    'Umbria': 'UMB',
+    "Valle d'Aosta": 'VDA',
+    'Veneto': 'VEN',
+}
+OD_TO_PC_MAP = {
+    'ABR': 'Abruzzo',
+    'BAS': 'Basilicata',
+    'CAL': 'Calabria',
+    'CAM': 'Campania',
+    'EMR': 'Emilia-Romagna',
+    'FVG': 'Friuli Venezia Giulia',
+    'LAZ': 'Lazio',
+    'LIG': 'Liguria',
+    'LOM': 'Lombardia',
+    'MAR': 'Marche',
+    'MOL': 'Molise',
+    'PAB': 'P.A. Bolzano',
+    'PAT': 'P.A. Trento',
+    'PIE': 'Piemonte',
+    'PUG': 'Puglia',
+    'SAR': 'Sardegna',
+    'SIC': 'Sicilia',
+    'TOS': 'Toscana',
+    'UMB': 'Umbria',
+    'VDA': "Valle d'Aosta",
+    'VEN': 'Veneto'
+}

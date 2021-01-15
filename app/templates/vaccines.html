@@ -1,0 +1,121 @@
+{% extends "layouts/vaccines.html" %}
+
+{% block content %}
+    <main class="mt-2">
+        <a class="btn btn-primary" id="back2Top" title="Back to top"
+           href="#">
+            <i class="fas fa-chevron-up"></i>
+        </a>
+
+        <!-- Top-page data -->
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-12 col-md-8 col-lg-8">
+                    <!-- Area accordion -->
+                    <div class="accordion mb-2" id="areasAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header"
+                                id="flush-headingOne">
+                                <button class="accordion-button text-uppercase collapsed"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseOne"
+                                        aria-expanded="false"
+                                        aria-controls="flush-collapseOne">
+                                    <i class="fas fa-syringe me-2"></i>{{ dashboard_title }}
+                                </button>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-4">
+                    <div class="row">
+                        <!-- Latest update -->
+                        <p class="small mb-0 text-info">
+                            <i class="fas fa-bullhorn me-2"></i>{{ latest_update }}
+                        </p>
+                    </div>
+
+                    <div class="row">
+                        <!-- Total Administrations -->
+                        <p class="small mb-0 text-primary">
+                                <i class="fas fa-syringe me-2"></i>{{ _("Total administered:") }} {{ tot_admins_str }}
+                        </p>
+                    </div>
+
+                    <!-- % people vaccinated -->
+                    <p class="small mb-0 text-danger">
+                        <i class="fas fa-user-shield me-2"></i>% {{ _("People Vaccinated: ") }}<strong>{{ perc_pop_vax }}</strong>
+                    </p>
+                    <div class="progress mb-1" style="height: 5px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                             role="progressbar"
+                             aria-valuenow="{{ perc_pop_vax.split('%')[0] }}"
+                             aria-valuemin="0" aria-valuemax="100"
+                             style="width: {{ perc_pop_vax }}">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <hr class="mt-0 mb-2">
+
+            <!-- Accordion items -->
+            <div id="flush-collapseOne"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="flush-headingOne"
+                 data-bs-parent="#areasAccordion">
+                <div class="accordion-body">
+                    <div class="btn-toolbar"
+                         role="toolbar"
+                         aria-label="Toolbar with button groups">
+                        {% for r in regions %}
+                            <div class="btn-group me-1 mb-1"
+                                 role="group">
+                                <a class="btn btn-sm btn-light text-uppercase"
+                                   href="/vaccines/{{ r }}">{{ r }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            {% include 'charts/vaccines.html' %}
+
+        </div>
+
+        <!-- Footers -->
+        <footer class="py-4 bg-light mt-auto text-center">
+            <p class="text-dark small">
+                {% for k in key_periods %}
+                    {{ _(key_periods[k]['text']) }}:
+                    {{ key_periods[k]['n_days'] }}<br>
+                {% endfor %}
+            </p>
+
+            <hr class="mt-0">
+
+            <p class="small">{{ _("This project is <a href='https://github.com/fabriziomiano/covidashit' target='_blank'>open source</a> and it is hosted on an Heroku paid dyno.") }}</p>
+            <p class="small">{{ _("Thanks for donating &#128513;") }}</p>
+            <div class="container-fluid">
+                <form action="https://www.paypal.com/donate" method="post"
+                      target="_blank">
+                    <input type="hidden" name="hosted_button_id"
+                           value="4LSC44UTDTDWA"/>
+                    <input type="image"
+                           src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"
+                           name="submit"
+                           title="PayPal - The safer, easier way to pay online!"
+                           alt="Donate with PayPal button"/>
+                </form>
+            </div>
+        </footer>
+
+    </main>
+
+{% endblock %}

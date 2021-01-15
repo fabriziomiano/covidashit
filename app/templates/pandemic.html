@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layouts/pandemic.html" %}
 
 {% block content %}
     <main class="mt-2">
@@ -13,7 +13,7 @@
             <div class="row">
 
                 {% if area not in province %}
-                    <div class="col-7 col-md-8 col-lg-8">
+                    <div class="col-6 col-md-8 col-lg-8">
                         <!-- Area accordion -->
                         <div class="accordion mb-2" id="areasAccordion">
                             <div class="accordion-item">
@@ -25,14 +25,14 @@
                                             data-bs-target="#flush-collapseOne"
                                             aria-expanded="false"
                                             aria-controls="flush-collapseOne">
-                                        <i class="fas fa-map-marked-alt me-2"></i>{{ dashboard_title }}
+                                        <i class="fas fa-viruses me-2"></i>{{ dashboard_title }}
                                     </button>
                                 </h2>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-5 col-md-4 col-lg-4">
+                    <div class="col-6 col-md-4 col-lg-4">
                         <div class="row">
                             <!-- Latest update -->
                             <p class="small mb-0 text-info">
@@ -47,7 +47,8 @@
                             </p>
                             <div class="progress mb-1" style="height: 5px;">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                                     role="progressbar" aria-valuenow="{{ positivity_idx.split('%')[0] }}"
+                                     role="progressbar"
+                                     aria-valuenow="{{ positivity_idx.split('%')[0] }}"
                                      aria-valuemin="0" aria-valuemax="100"
                                      style="width: {{ positivity_idx }}">
                                 </div>
@@ -58,7 +59,7 @@
 
                 {% else %}
                     <p class="display-6 mb-0">
-                        <i class="fas fa-map-marked-alt me-2"></i>{{ dashboard_title }}
+                        <i class="fas fa-viruses me-2"></i>{{ dashboard_title }}
                     </p>
                     <p class="mb-0 text-info">
                         <i class="fas fa-bullhorn me-2"></i>{{ latest_update }}
@@ -91,7 +92,7 @@
                             {% for r in regions %}
                                 <div class="btn-group me-1 mb-1"
                                      role="group">
-                                    <a class="btn btn-light text-uppercase"
+                                    <a class="btn btn-sm btn-light text-uppercase"
                                        href="/regions/{{ r }}">{{ r }}</a>
                                 </div>
                             {% endfor %}
@@ -103,7 +104,7 @@
                             {% for p in region_provinces %}
                                 <div class="btn-group me-1 mb-1"
                                      role="group">
-                                    <a class="btn btn-light text-uppercase"
+                                    <a class="btn btn-sm btn-light text-uppercase"
                                        href="/provinces/{{ p }}">{{ p }}
                                     </a>
                                 </div>
@@ -113,22 +114,21 @@
                 </div>
             </div>
 
-        </div>
+            {% include 'cards/pandemic.html' %}
+            {% include 'charts/pandemic.html' %}
 
-
-        <div class="container-fluid">
-            {% include 'dashboard/cards.html' %}
-            {% include 'dashboard/charts.html' %}
         </div>
 
         <!-- Footers -->
         <footer class="py-4 bg-light mt-auto text-center">
+
             <p class="text-dark small">
-                {{ _('Days since "Critical areas"') }}: {{ days_since_critical_areas }}<br>
-                {{ _('Days in "Phase 3"') }}: {{ days_in_phase3 }}<br>
-                {{ _('Days in "Phase 2"') }}: {{ days_in_phase2 }}<br>
-                {{ _('Days in Lockdown') }}: {{ days_in_lockdown }}
+                {% for k in key_periods %}
+                    {{ _(key_periods[k]['text']) }}:
+                    {{ key_periods[k]['n_days'] }}<br>
+                {% endfor %}
             </p>
+
 
             <hr class="mt-0">
 
@@ -141,7 +141,7 @@
                            value="4LSC44UTDTDWA"/>
                     <input type="image"
                            src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"
-                           border="0" name="submit"
+                           name="submit"
                            title="PayPal - The safer, easier way to pay online!"
                            alt="Donate with PayPal button"/>
                 </form>

@@ -1,12 +1,12 @@
 """
-Dashboard blueprint views
+Pandemic blueprint views
 """
 import time
 
 from flask import render_template, redirect
 from flask_babel import gettext
 
-from app.ui import dashboard
+from app.ui import pandemic
 from app.utils import region_of_province
 from app.data import (
     get_notes, get_national_trends, get_regional_trends,
@@ -14,19 +14,19 @@ from app.data import (
     get_national_series, get_regional_series, get_provincial_series,
     get_positivity_idx, get_latest_update, enrich_frontend_data
 )
-from config import REGIONS, PROVINCES, ITALY_MAP
+from config import REGIONS, PROVINCES, ITALY_MAP, PAGE_BASE_TITLE
 
 URL_REGIONS = "/regions"
 URL_PROVINCES = "/provinces"
 
 
-@dashboard.route("/national")
+@pandemic.route("/national")
 def old_national_view():
     """Redirect old national view to home"""
     return redirect('/')
 
 
-@dashboard.route("/")
+@pandemic.route("/")
 def national_view():
     """
     Render the national view
@@ -40,7 +40,7 @@ def national_view():
     updated_at = get_latest_update(data_type=data_type)
     positivity_idx = get_positivity_idx(area_type=data_type)
     data = enrich_frontend_data(
-        page_title=gettext("COVID-19 Italy"),
+        page_title=PAGE_BASE_TITLE,
         dashboard_title=gettext("Italy"),
         ts=int(time.time()),
         trend_cards=cards,
@@ -50,10 +50,10 @@ def national_view():
         positivity_idx=positivity_idx,
         data_type=data_type,
         notes=notes)
-    return render_template("dashboard.html", **data)
+    return render_template("pandemic.html", **data)
 
 
-@dashboard.route(f"{URL_REGIONS}/<region>")
+@pandemic.route(f"{URL_REGIONS}/<region>")
 def regional_view(region):
     """
     Render the regional view
@@ -72,7 +72,6 @@ def regional_view(region):
     positivity_idx = get_positivity_idx(area_type=data_type, area=region)
     provinces = ITALY_MAP[region]
     region_index = REGIONS.index(region)
-    n_regions = len(REGIONS)
     previous_url = f"{URL_REGIONS}/{REGIONS[region_index - 1]}"
     try:
         next_region_url = f"{URL_REGIONS}/{REGIONS[region_index + 1]}"
@@ -80,7 +79,7 @@ def regional_view(region):
         next_region_url = f"{URL_REGIONS}/{REGIONS[-1]}"
     view_data = dict(
         ts=int(time.time()),
-        page_title="{} | {}".format(region, gettext("COVID-19 Italy")),
+        page_title="{} | {}".format(region, PAGE_BASE_TITLE),
         dashboard_title=region,
         region=region,
         region_provinces=provinces,
@@ -92,16 +91,16 @@ def regional_view(region):
         previous_area_url=previous_url,
         next_area_url=next_region_url,
         latest_update=latest_update,
-        areas_length=n_regions,
+        areas_length=len(REGIONS),
         area_index=region_index,
         data_type=data_type,
         cards=cards
     )
     dashboard_data = enrich_frontend_data(area=region, **view_data)
-    return render_template("dashboard.html", **dashboard_data)
+    return render_template("pandemic.html", **dashboard_data)
 
 
-@dashboard.route(f"{URL_PROVINCES}/<province>")
+@pandemic.route(f"{URL_PROVINCES}/<province>")
 def provincial_view(province):
     """
     Render the provincial view
@@ -127,7 +126,7 @@ def provincial_view(province):
         next_province_url = f"{URL_PROVINCES}/{provinces[-1]}"
     view_data = dict(
         ts=int(time.time()),
-        page_title="{} | {}".format(province, gettext("COVID-19 Italy")),
+        page_title="{} | {}".format(province, PAGE_BASE_TITLE),
         dashboard_title=province,
         province=province,
         region=province_region,
@@ -141,11 +140,11 @@ def provincial_view(province):
         data_type=data_type,
         area_index=province_index,
     )
-    dashboard_data = enrich_frontend_data(province, **view_data)
-    return render_template("dashboard.html", **dashboard_data)
+    dashboard_data = enrich_frontend_data(area=province, **view_data)
+    return render_template("pandemic.html", **dashboard_data)
 
 
-@dashboard.route("/thanks")
+@pandemic.route("/thanks")
 def thanks_view():
     """
     Render the "thank you" view

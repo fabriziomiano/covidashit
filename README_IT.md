@@ -5,25 +5,11 @@ Una semplice dashboard per la visualizzazione e il monitoraggio dei dati ufficia
 
 ## Anteprime
 
-### Welcome Modal 
-Mobile          |  Desktop
-:-------------------------:|:-------------------------:
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/welcome_mobile_it.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/welcome_it.png)
+### Pandemic View 
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/pandemic_it.png)
 
-### National View 
-Mobile          |  Desktop
-:-------------------------:|:-------------------------:
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/national_mobile_it.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/national_it.png)
-
-### Regional View
-Mobile          |  Desktop
-:-------------------------:|:-------------------------:
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/regional_mobile_it.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/regional_it.png)
-
-### Provincial View
-Mobile          |  Desktop
-:-------------------------:|:-------------------------:
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/provincial_mobile_it.png) |  ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/provincial_it.png)
+### Vaccines View
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/vaccines_it.png)
 
 ##### La WebApp è pubblicata su Heroku &#8594; [qui](https://www/covidash.it)
 

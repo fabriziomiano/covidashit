@@ -1,43 +1,72 @@
-<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark"
-     aria-label="Third navbar example">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark"
+     aria-label="navbar">
+    <div class="container-fluid" id="topNav">
         <a class="navbar-brand mb-0 h1" href="/">
-            <img src="../../static/img/virussketch_32.png" width="20" height="20" alt="corona image"/>COVIDash
+            <i class="fas fa-virus text-light me-1"></i>COVIDashIT
         </a>
 
         <!-- Navigation Buttons -->
         {% if area %}
-            {% if area_index != 0 %}
-                <!-- Icons -->
-                <a class="btn btn-sm btn-primary me-2 me-sm-2 me-md-2" href="{{ previous_area_url }}">
-                    <i class="fas fa-chevron-left"></i>
-                </a>
-            {% endif %}
-            {% if area_index < areas_length-1 %}
-                <a class="btn btn-sm btn-primary me-2 me-sm-2 me-md-2" href="{{ next_area_url }}">
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            {% endif %}
+            <div class="flex-fill btn-group me-lg-2">
+                {% if area_index != 0 %}
+                    <!-- Icons -->
+                    <a class="btn btn-sm btn-primary"
+                       href="{{ previous_area_url }}">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                {% endif %}
+                {% if area_index < areas_length-1 %}
+                    <a class="btn btn-sm btn-primary"
+                       href="{{ next_area_url }}">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                {% endif %}
+            </div>
             {% if area in regions %}
-                <a class="btn btn-sm btn-secondary" href="/">
-                    <i class="fas fa-level-up-alt"></i>
-                </a>
+                {% if view_type == 'vaccines' %}
+                    <a class="btn btn-sm btn-secondary"
+                       href={{ url_for('vaccines.national_vax_view') }}>
+                        <i class="fas fa-level-up-alt"></i>
+                    </a>
+                {% else %}
+                    <a class="btn btn-sm btn-secondary"
+                       href={{ url_for('pandemic.national_view') }}>
+                        <i class="fas fa-level-up-alt"></i>
+                    </a>
+                {% endif %}
             {% elif area in provinces %}
-                <a class="btn btn-sm btn-secondary" href="/regions/{{ region }}">
+                <a class="btn  btn-secondary"
+                   href="/regions/{{ region }}">
                     <i class="fas fa-level-up-alt"></i>
                 </a>
             {% endif %}
         {% endif %}
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarsExample03"
-                aria-controls="navbarsExample03" aria-expanded="false"
+                data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false"
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon small"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarsExample03">
+        <!-- Nav Links -->
+        <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item">
+                    <a id="pandemicNavLink" class="nav-link"
+                       aria-current="page" href="/">
+                        <i class="fas fa-head-side-mask me-2"></i>{{ _("Pandemic") }}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a id="vaccinesNavLink" class="nav-link"
+                       aria-current="page"
+                       href="{{ url_for('vaccines.national_vax_view') }}">
+                        <i class="fas fa-syringe me-2"></i>{{ _("Vaccines") }}
+                    </a>
+                </li>
+
                 <li class="nav-item active">
                     <a class="nav-link" aria-current="page" href="#"
                        data-bs-toggle="modal" data-bs-target="#welcomeModal">
@@ -45,15 +74,22 @@
                     </a>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input id="searchInput" class="form-control me-2" type="search"
-                       placeholder="{{ _("Start typing") }}"
-                       aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>
-        </div>
 
+            <!-- Nav search bar -->
+            <form class="d-flex d-sm-flex">
+                <div class="input-group">
+                    <input id="searchInput" type="search" class="form-control"
+                           placeholder="{{ _("Search...") }}"
+                           aria-label="search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
     </div>
 </nav>
