@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIDashIT 2.0\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-01-15 23:02+0100\n"
+"POT-Creation-Date: 2021-01-15 23:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -355,17 +355,17 @@ msgid "Search..."
 msgstr ""
 
 #: app/templates/base/modals/welcome.html:10
-msgid "&#128075; Welcome to COVIDash"
+msgid "&#128075; Welcome to COVIDashIT"
 msgstr ""
 
 #: app/templates/base/modals/welcome.html:18
 msgid ""
-"COVIDashIT is a dashboard that displays the official COVID-19 pandemic "
-"Italian data"
+"COVIDashIT is a dashboard that displays the official COVID-19 Italian "
+"outbreak data"
 msgstr ""
 
 #: app/templates/base/modals/welcome.html:21
-msgid "New"
+msgid "New!"
 msgstr ""
 
 #: app/templates/base/modals/welcome.html:22

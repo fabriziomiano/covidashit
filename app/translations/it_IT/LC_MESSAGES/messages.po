@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-01-15 23:02+0100\n"
-"PO-Revision-Date: 2021-01-15 23:03+0100\n"
+"POT-Creation-Date: 2021-01-15 23:47+0100\n"
+"PO-Revision-Date: 2021-01-15 23:48+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -373,20 +373,24 @@ msgid "Search..."
 msgstr "Cerca..."
 
 #: app/templates/base/modals/welcome.html:10
-msgid "&#128075; Welcome to COVIDash"
-msgstr "&#128075; Benvenuti in COVIDash"
+msgid "&#128075; Welcome to COVIDashIT"
+msgstr "&#128075; Benvenuti in COVIDashIT"
 
 #: app/templates/base/modals/welcome.html:18
+#, fuzzy
+#| msgid ""
+#| "COVIDashIT is a dashboard that displays the official COVID-19 pandemic "
+#| "Italian data"
 msgid ""
-"COVIDashIT is a dashboard that displays the official COVID-19 pandemic "
-"Italian data"
+"COVIDashIT is a dashboard that displays the official COVID-19 Italian "
+"outbreak data"
 msgstr ""
 "COVIDashIT è una dashboard che mostra i dati ufficiali sulla pandemia da "
 "COVID-19 in Italia"
 
 #: app/templates/base/modals/welcome.html:21
-msgid "New"
-msgstr "Novità"
+msgid "New!"
+msgstr ""
 
 #: app/templates/base/modals/welcome.html:22
 msgid "Added vaccine data <a href='/vaccines'><strong>here</strong></a>;"
@@ -541,6 +545,9 @@ msgstr "Contatta l'admin"
 #: app/utils/__init__.py:47 app/utils/__init__.py:50 app/utils/__init__.py:53
 msgid "name"
 msgstr ""
+
+#~ msgid "New"
+#~ msgstr "Novità"
 
 #~ msgid "Vaccine data available "
 #~ msgstr "Dati sui vaccini disponibili "
