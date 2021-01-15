@@ -3,8 +3,7 @@
 <div class="row">
 
     {% if area not in provinces %}
-        <div class="col-xl-12">
-
+        <div class="col-12">
             <ul class="nav nav-tabs nav-justified mb-1">
                 <li class="nav-item" role="presentation">
                     <a class="nav-item nav-link active"
@@ -33,7 +32,7 @@
                     <div class="tab-pane fade show active" id="chart-daily"
                          role="tabpanel" aria-labelledby="nav-daily-tab">
                         <div id="chart-trend-daily"
-                             class="container-fluid px-2"
+                             class="container-fluid px-0"
                              style="border: none; width:100%; height: 450px; margin: 0 auto">
                         </div>
                     </div>
@@ -42,14 +41,14 @@
                          role="tabpanel"
                          aria-labelledby="nav-current-tab">
                         <div id="chart-trend-current"
-                             class="container-fluid px-2"
+                             class="container-fluid px-0"
                              style="border: none; width:100%; height: 450px; margin: 0 auto">
                         </div>
                     </div>
 
                     <div class="tab-pane fade" id="chart-cum" role="tabpanel"
                          aria-labelledby="nav-chart-cum-tab">
-                        <div id="chart-trend-cum" class="container-fluid px-2"
+                        <div id="chart-trend-cum" class="container-fluid px-0"
                              style="border: none; width:100%; height: 450px; margin: 0 auto">
                         </div>
                     </div>
@@ -62,13 +61,15 @@
 
         <div class="col-md-6 col-xl-6">
             <div class="card shadow">
-                <div id="chart-trend-cum" class="container-fluid px-0" style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+                <div id="chart-trend-cum" class="container-fluid px-0"
+                     style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
             </div>
         </div>
 
         <div class="col-md-6 col-xl-6">
             <div class="card shadow">
-                <div id="chart-trend-daily" class="container-fluid px-0" style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+                <div id="chart-trend-daily" class="container-fluid px-0"
+                     style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
             </div>
         </div>
 

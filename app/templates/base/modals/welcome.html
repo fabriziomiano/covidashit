@@ -9,22 +9,26 @@
                 <h5 class="modal-title">
                     {{ _('&#128075; Welcome to COVIDash') }}
                     &#127470;&#127481;</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
                 <p class="lead">
-                    {{ _("COVIDash is a dashboard that displays the official COVID-19 pandemic Italian data") }}
+                    {{ _("COVIDashIT is a dashboard that displays the official COVID-19 pandemic Italian data") }}
                 </p>
                 <p>
-                    <span class="badge badge-pill bg-danger me-2">{{ _("New") }}</span><i class="fas fa-mouse-pointer me-2"></i>{{ _("Use the navigation buttons on the navigation bar when in the regional/provincial views;") }}
+                    <span class="badge badge-pill bg-danger me-2">{{ _("New") }}</span><i
+                        class="fas fa-syringe me-2"></i>{{ _("Added vaccine data <a href='/vaccines'><strong>here</strong></a>;") }}
                 </p>
                 <p>
-                    <span class="badge badge-pill bg-danger me-2">{{ _("New") }}</span><i class="fas fa-search me-2"></i>{{ _("Use the search bar to jump to a desired area;") }}
+                    <i class="fas fa-mouse-pointer me-2"></i>{{ _("Use the navigation buttons on the navigation bar when in the regional/provincial views;") }}
                 </p>
                 <p>
-                    <span class="badge badge-pill bg-danger me-2">{{ _("New") }}</span><i class="fas fa-list-ul me-2"></i>{{ _("Some cards, where possible, can be expanded to visualize the breakdown of the sub-areas;") }}
+                    <i class="fas fa-search me-2"></i>{{ _("Use the search bar to jump to the pandemic dashboard of a desired area;") }}
+                </p>
+                <p>
+                    <i class="fas fa-list-ul me-2"></i>{{ _("Some cards, where possible, can be expanded to visualize the breakdown of the sub-areas;") }}
                 </p>
                 <p>
                     <i class="fas fa-table me-2"></i>{{ _("The data are divided in <code>DAILY</code>, <code>CURRENT</code>, and <code>CUMULATIVE</code>;") }}
@@ -42,7 +46,8 @@
                         onclick=" window.open('https://fabriziomiano.github.io','_blank')">
                     {{ _('Who made this?') }}
                 </button>
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-success"
+                        data-bs-dismiss="modal">
                     {{ _("Close") }}
                 </button>
             </div>
@@ -53,10 +58,7 @@
                         {{ _('Made with <span style="color: #e25555;">&#9829;</span> in
                         <a href="https://goo.gl/maps/rk3BGAvv1HmG3NSs8" target="_blank">Catania</a>
                         by <a href=https://fabriziomiano.github.io target=_blank> Fabrizio Miano</a>') }}
-                    </small>
-                </p>
-                <p class="mt-0 mb-0">
-                    <small>
+                        &nbsp;|&nbsp;
                         <a href='https://github.com/fabriziomiano/covidashit'
                            target='_blank'>v{{ VERSION }}</a>
                     </small>
@@ -65,21 +67,3 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
-{#<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-{#  <div class="modal-dialog">#}
-{#    <div class="modal-content">#}
-{#      <div class="modal-header">#}
-{#        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>#}
-{#        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
-{#      </div>#}
-{#      <div class="modal-body">#}
-{#        ...#}
-{#      </div>#}
-{#      <div class="modal-footer">#}
-{#        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
-{#        <button type="button" class="btn btn-primary">Save changes</button>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-{#</div>#}

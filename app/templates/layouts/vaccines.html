@@ -5,13 +5,14 @@
     {% include 'base/head.html' %}
 {% endblock %}
 
-<body style="padding-top: 55px;">
+<body>
 
-{% include 'base/modal.html' %}
+{% include 'base/modals/welcome.html' %}
 {% include 'base/navbar.html' %}
 
 {% block content %}
 {% endblock %}
+
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -21,7 +22,7 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <!-- Custom scripts -->
 <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vaccines-charts.js') }}"></script>
 <script>
     let VERSION = '{{ VERSION }}';
 </script>

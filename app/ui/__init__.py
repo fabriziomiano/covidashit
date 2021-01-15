@@ -3,6 +3,8 @@ UI Module
 """
 from flask import Blueprint
 
-dashboard = Blueprint("dashboard", __name__)
+pandemic = Blueprint("pandemic", __name__)
+vaccines = Blueprint("vaccines", __name__, url_prefix='/vaccines')
 
-from .dashboard import dashboard
+from .pandemic import pandemic
+from .vaccines import vaccines

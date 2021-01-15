@@ -12,7 +12,8 @@ from config import (
     VARS, DAILY_POSITIVITY_INDEX, NEW_POSITIVE_KEY, DAILY_SWABS_KEY,
     REGION_CODE, PROVINCE_CODE, TOTAL_CASES_KEY, REGION_KEY, PROVINCE_KEY,
     REGIONS, PROVINCES, DATE_KEY, CHART_DATE_FMT, STATE_KEY,
-    NEW_POSITIVE_MA_KEY
+    NEW_POSITIVE_MA_KEY, VAX_AGE_KEY, M_SEX_KEY, F_SEX_KEY, VAX_DATE_KEY,
+    VAX_DATE_FMT, VAX_AREA_KEY
 )
 COLUMNS_TO_DROP = [STATE_KEY]
 
@@ -431,3 +432,24 @@ def build_provincial_series(df):
             "cum": series_cum
         })
     return provincial_series
+
+
+def augment_vax_df(df):
+    """Clean 'fascia_anagrafica key, add 'total' and 'id' to df"""
+    df[VAX_AGE_KEY] = df[VAX_AGE_KEY].apply(lambda x: x.strip())
+    df['totale'] = df[M_SEX_KEY] + df[F_SEX_KEY]
+    df['_id'] = (
+            df[VAX_DATE_KEY].apply(lambda x: x.strftime(VAX_DATE_FMT)) +
+            df[VAX_AREA_KEY] +
+            df[VAX_AGE_KEY]
+    )
+    return df
+
+
+def augment_summary_vax_df(df):
+    """Add column '_id' as concatenation of VAX_DATE_KEY and VAX_AREA_KEY"""
+    df['_id'] = (
+            df[VAX_DATE_KEY].apply(lambda x: x.strftime(VAX_DATE_FMT)) +
+            df[VAX_AREA_KEY]
+    )
+    return df
