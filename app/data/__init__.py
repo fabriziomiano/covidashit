@@ -194,7 +194,7 @@ def get_national_data():
     df = pd.DataFrame(list(cursor))
     if df.empty:
         app.logger.error("While getting national data: no data")
-    return pd.DataFrame(list(cursor))
+    return df
 
 
 def get_region_data(region):
@@ -203,7 +203,7 @@ def get_region_data(region):
     df = pd.DataFrame(list(cursor))
     if df.empty:
         app.logger.error(f"While getting {region} data: no data")
-    return pd.DataFrame(list(cursor))
+    return df
 
 
 def get_province_data(province):
@@ -214,7 +214,7 @@ def get_province_data(province):
     df = pd.DataFrame(list(cursor))
     if df.empty:
         app.logger.error(f"While getting {province} data: no data")
-    return pd.DataFrame(list(cursor))
+    return df
 
 
 def get_latest_update(data_type="national"):
