@@ -20,7 +20,7 @@ A simple dashboard to display and monitor the official data of the COVID-19 outb
 ## For developers
 The WebApp requires Python 3.8+ and reads the data from a mongoDB. It employs a Flask server with `gunicorn` in front of it.
 Furthermore, it employs Flask-babel for the italian translation, as English is set as primary language. 
-The script `make_pot.sh` creates the files needed by babel for the translations.
+The script `make_pot.sh` creates the files needed by Babel for the translations.
 A `Batch` version of the script is provided for Windows users. 
 The app language is decided upon the client request (browser / OS).
 
@@ -44,8 +44,11 @@ Ultimately, the webhooks for the following APIs must be set on the CP forked rep
  * `/update/provincial/breakdown`
  * `/update/provincial/series`
  * `/update/provincial/trends`
+ * `/update/vax/`
+ * `/update/vax/summary`
 
-#### Setup a local version
+
+#### Set up a local version
 * create and activate a virtual environment [(follow this)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 * install the requirements in `requirements.txt`
 
@@ -86,33 +89,75 @@ The app can be deployed on Heroku either as a docker container or simply using t
 
 ## Plots API
 The app provides an API to produce a server-side plot with `matplotlib`.
-The API can return a JSON response with the base64-encoded image or 
+The API can return a JSON response with the base64-encoded image, or 
 the bytes content to be saved as a file.
 
-### Resource URL 
-
+### Resource URL
 
 `https://www.covidash.it/api/plot`
 
-### Parameters
-| Name      | Required                                        | Description                                  | Default Value | Example                                  |
-|-----------|-------------------------------------------------|----------------------------------------------|---------------|------------------------------------------|
-| data_type | Yes                                             | The data type To plot                        |               | "national" or "regional" or "provincial" |
-| varname   | Yes                                             | The name of the variable to plot             |               | "nuovi_positivi", "tamponi_g"...         |
-| area      | Only if data_type is "regional" or "provincial" | The name of the area to filter the data with |               | "Sicilia", "Catania"...                  |
-| download  | No                                              | The flag to download directly the file       | False         | "true"                                   |
+### Query parameters
+#### Data type
+```
+data_type = [national, regional, provincial]
+```
+#### Var name
+```
+varname = [nuovi_positivi, ingressi_terapia_intensiva, deceduti_g, tamponi_g,
+ totale_ospedalizzati_g, nuovi_positivi_ma, deceduti_g_ma, 
+ ingressi_terapia_intensiva_ma, tamponi_g_ma, totale_ospedalizzati_g_ma, 
+ totale_positivi, terapia_intensiva, ricoverati_con_sintomi, 
+ totale_ospedalizzati, isolamento_domiciliare, totale_casi, deceduti, 
+ tamponi, dimessi_guariti]
+```
+for `data_type = [national, regional]`
+```
+varname = [nuovi_positivi, nuovi_positivi_ma, totale_casi]
+```
+for `data_type = [provincial]`
+#### Area (regions)
+```
+area = [Abruzzo, Basilicata, Calabria, Campania, Emilia-Romagna, Friuli Venezia Giulia,
+ Lazio, Liguria, Lombardia, Marche, Molise, Piemonte, Puglia, Sardegna, 
+ Sicilia, Toscana, P.A. Bolzano, P.A. Trento, Umbria, Valle d'Aosta, Veneto]
+```
+
+#### Area (provinces)
+```
+area = [Chieti, L'Aquila, Pescara, Teramo, Matera, Potenza, Catanzaro, Cosenza,
+Crotone, Reggio di Calabria, Vibo Valentia, Avellino, Benevento, Caserta, 
+Napoli, Salerno, Bologna, Ferrara, Forlì-Cesena, Modena, Parma, Piacenza, 
+Ravenna, Reggio nell'Emilia, Rimini, Gorizia, Pordenone, Trieste, Udine, 
+Frosinone, Latina, Rieti, Roma, Viterbo, Genova, Imperia, La Spezia, Savona, 
+Bergamo, Brescia, Como, Cremona, Lecco, Lodi, Mantova, Milano, 
+Monza e della Brianza, Pavia, Sondrio, Varese, Ancona, Ascoli Piceno, Fermo, 
+Macerata, Pesaro e Urbino, Campobasso, Isernia, Alessandria, Asti, Biella, 
+Cuneo, Novara, Torino, Verbano-Cusio-Ossola, Vercelli, Bari, 
+Barletta-Andria-Trani, Brindisi, Lecce, Foggia, Taranto, Cagliari, Nuoro, 
+Sassari, Sud Sardegna, Agrigento, Caltanissetta, Catania, Enna, Messina, 
+Palermo, Ragusa, Siracusa, Trapani, Arezzo, Firenze, Grosseto, Livorno, Lucca,
+Massa Carrara, Pisa, Pistoia, Prato, Siena, Perugia, Terni, Aosta, Belluno, 
+Padova, Rovigo, Treviso, Venezia, Verona, Vicenza]
+```
 
 ### Examples
+#### A national plot
+* `/api/plot?data_type=national&varname=<varname>`
+#### A regional plot
+* `/api/plot?data_type=regional&area=<region>&varname=<varname>`
+#### A regional plot
+* `/api/plot?data_type=provincial&area=<province>&varname=[nuovi_positivi,nuovi_positivi_ma,totale_casi]>`
 
-#### To get the base64-encoded image in a JSON response
+##### To get the base64-encoded image in a JSON response
+###### JSON
+
 ###### Request
 ```
-curl --request GET \
-    --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi'
+curl --request GET \ 
+     --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi'
 ```
 
 ###### Response
-
 `{
     "errors":[],
     "img":"iVBORw0KGgoAA...",
@@ -123,11 +168,11 @@ curl --request GET \
 ###### Request 
 ```
 curl --request GET \
-    --url 'https://www.covidash.it/api/plot?data_type=national&varname=terapia_intensiva&download=true' \
-    --output plot.png
+     --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi&download=true' \
+     --output plot.png
 ```
 
-The plot will be written in `plot.png`
+The plot will be saved in `./plot.png`
 
 ## Plot preview
 ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/plot.png) 

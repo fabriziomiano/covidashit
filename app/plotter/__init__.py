@@ -33,18 +33,20 @@ class Plotter(object):
         :param area: str, optional
         """
         menu = {
-            "national": get_national_data(),
-            "regional": get_region_data(area),
-            "provincial": get_province_data(area)
+            "national": get_national_data,
+            "regional": get_region_data,
+            "provincial": get_province_data
         }
-        self.df = menu[data_type]
         self.varname = varname
         self.plot_title = f"{gettext(VARS[self.varname]['title'])}"
         self.area = area
         if self.area:
             filter_key = REGION_KEY if self.area in REGIONS else PROVINCE_KEY
+            self.df = menu[data_type](self.area)
             self.df = self.df[self.df[filter_key] == self.area]
             self.plot_title += f" ({self.area})"
+        else:
+            self.df = menu[data_type]()
         self.df = self.df.set_index(DATE_KEY)
 
         ax = self.df[self.varname].plot()
@@ -117,11 +119,12 @@ def validate_plot_request(varname, data_type, area):
     """
     error = None
     is_valid = False
+    available_vars = [var for var in VARS if VARS[var]['type'] != 'vax']
     if varname is None:
         error = (
-            "Specify a varname"
+            "Specify a varname; "
             "Accepted 'varname' for 'national' data_type: [{}]; ".format(
-                ", ".join([var for var in VARS]))
+                ", ".join(available_vars))
         )
     elif data_type is None:
         error = "Accepted 'data_type' ['national', 'regional', 'provincial'] "
@@ -139,8 +142,10 @@ def validate_plot_request(varname, data_type, area):
             else:
                 error = (
                     "Accepted 'varname' for 'national' data_type: [{}]; "
-                    "".format(", ".join([var for var in VARS])))
+                    "".format(", ".join(available_vars)))
         elif data_type == "regional":
+            if not area:
+                error = "an area must be specified; "
             if area in REGIONS and varname in VARS:
                 is_valid = True
             else:
@@ -148,17 +153,18 @@ def validate_plot_request(varname, data_type, area):
                     "Accepted 'varname' for 'regional' data_type: [{}]; "
                     "Accepted 'area' for 'regional' data_type [{}]; "
                     "".format(
-                        ", ".join([var for var in VARS]),
+                        ", ".join(available_vars),
                         ", ".join([r for r in REGIONS])))
         elif data_type == "provincial":
-            varnames = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY]
-            if area in PROVINCES and varname in varnames:
+            available_vars = [
+                TOTAL_CASES_KEY, NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY]
+            if area in PROVINCES and varname in available_vars:
                 is_valid = True
             else:
                 error = (
                     "Accepted 'varname' for 'provincial' data_type: [{}]; "
                     "Accepted 'area' for 'provincial' data_type [{}]".format(
-                        ", ".join([var for var in varnames]),
+                        ", ".join([var for var in available_vars]),
                         ", ".join([p for p in PROVINCES])))
         else:
             is_valid = False
