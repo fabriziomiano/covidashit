@@ -42,6 +42,8 @@ Infine, bisogna settare i vari webhooks sul fork della repo della PC per le segu
  * `/update/provincial/breakdown`
  * `/update/provincial/series`
  * `/update/provincial/trends`
+ * `/update/vax/`
+ * `/update/vax/summary`
 
 #### Setup locale
 * creazione ed attivazione di un virtual environment [(seguire questi passaggi)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
@@ -86,24 +88,69 @@ L'app fornisce delle API per produrre i plot delle variabili con `matplotlib`.
 Puo' tornare un JSON response con l'immagine codificata in base64 oppure il 
 contenuto in byte per scaricare il file.
 
-### Resource URL 
+### Resource URL
+
 `https://www.covidash.it/api/plot`
 
-### Parametri
-| Nome      | Richiesto                                        | Descrizione                                  | Valore di default | Esempio                                  |
-|-----------|-------------------------------------------------|----------------------------------------------|---------------|------------------------------------------|
-| data_type | Si                                             | Il data type da plottare                        |               | uno tra ["national" "regional" "provincial"] |
-| varname   | Si                                             | Il nome della variabile da plottare             |               | uno tra ["nuovi_positivi", "tamponi_g"...]    |
-| area      | Solo se data_type è "regional" o "provincial" | The name of the area to filter the data with |               | uno tra ["Sicilia", "Catania"...]                  |
-| download  | No                                              | The flag to download directly the file       | False         | "true"                                   |
+### Query parameters
+#### Data type
+```
+data_type = [national, regional, provincial]
+```
+#### Var name
+```
+varname = [nuovi_positivi, ingressi_terapia_intensiva, deceduti_g, tamponi_g,
+ totale_ospedalizzati_g, nuovi_positivi_ma, deceduti_g_ma, 
+ ingressi_terapia_intensiva_ma, tamponi_g_ma, totale_ospedalizzati_g_ma, 
+ totale_positivi, terapia_intensiva, ricoverati_con_sintomi, 
+ totale_ospedalizzati, isolamento_domiciliare, totale_casi, deceduti, 
+ tamponi, dimessi_guariti]
+```
+se `data_type = [national, regional]`
+```
+varname = [nuovi_positivi, nuovi_positivi_ma, totale_casi]
+```
+se `data_type = [provincial]`
+#### Area (regions)
+```
+area = [Abruzzo, Basilicata, Calabria, Campania, Emilia-Romagna, Friuli Venezia Giulia,
+ Lazio, Liguria, Lombardia, Marche, Molise, Piemonte, Puglia, Sardegna, 
+ Sicilia, Toscana, P.A. Bolzano, P.A. Trento, Umbria, Valle d'Aosta, Veneto]
+```
 
-### Esempi
+#### Area (provinces)
+```
+area = [Chieti, L'Aquila, Pescara, Teramo, Matera, Potenza, Catanzaro, Cosenza,
+Crotone, Reggio di Calabria, Vibo Valentia, Avellino, Benevento, Caserta, 
+Napoli, Salerno, Bologna, Ferrara, Forlì-Cesena, Modena, Parma, Piacenza, 
+Ravenna, Reggio nell'Emilia, Rimini, Gorizia, Pordenone, Trieste, Udine, 
+Frosinone, Latina, Rieti, Roma, Viterbo, Genova, Imperia, La Spezia, Savona, 
+Bergamo, Brescia, Como, Cremona, Lecco, Lodi, Mantova, Milano, 
+Monza e della Brianza, Pavia, Sondrio, Varese, Ancona, Ascoli Piceno, Fermo, 
+Macerata, Pesaro e Urbino, Campobasso, Isernia, Alessandria, Asti, Biella, 
+Cuneo, Novara, Torino, Verbano-Cusio-Ossola, Vercelli, Bari, 
+Barletta-Andria-Trani, Brindisi, Lecce, Foggia, Taranto, Cagliari, Nuoro, 
+Sassari, Sud Sardegna, Agrigento, Caltanissetta, Catania, Enna, Messina, 
+Palermo, Ragusa, Siracusa, Trapani, Arezzo, Firenze, Grosseto, Livorno, Lucca,
+Massa Carrara, Pisa, Pistoia, Prato, Siena, Perugia, Terni, Aosta, Belluno, 
+Padova, Rovigo, Treviso, Venezia, Verona, Vicenza]
+```
 
-#### Immagine codififcata in base64-encoded (JSON response)
+### Examples
+#### Plot nazionale
+* `/api/plot?data_type=national&varname=<varname>`
+#### Plot regionale
+* `/api/plot?data_type=regional&area=<region>&varname=<varname>`
+#### Plot provinciale
+* `/api/plot?data_type=provincial&area=<province>&varname=[nuovi_positivi,nuovi_positivi_ma,totale_casi]>`
+
+##### Immagine codififcata in base64-encoded
+###### JSON
+
 ###### Request
 ```
-curl --request GET \
-    --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi'
+curl --request GET \ 
+     --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi'
 ```
 
 ###### Response
@@ -117,11 +164,11 @@ curl --request GET \
 ###### Request 
 ```
 curl --request GET \
-    --url 'https://www.covidash.it/api/plot?data_type=national&varname=terapia_intensiva&download=true' \
-    --output plot.png
+     --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi&download=true' \
+     --output plot.png
 ```
 
-Il plot verrà scritto in `./plot.png`
+Il plot verrà salvato in `./plot.png`
 
 ## Anteprima plot
 ![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/plot.png) 
