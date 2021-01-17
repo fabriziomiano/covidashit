@@ -1,4 +1,4 @@
-{% extends "layouts/pandemic.html" %}
+{% extends "pandemic/layout.html" %}
 
 {% block content %}
     <main class="mt-2">
@@ -25,7 +25,7 @@
                                             data-bs-target="#flush-collapseOne"
                                             aria-expanded="false"
                                             aria-controls="flush-collapseOne">
-                                        <i class="fas fa-viruses me-2"></i>{{ dashboard_title }}
+                                        <i class="fas fa-head-side-mask me-2"></i>{{ dashboard_title }}
                                     </button>
                                 </h2>
                             </div>
@@ -33,12 +33,10 @@
                     </div>
 
                     <div class="col-6 col-md-4 col-lg-4">
-                        <div class="row">
-                            <!-- Latest update -->
-                            <p class="small mb-0 text-info">
-                                <i class="fas fa-bullhorn me-2"></i>{{ latest_update }}
-                            </p>
-                        </div>
+                        <!-- Latest update -->
+                        <p class="small mb-0 text-info">
+                            <i class="fas fa-bullhorn me-2"></i>{{ latest_update }}
+                        </p>
 
                         <!-- Positive Rate -->
                         {% if positivity_idx %}
@@ -59,7 +57,7 @@
 
                 {% else %}
                     <p class="display-6 mb-0">
-                        <i class="fas fa-viruses me-2"></i>{{ dashboard_title }}
+                        <i class="fas fa-head-side-mask me-2"></i>{{ dashboard_title }}
                     </p>
                     <p class="mb-0 text-info">
                         <i class="fas fa-bullhorn me-2"></i>{{ latest_update }}
@@ -114,8 +112,8 @@
                 </div>
             </div>
 
-            {% include 'cards/pandemic.html' %}
-            {% include 'charts/pandemic.html' %}
+            {% include 'pandemic/cards.html' %}
+            {% include 'pandemic/charts.html' %}
 
         </div>
 
@@ -128,7 +126,6 @@
                     {{ key_periods[k]['n_days'] }}<br>
                 {% endfor %}
             </p>
-
 
             <hr class="mt-0">
 

@@ -21,7 +21,7 @@ Highcharts.setOptions(Highcharts.theme);
 let chartCommon = {
     chart: {
         type: 'spline',
-        zoomType: 'xy'
+        zoomType: 'x'
     },
     legend: {
         enabled: true

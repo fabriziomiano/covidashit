@@ -1,0 +1,105 @@
+<!-- Charts -->
+{% if area not in regions %}
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-12 col-xl-6">
+            <div class="card shadow mb-4">
+                <div id="chart-admins-per-region" class="container-fluid px-0"
+                     style="border: none; width:100%; height: 450px; margin: 0 auto">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-12 col-lg-12 col-xl-6">
+            <div class="card shadow mb-4">
+                <!-- multiple dropdown -->
+                <select id="timeseries-select" class="chosen" multiple="multiple"
+                        data-placeholder="{{ _("Select one or more regions") }}"
+                        aria-label="region multi select">
+                    {% for r in regions %}
+                        {% if loop.index < 4 %}
+                            <option selected="selected" value="{{ r }}">{{ r }}</option>
+                        {% else %}
+                            <option value="{{ r }}">{{ r }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+                <div id="chart-admins-timeseries" class="container-fluid px-0"
+                     style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-6 col-xl-6">
+        <div class="card shadow mb-4">
+            <div id="chart-admins-per-age" class="container-fluid px-0"
+                 style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-6">
+        <div class="card shadow">
+            <div id="chart-pie-categories" class="container-fluid px-0"
+                 style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    {#common#}
+    let totAdmins = {{ tot_admins }};
+    let area;
+    {% if not area %}
+        area = "{{ gettext('Italy') }}";
+    {% else %}
+        area = "{{ area|safe }}";
+    {% endif %}
+    let subtitle = {
+        text: "{{ gettext("Source: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia Open Data</a>") }}",
+    };
+    let credits = {
+        href: "https://fabriziomiano.github.io",
+        text: "{{ gettext("by Fabrizio Miano | Made with Highcharts.com") }}"
+    };
+
+    {#per age#}
+    let ageCategories = {{ age_chart_data.categories|safe }};
+    let adminsPerAgeData = {{ age_chart_data.admins_per_age|safe }};
+    let adminsPerAgeTitle = "{{ gettext('Admins Per Age range') }}";
+    let adminsPerAgeyAxisTitle = "{{ gettext('Counts') }}";
+
+    {#per category#}
+    let adminsPerCategoryData = {{ cat_chart_data|safe }};
+    let adminsPerCategorySeriesName = "% {{ gettext('Vaccinated') }}";
+    let adminsPerCategoryTitle = "{{ gettext('Admins per category') }}";
+
+    {#per region#}
+    {% if area in regions %}
+        let adminsPerRegionData = null;
+        let expAdminsPerRegionData = null;
+        let adminsPerRegionTitle;
+        let adminsPerRegionyAxisTitle;
+        let adminsPerRegionCategories = null;
+        let adminsTimeseriesDates = null;
+        let adminsTimeseriesData = null;
+        let adminsTimeseriesTitle;
+        let adminsTimeseriesyAxisTitle;
+        let adminsTimeseriesSubtitle;
+    {% else %}
+        adminsPerRegionData = {{ region_chart_data.admins_per_region|safe }};
+        expAdminsPerRegionData = {{ region_chart_data.expected_admins|safe }};
+        adminsPerRegionTitle = "{{ gettext('Admins per region') }}";
+        adminsPerRegionyAxisTitle = "{{ gettext('Counts') }}";
+        adminsPerRegionCategories = {{ region_chart_data.categories|safe }};
+        adminsTimeseriesDates = {{ admins_timeseries_data.dates|safe }};
+        adminsTimeseriesData = {{ admins_timeseries_data.data|safe }};
+        adminsTimeseriesTitle = "{{ gettext('Daily Admins Time Series') }}";
+        adminsTimeseriesyAxisTitle = "{{ gettext('Counts') }}";
+        adminsTimeseriesSubtitle = {
+            text: "{{ gettext('<b>Select one or more regions</b><br>') }}" + subtitle.text,
+            html: true
+        };
+    {% endif %}
+</script>
