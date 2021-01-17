@@ -1,4 +1,4 @@
-{% extends "layouts/vaccines.html" %}
+{% extends "vaccines/layout.html" %}
 
 {% block content %}
     <main class="mt-2">
@@ -31,19 +31,16 @@
                 </div>
 
                 <div class="col-12 col-md-4 col-lg-4">
-                    <div class="row">
-                        <!-- Latest update -->
-                        <p class="small mb-0 text-info">
-                            <i class="fas fa-bullhorn me-2"></i>{{ latest_update }}
-                        </p>
-                    </div>
+                    <!-- Latest update -->
+                    <p class="small mb-0 text-info">
+                        <i class="fas fa-bullhorn me-2"></i>{{ latest_update }}
+                    </p>
 
-                    <div class="row">
-                        <!-- Total Administrations -->
-                        <p class="small mb-0 text-primary">
-                                <i class="fas fa-syringe me-2"></i>{{ _("Total administered:") }} {{ tot_admins_str }}
-                        </p>
-                    </div>
+                    <!-- Total Administrations -->
+                    <p class="small mb-0 text-primary">
+                        <i class="fas fa-syringe me-2"></i>{{ _("Total administered:") }}
+                        <strong>{{ tot_admins_str }} ({{ admins_perc }})</strong>
+                    </p>
 
                     <!-- % people vaccinated -->
                     <p class="small mb-0 text-danger">
@@ -85,7 +82,7 @@
             </div>
 
             <!-- Charts -->
-            {% include 'charts/vaccines.html' %}
+            {% include 'vaccines/charts.html' %}
 
         </div>
 

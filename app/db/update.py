@@ -21,7 +21,7 @@ from app.data.etl import (
 from config import (
     DATE_KEY, PROVINCES, PROVINCE_KEY, REGIONS, REGION_KEY,
     URL_PROVINCIAL, URL_REGIONAL, URL_NATIONAL, URL_VAX_DATA,
-    URL_VAX_SUMMARY_DATA, VAX_DATE_KEY
+    URL_VAX_ADMINS_SUMMARY_DATA, VAX_DATE_KEY
 )
 
 
@@ -360,7 +360,7 @@ def update_vax_collection(summary=False):
         df = augment_vax_df(df)
     else:
         collection = VAX_SUMMARY_COLL
-        df = pd.read_csv(URL_VAX_SUMMARY_DATA, parse_dates=[VAX_DATE_KEY])
+        df = pd.read_csv(URL_VAX_ADMINS_SUMMARY_DATA, parse_dates=[VAX_DATE_KEY])
         df = augment_summary_vax_df(df)
     try:
         records_in_db = list(collection.find())
