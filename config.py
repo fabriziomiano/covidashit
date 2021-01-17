@@ -36,7 +36,7 @@ PROVINCE_CODE = "codice_provincia"
 VAX_LATEST_UPDATE_KEY = "ultimo_aggiornamento"
 CP_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 VAX_DATE_FMT = "%Y-%m-%dT%H:%M:%S.%f%z"
-CHART_DATE_FMT = "%d %b"
+CHART_DATE_FMT = "%d %b %y"
 UPDATE_FMT = "%d/%m/%Y"
 VAX_UPDATE_FMT = "%d/%m/%Y %H:%M"
 DATE_KEY = "data"
@@ -45,6 +45,10 @@ STATE_KEY = "stato"
 VAX_DATE_KEY = "data_somministrazione"
 VAX_AREA_KEY = "area"
 VAX_AGE_KEY = "fascia_anagrafica"
+ADMINS_DOSES_KEY = "dosi_somministrate"
+DELIVERED_DOSES_KEY = "dosi_consegnate"
+VAX_ADMINS_PERC_KEY = "percentuale_somministrazione"
+VAX_DAILY_ADMINS_KEY = "totale"
 F_SEX_KEY = "sesso_femminile"
 M_SEX_KEY = "sesso_maschile"
 HEALTHCARE_PERS = "categoria_operatori_sanitari_sociosanitari"
@@ -358,12 +362,14 @@ BASE_URL_VAX_DATA = (
     "italia/covid19-opendata-vaccini/master/dati/"
 )
 VAX_FILE = "somministrazioni-vaccini-latest.csv"
-VAX_SUMMARY_FILE = "somministrazioni-vaccini-summary-latest.csv"
+VAX_ADMINS_SUMMARY_FILE = "somministrazioni-vaccini-summary-latest.csv"
+VAX_SUMMARY_FILE = "vaccini-summary-latest.csv"
 VAX_LATEST_UPDATE_JSON = "last-update-dataset.json"
 URL_VAX_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_FILE)
-URL_VAX_SUMMARY_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_SUMMARY_FILE)
 URL_VAX_LATEST_UPDATE = os.path.join(BASE_URL_VAX_DATA, VAX_LATEST_UPDATE_JSON)
-
+URL_VAX_SUMMARY_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_SUMMARY_FILE)
+URL_VAX_ADMINS_SUMMARY_DATA = os.path.join(
+    BASE_URL_VAX_DATA, VAX_ADMINS_SUMMARY_FILE)
 # Key Dates
 LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
 PHASE2_DAY = dt.datetime(2020, 5, 4)

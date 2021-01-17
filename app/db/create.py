@@ -19,7 +19,7 @@ from app.db import (
 )
 from config import (
     URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, DATE_KEY, URL_VAX_DATA,
-    URL_VAX_SUMMARY_DATA, VAX_DATE_KEY
+    URL_VAX_ADMINS_SUMMARY_DATA, VAX_DATE_KEY
 )
 
 
@@ -283,7 +283,7 @@ def create_vax_summary_collection():
     response = {"status": "ko", "collections_created": [], "errors": []}
     info_msg = "Doing Vax Summary Collection"
     err_msg = "While creating vax summary collection:"
-    df = pd.read_csv(URL_VAX_SUMMARY_DATA, parse_dates=[VAX_DATE_KEY])
+    df = pd.read_csv(URL_VAX_ADMINS_SUMMARY_DATA, parse_dates=[VAX_DATE_KEY])
     df = augment_summary_vax_df(df)
     records = df.to_dict(orient='records')
     try:

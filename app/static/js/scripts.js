@@ -40,14 +40,14 @@ let URL_PROVINCES = '/provinces/';
     "use strict";
 
     const path = window.location.href; // because the 'href' property of the DOM element is the absolute path
-    $("#topNav a.nav-link").each(function() {
+    $("#topNav a.nav-link").each(function () {
         if (this.href === path) {
             $(this).addClass("active");
         }
-        if (path.includes("regions") || path.includes("provinces")){
+        if (path.includes("regions") || path.includes("provinces")) {
             $("#pandemicNavLink").addClass("active");
         }
-        if (path.includes("vaccines")){
+        if (path.includes("vaccines")) {
             $("#vaccinesNavLink").addClass("active");
         }
     });
@@ -104,36 +104,40 @@ let URL_PROVINCES = '/provinces/';
         return url;
     }
 
-})(jQuery);
-
-
-/*Scroll to top when arrow up clicked*/
-$(window).scroll(function () {
-    let height = $(window).scrollTop();
-    if (height > 100) {
-        $('#back2Top').fadeIn();
-    } else {
-        $('#back2Top').fadeOut();
-    }
-});
-
-$(document).ready(function () {
-    $("#back2Top").click(function (event) {
-        event.preventDefault();
-        $("html, body").animate({scrollTop: 0}, "slow");
-        return false;
+    /*Scroll to top when arrow up clicked*/
+    $(window).scroll(function () {
+        let height = $(window).scrollTop();
+        if (height > 100) {
+            $('#back2Top').fadeIn();
+        } else {
+            $('#back2Top').fadeOut();
+        }
     });
 
-});
+    $(document).ready(function () {
+        $("#back2Top").click(function (event) {
+            event.preventDefault();
+            $("html, body").animate({scrollTop: 0}, "slow");
+            return false;
+        });
 
-// check on new users
-$(document).ready(function () {
-    let hasVisited = localStorage.getItem("hasVisited");
-    let localVersion = localStorage.getItem("version");
-    if (hasVisited === null || localVersion !== VERSION) {
-        $('#welcomeModal').modal('show');
-        hasVisited = "yes"; // localStorage.setItem() only accepts strings
-        localStorage.setItem("hasVisited", hasVisited);
-        localStorage.setItem("version", VERSION);
-    }
-});
+    });
+
+    // check if new user
+    $(document).ready(function () {
+        let hasVisited = localStorage.getItem("hasVisited");
+        let localVersion = localStorage.getItem("version");
+        if (hasVisited === null || localVersion !== VERSION) {
+            $('#welcomeModal').modal('show');
+            hasVisited = "yes"; // localStorage.setItem() only accepts strings
+            localStorage.setItem("hasVisited", hasVisited);
+            localStorage.setItem("version", VERSION);
+        }
+    });
+
+    // activate chosen
+    $(function () {
+        $('[class="chosen"]').chosen();
+    })
+
+})(jQuery);

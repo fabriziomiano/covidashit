@@ -9,7 +9,7 @@ from flask_babel import gettext
 from app.data import (
     enrich_frontend_data, get_latest_vax_update, get_total_administrations,
     get_age_chart_data, get_category_chart_data, get_region_chart_data,
-    get_perc_pop_vax
+    get_perc_pop_vax, get_admins_perc, get_admins_timeseries_chart_data
 )
 from app.ui import vaccines
 from config import PAGE_BASE_TITLE, ITALY_POPULATION, PC_TO_OD_MAP, REGIONS
@@ -35,10 +35,12 @@ def national_vax_view():
         latest_update=get_latest_vax_update(),
         tot_admins_str="{:,d}".format(tot_admins),
         tot_admins=tot_admins,
+        admins_perc=f"{get_admins_perc(area=area)}%",
         perc_pop_vax=f"{perc_pop_vax}%",
         age_chart_data=get_age_chart_data(),
         cat_chart_data=get_category_chart_data(area=area),
-        region_chart_data=get_region_chart_data()
+        region_chart_data=get_region_chart_data(tot_admins=tot_admins),
+        admins_timeseries_data=get_admins_timeseries_chart_data()
     )
     return render_template("vaccines.html", **report_data)
 
@@ -66,8 +68,9 @@ def regional_vax_view(region):
         latest_update=get_latest_vax_update(),
         tot_admins_str="{:,d}".format(tot_admins),
         tot_admins=tot_admins,
+        admins_perc=f"{get_admins_perc(area=area)}%",
         perc_pop_vax=f"{perc_pop_vax}%",
-        age_chart_data=get_age_chart_data(area),
+        age_chart_data=get_age_chart_data(area=area),
         cat_chart_data=get_category_chart_data(area=area),
         previous_area_url=previous_url,
         next_area_url=next_region_url,

@@ -1,8 +1,9 @@
 // Administrations per region
+let adminsPerRegion = {}
 if (!REGIONS.includes(area)) {
-    let adminsPerRegion = {
+    adminsPerRegion = {
         chart: {
-            type: 'column'
+            type: 'bar'
         },
         title: {
             text: adminsPerRegionTitle
@@ -11,13 +12,6 @@ if (!REGIONS.includes(area)) {
             series: {
                 shadow: false,
                 borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    formatter: function () {
-                        let pcnt = (this.y / totAdmins) * 100;
-                        return Highcharts.numberFormat(pcnt, '1') + '%';
-                    }
-                }
             }
         },
         xAxis: {
@@ -28,20 +22,78 @@ if (!REGIONS.includes(area)) {
             categories: adminsPerRegionCategories,
         },
         yAxis: {
-            title: {
-                text: adminsPerRegionyAxisTitle,
-
-            },
-
+            title:
+                {
+                    text: adminsPerRegionyAxisTitle,
+                }
         },
-        legend: {
-            enabled: false
-        },
-        series: adminsPerRegionData,
+        series: [{
+            name: adminsPerRegionData.name,
+            data: adminsPerRegionData.data
+        }, {
+            name: expAdminsPerRegionData.name,
+            data: expAdminsPerRegionData.data
+        }],
         subtitle: subtitle,
         credits: credits
     };
     Highcharts.chart('chart-admins-per-region', adminsPerRegion);
+
+
+    // Vax time series for a given area
+    adminsTimeseriesData = adminsTimeseriesData.map(function (o, i) {
+        o.visible = i <= 2;
+        return o;
+    })
+    let adminsTimeSeries = {
+        chart: {
+            zoomType: 'x',
+            type: 'spline'
+        },
+        title: {
+            text: adminsTimeseriesTitle
+        },
+        xAxis: {
+            type: 'datetime',
+            categories: adminsTimeseriesDates
+        },
+        yAxis: {
+            title: {
+                text: adminsTimeseriesyAxisTitle
+            }
+        },
+        legend: {
+            enabled: false
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+            }
+        },
+        series: adminsTimeseriesData,
+        credits: credits,
+        subtitle: adminsTimeseriesSubtitle
+    };
+    Highcharts.chart('chart-admins-timeseries', adminsTimeSeries);
+
+    let series = $("#chart-admins-timeseries").highcharts().series;
+    let seriesIMap = {}
+    for (let i = 0; i < series.length; i++) {
+        seriesIMap[series[i].name] = i;
+    }
+    $(function () {
+        $('#timeseries-select').change(function (e) {
+            let selRegions = $(e.target).val();
+            REGIONS.forEach(function (region) {
+                let s = series[seriesIMap[region]];
+                selRegions.includes(region) ? s.show() : s.hide();
+
+            });
+        })
+    });
 }
 
 // Administrations per Age
@@ -74,10 +126,8 @@ let adminsPerAge = {
     },
     yAxis: {
         title: {
-            text: adminsPerAgeyAxisTitle,
-
+            text: adminsPerAgeyAxisTitle
         },
-
     },
     legend: {
         enabled: false

@@ -20,7 +20,10 @@ from config import (
     UPDATE_FMT, VARS, ITALY_MAP, VERSION, REGIONS, PROVINCES, TOTAL_CASES_KEY,
     NEW_POSITIVE_KEY, KEY_PERIODS, URL_VAX_LATEST_UPDATE,
     VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_UPDATE_FMT, VAX_AREA_KEY,
-    VAX_AGE_KEY, HEALTHCARE_PERS, NONHEALTHCARE_PERS, HFE_GUESTS, OD_TO_PC_MAP
+    VAX_AGE_KEY, HEALTHCARE_PERS, NONHEALTHCARE_PERS, HFE_GUESTS, OD_TO_PC_MAP,
+    ITALY_POPULATION, URL_VAX_SUMMARY_DATA, VAX_ADMINS_PERC_KEY,
+    ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_DATE_KEY, VAX_DAILY_ADMINS_KEY,
+    CHART_DATE_FMT
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -342,7 +345,7 @@ def get_category_chart_data(area=None):
     return chart_data
 
 
-def get_region_chart_data():
+def get_region_chart_data(tot_admins=1):
     """Return administrations data per region"""
     chart_data = {}
     try:
@@ -366,18 +369,79 @@ def get_region_chart_data():
         ]
         cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
         data = list(cursor)
+        app.logger.debug(f"Per region data: {data}")
         df = pd.DataFrame(data)
-        app.logger.debug(data)
+        df['region'] = df['_id'].apply(lambda x: OD_TO_PC_MAP[x])
+        df['exp_admins'] = df['region'].apply(
+            lambda x: exp_tot_admins(x, tot_admins))
         chart_data = {
-            "categories": df['_id'].apply(
-                lambda x: OD_TO_PC_MAP[x]).values.tolist(),
-            "admins_per_region": [
-                {
-                    'name': gettext("Vaccinati"),
-                    'data': df['tot'].values.tolist()
-                }
-            ]
+            "categories": df['region'].values.tolist(),
+            "admins_per_region": {
+                'name': gettext("Real"),
+                'data': df['tot'].values.tolist()
+            },
+            "expected_admins": {
+                'name': gettext("Expected"),
+                'data': df['exp_admins'].values.tolist()
+            }
         }
     except Exception as e:
         app.logger.error(f"While getting region chart data: {e}")
+    return chart_data
+
+
+def exp_tot_admins(x, tot_admins):
+    """Return tot administration scaled to the region pop percentage"""
+    return round(
+        ITALY_POPULATION[x] / ITALY_POPULATION['Italia'] * tot_admins)
+
+
+def pop_perc(x):
+    """Return percentage of population in a given region"""
+    return round(ITALY_POPULATION[x] / ITALY_POPULATION['Italia'] * 100, 2)
+
+
+def get_admins_perc(area='ITA'):
+    """Return the percentage"""
+    admins_perc = "n/a"
+    try:
+        df = pd.read_csv(URL_VAX_SUMMARY_DATA)
+        if area == 'ITA':
+            admins_perc = round(
+                (df[ADMINS_DOSES_KEY].sum() /
+                 df[DELIVERED_DOSES_KEY].sum() * 100), 2)
+        else:
+            df = df[df[VAX_AREA_KEY] == area]
+            admins_perc = df[VAX_ADMINS_PERC_KEY].values[0]
+    except Exception as e:
+        app.logger.error(f"While getting % administered doses: {e}")
+    return admins_perc
+
+
+def get_admins_timeseries_chart_data():
+    """Return the daily administrations time series"""
+    chart_data = {}
+    try:
+        pipe = [
+            {'$match': {VAX_AREA_KEY: {'$ne': 'ITA'}}},
+            {'$sort': {VAX_DATE_KEY: 1}}
+        ]
+        cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
+        data = list(cursor)
+        app.logger.debug(data)
+        df = pd.DataFrame(data)
+        app.logger.debug(f"Vax time series - dates: {df}")
+        dates = df[VAX_DATE_KEY].apply(
+            lambda x: x.strftime(CHART_DATE_FMT)).unique().tolist()
+        chart_data = {
+            "dates": dates,
+            "data": [{
+                'name': OD_TO_PC_MAP[r],
+                'data': (
+                    df[df[VAX_AREA_KEY] == r][VAX_DAILY_ADMINS_KEY].to_list())
+            } for r in sorted(df[VAX_AREA_KEY].unique())]
+        }
+        app.logger.debug(f"Chart data {chart_data}")
+    except Exception as e:
+        app.logger.error(f"While getting vax timeseries chart data {e}")
     return chart_data

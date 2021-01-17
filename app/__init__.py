@@ -7,6 +7,7 @@ import click
 from dotenv import load_dotenv
 from flask import Flask, request, render_template, send_from_directory
 from flask_babel import Babel
+from flask_compress import Compress
 from flask_pymongo import PyMongo
 from flask_sitemap import Sitemap
 
@@ -16,6 +17,7 @@ load_dotenv()
 mongo = PyMongo()
 babel = Babel()
 sitemap = Sitemap()
+compress = Compress()
 
 
 @babel.localeselector
@@ -63,12 +65,12 @@ def set_favicon_rule(app):
 def create_app():
     """Create the flask application"""
     app = Flask(__name__)
+    translation_dir = os.path.join(app.root_path, TRANSLATION_DIRNAME)
+    app.config["BABEL_TRANSLATION_DIRECTORIES"] = translation_dir
     app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
     app.config["MONGO_URI"] = os.environ["MONGO_URI"]
     app.config["SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS"] = True
-    translation_dir = os.path.join(app.root_path, TRANSLATION_DIRNAME)
-    app.config["BABEL_TRANSLATION_DIRECTORIES"] = translation_dir
-    app.config["TESTING"] = int(os.getenv("TESTING", default=0))
+    compress.init_app(app)
     mongo.init_app(app)
     babel.init_app(app)
     sitemap.init_app(app)
