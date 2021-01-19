@@ -174,6 +174,6 @@ def trigger_vax_collection_update():
 @verify_signature
 def trigger_vax_summary_collection_update():
     """Trigger vax or vax summary collection update"""
-    app.logger.warning(f"Triggered vax collection update")
+    app.logger.warning(f"Triggered vax summary collection update")
     response = update_vax_collection(summary=True)
     return jsonify(**response)

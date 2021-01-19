@@ -20,10 +20,10 @@ from config import (
     UPDATE_FMT, VARS, ITALY_MAP, VERSION, REGIONS, PROVINCES, TOTAL_CASES_KEY,
     NEW_POSITIVE_KEY, KEY_PERIODS, URL_VAX_LATEST_UPDATE,
     VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_UPDATE_FMT, VAX_AREA_KEY,
-    VAX_AGE_KEY, HEALTHCARE_PERS, NONHEALTHCARE_PERS, HFE_GUESTS, OD_TO_PC_MAP,
-    ITALY_POPULATION, URL_VAX_SUMMARY_DATA, VAX_ADMINS_PERC_KEY,
+    VAX_AGE_KEY, HEALTHCARE_PERS_KEY, NONHEALTHCARE_PERS_KEY, HFE_GUESTS_KEY,
+    OD_TO_PC_MAP, ITALY_POPULATION, URL_VAX_SUMMARY_DATA, VAX_ADMINS_PERC_KEY,
     ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_DATE_KEY, VAX_DAILY_ADMINS_KEY,
-    CHART_DATE_FMT
+    CHART_DATE_FMT, OVER_80_KEY, POP_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -45,7 +45,8 @@ TREND_CARDS = [
     if not qty.endswith("_ma") and VARS[qty]["type"] != "vax"
 ]
 PROV_TREND_CARDS = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY]
-VAX_PEOPLE_CATEGORIES = [HEALTHCARE_PERS, NONHEALTHCARE_PERS, HFE_GUESTS]
+VAX_PEOPLE_CATEGORIES = [
+    HEALTHCARE_PERS_KEY, NONHEALTHCARE_PERS_KEY, HFE_GUESTS_KEY, OVER_80_KEY]
 
 
 def get_query_menu(area=None):
@@ -326,9 +327,11 @@ def get_category_chart_data(area=None):
             {
                 '$group': {
                     '_id': f'${VAX_AREA_KEY}',
-                    HEALTHCARE_PERS: {'$sum': f'${HEALTHCARE_PERS}'},
-                    NONHEALTHCARE_PERS: {'$sum': f'${NONHEALTHCARE_PERS}'},
-                    HFE_GUESTS: {'$sum': f'${HFE_GUESTS}'},
+                    HEALTHCARE_PERS_KEY: {'$sum': f'${HEALTHCARE_PERS_KEY}'},
+                    NONHEALTHCARE_PERS_KEY: {
+                        '$sum': f'${NONHEALTHCARE_PERS_KEY}'},
+                    HFE_GUESTS_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
+                    OVER_80_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
                 }
             }
         ]
@@ -428,18 +431,19 @@ def get_admins_timeseries_chart_data():
         ]
         cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
         data = list(cursor)
-        app.logger.debug(data)
         df = pd.DataFrame(data)
-        app.logger.debug(f"Vax time series - dates: {df}")
         dates = df[VAX_DATE_KEY].apply(
             lambda x: x.strftime(CHART_DATE_FMT)).unique().tolist()
+        data = [{
+            'name': OD_TO_PC_MAP[r],
+            'data': (
+                df[df[VAX_AREA_KEY] == r][VAX_DAILY_ADMINS_KEY].cumsum() /
+                df[df[VAX_AREA_KEY] == r][POP_KEY] * 100
+            ).round(2).to_list()
+        } for r in sorted(df[VAX_AREA_KEY].unique())]
         chart_data = {
             "dates": dates,
-            "data": [{
-                'name': OD_TO_PC_MAP[r],
-                'data': (
-                    df[df[VAX_AREA_KEY] == r][VAX_DAILY_ADMINS_KEY].to_list())
-            } for r in sorted(df[VAX_AREA_KEY].unique())]
+            "data": data
         }
         app.logger.debug(f"Chart data {chart_data}")
     except Exception as e:

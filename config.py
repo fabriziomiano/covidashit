@@ -44,16 +44,19 @@ NOTE_KEY = "note"
 STATE_KEY = "stato"
 VAX_DATE_KEY = "data_somministrazione"
 VAX_AREA_KEY = "area"
+VAX_TYPE_KEY = "fornitore"
 VAX_AGE_KEY = "fascia_anagrafica"
+POP_KEY = "popolazione"
 ADMINS_DOSES_KEY = "dosi_somministrate"
 DELIVERED_DOSES_KEY = "dosi_consegnate"
 VAX_ADMINS_PERC_KEY = "percentuale_somministrazione"
 VAX_DAILY_ADMINS_KEY = "totale"
 F_SEX_KEY = "sesso_femminile"
 M_SEX_KEY = "sesso_maschile"
-HEALTHCARE_PERS = "categoria_operatori_sanitari_sociosanitari"
-NONHEALTHCARE_PERS = "categoria_personale_non_sanitario"
-HFE_GUESTS = "categoria_ospiti_rsa"
+HEALTHCARE_PERS_KEY = "categoria_operatori_sanitari_sociosanitari"
+NONHEALTHCARE_PERS_KEY = "categoria_personale_non_sanitario"
+HFE_GUESTS_KEY = "categoria_ospiti_rsa"
+OVER_80_KEY = "categoria_over80"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
 TRANSLATION_DIRNAME = "translations"
 TREND_SYMBOL_LOGIC = {
@@ -328,16 +331,20 @@ VARS[TOTAL_HEALED_KEY] = {
 }
 
 # Vax variables
-VARS[HEALTHCARE_PERS] = {
+VARS[HEALTHCARE_PERS_KEY] = {
     "title": gettext("Healthcare Personnel"),
     "type": "vax"
 }
-VARS[NONHEALTHCARE_PERS] = {
+VARS[NONHEALTHCARE_PERS_KEY] = {
     "title": gettext("Non-healthcare Personnel"),
     "type": "vax"
 }
-VARS[HFE_GUESTS] = {
+VARS[HFE_GUESTS_KEY] = {
     "title": gettext("HFE Guests"),
+    "type": "vax"
+}
+VARS[OVER_80_KEY] = {
+    "title": gettext("Over 80"),
     "type": "vax"
 }
 
@@ -537,6 +544,7 @@ ITALY_POPULATION = {
     'Italia': 59641488
 }
 PC_TO_OD_MAP = {
+    'Italia': 'ITA',
     'Abruzzo': 'ABR',
     'Basilicata': 'BAS',
     'Calabria': 'CAL',
@@ -560,6 +568,7 @@ PC_TO_OD_MAP = {
     'Veneto': 'VEN',
 }
 OD_TO_PC_MAP = {
+    'ITA': 'Italia',
     'ABR': 'Abruzzo',
     'BAS': 'Basilicata',
     'CAL': 'Calabria',
