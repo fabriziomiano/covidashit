@@ -88,9 +88,7 @@ if (!REGIONS.includes(area)) {
         $('#timeseries-select').change(function (e) {
             let selRegions = $(e.target).val();
             REGIONS.forEach(function (region) {
-                let s = series[seriesIMap[region]];
-                selRegions.includes(region) ? s.show() : s.hide();
-
+                selRegions.includes(region) ? series[seriesIMap[region]].show() : series[seriesIMap[region]].hide();
             });
         })
     });
