@@ -13,7 +13,8 @@ from config import (
     REGION_CODE, PROVINCE_CODE, TOTAL_CASES_KEY, REGION_KEY, PROVINCE_KEY,
     REGIONS, PROVINCES, DATE_KEY, CHART_DATE_FMT, STATE_KEY,
     NEW_POSITIVE_MA_KEY, VAX_AGE_KEY, M_SEX_KEY, F_SEX_KEY, VAX_DATE_KEY,
-    VAX_DATE_FMT, VAX_AREA_KEY
+    VAX_DATE_FMT, VAX_AREA_KEY, VAX_TYPE_KEY, ITALY_POPULATION, OD_TO_PC_MAP,
+    POP_KEY
 )
 COLUMNS_TO_DROP = [STATE_KEY]
 
@@ -441,15 +442,23 @@ def augment_vax_df(df):
     df['_id'] = (
             df[VAX_DATE_KEY].apply(lambda x: x.strftime(VAX_DATE_FMT)) +
             df[VAX_AREA_KEY] +
-            df[VAX_AGE_KEY]
+            df[VAX_AGE_KEY] +
+            df[VAX_TYPE_KEY]
     )
     return df
 
 
 def augment_summary_vax_df(df):
-    """Add column '_id' as concatenation of VAX_DATE_KEY and VAX_AREA_KEY"""
+    """
+    Add:
+        - column '_id' as concatenation of VAX_DATE_KEY and VAX_AREA_KEY
+        - column population based on mapping of VAX_AREA_KEY
+          to config ITALY_POPULATION
+    """
     df['_id'] = (
             df[VAX_DATE_KEY].apply(lambda x: x.strftime(VAX_DATE_FMT)) +
             df[VAX_AREA_KEY]
     )
+    df[POP_KEY] = df[VAX_AREA_KEY].apply(
+        lambda x: ITALY_POPULATION[OD_TO_PC_MAP[x]])
     return df

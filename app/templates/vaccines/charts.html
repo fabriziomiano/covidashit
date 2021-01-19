@@ -95,8 +95,8 @@
         adminsPerRegionCategories = {{ region_chart_data.categories|safe }};
         adminsTimeseriesDates = {{ admins_timeseries_data.dates|safe }};
         adminsTimeseriesData = {{ admins_timeseries_data.data|safe }};
-        adminsTimeseriesTitle = "{{ gettext('Daily Admins Time Series') }}";
-        adminsTimeseriesyAxisTitle = "{{ gettext('Counts') }}";
+        adminsTimeseriesTitle = "{{ gettext('Time series percentage vaccinated') }}";
+        adminsTimeseriesyAxisTitle = "% {{ gettext('Vaccinated') }}";
         adminsTimeseriesSubtitle = {
             text: "{{ gettext('<b>Select one or more regions</b><br>') }}" + subtitle.text,
             html: true
