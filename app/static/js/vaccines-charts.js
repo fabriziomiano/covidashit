@@ -11,7 +11,11 @@ if (!REGIONS.includes(area)) {
         plotOptions: {
             series: {
                 dataLabels: {
-                    enabled: true
+                    enabled: true,
+                    formatter: function () {
+                        let pcnt = (this.y / totAdmins) * 100;
+                        return Highcharts.numberFormat(pcnt, '1') + '%';
+                    }
                 }
             }
         },
@@ -24,8 +28,8 @@ if (!REGIONS.includes(area)) {
         },
         yAxis: {
             title: {
-                    enabled: false
-                },
+                enabled: false
+            },
             labels: {
                 enabled: false
             }
