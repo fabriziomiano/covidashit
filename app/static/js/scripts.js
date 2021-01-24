@@ -140,4 +140,9 @@ let URL_PROVINCES = '/provinces/';
         $('[class="chosen"]').chosen();
     })
 
+
+    // enable BS tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 })(jQuery);

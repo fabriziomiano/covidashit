@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-01-19 01:22+0100\n"
-"PO-Revision-Date: 2021-01-19 01:22+0100\n"
+"POT-Creation-Date: 2021-01-24 17:47+0100\n"
+"PO-Revision-Date: 2021-01-24 17:48+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -290,25 +290,25 @@ msgstr "Vaccine day"
 msgid "Days since \"Vaccine day\""
 msgstr "Giorni dal \"Vaccine day\""
 
-#: app/data/__init__.py:308 app/templates/vaccines/charts.html:75
-#: app/templates/vaccines/charts.html:99
+#: app/data/__init__.py:310 app/templates/vaccines/charts.html:75
+#: app/templates/vaccines/charts.html:98
 msgid "Vaccinated"
 msgstr "Vaccinati"
 
-#: app/data/__init__.py:342
+#: app/data/__init__.py:344
 msgid "title"
 msgstr ""
 
-#: app/data/__init__.py:383
+#: app/data/__init__.py:385
 msgid "Real"
 msgstr "Reale"
 
-#: app/data/__init__.py:387
+#: app/data/__init__.py:389
 msgid "Expected"
 msgstr "Atteso"
 
 #: app/plotter/__init__.py:55 app/templates/pandemic/charts.html:138
-#: app/templates/vaccines/charts.html:71 app/templates/vaccines/charts.html:94
+#: app/templates/vaccines/charts.html:71
 msgid "Counts"
 msgstr "Conteggi"
 
@@ -316,7 +316,7 @@ msgstr "Conteggi"
 msgid "Positive Rate: "
 msgstr "Indice di positività: "
 
-#: app/templates/pandemic.html:132 app/templates/vaccines.html:100
+#: app/templates/pandemic.html:132 app/templates/vaccines.html:107
 msgid ""
 "This project is <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> and it is hosted on an Heroku paid dyno."
@@ -345,15 +345,25 @@ msgstr "Bisogna fare attenzione e mettere la mascherina!"
 msgid "Back to COVIDash"
 msgstr "Torna alla Home"
 
+#: app/templates/vaccines.html:36
+#, fuzzy
+#| msgid "Latest Update:"
+msgid "Latest update: "
+msgstr "Ultimo aggiornamento:"
+
 #: app/templates/vaccines.html:41
 msgid "Total administered:"
 msgstr "Tot somministrazioni:"
 
 #: app/templates/vaccines.html:47
+msgid "Percentage of administered doses wrt the delivered ones"
+msgstr "Percentuale delle dosi somministrate rispetto a quelle ricevute"
+
+#: app/templates/vaccines.html:54
 msgid "People Vaccinated: "
 msgstr "Popolazione Vaccinata: "
 
-#: app/templates/vaccines.html:101
+#: app/templates/vaccines.html:108
 msgid "Thanks for donating &#128513;"
 msgstr "Le donazioni sono ben accette &#128513;"
 
@@ -546,11 +556,11 @@ msgstr "Somministrazioni per categoria"
 msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
-#: app/templates/vaccines/charts.html:98
+#: app/templates/vaccines/charts.html:97
 msgid "Time series percentage vaccinated"
 msgstr "Serie temporale percentuale vaccinati"
 
-#: app/templates/vaccines/charts.html:101
+#: app/templates/vaccines/charts.html:100
 msgid "<b>Select one or more regions</b><br>"
 msgstr "<b>Seleziona una o più regioni</b><br>"
 
@@ -593,9 +603,6 @@ msgstr ""
 
 #~ msgid "Daily number of swabs performed since the beginning of the outbreak"
 #~ msgstr "Conteggio giornaliero dei tamponi effettuati"
-
-#~ msgid "Latest Update:"
-#~ msgstr "Ultimo aggiornamento:"
 
 #~ msgid ""
 #~ "The button on the top-left corner and those on the navigation bar can be "

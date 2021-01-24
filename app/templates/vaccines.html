@@ -33,13 +33,20 @@
                 <div class="col-12 col-md-4 col-lg-4">
                     <!-- Latest update -->
                     <p class="small mb-0 text-info">
-                        <i class="fas fa-bullhorn me-2"></i>{{ latest_update }}
+                        <i class="fas fa-bullhorn me-2"></i>{{ _("Latest update: ") }}{{ latest_update }}
                     </p>
 
                     <!-- Total Administrations -->
                     <p class="small mb-0 text-primary">
                         <i class="fas fa-syringe me-2"></i>{{ _("Total administered:") }}
-                        <strong>{{ tot_admins_str }} ({{ admins_perc }})</strong>
+                        <strong>
+                            {{ tot_admins_str }}
+                            <i class="fas fa-info-circle"
+                               data-toggle="tooltip"
+                               data-placement="auto"
+                               title="{{ _("Percentage of administered doses wrt the delivered ones") }}"
+                            ></i> {{ admins_perc }}
+                        </strong>
                     </p>
 
                     <!-- % people vaccinated -->
