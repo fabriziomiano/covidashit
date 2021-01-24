@@ -4,6 +4,7 @@ Data Module
 import datetime as dt
 
 import pandas as pd
+import pytz
 import requests
 from flask import current_app as app
 from flask_babel import gettext
@@ -243,9 +244,10 @@ def get_latest_vax_update():
         response = requests.get(URL_VAX_LATEST_UPDATE).json()
         datestr = response[VAX_LATEST_UPDATE_KEY]
         date_dt = dt.datetime.strptime(datestr, VAX_DATE_FMT)
-        latest_update = date_dt.strftime(VAX_UPDATE_FMT)
+        cet_dt = date_dt.astimezone(pytz.timezone('Europe/Rome'))
+        latest_update = cet_dt.strftime(VAX_UPDATE_FMT)
     except Exception as e:
-        app.logger.error(f"Error while getting latest vax update dt: {e}")
+        app.logger.error(f"While getting latest vax update dt: {e}")
         latest_update = "n/a"
     return latest_update
 
@@ -437,8 +439,8 @@ def get_admins_timeseries_chart_data():
         data = [{
             'name': OD_TO_PC_MAP[r],
             'data': (
-                df[df[VAX_AREA_KEY] == r][VAX_DAILY_ADMINS_KEY].cumsum() /
-                df[df[VAX_AREA_KEY] == r][POP_KEY] * 100
+                    df[df[VAX_AREA_KEY] == r][VAX_DAILY_ADMINS_KEY].cumsum() /
+                    df[df[VAX_AREA_KEY] == r][POP_KEY] * 100
             ).round(2).to_list()
         } for r in sorted(df[VAX_AREA_KEY].unique())]
         chart_data = {

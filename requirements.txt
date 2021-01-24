@@ -12,3 +12,4 @@ flask-github-signature==0.0.1
 python-dotenv==0.15.0
 click==7.1.2
 Flask-Compress==1.8.0
+pytz==2020.1
