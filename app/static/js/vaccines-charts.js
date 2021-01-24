@@ -1,4 +1,4 @@
-// Administrations per region
+// Administrations per region: defined only for the national vax view
 let adminsPerRegion = {}
 if (!REGIONS.includes(area)) {
     adminsPerRegion = {
@@ -10,8 +10,9 @@ if (!REGIONS.includes(area)) {
         },
         plotOptions: {
             series: {
-                shadow: false,
-                borderWidth: 0,
+                dataLabels: {
+                    enabled: true
+                }
             }
         },
         xAxis: {
@@ -22,17 +23,20 @@ if (!REGIONS.includes(area)) {
             categories: adminsPerRegionCategories,
         },
         yAxis: {
-            title:
-                {
-                    text: adminsPerRegionyAxisTitle,
-                }
+            title: {
+                    enabled: false
+                },
+            labels: {
+                enabled: false
+            }
         },
         series: [{
             name: adminsPerRegionData.name,
             data: adminsPerRegionData.data
         }, {
             name: expAdminsPerRegionData.name,
-            data: expAdminsPerRegionData.data
+            data: expAdminsPerRegionData.data,
+            visible: false
         }],
         subtitle: subtitle,
         credits: credits
