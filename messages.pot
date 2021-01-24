@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-01-19 01:22+0100\n"
+"POT-Creation-Date: 2021-01-24 17:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -275,25 +275,25 @@ msgstr ""
 msgid "Days since \"Vaccine day\""
 msgstr ""
 
-#: app/data/__init__.py:308 app/templates/vaccines/charts.html:75
-#: app/templates/vaccines/charts.html:99
+#: app/data/__init__.py:310 app/templates/vaccines/charts.html:75
+#: app/templates/vaccines/charts.html:98
 msgid "Vaccinated"
 msgstr ""
 
-#: app/data/__init__.py:342
+#: app/data/__init__.py:344
 msgid "title"
 msgstr ""
 
-#: app/data/__init__.py:383
+#: app/data/__init__.py:385
 msgid "Real"
 msgstr ""
 
-#: app/data/__init__.py:387
+#: app/data/__init__.py:389
 msgid "Expected"
 msgstr ""
 
 #: app/plotter/__init__.py:55 app/templates/pandemic/charts.html:138
-#: app/templates/vaccines/charts.html:71 app/templates/vaccines/charts.html:94
+#: app/templates/vaccines/charts.html:71
 msgid "Counts"
 msgstr ""
 
@@ -301,7 +301,7 @@ msgstr ""
 msgid "Positive Rate: "
 msgstr ""
 
-#: app/templates/pandemic.html:132 app/templates/vaccines.html:100
+#: app/templates/pandemic.html:132 app/templates/vaccines.html:107
 msgid ""
 "This project is <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> and it is hosted on an Heroku paid dyno."
@@ -327,15 +327,23 @@ msgstr ""
 msgid "Back to COVIDash"
 msgstr ""
 
+#: app/templates/vaccines.html:36
+msgid "Latest update: "
+msgstr ""
+
 #: app/templates/vaccines.html:41
 msgid "Total administered:"
 msgstr ""
 
 #: app/templates/vaccines.html:47
+msgid "Percentage of administered doses wrt the delivered ones"
+msgstr ""
+
+#: app/templates/vaccines.html:54
 msgid "People Vaccinated: "
 msgstr ""
 
-#: app/templates/vaccines.html:101
+#: app/templates/vaccines.html:108
 msgid "Thanks for donating &#128513;"
 msgstr ""
 
@@ -509,11 +517,11 @@ msgstr ""
 msgid "Admins per region"
 msgstr ""
 
-#: app/templates/vaccines/charts.html:98
+#: app/templates/vaccines/charts.html:97
 msgid "Time series percentage vaccinated"
 msgstr ""
 
-#: app/templates/vaccines/charts.html:101
+#: app/templates/vaccines/charts.html:100
 msgid "<b>Select one or more regions</b><br>"
 msgstr ""
 
