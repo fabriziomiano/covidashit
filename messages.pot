@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: COVIdashIT 1.1\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-01-24 17:47+0100\n"
+"POT-Creation-Date: 2021-01-24 19:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -506,7 +506,7 @@ msgid ""
 msgstr ""
 
 #: app/templates/vaccines/charts.html:70
-msgid "Admins Per Age range"
+msgid "Admins per age"
 msgstr ""
 
 #: app/templates/vaccines/charts.html:76
@@ -518,7 +518,7 @@ msgid "Admins per region"
 msgstr ""
 
 #: app/templates/vaccines/charts.html:97
-msgid "Time series percentage vaccinated"
+msgid "Time series of the percentage of people vaccinated"
 msgstr ""
 
 #: app/templates/vaccines/charts.html:100

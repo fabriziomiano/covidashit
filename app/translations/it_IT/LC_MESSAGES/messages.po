@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-01-24 17:47+0100\n"
-"PO-Revision-Date: 2021-01-24 17:48+0100\n"
+"POT-Creation-Date: 2021-01-24 19:19+0100\n"
+"PO-Revision-Date: 2021-01-24 19:20+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -346,10 +346,8 @@ msgid "Back to COVIDash"
 msgstr "Torna alla Home"
 
 #: app/templates/vaccines.html:36
-#, fuzzy
-#| msgid "Latest Update:"
 msgid "Latest update: "
-msgstr "Ultimo aggiornamento:"
+msgstr "Ultimo aggiornamento: "
 
 #: app/templates/vaccines.html:41
 msgid "Total administered:"
@@ -545,8 +543,8 @@ msgstr ""
 "Open Data</a>"
 
 #: app/templates/vaccines/charts.html:70
-msgid "Admins Per Age range"
-msgstr "Somministrazioni per fascia d'età"
+msgid "Admins per age"
+msgstr "Somministrazioni per età"
 
 #: app/templates/vaccines/charts.html:76
 msgid "Admins per category"
@@ -557,8 +555,8 @@ msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
 #: app/templates/vaccines/charts.html:97
-msgid "Time series percentage vaccinated"
-msgstr "Serie temporale percentuale vaccinati"
+msgid "Time series of the percentage of people vaccinated"
+msgstr "Serie temporale della percentuale di popolazione vaccinata"
 
 #: app/templates/vaccines/charts.html:100
 msgid "<b>Select one or more regions</b><br>"
@@ -567,6 +565,9 @@ msgstr "<b>Seleziona una o più regioni</b><br>"
 #: app/utils/__init__.py:47 app/utils/__init__.py:50 app/utils/__init__.py:53
 msgid "name"
 msgstr ""
+
+#~ msgid "Admins Per Age range"
+#~ msgstr "Somministrazioni per fascia d'età"
 
 #~ msgid "Daily Admins Time Series"
 #~ msgstr "Serie temporale somministrazioni giornaliere"

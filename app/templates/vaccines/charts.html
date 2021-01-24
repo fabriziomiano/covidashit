@@ -67,13 +67,13 @@
     {#per age#}
     let ageCategories = {{ age_chart_data.categories|safe }};
     let adminsPerAgeData = {{ age_chart_data.admins_per_age|safe }};
-    let adminsPerAgeTitle = "{{ gettext('Admins Per Age range') }}";
+    let adminsPerAgeTitle = "{{ gettext('Admins per age') }} | " + area;
     let adminsPerAgeyAxisTitle = "{{ gettext('Counts') }}";
 
     {#per category#}
     let adminsPerCategoryData = {{ cat_chart_data|safe }};
     let adminsPerCategorySeriesName = "% {{ gettext('Vaccinated') }}";
-    let adminsPerCategoryTitle = "{{ gettext('Admins per category') }}";
+    let adminsPerCategoryTitle = "{{ gettext('Admins per category') }} | " + area;
 
     {#per region#}
     {% if area in regions %}
@@ -94,7 +94,7 @@
         adminsPerRegionCategories = {{ region_chart_data.categories|safe }};
         adminsTimeseriesDates = {{ admins_timeseries_data.dates|safe }};
         adminsTimeseriesData = {{ admins_timeseries_data.data|safe }};
-        adminsTimeseriesTitle = "{{ gettext('Time series percentage vaccinated') }}";
+        adminsTimeseriesTitle = "{{ gettext('Time series of the percentage of people vaccinated') }}";
         adminsTimeseriesyAxisTitle = "% {{ gettext('Vaccinated') }}";
         adminsTimeseriesSubtitle = {
             text: "{{ gettext('<b>Select one or more regions</b><br>') }}" + subtitle.text,
