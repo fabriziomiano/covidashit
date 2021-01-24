@@ -407,7 +407,7 @@ def pop_perc(x):
 
 
 def get_admins_perc(area='ITA'):
-    """Return the percentage"""
+    """Return the percentage of administered doses wrt the delivered ones"""
     admins_perc = "n/a"
     try:
         df = pd.read_csv(URL_VAX_SUMMARY_DATA)
