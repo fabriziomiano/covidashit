@@ -356,11 +356,13 @@ def update_vax_collection(summary=False):
     inserted_ids = []
     if not summary:
         collection = VAX_COLL
-        df = pd.read_csv(URL_VAX_DATA, parse_dates=[VAX_DATE_KEY])
+        url = URL_VAX_DATA
+        df = pd.read_csv(url, parse_dates=[VAX_DATE_KEY])
         df = augment_vax_df(df)
     else:
         collection = VAX_SUMMARY_COLL
-        df = pd.read_csv(URL_VAX_ADMINS_SUMMARY_DATA, parse_dates=[VAX_DATE_KEY])
+        url = URL_VAX_ADMINS_SUMMARY_DATA
+        df = pd.read_csv(url, parse_dates=[VAX_DATE_KEY])
         df = augment_summary_vax_df(df)
     try:
         records_in_db = list(collection.find())
@@ -368,12 +370,13 @@ def update_vax_collection(summary=False):
             df_mongo = pd.DataFrame(records_in_db)
             latest_dt_target = df_mongo[VAX_DATE_KEY].max()
             latest_dt_source = df[VAX_DATE_KEY].max()
+            # latest_dt_target > latest_dt source is not an option
             if latest_dt_target < latest_dt_source:
                 df_to_db = df[df[VAX_DATE_KEY] > latest_dt_target]
                 new_records = df_to_db.to_dict(orient='records')
                 r = collection.insert_many(new_records, ordered=True)
                 inserted_ids.extend(r.inserted_ids)
-            elif latest_dt_target == latest_dt_source:
+            if latest_dt_target == latest_dt_source:
                 df = df[df[VAX_DATE_KEY] == latest_dt_source]
                 operations = []
                 for index, row in df.iterrows():
