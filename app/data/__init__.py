@@ -275,12 +275,18 @@ def enrich_frontend_data(area=None, **data):
 
 def get_total_administrations(area=None):
     """Return the total administration performed"""
-    tot_adms = "n/a"
-    try:
+    tot_adms = 0
+    if area:
         pipe = [
             {'$match': {VAX_AREA_KEY: area}},
             {'$group': {'_id': f'${VAX_AREA_KEY}', 'tot': {'$sum': '$totale'}}}
         ]
+    else:
+        pipe = [
+            {'$group': {'_id': '{}', 'tot': {'$sum': '$totale'}}}
+        ]
+    try:
+
         cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
         tot_adms = next(cursor)['tot']
     except Exception as e:
@@ -319,34 +325,41 @@ def get_age_chart_data(area=None):
 def get_category_chart_data(area=None):
     """Return category series data"""
     chart_data = []
-    try:
-        pipe = [
-            {
-                '$match': {
-                    VAX_AREA_KEY: area
-                }
-            },
-            {
-                '$group': {
-                    '_id': f'${VAX_AREA_KEY}',
-                    HEALTHCARE_PERS_KEY: {'$sum': f'${HEALTHCARE_PERS_KEY}'},
-                    NONHEALTHCARE_PERS_KEY: {
-                        '$sum': f'${NONHEALTHCARE_PERS_KEY}'},
-                    HFE_GUESTS_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
-                    OVER_80_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
-                }
+    if area is not None:
+        match = {'$match': {VAX_AREA_KEY: area}},
+        group = {
+            '$group': {
+                '_id': f'${VAX_AREA_KEY}',
+                HEALTHCARE_PERS_KEY: {'$sum': f'${HEALTHCARE_PERS_KEY}'},
+                NONHEALTHCARE_PERS_KEY: {
+                    '$sum': f'${NONHEALTHCARE_PERS_KEY}'},
+                HFE_GUESTS_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
+                OVER_80_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
             }
-        ]
+        }
+        pipe = [match, group]
+    else:
+        group = {
+            '$group': {
+                '_id': '',
+                HEALTHCARE_PERS_KEY: {'$sum': f'${HEALTHCARE_PERS_KEY}'},
+                NONHEALTHCARE_PERS_KEY: {
+                    '$sum': f'${NONHEALTHCARE_PERS_KEY}'},
+                HFE_GUESTS_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
+                OVER_80_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
+            }
+        }
+        pipe = [group]
+    try:
         cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
         doc = next(cursor)
-        app.logger.debug(doc)
+        app.logger.debug(f"Category chart data: f{doc}")
         chart_data = [
             {'name': gettext(VARS[cat]["title"]), 'y': doc[cat]}
             for cat in VAX_PEOPLE_CATEGORIES
         ]
     except Exception as e:
         app.logger.error(f"While getting category-chart data: {e}")
-    app.logger.debug(chart_data)
     return chart_data
 
 
@@ -406,12 +419,17 @@ def pop_perc(x):
     return round(ITALY_POPULATION[x] / ITALY_POPULATION['Italia'] * 100, 2)
 
 
-def get_admins_perc(area='ITA'):
-    """Return the percentage of administered doses wrt the delivered ones"""
+def get_admins_perc(area=None):
+    """
+    Return the percentage of administered doses wrt the delivered ones.
+    It uses the CSV Url as it's tiny.
+    :param area: optional str
+    :return: float
+    """
     admins_perc = "n/a"
     try:
         df = pd.read_csv(URL_VAX_SUMMARY_DATA)
-        if area == 'ITA':
+        if area is None:
             admins_perc = round(
                 (df[ADMINS_DOSES_KEY].sum() /
                  df[DELIVERED_DOSES_KEY].sum() * 100), 2)
@@ -447,7 +465,7 @@ def get_admins_timeseries_chart_data():
             "dates": dates,
             "data": data
         }
-        app.logger.debug(f"Chart data {chart_data}")
+        app.logger.debug(f"Time series chart data {chart_data}")
     except Exception as e:
         app.logger.error(f"While getting vax timeseries chart data {e}")
     return chart_data

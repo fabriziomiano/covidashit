@@ -21,11 +21,10 @@ view_type = 'vaccines'
 @vaccines.route('/')
 def national_vax_view():
     """Render the vax report"""
-    area = 'ITA'
     dashboard_title = gettext("Italy")
     page_title = f'{gettext("Vaccines")} | {PAGE_BASE_TITLE}'
     population = ITALY_POPULATION['Italia']
-    tot_admins = get_total_administrations(area=area)
+    tot_admins = get_total_administrations()
     perc_pop_vax = get_perc_pop_vax(tot_admins, population)
     report_data = enrich_frontend_data(
         page_title=page_title,
@@ -35,10 +34,10 @@ def national_vax_view():
         latest_update=get_latest_vax_update(),
         tot_admins_str="{:,d}".format(tot_admins),
         tot_admins=tot_admins,
-        admins_perc=f"{get_admins_perc(area=area)}%",
+        admins_perc=f"{get_admins_perc()}%",
         perc_pop_vax=f"{perc_pop_vax}%",
         age_chart_data=get_age_chart_data(),
-        cat_chart_data=get_category_chart_data(area=area),
+        cat_chart_data=get_category_chart_data(),
         region_chart_data=get_region_chart_data(tot_admins=tot_admins),
         admins_timeseries_data=get_admins_timeseries_chart_data()
     )
