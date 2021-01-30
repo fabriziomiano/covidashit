@@ -455,10 +455,21 @@ def augment_summary_vax_df(df):
         - column population based on mapping of VAX_AREA_KEY
           to config ITALY_POPULATION
     """
-    df['_id'] = (
-            df[VAX_DATE_KEY].apply(lambda x: x.strftime(VAX_DATE_FMT)) +
-            df[VAX_AREA_KEY]
+    out_df = pd.DataFrame()
+    for r in df[VAX_AREA_KEY].unique():
+        reg_df = df[df[VAX_AREA_KEY] == r]
+        reg_df = reg_df.set_index(VAX_DATE_KEY).resample('1D').asfreq()
+        for col in reg_df:
+            if isinstance(reg_df[col].values[-1], str):
+                reg_df[col].ffill(inplace=True)
+        else:
+            reg_df.fillna(0, inplace=True)
+        out_df = out_df.append(reg_df)
+    out_df.reset_index(inplace=True)
+    out_df['_id'] = (
+            out_df[VAX_DATE_KEY].apply(lambda x: x.strftime(VAX_DATE_FMT)) +
+            out_df[VAX_AREA_KEY]
     )
-    df[POP_KEY] = df[VAX_AREA_KEY].apply(
+    out_df[POP_KEY] = out_df[VAX_AREA_KEY].apply(
         lambda x: ITALY_POPULATION[OD_TO_PC_MAP[x]])
-    return df
+    return out_df
