@@ -70,6 +70,16 @@ if (!REGIONS.includes(area)) {
                 text: adminsTimeseriesyAxisTitle
             }
         },
+        tooltip: {
+            crosshairs: {
+                width: 1,
+                color: 'gray',
+                dashStyle: 'ShortDashDot'
+            },
+            shared: true,
+            split: false,
+            enabled: true
+        },
         legend: {
             enabled: false
         },
@@ -178,8 +188,6 @@ let adminsPerCategory = {
         data: adminsPerCategoryData
     }],
     subtitle: subtitle,
-    credits: {
-        enabled: false
-    }
+    credits: credits
 }
 Highcharts.chart('chart-pie-categories', adminsPerCategory);

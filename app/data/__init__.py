@@ -286,12 +286,11 @@ def get_total_administrations(area=None):
             {'$group': {'_id': '{}', 'tot': {'$sum': '$totale'}}}
         ]
     try:
-
         cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
         tot_adms = next(cursor)['tot']
     except Exception as e:
         app.logger.error(f"While getting total admins: {e}")
-    return tot_adms
+    return int(tot_adms)
 
 
 def get_age_chart_data(area=None):
@@ -326,7 +325,7 @@ def get_category_chart_data(area=None):
     """Return category series data"""
     chart_data = []
     if area is not None:
-        match = {'$match': {VAX_AREA_KEY: area}},
+        match = {'$match': {VAX_AREA_KEY: area}}
         group = {
             '$group': {
                 '_id': f'${VAX_AREA_KEY}',
