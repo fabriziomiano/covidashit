@@ -3,7 +3,7 @@ DB Update
 """
 import pandas as pd
 from flask import current_app as app
-from pymongo import UpdateOne
+from pymongo import UpdateOne, InsertOne
 
 from app.data import (
     NAT_DATA_COLL, NAT_TRENDS_COLL, NAT_SERIES_COLL, REG_DATA_COLL,
@@ -353,7 +353,7 @@ def update_provincial_series_or_trends_collection(coll_type):
 def update_vax_collection(summary=False):
     """Update vax / vax_summary collection"""
     response = {"status": "ko", "n_inserted_docs": 0, "errors": []}
-    inserted_ids = []
+    operations = []
     if not summary:
         collection = VAX_COLL
         url = URL_VAX_DATA
@@ -365,38 +365,22 @@ def update_vax_collection(summary=False):
         df = pd.read_csv(url, parse_dates=[VAX_DATE_KEY])
         df = augment_summary_vax_df(df)
     try:
-        records_in_db = list(collection.find())
-        if records_in_db:
-            df_mongo = pd.DataFrame(records_in_db)
-            latest_dt_target = df_mongo[VAX_DATE_KEY].max()
-            latest_dt_source = df[VAX_DATE_KEY].max()
-            # latest_dt_target > latest_dt source is not an option
-            if latest_dt_target < latest_dt_source:
-                df_to_db = df[df[VAX_DATE_KEY] > latest_dt_target]
-                new_records = df_to_db.to_dict(orient='records')
-                r = collection.insert_many(new_records, ordered=True)
-                inserted_ids.extend(r.inserted_ids)
-            if latest_dt_target == latest_dt_source:
-                df = df[df[VAX_DATE_KEY] == latest_dt_source]
-                operations = []
-                for index, row in df.iterrows():
-                    _id = row['_id']
-                    new_value = row.to_dict()
-                    operations.append(
-                        UpdateOne({'_id': _id}, {'$set': new_value})
-                    )
-                r = collection.bulk_write(operations)
-                response['bulk_update'] = r.bulk_api_result
-            response["status"] = "ok"
-        else:
-            msg = f"Filling empty {collection.name}"
-            app.logger.warning(msg)
-            r = collection.insert_many(df.to_dict(orient='records'))
-            inserted_ids.extend(r.inserted_ids)
-            response["status"] = "ok"
-            response["msg"] = msg
-        response["n_inserted_docs"] = len(inserted_ids)
-        msg = f"{len(inserted_ids)} docs updated in {collection.name}"
+        for index, row in df.iterrows():
+            _id = row['_id']
+            cursor = collection.find({'_id': _id})
+            new_value = row.to_dict()
+            try:
+                next(cursor)
+                operations.append(UpdateOne({'_id': _id}, {'$set': new_value}))
+            except StopIteration:
+                operations.append(InsertOne(new_value))
+        r = collection.bulk_write(operations)
+        bulk_result = r.bulk_api_result
+        response['bulk_update'] = bulk_result
+        response["status"] = "ok"
+        n_inserted = bulk_result['nInserted']
+        n_modified = bulk_result['nModified']
+        msg = f"{n_inserted} inserted and {n_modified} modified"
         app.logger.warning(msg)
     except Exception as e:
         app.logger.error(f"While updating vax collection: {e}")
