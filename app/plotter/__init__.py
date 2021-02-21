@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from flask_babel import gettext
 
 from app.data import get_national_data, get_region_data, get_province_data
-from config import (
+from constants import (
     REGION_KEY, REGIONS, PROVINCE_KEY, DATE_KEY, VARS, PROVINCES, KEY_PERIODS,
     TOTAL_CASES_KEY, NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY
 )
