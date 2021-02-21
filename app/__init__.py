@@ -4,6 +4,7 @@ Flask application factory
 import os
 
 import click
+from celery import Celery
 from dotenv import load_dotenv
 from flask import Flask, request, render_template, send_from_directory
 from flask_babel import Babel
@@ -11,13 +12,15 @@ from flask_compress import Compress
 from flask_pymongo import PyMongo
 from flask_sitemap import Sitemap
 
-from config import LANGUAGES, TRANSLATION_DIRNAME
+from config import config as app_config
+from constants import LANGUAGES, TRANSLATION_DIRNAME
 
 load_dotenv()
 mongo = PyMongo()
 babel = Babel()
 sitemap = Sitemap()
 compress = Compress()
+celery = Celery(__name__)
 
 
 @babel.localeselector
@@ -64,12 +67,11 @@ def set_favicon_rule(app):
 
 def create_app():
     """Create the flask application"""
+    env = get_environment()
     app = Flask(__name__)
-    translation_dir = os.path.join(app.root_path, TRANSLATION_DIRNAME)
-    app.config["BABEL_TRANSLATION_DIRECTORIES"] = translation_dir
-    app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
-    app.config["MONGO_URI"] = os.environ["MONGO_URI"]
-    app.config["SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS"] = True
+    app.config.from_object(app_config[env])
+    app.config["BABEL_TRANSLATION_DIRECTORIES"] = os.path.join(
+        app.root_path, TRANSLATION_DIRNAME)
     compress.init_app(app)
     mongo.init_app(app)
     babel.init_app(app)
@@ -77,18 +79,11 @@ def create_app():
     set_error_handlers(app)
     set_robots_txt_rule(app)
     set_favicon_rule(app)
-
-    @app.after_request
-    def add_header(r):
-        """
-        Add headers to both force latest IE rendering engine or Chrome Frame,
-        and also to cache the rendered page for 10 minutes.
-        """
-        r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-        r.headers["Pragma"] = "no-cache"
-        r.headers["Expires"] = "0"
-        r.headers["Cache-Control"] = "public, max-age=0"
-        return r
+    celery.config_from_object(app.config)
+    celery.conf.update(
+        broker_url=app.config['BROKER_URL'],
+        result_backend=app.config['RESULT_BACKEND']
+    )
 
     from .ui import pandemic, vaccines
     app.register_blueprint(pandemic)
@@ -125,6 +120,18 @@ def create_app():
         "vax_summary": create_vax_summary_collection
     }
 
+    @app.after_request
+    def add_header(r):
+        """
+        Add headers to both force latest IE rendering engine or Chrome Frame,
+        and also to cache the rendered page for 10 minutes.
+        """
+        r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        r.headers["Pragma"] = "no-cache"
+        r.headers["Expires"] = "0"
+        r.headers["Cache-Control"] = "public, max-age=0"
+        return r
+
     @app.cli.command("create-collections")
     def populate_db():
         """Populate all the collections needed on mongoDB"""
@@ -135,7 +142,7 @@ def create_app():
     @click.argument("collection_type")
     def populate_collection(collection_type):
         """
-        Populate a collection_type ob mongoDB.
+        Populate a collection_type on mongoDB.
         Choose one of the following:
         "national", "regional", "provincial", "latest_regional",
         "latest_provincial", "national_trends", "regional_trends",
@@ -146,3 +153,8 @@ def create_app():
         collection_creation[collection_type]()
 
     return app
+
+
+def get_environment():
+    """Return app environment"""
+    return os.environ.get('APPLICATION_ENV') or 'development'
