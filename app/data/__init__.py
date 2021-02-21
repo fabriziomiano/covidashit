@@ -16,7 +16,7 @@ from app.db import (
     VAX_SUMMARY_COLL
 )
 from app.utils import rubbish_notes, translate_series_lang
-from config import (
+from constants import (
     REGION_KEY, PROVINCE_KEY, DATE_KEY, NOTE_KEY, DAILY_POSITIVITY_INDEX,
     UPDATE_FMT, VARS, ITALY_MAP, VERSION, REGIONS, PROVINCES, TOTAL_CASES_KEY,
     NEW_POSITIVE_KEY, KEY_PERIODS, URL_VAX_LATEST_UPDATE,
@@ -260,7 +260,7 @@ def get_perc_pop_vax(tot_admins, population):
 def enrich_frontend_data(area=None, **data):
     """
     Return a data dict to be rendered which is an augmented copy of
-    DASHBOARD_DATA defined in config.py
+    DASHBOARD_DATA defined in constants.py
     :param area: optional, str
     :param data: **kwargs
     :return: dict

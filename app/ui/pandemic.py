@@ -14,7 +14,7 @@ from app.data import (
     get_national_series, get_regional_series, get_provincial_series,
     get_positivity_idx, get_latest_update, enrich_frontend_data
 )
-from config import REGIONS, PROVINCES, ITALY_MAP, PAGE_BASE_TITLE
+from constants import REGIONS, PROVINCES, ITALY_MAP, PAGE_BASE_TITLE
 
 URL_REGIONS = "/regions"
 URL_PROVINCES = "/provinces"

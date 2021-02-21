@@ -17,7 +17,7 @@ from app.db import (
     PROV_TRENDS_COLL, PROV_SERIES_COLL, PROV_BREAKDOWN_COLL, VAX_COLL,
     VAX_SUMMARY_COLL
 )
-from config import (
+from constants import (
     URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, DATE_KEY, URL_VAX_DATA,
     URL_VAX_ADMINS_SUMMARY_DATA, VAX_DATE_KEY
 )
@@ -31,7 +31,7 @@ def create_national_collection():
     df_national_augmented = augment_national_df(df)
     national_records = df_national_augmented.to_dict(orient='records')
     try:
-        app.logger.warning("Doing national")
+        app.logger.warning("Doing National collection")
         NAT_DATA_COLL.drop()
         NAT_DATA_COLL.insert_many(national_records, ordered=True)
         response["collections_created"].append("national")
@@ -52,7 +52,7 @@ def create_national_trends_collection():
     df_national_augmented = augment_national_df(df)
     national_trends = build_national_trends(df_national_augmented)
     try:
-        app.logger.warning("Doing national_trends")
+        app.logger.warning("Doing national trends collection")
         NAT_TRENDS_COLL.drop()
         NAT_TRENDS_COLL.insert_many(national_trends)
         response["collections_created"].append("national_trends")
@@ -73,7 +73,7 @@ def create_national_series_collection():
     df_national_augmented = augment_national_df(df)
     national_series = build_national_series(df_national_augmented)
     try:
-        app.logger.warning("Doing national_series")
+        app.logger.warning("Doing national series collection")
         NAT_SERIES_COLL.drop()
         NAT_SERIES_COLL.insert_one(national_series)
         response["collections_created"].append("national_series")
@@ -95,7 +95,7 @@ def create_regional_collection():
     df_regional_augmented = augment_regional_df(df)
     regional_records = df_regional_augmented.to_dict(orient='records')
     try:
-        app.logger.warning("Doing regional")
+        app.logger.warning("Doing regional collection")
         REG_DATA_COLL.drop()
         REG_DATA_COLL.insert_many(regional_records, ordered=True)
         response["collections_created"].append("regional")
@@ -116,7 +116,7 @@ def create_regional_breakdown_collection():
     df_regional_augmented = augment_regional_df(df)
     regional_breakdown = build_regional_breakdown(df_regional_augmented)
     try:
-        app.logger.warning("Doing regional_breakdown")
+        app.logger.warning("Doing regional breakdown collection")
         REG_BREAKDOWN_COLL.drop()
         REG_BREAKDOWN_COLL.insert_one(regional_breakdown)
         response["collections_created"].append("regional_breakdown")
@@ -137,7 +137,7 @@ def create_regional_series_collection():
     df_regional_augmented = augment_regional_df(df)
     regional_series = build_regional_series(df_regional_augmented)
     try:
-        app.logger.warning("Doing regional_series")
+        app.logger.warning("Doing regional series collection")
         REG_SERIES_COLL.drop()
         REG_SERIES_COLL.insert_many(regional_series)
         response["collections_created"].append("regional_series")
@@ -157,7 +157,7 @@ def create_regional_trends_collection():
     df_regional_augmented = augment_regional_df(df)
     regional_trends = build_regional_trends(df_regional_augmented)
     try:
-        app.logger.warning("Doing regional_trends")
+        app.logger.warning("Doing regional trends collection")
         REG_TRENDS_COLL.drop()
         REG_TRENDS_COLL.insert_many(regional_trends)
         response["collections_created"].append("regional_trends")
@@ -200,7 +200,7 @@ def create_provincial_breakdown_collection():
     provincial_breakdowns = build_provincial_breakdowns(
         df_provincial_augmented)
     try:
-        app.logger.warning("Doing provincial_breakdowns")
+        app.logger.warning("Doing provincial breakdowns collection")
         PROV_BREAKDOWN_COLL.drop()
         PROV_BREAKDOWN_COLL.insert_many(provincial_breakdowns)
         response["collections_created"].append("provincial_breakdowns")
@@ -222,7 +222,7 @@ def create_provincial_series_collection():
     provincial_series = build_provincial_series(
         df_provincial_augmented)
     try:
-        app.logger.warning("Doing provincial_series")
+        app.logger.warning("Doing provincial series collection")
         PROV_SERIES_COLL.drop()
         PROV_SERIES_COLL.insert_many(provincial_series)
         response["collections_created"].append("provincial_series")
@@ -243,7 +243,7 @@ def create_provincial_trends_collection():
     df_provincial_augmented = augment_provincial_df(df)
     provincial_trends = build_provincial_trends(df_provincial_augmented)
     try:
-        app.logger.warning("Doing provincial_trends")
+        app.logger.warning("Doing provincial trends collection")
         PROV_TRENDS_COLL.drop()
         PROV_TRENDS_COLL.insert_many(provincial_trends)
         response["collections_created"].append("provincial_trends")
@@ -259,7 +259,7 @@ def create_vax_collection():
     """Create vaccine-data colleciton"""
     status = 500
     response = {"status": "ko", "collections_created": [], "errors": []}
-    info_msg = "Doing Vax Collection"
+    info_msg = "Doing vax collection"
     err_msg = "While creating vax collection:"
     df = pd.read_csv(URL_VAX_DATA, parse_dates=[VAX_DATE_KEY])
     df = augment_vax_df(df)
@@ -281,7 +281,7 @@ def create_vax_summary_collection():
     """Create vax summary collection"""
     status = 500
     response = {"status": "ko", "collections_created": [], "errors": []}
-    info_msg = "Doing Vax Summary Collection"
+    info_msg = "Doing vax summary collection"
     err_msg = "While creating vax summary collection:"
     df = pd.read_csv(URL_VAX_ADMINS_SUMMARY_DATA, parse_dates=[VAX_DATE_KEY])
     df = augment_summary_vax_df(df)
