@@ -1,30 +1,27 @@
 """
-DB Update
+Celery tasks
 """
 import pandas as pd
 from flask import current_app as app
 from pymongo import UpdateOne, InsertOne
 
-from app.data import (
-    NAT_DATA_COLL, NAT_TRENDS_COLL, NAT_SERIES_COLL, REG_DATA_COLL,
-    REG_TRENDS_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL, PROV_SERIES_COLL,
-    PROV_BREAKDOWN_COLL, PROV_TRENDS_COLL, REG_SERIES_COLL, TREND_CARDS,
+from app import celery
+from app.data import TREND_CARDS
+from app.data.etl import load_df, augment_national_df, build_national_series, \
+    build_trend, augment_regional_df, build_series, build_national_trends, \
+    build_regional_breakdown, augment_provincial_df, \
+    build_provincial_breakdowns, build_provincial_trends, \
+    build_provincial_series, augment_vax_df, augment_summary_vax_df
+from app.db import NAT_DATA_COLL, NAT_SERIES_COLL, NAT_TRENDS_COLL, \
+    REG_DATA_COLL, REG_SERIES_COLL, REG_TRENDS_COLL, REG_BREAKDOWN_COLL, \
+    PROV_DATA_COLL, PROV_BREAKDOWN_COLL, PROV_TRENDS_COLL, PROV_SERIES_COLL, \
     VAX_COLL, VAX_SUMMARY_COLL
-)
-from app.data.etl import (
-    load_df, build_series, build_national_trends, build_provincial_series,
-    build_provincial_trends, build_regional_breakdown,
-    build_provincial_breakdowns, build_national_series, build_trend,
-    augment_national_df, augment_regional_df, augment_provincial_df,
-    augment_vax_df, augment_summary_vax_df
-)
-from config import (
-    DATE_KEY, PROVINCES, PROVINCE_KEY, REGIONS, REGION_KEY,
-    URL_PROVINCIAL, URL_REGIONAL, URL_NATIONAL, URL_VAX_DATA,
-    URL_VAX_ADMINS_SUMMARY_DATA, VAX_DATE_KEY
-)
+from constants import URL_NATIONAL, DATE_KEY, URL_REGIONAL, REGIONS, \
+    REGION_KEY, URL_PROVINCIAL, PROVINCES, PROVINCE_KEY, URL_VAX_DATA, \
+    VAX_DATE_KEY, URL_VAX_ADMINS_SUMMARY_DATA
 
 
+@celery.task
 def update_national_collection():
     """Update national collection"""
     response = {"status": "ko", "n_inserted_docs": 0, "errors": []}
@@ -60,6 +57,7 @@ def update_national_collection():
     return response
 
 
+@celery.task
 def update_national_series_collection():
     """Update national series collection"""
     response = {"status": "ko", "updated": False, "errors": []}
@@ -85,6 +83,7 @@ def update_national_series_collection():
     return response
 
 
+@celery.task
 def update_national_trends_collection():
     """Update national trends collection"""
     response = {"ids": [], "updated": False, "errors": []}
@@ -112,6 +111,7 @@ def update_national_trends_collection():
     return response
 
 
+@celery.task
 def update_regional_collection():
     """Update regional-data collection"""
     inserted_ids = []
@@ -143,6 +143,7 @@ def update_regional_collection():
     return response
 
 
+@celery.task
 def update_regional_series_collection():
     """Update regional series collection"""
     n_docs = 0
@@ -183,6 +184,7 @@ def update_regional_series_collection():
     return response
 
 
+@celery.task
 def update_regional_trends_collection():
     """Update regional trends collection"""
     n_docs = 0
@@ -217,6 +219,7 @@ def update_regional_trends_collection():
     return response
 
 
+@celery.task
 def update_regional_breakdown_collection():
     """Update regional breakdown"""
     response = {"status": "ko", "updated": False, "errors": []}
@@ -244,6 +247,7 @@ def update_regional_breakdown_collection():
     return response
 
 
+@celery.task
 def update_provincial_collection():
     """Update provincial data collection"""
     response = {"status": "ko", "updated": False, "errors": [], "msg": ""}
@@ -275,6 +279,7 @@ def update_provincial_collection():
     return response
 
 
+@celery.task
 def update_provincial_breakdown_collection():
     """Update provincial breakdown"""
     n_docs = 0
@@ -308,6 +313,7 @@ def update_provincial_breakdown_collection():
     return response
 
 
+@celery.task
 def update_provincial_series_or_trends_collection(coll_type):
     """Update provincial series or trends collection"""
     n_docs = 0
@@ -350,6 +356,7 @@ def update_provincial_series_or_trends_collection(coll_type):
     return response
 
 
+@celery.task
 def update_vax_collection(summary=False):
     """Update vax / vax_summary collection"""
     response = {"status": "ko", "n_inserted_docs": 0, "errors": []}
