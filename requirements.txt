@@ -13,3 +13,5 @@ python-dotenv==0.15.0
 click==7.1.2
 Flask-Compress==1.8.0
 pytz==2020.1
+celery==5.0.5
+redis==3.5.3

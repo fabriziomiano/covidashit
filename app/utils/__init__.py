@@ -5,7 +5,7 @@ import re
 
 from flask_babel import gettext
 
-from config import ITALY_MAP, RUBBISH_NOTE_REGEX
+from constants import ITALY_MAP, RUBBISH_NOTE_REGEX
 
 
 def region_of_province(province_in: str) -> str:

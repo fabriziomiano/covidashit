@@ -12,7 +12,7 @@ from app.data import (
     get_perc_pop_vax, get_admins_perc, get_admins_timeseries_chart_data
 )
 from app.ui import vaccines
-from config import PAGE_BASE_TITLE, ITALY_POPULATION, PC_TO_OD_MAP, REGIONS
+from constants import PAGE_BASE_TITLE, ITALY_POPULATION, PC_TO_OD_MAP, REGIONS
 
 URL_VACCINES = "/vaccines"
 view_type = 'vaccines'
