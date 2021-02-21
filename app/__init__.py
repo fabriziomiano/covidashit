@@ -65,6 +65,11 @@ def set_favicon_rule(app):
             "favicon.ico", mimetype="image/vnd.microsoft.icon")
 
 
+def get_environment():
+    """Return app environment"""
+    return os.environ.get('APPLICATION_ENV') or 'development'
+
+
 def create_app():
     """Create the flask application"""
     env = get_environment()
@@ -153,8 +158,3 @@ def create_app():
         collection_creation[collection_type]()
 
     return app
-
-
-def get_environment():
-    """Return app environment"""
-    return os.environ.get('APPLICATION_ENV') or 'development'
