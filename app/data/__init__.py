@@ -252,8 +252,14 @@ def get_latest_vax_update():
     return latest_update
 
 
-def get_perc_pop_vax(tot_admins, population):
-    """Return the ratio tot administrations / population rounded to 2 figs"""
+def get_perc_pop_vax(population, area=None):
+    """
+    Return the ratio tot administrations / population rounded to 2 figs
+    :param population: int
+    :param area: str
+    :return: float
+    """
+    tot_admins = get_tot_admins(dtype='seconda_dose', area=area)
     return round(((int(tot_admins) / population) * 100), 2)
 
 
@@ -273,23 +279,37 @@ def enrich_frontend_data(area=None, **data):
     return data
 
 
-def get_total_administrations(area=None):
-    """Return the total administration performed"""
+def get_tot_admins(dtype, area=None):
+    """
+    Return the total of one of the three main vaccine data types
+    allowed_types ('totale', 'prima_dose', 'seconda_dose')
+    :param dtype: str: must be in allowed_types
+    :param area: str: region
+    :return: int: the total administrations of a given data type
+        if the data type is in allowed_types else 0
+    """
+    allowed_types = ('totale', 'prima_dose', 'seconda_dose')
     tot_adms = 0
-    if area:
-        pipe = [
-            {'$match': {VAX_AREA_KEY: area}},
-            {'$group': {'_id': f'${VAX_AREA_KEY}', 'tot': {'$sum': '$totale'}}}
-        ]
-    else:
-        pipe = [
-            {'$group': {'_id': '{}', 'tot': {'$sum': '$totale'}}}
-        ]
-    try:
-        cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
-        tot_adms = next(cursor)['tot']
-    except Exception as e:
-        app.logger.error(f"While getting total admins: {e}")
+    if dtype in allowed_types:
+        if area:
+            pipe = [
+                {'$match': {VAX_AREA_KEY: area}},
+                {
+                    '$group': {
+                        '_id': f'${VAX_AREA_KEY}',
+                        'tot': {
+                            '$sum': f'${dtype}'
+                        }
+                    }
+                }
+            ]
+        else:
+            pipe = [{'$group': {'_id': '{}', 'tot': {'$sum': f'${dtype}'}}}]
+        try:
+            cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
+            tot_adms = next(cursor)['tot']
+        except Exception as e:
+            app.logger.error(f"While getting total admins: {e}")
     return int(tot_adms)
 
 

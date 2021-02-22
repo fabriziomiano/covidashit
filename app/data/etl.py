@@ -16,6 +16,7 @@ from constants import (
     VAX_DATE_FMT, VAX_AREA_KEY, VAX_TYPE_KEY, ITALY_POPULATION, OD_TO_PC_MAP,
     POP_KEY
 )
+
 COLUMNS_TO_DROP = [STATE_KEY]
 
 
@@ -440,7 +441,8 @@ def augment_vax_df(df):
     df[VAX_AGE_KEY] = df[VAX_AGE_KEY].apply(lambda x: x.strip())
     df['totale'] = df[M_SEX_KEY] + df[F_SEX_KEY]
     df['_id'] = (
-            df[VAX_DATE_KEY].apply(lambda x: x.strftime(VAX_DATE_FMT)) +
+            df[VAX_DATE_KEY].apply(
+                lambda x: x.strftime(VAX_DATE_FMT)) +
             df[VAX_AREA_KEY] +
             df[VAX_AGE_KEY] +
             df[VAX_TYPE_KEY]
@@ -467,8 +469,8 @@ def augment_summary_vax_df(df):
         out_df = out_df.append(reg_df)
     out_df.reset_index(inplace=True)
     out_df['_id'] = (
-            out_df[VAX_DATE_KEY].apply(lambda x: x.strftime(VAX_DATE_FMT)) +
-            out_df[VAX_AREA_KEY]
+            out_df[VAX_DATE_KEY].apply(
+                lambda x: x.strftime(VAX_DATE_FMT)) + out_df[VAX_AREA_KEY]
     )
     out_df[POP_KEY] = out_df[VAX_AREA_KEY].apply(
         lambda x: ITALY_POPULATION[OD_TO_PC_MAP[x]])

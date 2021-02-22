@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 from flask_babel import gettext
 
-VERSION = "4.0"
+VERSION = "4.5"
 PAGE_BASE_TITLE = gettext("COVID-19 Italy")
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
@@ -355,13 +355,11 @@ BASE_URL_DATA = (
 NATIONAL_DATA_FILE = (
     "dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv")
 REGIONAL_DATA_FILE = "dati-regioni/dpc-covid19-ita-regioni.csv"
-REGIONAL_LATEST_DATA_FILE = "dati-regioni/dpc-covid19-ita-regioni-latest.csv"
 PROVINCIAL_DATE_FILE = "dati-province/dpc-covid19-ita-province.csv"
 
 URL_NATIONAL = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
 URL_REGIONAL = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
 URL_PROVINCIAL = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
-URL_REGIONAL_LATEST = os.path.join(BASE_URL_DATA, REGIONAL_LATEST_DATA_FILE)
 
 # Data URLs: Vaccines
 BASE_URL_VAX_DATA = (
