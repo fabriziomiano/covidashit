@@ -40,18 +40,26 @@
                     <p class="small mb-0 text-primary">
                         <i class="fas fa-syringe me-2"></i>{{ _("Total administered:") }}
                         <strong>
-                            {{ tot_admins_str }}
+                            {{ tot_admins_str }} &nbsp; {{ admins_perc }}
                             <i class="fas fa-info-circle"
                                data-toggle="tooltip"
                                data-placement="auto"
                                title="{{ _("Percentage of administered doses wrt the delivered ones") }}"
-                            ></i> {{ admins_perc }}
+                            ></i>
                         </strong>
                     </p>
 
                     <!-- % people vaccinated -->
                     <p class="small mb-0 text-danger">
-                        <i class="fas fa-user-shield me-2"></i>% {{ _("People Vaccinated: ") }}<strong>{{ perc_pop_vax }}</strong>
+                        <i class="fas fa-user-shield me-2"></i>% {{ _("People Vaccinated: ") }}
+                        <strong>
+                            {{ perc_pop_vax }}
+                            <i class="fas fa-info-circle"
+                               data-toggle="tooltip"
+                               data-placement="auto"
+                               title="{{ _("Based on the second dose") }}">
+                            </i>
+                        </strong>
                     </p>
                     <div class="progress mb-1" style="height: 5px;">
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"

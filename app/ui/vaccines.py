@@ -7,7 +7,7 @@ from flask import render_template
 from flask_babel import gettext
 
 from app.data import (
-    enrich_frontend_data, get_latest_vax_update, get_total_administrations,
+    enrich_frontend_data, get_latest_vax_update, get_tot_admins,
     get_age_chart_data, get_category_chart_data, get_region_chart_data,
     get_perc_pop_vax, get_admins_perc, get_admins_timeseries_chart_data
 )
@@ -24,8 +24,8 @@ def national_vax_view():
     dashboard_title = gettext("Italy")
     page_title = f'{gettext("Vaccines")} | {PAGE_BASE_TITLE}'
     population = ITALY_POPULATION['Italia']
-    tot_admins = get_total_administrations()
-    perc_pop_vax = get_perc_pop_vax(tot_admins, population)
+    tot_admins = get_tot_admins(dtype='totale')
+    perc_pop_vax = get_perc_pop_vax(population)
     report_data = enrich_frontend_data(
         page_title=page_title,
         view_type=view_type,
@@ -51,8 +51,8 @@ def regional_vax_view(region):
     page_title = f'{gettext("Vaccines")} | {region} | {PAGE_BASE_TITLE}'
     area = PC_TO_OD_MAP[region]
     population = ITALY_POPULATION[region]
-    tot_admins = get_total_administrations(area=area)
-    perc_pop_vax = get_perc_pop_vax(tot_admins, population)
+    tot_admins = get_tot_admins(dtype='totale', area=area)
+    perc_pop_vax = get_perc_pop_vax(population, area)
     region_index = REGIONS.index(region)
     previous_url = f"{URL_VACCINES}/{REGIONS[region_index - 1]}"
     try:
