@@ -41,17 +41,16 @@ def update_national_collection():
                 inserted_ids.extend(r.inserted_ids)
                 response["n_inserted_docs"] = len(inserted_ids)
                 response["inserted_ids"] = inserted_ids
-                response["status"] = "ok"
         else:
             msg = f"Filling empty {NAT_DATA_COLL.name}"
             app.logger.warning(msg)
             r = NAT_DATA_COLL.insert_many(df.to_dict(orient='records'))
             inserted_ids.extend(r.inserted_ids)
             response["n_inserted_docs"] = len(inserted_ids)
-            response["status"] = "ok"
             response["msg"] = msg
         msg = f"{len(inserted_ids)} docs updated in {NAT_DATA_COLL.name}"
         app.logger.warning(msg)
+        response["status"] = "ok"
     except Exception as e:
         response["errors"], response["msg"] = f"{e}", f"{e}"
     return response

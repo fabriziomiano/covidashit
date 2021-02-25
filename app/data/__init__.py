@@ -23,8 +23,9 @@ from constants import (
     VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_UPDATE_FMT, VAX_AREA_KEY,
     VAX_AGE_KEY, HEALTHCARE_PERS_KEY, NONHEALTHCARE_PERS_KEY, HFE_GUESTS_KEY,
     OD_TO_PC_MAP, ITALY_POPULATION, URL_VAX_SUMMARY_DATA, VAX_ADMINS_PERC_KEY,
-    ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_DATE_KEY, VAX_DAILY_ADMINS_KEY,
-    CHART_DATE_FMT, OVER_80_KEY, POP_KEY
+    ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_DATE_KEY, VAX_TOT_ADMINS_KEY,
+    CHART_DATE_FMT, OVER_80_KEY, POP_KEY, VAX_FIRST_DOSE_KEY,
+    VAX_SECOND_DOSE_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -282,13 +283,14 @@ def enrich_frontend_data(area=None, **data):
 def get_tot_admins(dtype, area=None):
     """
     Return the total of one of the three main vaccine data types
-    allowed_types ('totale', 'prima_dose', 'seconda_dose')
+    allowed_types (VAX_TOT_ADMINS_KEY, VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY)
     :param dtype: str: must be in allowed_types
     :param area: str: region
     :return: int: the total administrations of a given data type
         if the data type is in allowed_types else 0
     """
-    allowed_types = ('totale', 'prima_dose', 'seconda_dose')
+    allowed_types = (
+        VAX_TOT_ADMINS_KEY, VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY)
     tot_adms = 0
     if dtype in allowed_types:
         if area:
@@ -317,7 +319,12 @@ def get_age_chart_data(area=None):
     """Return age series data"""
     chart_data = {}
     match = {'$match': {VAX_AREA_KEY: area}}
-    group = {'$group': {'_id': f'${VAX_AGE_KEY}', 'tot': {'$sum': '$totale'}}}
+    group = {
+        '$group': {
+            '_id': f'${VAX_AGE_KEY}',
+            'tot': {'$sum': f'${VAX_TOT_ADMINS_KEY}'}
+        }
+    }
     sort = {'$sort': {'_id': 1}}
     try:
         if area is not None:
@@ -399,7 +406,7 @@ def get_region_chart_data(tot_admins=1):
             {
                 '$group': {
                     '_id': f'${VAX_AREA_KEY}',
-                    'tot': {'$sum': '$totale'}
+                    'tot': {'$sum': f'${VAX_TOT_ADMINS_KEY}'}
                 }
             },
             {'$sort': {'tot': -1}}
@@ -476,7 +483,7 @@ def get_admins_timeseries_chart_data():
         data = [{
             'name': OD_TO_PC_MAP[r],
             'data': (
-                    df[df[VAX_AREA_KEY] == r][VAX_DAILY_ADMINS_KEY].cumsum() /
+                    df[df[VAX_AREA_KEY] == r][VAX_SECOND_DOSE_KEY].cumsum() /
                     df[df[VAX_AREA_KEY] == r][POP_KEY] * 100
             ).round(2).to_list()
         } for r in sorted(df[VAX_AREA_KEY].unique())]
