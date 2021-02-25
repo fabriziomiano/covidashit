@@ -11,10 +11,13 @@ load_dotenv()
 class BaseConfig(object):
     """Base config class."""
     API_KEY = os.environ.get('API_KEY')
-    BROKER_URL = os.environ.get('REDIS_URL')
-    RESULT_BACKEND = os.environ.get('REDIS_URL')
+    REDIS_URL = os.environ.get('REDIS_URL')
     MONGO_URI = os.environ.get('MONGO_URI')
     SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS = True
+    CELERY_CONFIG = {
+        'broker_url': REDIS_URL,
+        'result_backend': REDIS_URL
+    }
 
 
 class Development(BaseConfig):
