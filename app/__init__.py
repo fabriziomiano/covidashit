@@ -85,10 +85,7 @@ def create_app():
     set_robots_txt_rule(app)
     set_favicon_rule(app)
     celery.config_from_object(app.config)
-    celery.conf.update(
-        broker_url=app.config['BROKER_URL'],
-        result_backend=app.config['RESULT_BACKEND']
-    )
+    celery.conf.update(app.config.get("CELERY_CONFIG", {}))
 
     from .ui import pandemic, vaccines
     app.register_blueprint(pandemic)
