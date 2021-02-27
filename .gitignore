@@ -21,3 +21,6 @@ dpc*.json
 
 # env vars
 .env
+
+# translations
+*.pot

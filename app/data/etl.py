@@ -437,7 +437,15 @@ def build_provincial_series(df):
 
 
 def augment_vax_df(df):
-    """Clean 'fascia_anagrafica key, add 'total' and 'id' to df"""
+    """
+    Return a modified version of the input df.
+    Add two columns '_id' and 'totale'.
+    The former is computed as the concatenation of three strings
+    VAX_DATE_KEY + VAX_AGE_KEY + VAX_TYPE_KEY, and the latter as the sum of
+    the columns M_SEX_KEY + F_SEX_KEY
+    :param df: pandas.DataFrame
+    :return: pandas.DataFrame
+    """
     df[VAX_AGE_KEY] = df[VAX_AGE_KEY].apply(lambda x: x.strip())
     df['totale'] = df[M_SEX_KEY] + df[F_SEX_KEY]
     df['_id'] = (
@@ -452,10 +460,13 @@ def augment_vax_df(df):
 
 def augment_summary_vax_df(df):
     """
-    Add:
-        - column '_id' as concatenation of VAX_DATE_KEY and VAX_AREA_KEY
-        - column population based on mapping of VAX_AREA_KEY
-          to config ITALY_POPULATION
+    Return a modified version of the input df.
+    Add two columns '_id' and POP_TOT_KEY.
+    The former is computed as the concatenation of two strings
+    VAX_DATE_KEY + VAX_AREA_KEY, and the latter is taken from the
+    ITALY_POPULATION dict.
+    :param df: pandas.DataFrame
+    :return: pandas.DataFrame
     """
     out_df = pd.DataFrame()
     for r in df[VAX_AREA_KEY].unique():
