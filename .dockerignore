@@ -18,14 +18,14 @@ node_modules/
 # git / github stuff
 .git/
 .github/
-*.gitignore
+.gitignore
 *.md
 LICENSE
 docs/
 previews/
 
 # misc
+scripts/
 *.log
 *.json
 *.bat
-*.sh
