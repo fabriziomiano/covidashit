@@ -1,20 +1,20 @@
 # COVID-19 Italy Monitor | [\#StayAtHome](https://twitter.com/hashtag/StayAtHome)
 
+[![Awesome](https://awesome.re/badge.svg)](https://github.com/soroushchehresa/awesome-coronavirus#applications-and-bots)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![Made with Pthon](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/mockup.png)
+
 Versione Italiana [qui](https://github.com/fabriziomiano/covidashit/blob/main/README_IT.md)
 
 A simple dashboard to display and monitor the official data of the COVID-19 outbreak in Italy released by the [Civil Protection Dept.](https://github.com/pcm-dpc/COVID-19) and updated on a daily basis.
 
-## Previews
+**The app is deployed on Heroku [here](https://www.covidash.it/)**
 
-### Pandemic View 
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/pandemic.png)
+**Pandemic data from the [official CP Dept repository](https://github.com/pcm-dpc/COVID-19/)**
 
-### Vaccines View
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/vaccines.png)
-
-##### The app is deployed on Heroku &#8594; [here](https://www.covidash.it/)
-
-##### The data is taken from the official CP Dept repository &#8594; [here](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
+**Vaccine data from the [official open-data repository/](https://github.com/italia/covid19-opendata-vaccini)**
 
 
 ## For developers
@@ -33,21 +33,21 @@ Additionally, mongo collections must be updated on a daily basis. The Flask cont
 update the DB every time the `master` branch of the CP Dept repository is updated, via a GitHub webhook (see the GitHub workflow [here](https://github.com/fabriziomiano/COVID-19/blob/master/.github/workflows/merge-upstream.yml)).
 Ultimately, the webhooks for the following APIs must be set on the CP forked repository:
 
- * `/update/national`
- * `/update/national/series`
- * `/update/national/trends`
- * `/update/regional`
- * `/update/regional/breakdown`
- * `/update/regional/series`
- * `/update/regional/trends`
- * `/update/provincial`
- * `/update/provincial/breakdown`
- * `/update/provincial/series`
- * `/update/provincial/trends`
- * `/update/vax/`
- * `/update/vax/summary`
+ * `POST /update/national`
+ * `POST /update/national/series`
+ * `POST /update/national/trends`
+ * `POST /update/regional`
+ * `POST /update/regional/breakdown`
+ * `POST /update/regional/series`
+ * `POST /update/regional/trends`
+ * `POST /update/provincial`
+ * `POST /update/provincial/breakdown`
+ * `POST /update/provincial/series`
+ * `POST /update/provincial/trends`
+ * `POST /update/vax/`
+ * `POST /update/vax/summary`
 
-#### Set up a local version
+### Local deployment (DEV)
 * create and activate a virtual environment [(follow this)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 * install the requirements in `requirements.txt`
 
@@ -55,35 +55,47 @@ The `.env` file contains all the env vars needed by the webapp.
 In particular, the `MONGO_URI` and the various collection names string must be set.
 Before the Flask server is started, but after the virtual environment has been activated, 
 the DB must be populated.
-For this purpose a Flask CLI, which runs a very basic ETL procedures that populates the various collections, is included
-and can be run with 
+For this purpose a Flask CLI, that populates the various collections, is included.
+This, with a very basic ETL procedure, will populate the various collections on 
+the DB with the official data released by the Civil Protection Dept.
 
-`python -m flask create-collections`
-
-This, with a very basic ETL procedure, will populate the various collections on the DB with the official data released by the Civil Protection Dept.
-
-
-##### Development
-Clone the repo, `cd` into it, and
+Clone the repo, `cd` into it, activate the virtual environment, and run the procedure
+```shell
+flask create-collections
 ```
-$ export FLASK_ENV=development
-$ export FLASK_DEBUG=1
-$ python -m flask run
+then run the worker 
+```shell
+celery -A celery_worker.celery worker
+```
+and, in a new shell, run the application server
+```shell
+flask run
 ```
 Flask will be listening at [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
-##### Production
-The provided Dockerfile is ready to be used to deploy the app on Heroku. 
-To test the production environment locally, uncomment L17, add the 
-above-mentioned env variables, and run:
-```
-$ docker build --tag covidashit:latest . 
-$ docker run --name covidashit -d -p 80:5000 covidashit
+### Local deployment (PROD)
+First, replace the value of `APPLICATION_ENV` in `.env` with `production`
+#### Procfile
+to test the `Procfile` configuration, Simply run the heroku CLI 
+```shell
+heroku local
 ```
 
-The docker container will be listening at [http://127.0.0.1](http://127.0.0.1)
+#### Docker
+To test the containerization locally spawn the container with:
+```shell
+docker-compose up -d
+```
 
-##### Additional note
+The docker container will be listening at `http://127.0.0.1:PORT` with `PORT`
+being set in the `.env` file
+
+Stop it with 
+```shell
+docker-compose down
+```
+
+### Deployment on Heroku
 The app can be deployed on Heroku either as a docker container or simply using the Procfile
 
 ## Plots API
@@ -140,32 +152,37 @@ Padova, Rovigo, Treviso, Venezia, Verona, Vicenza]
 ```
 
 ### Examples
-#### A national plot
-* `/api/plot?data_type=national&varname=<varname>`
-#### A regional plot
-* `/api/plot?data_type=regional&area=<region>&varname=<varname>`
-#### A regional plot
-* `/api/plot?data_type=provincial&area=<province>&varname=[nuovi_positivi,nuovi_positivi_ma,totale_casi]>`
+#### National plot
+`GET /api/plot?data_type=national&varname=<varname>`
 
-##### To get the base64-encoded image in a JSON response
-###### JSON
+#### Regional plot 
+`GET /api/plot?data_type=regional&area=<region>&varname=<varname>`
 
-###### Request
+#### Provincial plot
+`GET /api/plot?data_type=provincial&area=<province>&varname=[nuovi_positivi,nuovi_positivi_ma,totale_casi]>`
+
+
+#### To get the base64-encoded image in a JSON response
+#### JSON
+
+#### Request
 ```
 curl --request GET \ 
      --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi'
 ```
 
-###### Response
-`{
+#### Response
+```json
+{
     "errors":[],
     "img":"iVBORw0KGgoAA...",
     "status":"ok"
-}`
+}
+```
 
 #### To download the file
-###### Request 
-```
+#### Request 
+```shell
 curl --request GET \
      --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi&download=true' \
      --output plot.png

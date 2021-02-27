@@ -1,29 +1,30 @@
 # Monitoraggio COVID-19 Italia | [\#IoRestoACasa](https://twitter.com/hashtag/iorestoacasa)
+
+[![Awesome](https://awesome.re/badge.svg)](https://github.com/soroushchehresa/awesome-coronavirus#applications-and-bots)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![Made with Pthon](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+
+![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/mockup.png)
+
 English Version [here](https://github.com/fabriziomiano/covidashit/blob/main/README.md)
 
 Una semplice dashboard per la visualizzazione e il monitoraggio dei dati ufficiali sulla pandemia da COVID-19 rilasciati giornalmente dal [Dipartimento della Protezione Civile](https://github.com/pcm-dpc) 
 
-## Anteprime
+**La WebApp è pubblicata su Heroku [qui](https://www/covidash.it)**
 
-### Pandemic View 
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/pandemic_it.png)
+**Dati ufficiali sulla pandemia: [repository ufficiale della proezione civile](https://github.com/pcm-dpc/COVID-19)**
 
-### Vaccines View
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/vaccines_it.png)
-
-##### La WebApp è pubblicata su Heroku &#8594; [qui](https://www/covidash.it)
-
-##### I dati vengono presi dal repository ufficiale della proezione civile &#8594; [qui](https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json)
+**Dati ufficiali sui vaccini: [repository ufficiale Developers Italia](https://github.com/italia/covid19-opendata-vaccini)**
 
 ## Per gli sviluppatori
-La WebApp gira su Python3.8+, legge i dati da mongoDB ed usa un server 
+La WebApp gira su Python3.8+, legge i dati da mongoDB e usa un server 
 Flask e `gunicorn` davanti.
 Viene usato Flask-babel per la traduzione italiana dell'app, poiché l'inglese è scelto come lingua di default. 
 Lo script `make_pot.sh` crea i file necessari a babel per le traduzioni.
 Una versione `Batch` è fornita per gli utenti Windows. 
 La lingua di visualizzazione dipenderà dalla richiesta effettuata dal client (lingua del browser o del sistema operativo).
 
-Il front-end sta in `covidashit/templates` ed usa JavaScript per costruire la chart che è 
+Il front-end sta in `covidashit/templates` e usa JavaScript per costruire la chart che è 
 creata con [HighCharts](https://www.highcharts.com/). 
 
 Perché l'app funzioni è necessario popolare un database mongo 
@@ -31,56 +32,70 @@ Perché l'app funzioni è necessario popolare un database mongo
 Inoltre, le collezioni del DB devono essere aggiornate giornalmente. Per questo motivo, l'app contiene delle API che vengono chiamate da un GitHub Webhook che viene lanciato quando il branch `master` della repository della PC viene aggiornato (vedi GitHub workflow nel mio fork della repo della PC [qui](https://github.com/fabriziomiano/COVID-19/blob/master/.github/workflows/merge-upstream.yml)).
 Infine, bisogna settare i vari webhooks sul fork della repo della PC per le seguenti API: 
 
- * `/update/national`
- * `/update/national/series`
- * `/update/national/trends`
- * `/update/regional`
- * `/update/regional/breakdown`
- * `/update/regional/series`
- * `/update/regional/trends`
- * `/update/provincial`
- * `/update/provincial/breakdown`
- * `/update/provincial/series`
- * `/update/provincial/trends`
- * `/update/vax/`
- * `/update/vax/summary`
+ * `POST /update/national`
+ * `POST /update/national/series`
+ * `POST /update/national/trends`
+ * `POST /update/regional`
+ * `POST /update/regional/breakdown`
+ * `POST /update/regional/series`
+ * `POST /update/regional/trends`
+ * `POST /update/provincial`
+ * `POST /update/provincial/breakdown`
+ * `POST /update/provincial/series`
+ * `POST /update/provincial/trends`
+ * `POST /update/vax/`
+ * `POST /update/vax/summary`
 
-#### Setup locale
-* creazione ed attivazione di un virtual environment [(seguire questi passaggi)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+### Setup locale  (DEV)
+* creazione e attivazione di un virtual environment [(seguire questi passaggi)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 * installazione dei requisiti in `requirements.txt`
 
 Il file `.env` contiene una serie di variabile d'ambiente necessarie al funzionamento della webapp.  
 Prima di avviare il server Flask, ma dopo aver attivato il virtual environment e settato le variabili nel 
 `.env` file, come ad esempio il `MONGO_URI` e i vari nomi delle collezioni (a discrezione dello sviluppatore), 
-sarà necessario popolare il DB tramite la Flask CLI 
+sarà necessario popolare il DB tramite la Flask CLI inclusa.  
 
-`python -m flask create-collections`
-
+Dopo aver clonato la repo e attivato il virtual environment: 
+```shell
+flask create-collections
+```
 Questa, tramite una semplicissima procedura ETL, creerà e popolerà le collezioni su DB 
 con i dati ufficiali del Dipartimento della Protezione Civile.
-
-##### Dev & Test
-Clonare la repo e nella home directory di questa
+Successivamente, avviare il worker: 
+```shell
+celery -A celery_worker.celery worker
 ```
-$ export FLASK_ENV=development
-$ export FLASK_DEBUG=1
-$ python -m flask run
+Infine, lanciare l'application server in una nuova shell:
+```shell
+flask run
 ```
 
 Flask sarà in ascolto all'url [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
-##### Production
-Il Dockerfile fornito può essere usato per pubblicare l'app su Heroku.
-Per testare l'abmiente di produzione in locale decommentare la L17, e 
- settare le variabili d'ambiente summenzionate. Lanciare:
-```
-$ docker build --tag covidashit:latest . 
-$ docker run --name covidashit -d -p 80:5000 covidashit
-```
-Flask sarà in ascolto all'url [http://127.0.0.1](http://127.0.0.1) 
+### Setup locale (PROD)
+Nel `.env` file settare il valore di `APPLICATION_ENV` con `production`.
 
-##### Note addizionali
-L'app puo' essere pubblicata su Heroku sia come docker container che semplicemente utilizzando il Procfile.
+#### Procfile 
+Per testare la corretta configurazione del `Procfile` usare la CLI fornita da
+heroku tramite 
+```shell
+heroku local
+```
+Flask sarà in ascolto all'url [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+
+#### Docker
+Per avviare il container:
+```shell
+docker-compose up -d
+```
+Flask sarà in ascolto all'url [http://127.0.0.1:PORT] dove `PORT` viene 
+settata in `.env`.
+
+
+##### Deployment su Heroku
+L'app puo' essere pubblicata su Heroku sia come docker container che
+semplicemente utilizzando il Procfile.
 
 
 ## Plot API
@@ -137,32 +152,37 @@ Padova, Rovigo, Treviso, Venezia, Verona, Vicenza]
 ```
 
 ### Examples
-#### Plot nazionale
-* `/api/plot?data_type=national&varname=<varname>`
-#### Plot regionale
-* `/api/plot?data_type=regional&area=<region>&varname=<varname>`
-#### Plot provinciale
-* `/api/plot?data_type=provincial&area=<province>&varname=[nuovi_positivi,nuovi_positivi_ma,totale_casi]>`
+#### Plot nazionale 
+`GET /api/plot?data_type=national&varname=<varname>`
 
+#### Plot regionale
+`GET /api/plot?data_type=regional&area=<region>&varname=<varname>`
+    
+#### Plot provinciale 
+`GET /api/plot?data_type=provincial&area=<province>&varname=[nuovi_positivi,nuovi_positivi_ma,totale_casi]>`
+
+    
 ##### Immagine codififcata in base64-encoded
 ###### JSON
 
 ###### Request
-```
+```shell
 curl --request GET \ 
      --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi'
 ```
 
 ###### Response
-`{
+```json
+{
     "errors":[],
     "img":"iVBORw0KGgoAA...",
     "status":"ok"
-}`
+}
+```
 
 #### Per scaricare il file 
 ###### Request 
-```
+```shell
 curl --request GET \
      --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi&download=true' \
      --output plot.png
