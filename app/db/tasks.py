@@ -73,7 +73,6 @@ def update_national_series_collection():
         msg = f"Updated {NAT_SERIES_COLL.name}"
         app.logger.warning(msg)
         response["status"], response["updated"] = "ok", r.acknowledged
-        app.logger.warning(msg)
     except StopIteration:
         r = NAT_SERIES_COLL.insert_one(national_series)
         msg = f"Filled empty collection {NAT_SERIES_COLL.name}"
@@ -126,7 +125,8 @@ def update_regional_collection():
             app.logger.warning(msg)
         else:
             df = df[df[DATE_KEY] > latest_dt_db]
-            app.logger.warning("Latest data missing! Updating...")
+            msg = f"Latest data missing in {REG_DATA_COLL.name} ! Updating..."
+            app.logger.warning(msg)
             new_records = df.to_dict(orient='records')
             r = REG_DATA_COLL.insert_many(new_records, ordered=True)
             inserted_ids.extend(r.inserted_ids)
@@ -261,7 +261,8 @@ def update_provincial_collection():
             msg = "DB up-to-date"
             app.logger.warning(msg)
         else:
-            app.logger.warning("Latest data missing! Updating...")
+            msg = f"Latest data missing in {PROV_DATA_COLL.name}! Updating..."
+            app.logger.warning(msg)
             df = df[df[DATE_KEY] > latest_dt_db]
             new_records = df.to_dict(orient='records')
             r = PROV_DATA_COLL.insert_many(new_records, ordered=True)
