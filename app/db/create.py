@@ -31,7 +31,7 @@ def create_national_collection():
     df_national_augmented = augment_national_df(df)
     national_records = df_national_augmented.to_dict(orient='records')
     try:
-        app.logger.warning("Doing National collection")
+        app.logger.warning("Doing national collection")
         NAT_DATA_COLL.drop()
         NAT_DATA_COLL.insert_many(national_records, ordered=True)
         response["collections_created"].append("national")

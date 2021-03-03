@@ -449,8 +449,7 @@ def augment_vax_df(df):
     df[VAX_AGE_KEY] = df[VAX_AGE_KEY].apply(lambda x: x.strip())
     df['totale'] = df[M_SEX_KEY] + df[F_SEX_KEY]
     df['_id'] = (
-            df[VAX_DATE_KEY].apply(
-                lambda x: x.strftime(VAX_DATE_FMT)) +
+            df[VAX_DATE_KEY].apply(lambda x: x.strftime(VAX_DATE_FMT)) +
             df[VAX_AREA_KEY] +
             df[VAX_AGE_KEY] +
             df[VAX_TYPE_KEY]
