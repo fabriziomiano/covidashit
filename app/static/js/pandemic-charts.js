@@ -13,6 +13,13 @@ Highcharts.theme = {
         itemHoverStyle: {
             color: 'gray'
         }
+    },
+    plotOptions: {
+        series: {
+            marker: {
+                enabled: false
+            }
+        }
     }
 };
 // Apply the theme
