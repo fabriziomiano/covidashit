@@ -1,6 +1,7 @@
 """
 Flask application factory
 """
+import logging
 import os
 
 import click
@@ -74,6 +75,7 @@ def create_app():
     """Create the flask application"""
     env = get_environment()
     app = Flask(__name__)
+    app.logger.setLevel(logging.INFO)
     app.config.from_object(app_config[env])
     app.config["BABEL_TRANSLATION_DIRECTORIES"] = os.path.join(
         app.root_path, TRANSLATION_DIRNAME)
@@ -102,24 +104,62 @@ def create_app():
         create_regional_trends_collection, create_provincial_collections,
         create_provincial_breakdown_collection,
         create_provincial_series_collection,
-        create_provincial_trends_collection, create_vax_collection,
-        create_vax_summary_collection
+        create_provincial_trends_collection, create_vax_collection
     )
 
-    collection_creation = {
-        "national": create_national_collection,
-        "regional": create_regional_collection,
-        "provincial": create_provincial_collections,
-        "national_trends": create_national_trends_collection,
-        "regional_trends": create_regional_trends_collection,
-        "provincial_trends": create_provincial_trends_collection,
-        "regional_breakdown": create_regional_breakdown_collection,
-        "provincial_breakdown": create_provincial_breakdown_collection,
-        "national_series": create_national_series_collection,
-        "regional_series": create_regional_series_collection,
-        "provincial_series": create_provincial_series_collection,
-        "vax": create_vax_collection,
-        "vax_summary": create_vax_summary_collection
+    creation_menu = {
+        "national": {
+            'args': None,
+            'func': create_national_collection
+        },
+        "regional": {
+            'args': None,
+            'func': create_regional_collection
+        },
+        "provincial": {
+            'args': None,
+            'func': create_provincial_collections
+        },
+        "national_trends": {
+            'args': None,
+            'func': create_national_trends_collection
+        },
+        "regional_trends": {
+            'args': None,
+            'func': create_regional_trends_collection
+        },
+        "provincial_trends": {
+            'args': None,
+            'func': create_provincial_trends_collection
+        },
+        "regional_breakdown": {
+            'args': None,
+            'func': create_regional_breakdown_collection
+        },
+        "provincial_breakdown": {
+            'args': None,
+            'func': create_provincial_breakdown_collection
+        },
+        "national_series": {
+            'args': None,
+            'func': create_national_series_collection
+        },
+        "regional_series": {
+            'args': None,
+            'func': create_regional_series_collection
+        },
+        "provincial_series": {
+            'args': None,
+            'func': create_provincial_series_collection
+        },
+        "vax": {
+            'args': None,
+            'func': create_vax_collection
+        },
+        "vax_summary": {
+            'args': True,
+            'func': create_vax_collection
+        }
     }
 
     @app.after_request
@@ -137,8 +177,10 @@ def create_app():
     @app.cli.command("create-collections")
     def populate_db():
         """Populate all the collections needed on mongoDB"""
-        for coll_type in collection_creation:
-            collection_creation[coll_type]()
+        for _type in creation_menu:
+            args = creation_menu[_type]['args']
+            func = creation_menu[_type]['func']
+            func() if not args else func(args)
 
     @app.cli.command("create")
     @click.argument("collection_type")
@@ -152,6 +194,8 @@ def create_app():
         "national_series", "regional_series", "provincial_series",
         "vax", "vax_summary"
         """
-        collection_creation[collection_type]()
+        args = creation_menu[collection_type]['args']
+        func = creation_menu[collection_type]['func']
+        func() if not args else func(args)
 
     return app
