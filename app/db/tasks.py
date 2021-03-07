@@ -7,7 +7,7 @@ from pymongo import UpdateOne, InsertOne
 
 from app import celery
 from app.data import TREND_CARDS
-from app.data.etl import load_df, augment_national_df, build_national_series, \
+from app.db.etl import load_df, augment_national_df, build_national_series, \
     build_trend, augment_regional_df, build_series, build_national_trends, \
     build_regional_breakdown, augment_provincial_df, \
     build_provincial_breakdowns, build_provincial_trends, \
