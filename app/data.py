@@ -25,7 +25,7 @@ from constants import (
     OD_TO_PC_MAP, ITALY_POPULATION, URL_VAX_SUMMARY_DATA, VAX_ADMINS_PERC_KEY,
     ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_DATE_KEY, VAX_TOT_ADMINS_KEY,
     CHART_DATE_FMT, OVER_80_KEY, POP_KEY, VAX_FIRST_DOSE_KEY,
-    VAX_SECOND_DOSE_KEY
+    VAX_SECOND_DOSE_KEY, VAX_PROVIDER_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -495,3 +495,27 @@ def get_admins_timeseries_chart_data():
     except Exception as e:
         app.logger.error(f"While getting vax timeseries chart data {e}")
     return chart_data
+
+
+def get_admins_per_provider_chart_data(area=None):
+    """
+    Return provider pie-chart data for highcharts
+    :return:
+    """
+    group = {
+        '$group': {
+            '_id': f'${VAX_PROVIDER_KEY}',
+            'tot': {
+                '$sum': f'${VAX_TOT_ADMINS_KEY}'
+            }
+        }
+    }
+    sort = {'$sort': {'tot': -1}}
+    if area is not None:
+        match = {'$match': {VAX_AREA_KEY: area}}
+        pipe = [match, group, sort]
+    else:
+        pipe = [group, sort]
+    data = list(VAX_COLL.aggregate(pipeline=pipe))
+    app.logger.info(f"BLA {data}")
+    return [{'name': d['_id'], 'y': d['tot']} for d in data]
