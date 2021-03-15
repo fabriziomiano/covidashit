@@ -191,3 +191,41 @@ let adminsPerCategory = {
     credits: credits
 }
 Highcharts.chart('chart-pie-categories', adminsPerCategory);
+
+// Administrations per provider
+let adminsPerProvider = {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: adminsPerProviderTitle
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.y}</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}: <b>{point.percentage:.1f}%</b>'
+            }
+        }
+    },
+    series: [{
+        name: adminsPerProviderSeriesName,
+        data: adminsPerProviderData
+    }],
+    subtitle: subtitle,
+    credits: credits
+}
+Highcharts.chart('chart-pie-providers', adminsPerProvider);

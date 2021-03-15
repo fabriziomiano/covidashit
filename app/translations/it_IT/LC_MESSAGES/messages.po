@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-02-27 14:54+0100\n"
-"PO-Revision-Date: 2021-02-27 14:55+0100\n"
+"POT-Creation-Date: 2021-03-16 00:30+0100\n"
+"PO-Revision-Date: 2021-03-16 00:30+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -19,112 +19,111 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../constants.py:11
+#: constants.py:11
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
-#: ../constants.py:68
+#: constants.py:69
 msgid "Stable with respect to yesterday"
 msgstr "Stabile rispetto a ieri"
 
-#: ../constants.py:73 ../constants.py:78
+#: constants.py:74 constants.py:79
 msgid "Increased with respect to yesterday"
 msgstr "In aumento rispetto a ieri"
 
-#: ../constants.py:83 ../constants.py:88
+#: constants.py:84 constants.py:89
 msgid "Decreased with respect to yesterday"
 msgstr "In calo rispetto a ieri"
 
-#: ../constants.py:95
+#: constants.py:96
 msgid "New Positive"
 msgstr "Nuovi Positivi"
 
-#: ../constants.py:96 ../constants.py:97
+#: constants.py:97 constants.py:98
 msgid "Daily count of new positive cases"
 msgstr "Conteggio giornaliero dei nuovi positivi"
 
-#: ../constants.py:105
+#: constants.py:106
 msgid "Daily ICU"
 msgstr "TI Giornaliere"
 
-#: ../constants.py:106 ../constants.py:174
+#: constants.py:107 constants.py:175
 msgid "# of people daily admitted in ICU"
 msgstr "Numero di ingressi giornalieri in TI"
 
-#: ../constants.py:107 ../constants.py:175
+#: constants.py:108 constants.py:176
 msgid "Daily count of people in ICU"
 msgstr "Conteggio giornaliero degli ingressi in TI"
 
-#: ../constants.py:115
+#: constants.py:116
 msgid "Daily Deaths"
 msgstr "Decessi giornalieri"
 
-#: ../constants.py:116 ../constants.py:117 ../constants.py:162
-#: ../constants.py:163
+#: constants.py:117 constants.py:118 constants.py:163 constants.py:164
 msgid "Daily deaths count"
 msgstr "Conteggio decessi giornalieri"
 
-#: ../constants.py:127
+#: constants.py:128
 msgid "Daily Swabs"
 msgstr "Tamponi giornalieri"
 
-#: ../constants.py:128 ../constants.py:184
+#: constants.py:129 constants.py:185
 msgid "# of swabs performed daily"
 msgstr "Numero di tamponi effettuati giornalmente"
 
-#: ../constants.py:129 ../constants.py:185
+#: constants.py:130 constants.py:186
 msgid "Daily number of swabs performed"
 msgstr "Numero di tamponi effettuati giornalmente"
 
-#: ../constants.py:139
+#: constants.py:140
 msgid "Daily Hospitalized"
 msgstr "Ricoveri giornalieri"
 
-#: ../constants.py:140 ../constants.py:196
+#: constants.py:141 constants.py:197
 msgid "# of people daily hospitalized"
 msgstr "Numero di persone ricoverate giornalmente"
 
-#: ../constants.py:141 ../constants.py:197
+#: constants.py:142 constants.py:198
 msgid "Daily count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 "Conteggio giornaliero del numero di ricoveri. Tiene conto di quelle in "
 "terapia intensiva"
 
-#: ../constants.py:151
+#: constants.py:152
 msgid "New Positive (7-day MA)"
 msgstr "Nuovi Positivi (7gg MM)"
 
-#: ../constants.py:152 ../constants.py:153
+#: constants.py:153 constants.py:154
 msgid "Daily count of new positve cases"
 msgstr "Conteggio giornaliero dei nuovi casi positivi"
 
-#: ../constants.py:161
+#: constants.py:162
 msgid "Daily Deaths (7-day MA)"
 msgstr "Decessi giornalieri (7gg MM)"
 
-#: ../constants.py:173
+#: constants.py:174
 msgid "Daily ICU (7-day MA)"
 msgstr "T.I. giornaliere (7gg MM)"
 
-#: ../constants.py:183
+#: constants.py:184
 msgid "Daily Swabs (7-day MA)"
 msgstr "Tamponi giornalieri (7gg MM)"
 
-#: ../constants.py:195
+#: constants.py:196
 msgid "Daily Hospitalized (7-day MA)"
 msgstr "Ricoveri giornalieri (7gg MM)"
 
-#: ../constants.py:209
+#: constants.py:210
 msgid "Total Positive"
 msgstr "Totale Positivi"
 
-#: ../constants.py:210
+#: constants.py:211
 msgid "# of people currently hospitalized with symptoms + ICU + self isolation"
 msgstr ""
 "Numero di persone attualmente ricoverate con sintomi + terapia intensiva + "
 "isolamento autonomo"
 
-#: ../constants.py:214
+#: constants.py:215
 msgid ""
 "People currently positive. Unlike 'Total Cases' it does not take into "
 "account 'healed' and 'deaths'. By the end of the outbreak this should tend "
@@ -136,187 +135,187 @@ msgstr ""
 "zero. In particolare, è definito totale positivi = totale casi - totale "
 "guariti - totale morti"
 
-#: ../constants.py:228
+#: constants.py:229
 msgid "Intensive Care Unit"
 msgstr "Terapia intensiva"
 
-#: ../constants.py:229
+#: constants.py:230
 msgid "# of people currently in ICU"
 msgstr "Numero di persone attualmete in terapia intensiva"
 
-#: ../constants.py:230
+#: constants.py:231
 msgid "Total count of people currently in ICU and positive to COVID-19"
 msgstr ""
 "Conteggi del numero di persone attualmente in terapia intensiva e positive "
 "al COVID-19"
 
-#: ../constants.py:240
+#: constants.py:241
 msgid "Hospitalized With Symptoms"
 msgstr "Ricoverati con sintomi"
 
-#: ../constants.py:241
+#: constants.py:242
 msgid "# of people currently hospitalized with symptoms"
 msgstr "Numero di persone attualmente ricoverate con sintomi"
 
-#: ../constants.py:244
+#: constants.py:245
 msgid ""
 "Total count of people currently in hospital due to coronavirus with symptoms"
 msgstr ""
 "Conteggi del numero di persone attualmente in ospedale con sintomi da Covid"
 
-#: ../constants.py:256
+#: constants.py:257
 msgid "Total Hospitalized"
 msgstr "Totale ricoverati"
 
-#: ../constants.py:257
+#: constants.py:258
 msgid "# of people currently hospitalized"
 msgstr "Numero di persone attualmente ricoverate"
 
-#: ../constants.py:258
+#: constants.py:259
 msgid "Total count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 "Conteggi del numero di persone attualmente positive e ricoverate. Tiene "
 "conto di quelle in terapia intensiva"
 
-#: ../constants.py:268
+#: constants.py:269
 msgid "Self Isolation"
 msgstr "Isolamento autonomo"
 
-#: ../constants.py:269
+#: constants.py:270
 msgid "# of people currently in self isolation"
 msgstr "Numero di persone in Terapia Intensiva"
 
-#: ../constants.py:270
+#: constants.py:271
 msgid "People currently positive but who do not need hospitalization"
 msgstr "Persone attualmente positive che non hanno bisogno di ricovero"
 
-#: ../constants.py:282
+#: constants.py:283
 msgid "Total Cases"
 msgstr "Totale casi"
 
-#: ../constants.py:283 ../constants.py:287
+#: constants.py:284 constants.py:288
 msgid "Total count of the positive tests since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi positivi dall'inizio dell'epidemia"
 
-#: ../constants.py:298
+#: constants.py:299
 msgid "Total Deaths"
 msgstr "Totale decessi"
 
-#: ../constants.py:299
+#: constants.py:300
 msgid "Total deaths count"
 msgstr "Conteggio totale decessi"
 
-#: ../constants.py:300
+#: constants.py:301
 msgid "Total deaths count since the beginning of the outbreak"
 msgstr "Conteggio dei decessi dall'inizio dell'epidemia"
 
-#: ../constants.py:311
+#: constants.py:312
 msgid "Total Swabs"
 msgstr "Totale tamponi"
 
-#: ../constants.py:312
+#: constants.py:313
 msgid "# of swabs performed"
 msgstr "Numero di tamponi eseguiti"
 
-#: ../constants.py:313
+#: constants.py:314
 msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi effettuati dall'inizio dell'epidemia"
 
-#: ../constants.py:323
+#: constants.py:324
 msgid "Total Healed"
 msgstr "Totale guariti"
 
-#: ../constants.py:324
+#: constants.py:325
 msgid "Cumulative # of people healed"
 msgstr "Totale cumulativo di persone guarite"
 
-#: ../constants.py:325
+#: constants.py:326
 msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 "Totale cumulativo del numero di persone guarite dall'inizio dell'epidemia"
 
-#: ../constants.py:337
+#: constants.py:338
 msgid "Healthcare Personnel"
 msgstr "Personale sanitario e socio-sanitario"
 
-#: ../constants.py:341
+#: constants.py:342
 msgid "Non-healthcare Personnel"
 msgstr "Personale non sanitario"
 
-#: ../constants.py:345
+#: constants.py:346
 msgid "HFE Guests"
 msgstr "Ospiti RSA"
 
-#: ../constants.py:349
+#: constants.py:350
 msgid "Over 80"
 msgstr "Over 80"
 
-#: ../app/templates/pandemic/charts.html:95 ../constants.py:390
+#: app/templates/pandemic/charts.html:95 constants.py:391
 msgid "Lockdown"
 msgstr "Lockdown"
 
-#: ../constants.py:391
+#: constants.py:392
 msgid "Days in Lockdown"
 msgstr "Giorni in Lockdown"
 
-#: ../app/templates/pandemic/charts.html:106 ../constants.py:398
+#: app/templates/pandemic/charts.html:106 constants.py:399
 msgid "Phase 2"
 msgstr "Fase 2"
 
-#: ../constants.py:399
+#: constants.py:400
 msgid "Days in \"Phase 2\""
 msgstr "Giorni in \"Fase 2\""
 
-#: ../app/templates/pandemic/charts.html:117 ../constants.py:406
+#: app/templates/pandemic/charts.html:117 constants.py:407
 msgid "Phase 3"
 msgstr "Fase 3"
 
-#: ../constants.py:407
+#: constants.py:408
 msgid "Days in \"Phase 3\""
 msgstr "Giorni in \"Fase 3\""
 
-#: ../constants.py:414
+#: constants.py:415
 msgid "Critical Areas"
 msgstr "Aree di criticità"
 
-#: ../constants.py:415
+#: constants.py:416
 msgid "Days since \"Critical areas\""
 msgstr "Giorni in \"aree di criticità\""
 
-#: ../constants.py:422
+#: constants.py:423
 msgid "Vaccine day"
 msgstr "Vaccine day"
 
-#: ../constants.py:423
+#: constants.py:424
 msgid "Days since \"Vaccine day\""
 msgstr "Giorni dal \"Vaccine day\""
 
-#: ../app/data/__init__.py:342 ../app/templates/vaccines/charts.html:75
+#: app/data.py:342 app/templates/vaccines/charts.html:83
 msgid "Vaccinated"
 msgstr "Vaccinati"
 
-#: ../app/data/__init__.py:384
+#: app/data.py:384
 msgid "title"
 msgstr ""
 
-#: ../app/data/__init__.py:424
+#: app/data.py:424
 msgid "Real"
 msgstr "Reale"
 
-#: ../app/data/__init__.py:428
+#: app/data.py:428
 msgid "Expected"
 msgstr "Atteso"
 
-#: ../app/plotter/__init__.py:55 ../app/templates/pandemic/charts.html:138
-#: ../app/templates/vaccines/charts.html:71
+#: app/plotter/__init__.py:55 app/templates/pandemic/charts.html:138
+#: app/templates/vaccines/charts.html:79
 msgid "Counts"
 msgstr "Conteggi"
 
-#: ../app/templates/pandemic.html:44
+#: app/templates/pandemic.html:44
 msgid "Positive Rate: "
 msgstr "Indice di positività: "
 
-#: ../app/templates/pandemic.html:132 ../app/templates/vaccines.html:115
+#: app/templates/pandemic.html:132 app/templates/vaccines.html:115
 msgid ""
 "This project is <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> and it is hosted on an Heroku paid dyno."
@@ -324,80 +323,80 @@ msgstr ""
 "Questo progetto è <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> ed utilizza un piano a pagamento su Heroku."
 
-#: ../app/templates/pandemic.html:133
+#: app/templates/pandemic.html:133
 msgid " Thanks for donating &#128513;"
 msgstr " Le donazioni sono ben accette &#128513;"
 
-#: ../app/templates/thanks.html:14
+#: app/templates/thanks.html:14
 msgid "Thank You!"
 msgstr "Grazie!"
 
-#: ../app/templates/thanks.html:16
+#: app/templates/thanks.html:16
 msgid "I'm glad you liked the project and felt like it was worth donating"
 msgstr ""
 "Sono felice ti sia piaciuto il progetto e che pensi valga la pena contribuire"
 
-#: ../app/templates/thanks.html:18
+#: app/templates/thanks.html:18
 msgid "Stay Safe and wear a mask!"
 msgstr "Bisogna fare attenzione e mettere la mascherina!"
 
-#: ../app/templates/thanks.html:23
+#: app/templates/thanks.html:23
 msgid "Back to COVIDash"
 msgstr "Torna alla Home"
 
-#: ../app/templates/vaccines.html:36
+#: app/templates/vaccines.html:36
 msgid "Latest update: "
 msgstr "Ultimo aggiornamento: "
 
-#: ../app/templates/vaccines.html:41
+#: app/templates/vaccines.html:41
 msgid "Total administered:"
 msgstr "Tot somministrazioni:"
 
-#: ../app/templates/vaccines.html:47
+#: app/templates/vaccines.html:47
 msgid "Percentage of administered doses wrt the delivered ones"
 msgstr "Percentuale delle dosi somministrate rispetto a quelle ricevute"
 
-#: ../app/templates/vaccines.html:54
+#: app/templates/vaccines.html:54
 msgid "People Vaccinated: "
 msgstr "Popolazione Vaccinata: "
 
-#: ../app/templates/vaccines.html:60
+#: app/templates/vaccines.html:60
 msgid "Based on the second dose"
 msgstr "Sulla base della seconda dose"
 
-#: ../app/templates/vaccines.html:116
+#: app/templates/vaccines.html:116
 msgid "Thanks for donating &#128513;"
 msgstr "Le donazioni sono ben accette &#128513;"
 
-#: ../app/templates/base/head.html:18
+#: app/templates/base/head.html:18
 msgid "COVID-19 Italy outbreak dashboard"
 msgstr "Visualizzazione dati epidemia COVID-19 in Italia"
 
-#: ../app/templates/base/head.html:20
+#: app/templates/base/head.html:20
 msgid "COVID-19 Italy outbreak"
 msgstr "Epidemia COVID-19 Italia"
 
-#: ../app/templates/base/head.html:22
+#: app/templates/base/head.html:22
 msgid "Data visualization of the COVID-19 outbreak in Italy"
 msgstr "Visualizzazione dei dati dell'epidemia COVID-19 in Italia"
 
-#: ../app/templates/base/navbar.html:58
+#: app/templates/base/navbar.html:58
 msgid "Pandemic"
 msgstr "Pandemia"
 
-#: ../app/templates/base/navbar.html:66
+#: app/templates/base/navbar.html:66
 msgid "Vaccines"
 msgstr "Vaccini"
 
-#: ../app/templates/base/navbar.html:82
+#: app/templates/base/navbar.html:82
 msgid "Search..."
 msgstr "Cerca..."
 
-#: ../app/templates/base/modals/welcome.html:10
+#: app/templates/base/modals/welcome.html:10
 msgid "&#128075; Welcome to COVIDash"
 msgstr "&#128075; Benvenuti in COVIDash"
 
-#: ../app/templates/base/modals/welcome.html:17
+#: app/templates/base/modals/welcome.html:17
 msgid ""
 "COVIDashIT is a dashboard that displays the official COVID-19 Italian "
 "outbreak data"
@@ -405,20 +404,27 @@ msgstr ""
 "COVIDashIT è una dashboard che mostra i dati ufficiali sulla pandemia da "
 "COVID-19 in Italia"
 
-#: ../app/templates/base/modals/welcome.html:20
+#: app/templates/base/modals/welcome.html:20
+#: app/templates/base/modals/welcome.html:25
 msgid "New!"
 msgstr "Novità!"
 
-#: ../app/templates/base/modals/welcome.html:22
+#: app/templates/base/modals/welcome.html:22
+#, fuzzy
+#| msgid "Admins per provider"
+msgid "Administrations per provider"
+msgstr "Somministrazioni per fornitore"
+
+#: app/templates/base/modals/welcome.html:27
 msgid "Percentage of people vaccinated based on the second dose"
 msgstr "Percentuale della popolazione vaccinata sulla base della seconda dose"
 
-#: ../app/templates/base/modals/welcome.html:25
+#: app/templates/base/modals/welcome.html:30
 msgid "Added vaccine data <a href='/vaccines'><strong>here</strong></a>;"
 msgstr ""
 "Aggiunti i dati sui vaccini <a href='/vaccines'><strong>qui</strong></a>;"
 
-#: ../app/templates/base/modals/welcome.html:28
+#: app/templates/base/modals/welcome.html:33
 msgid ""
 "Use the navigation buttons on the navigation bar when in the regional/"
 "provincial views;"
@@ -426,11 +432,11 @@ msgstr ""
 "Usa i bottoni sulla navigation bar per navigare tra le view regionali/"
 "provinciali;"
 
-#: ../app/templates/base/modals/welcome.html:31
+#: app/templates/base/modals/welcome.html:36
 msgid "Use the search bar to jump to the pandemic dashboard of a desired area;"
 msgstr "Usa la barra di ricerca per saltare ai dati di un'area;"
 
-#: ../app/templates/base/modals/welcome.html:34
+#: app/templates/base/modals/welcome.html:39
 msgid ""
 "Some cards, where possible, can be expanded to visualize the breakdown of "
 "the sub-areas;"
@@ -438,7 +444,7 @@ msgstr ""
 "Alcune card possono essere espanse per mostrare il dettaglio delle aree "
 "rilevanti;"
 
-#: ../app/templates/base/modals/welcome.html:37
+#: app/templates/base/modals/welcome.html:42
 msgid ""
 "The data are divided in <code>DAILY</code>, <code>CURRENT</code>, and "
 "<code>CUMULATIVE</code>;"
@@ -446,24 +452,24 @@ msgstr ""
 "Il dato è classificato in <code>GIORN</code> (giornaliero), <code>ATT</code> "
 "(attuale) e <code>CUM</code> (cumulato);"
 
-#: ../app/templates/base/modals/welcome.html:40
+#: app/templates/base/modals/welcome.html:45
 msgid "The interactive charts allow to zoom in along the x- and y-axis;"
 msgstr "I grafici interattivi permettono di zoomare lungo l'asse x e y;"
 
-#: ../app/templates/base/modals/welcome.html:43
+#: app/templates/base/modals/welcome.html:48
 msgid "The chart legend can be used to toggle on/off the data series;"
 msgstr ""
 "La legenda può essere utilizzata per attivare/disattivare una serie di dati;"
 
-#: ../app/templates/base/modals/welcome.html:50
+#: app/templates/base/modals/welcome.html:55
 msgid "Who made this?"
 msgstr "Chi è l'autore?"
 
-#: ../app/templates/base/modals/welcome.html:54
+#: app/templates/base/modals/welcome.html:59
 msgid "Close"
 msgstr "Chiudi"
 
-#: ../app/templates/base/modals/welcome.html:61
+#: app/templates/base/modals/welcome.html:66
 msgid ""
 "Made with <span style=\"color: #e25555;\">&#9829;</span> in\n"
 "                        <a href=\"https://goo.gl/maps/rk3BGAvv1HmG3NSs8\" "
@@ -477,65 +483,56 @@ msgstr ""
 "                        da <a href=https://fabriziomiano.github.io "
 "target=_blank> Fabrizio Miano</a>"
 
-#: ../app/templates/errors/generic.html:18
+#: app/templates/errors/generic.html:18
 msgid "Please use this button to report any bug"
 msgstr "Usa questo bottone per segnalare un bug"
 
-#: ../app/templates/errors/generic.html:19
+#: app/templates/errors/generic.html:19
 msgid "Contact admin"
 msgstr "Contatta l'admin"
 
-#: ../app/templates/pandemic/cards.html:29
-#: ../app/templates/pandemic/cards.html:88
-#: ../app/templates/pandemic/cards.html:206
-#: ../app/templates/pandemic/cards.html:324
+#: app/templates/pandemic/cards.html:29 app/templates/pandemic/cards.html:88
+#: app/templates/pandemic/cards.html:206 app/templates/pandemic/cards.html:324
 msgid "Yesterday: "
 msgstr "Ieri: "
 
-#: ../app/templates/pandemic/cards.html:43
-#: ../app/templates/pandemic/charts.html:13
+#: app/templates/pandemic/cards.html:43 app/templates/pandemic/charts.html:13
 msgid "DAILY"
 msgstr "GIORN"
 
-#: ../app/templates/pandemic/cards.html:50
-#: ../app/templates/pandemic/charts.html:20
+#: app/templates/pandemic/cards.html:50 app/templates/pandemic/charts.html:20
 msgid "CURRENT"
 msgstr "ATT"
 
-#: ../app/templates/pandemic/cards.html:56
-#: ../app/templates/pandemic/charts.html:26
+#: app/templates/pandemic/cards.html:56 app/templates/pandemic/charts.html:26
 msgid "CUMULATIVE"
 msgstr "CUM"
 
-#: ../app/templates/pandemic/cards.html:107
-#: ../app/templates/pandemic/cards.html:225
-#: ../app/templates/pandemic/cards.html:343
+#: app/templates/pandemic/cards.html:107 app/templates/pandemic/cards.html:225
+#: app/templates/pandemic/cards.html:343
 msgid "Breakdown"
 msgstr "Dettaglio"
 
-#: ../app/templates/pandemic/cards.html:121
-#: ../app/templates/pandemic/cards.html:239
-#: ../app/templates/pandemic/cards.html:357
+#: app/templates/pandemic/cards.html:121 app/templates/pandemic/cards.html:239
+#: app/templates/pandemic/cards.html:357
 msgid "Area"
 msgstr "Area"
 
-#: ../app/templates/pandemic/cards.html:122
-#: ../app/templates/pandemic/cards.html:240
-#: ../app/templates/pandemic/cards.html:358
+#: app/templates/pandemic/cards.html:122 app/templates/pandemic/cards.html:240
+#: app/templates/pandemic/cards.html:358
 msgid "Count"
 msgstr "Conteggi"
 
-#: ../app/templates/pandemic/charts.html:128
+#: app/templates/pandemic/charts.html:128
 msgid "Critical areas"
 msgstr "Aree di criticità"
 
-#: ../app/templates/pandemic/charts.html:145
-#: ../app/templates/vaccines/charts.html:55 ../app/ui/pandemic.py:44
-#: ../app/ui/vaccines.py:24
+#: app/templates/pandemic/charts.html:145 app/templates/vaccines/charts.html:63
+#: app/ui/pandemic.py:44 app/ui/vaccines.py:25
 msgid "Italy"
 msgstr "Italia"
 
-#: ../app/templates/pandemic/charts.html:150
+#: app/templates/pandemic/charts.html:150
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection "
 "dataset</a>"
@@ -543,16 +540,15 @@ msgstr ""
 "Fonte: <a href='https://github.com/pcm-dpc/COVID-19'>Dati Protezione Civile</"
 "a>"
 
-#: ../app/templates/pandemic/charts.html:155
-#: ../app/templates/vaccines/charts.html:64
+#: app/templates/pandemic/charts.html:155 app/templates/vaccines/charts.html:72
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
-#: ../app/templates/vaccines/charts.html:16
+#: app/templates/vaccines/charts.html:8
 msgid "Select one or more regions"
 msgstr "Seleziona una o più regioni"
 
-#: ../app/templates/vaccines/charts.html:60
+#: app/templates/vaccines/charts.html:68
 msgid ""
 "Source: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a>"
@@ -560,32 +556,39 @@ msgstr ""
 "Fonte: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a>"
 
-#: ../app/templates/vaccines/charts.html:70
+#: app/templates/vaccines/charts.html:78
 msgid "Admins per age"
 msgstr "Somministrazioni per età"
 
-#: ../app/templates/vaccines/charts.html:76
+#: app/templates/vaccines/charts.html:84
 msgid "Admins per category"
 msgstr "Somministrazioni per categoria"
 
-#: ../app/templates/vaccines/charts.html:93
+#: app/templates/vaccines/charts.html:88
+msgid "Doses administered"
+msgstr "Dosi somministrate"
+
+#: app/templates/vaccines/charts.html:89
+msgid "Admins per provider"
+msgstr "Somministrazioni per fornitore"
+
+#: app/templates/vaccines/charts.html:106
 msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
-#: ../app/templates/vaccines/charts.html:97
+#: app/templates/vaccines/charts.html:110
 msgid "Percentage of people vaccinated"
 msgstr "Percentuale di popolazione vaccinata"
 
-#: ../app/templates/vaccines/charts.html:98
+#: app/templates/vaccines/charts.html:111
 msgid "Population vaccinated"
 msgstr "Popolazione Vaccinata"
 
-#: ../app/templates/vaccines/charts.html:100
+#: app/templates/vaccines/charts.html:113
 msgid "<b>Select one or more regions</b><br>"
 msgstr "<b>Seleziona una o più regioni</b><br>"
 
-#: ../app/utils/__init__.py:47 ../app/utils/__init__.py:50
-#: ../app/utils/__init__.py:53
+#: app/utils/__init__.py:47 app/utils/__init__.py:50 app/utils/__init__.py:53
 msgid "name"
 msgstr ""
 

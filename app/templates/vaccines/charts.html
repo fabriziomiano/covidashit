@@ -3,14 +3,6 @@
     <div class="row">
         <div class="col-12 col-md-12 col-lg-12 col-xl-6">
             <div class="card shadow mb-4">
-                <div id="chart-admins-per-region" class="container-fluid px-0"
-                     style="border: none; width:100%; height: 450px; margin: 0 auto">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-12 col-lg-12 col-xl-6">
-            <div class="card shadow mb-4">
                 <!-- multiple dropdown -->
                 <select id="timeseries-select" class="chosen" multiple="multiple"
                         data-placeholder="{{ _("Select one or more regions") }}"
@@ -28,20 +20,36 @@
                      style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
             </div>
         </div>
+
+        <div class="col-12 col-md-12 col-lg-12 col-xl-6">
+            <div class="card shadow mb-4">
+                <div id="chart-admins-per-region" class="container-fluid px-0"
+                     style="border: none; width:100%; height: 450px; margin: 0 auto">
+                </div>
+            </div>
+        </div>
+
     </div>
 {% endif %}
 
 <div class="row">
-    <div class="col-md-6 col-xl-6">
+    <div class="col-md-4 col-xl-4">
         <div class="card shadow mb-4">
             <div id="chart-admins-per-age" class="container-fluid px-0"
                  style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
         </div>
     </div>
 
-    <div class="col-md-6 col-xl-6">
+    <div class="col-md-4 col-xl-4">
         <div class="card shadow">
             <div id="chart-pie-categories" class="container-fluid px-0"
+                 style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-xl-4">
+        <div class="card shadow">
+            <div id="chart-pie-providers" class="container-fluid px-0"
                  style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
         </div>
     </div>
@@ -64,16 +72,21 @@
         text: "{{ gettext("by Fabrizio Miano | Made with Highcharts.com") }}"
     };
 
-    {#per age#}
+    {# per age #}
     let ageCategories = {{ age_chart_data.categories|safe }};
     let adminsPerAgeData = {{ age_chart_data.admins_per_age|safe }};
     let adminsPerAgeTitle = "{{ gettext('Admins per age') }} | " + area;
     let adminsPerAgeyAxisTitle = "{{ gettext('Counts') }}";
 
-    {#per category#}
+    {# per category #}
     let adminsPerCategoryData = {{ cat_chart_data|safe }};
     let adminsPerCategorySeriesName = "% {{ gettext('Vaccinated') }}";
     let adminsPerCategoryTitle = "{{ gettext('Admins per category') }} | " + area;
+
+    {# per provider #}
+    let adminsPerProviderData = {{ provider_chart_data|safe }};
+    let adminsPerProviderSeriesName = "{{ gettext('Doses administered') }}";
+    let adminsPerProviderTitle = "{{ gettext('Admins per provider') }} | " + area;
 
     {#per region#}
     {% if area in regions %}

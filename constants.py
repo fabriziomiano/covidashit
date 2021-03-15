@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 from flask_babel import gettext
 
-VERSION = "4.5"
+VERSION = "4.6"
 PAGE_BASE_TITLE = gettext("COVID-19 Italy")
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
@@ -53,6 +53,7 @@ VAX_ADMINS_PERC_KEY = "percentuale_somministrazione"
 VAX_TOT_ADMINS_KEY = "totale"
 VAX_FIRST_DOSE_KEY = "prima_dose"
 VAX_SECOND_DOSE_KEY = "seconda_dose"
+VAX_PROVIDER_KEY = "fornitore"
 F_SEX_KEY = "sesso_femminile"
 M_SEX_KEY = "sesso_maschile"
 HEALTHCARE_PERS_KEY = "categoria_operatori_sanitari_sociosanitari"
