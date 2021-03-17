@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-03-16 00:30+0100\n"
-"PO-Revision-Date: 2021-03-16 00:30+0100\n"
+"POT-Creation-Date: 2021-03-17 22:05+0100\n"
+"PO-Revision-Date: 2021-03-17 22:06+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -282,7 +282,7 @@ msgstr "Aree di criticità"
 msgid "Days since \"Critical areas\""
 msgstr "Giorni in \"aree di criticità\""
 
-#: constants.py:423
+#: app/templates/pandemic/charts.html:139 constants.py:423
 msgid "Vaccine day"
 msgstr "Vaccine day"
 
@@ -306,7 +306,7 @@ msgstr "Reale"
 msgid "Expected"
 msgstr "Atteso"
 
-#: app/plotter/__init__.py:55 app/templates/pandemic/charts.html:138
+#: app/plotter/__init__.py:55 app/templates/pandemic/charts.html:149
 #: app/templates/vaccines/charts.html:79
 msgid "Counts"
 msgstr "Conteggi"
@@ -527,12 +527,12 @@ msgstr "Conteggi"
 msgid "Critical areas"
 msgstr "Aree di criticità"
 
-#: app/templates/pandemic/charts.html:145 app/templates/vaccines/charts.html:63
+#: app/templates/pandemic/charts.html:156 app/templates/vaccines/charts.html:63
 #: app/ui/pandemic.py:44 app/ui/vaccines.py:25
 msgid "Italy"
 msgstr "Italia"
 
-#: app/templates/pandemic/charts.html:150
+#: app/templates/pandemic/charts.html:161
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection "
 "dataset</a>"
@@ -540,7 +540,7 @@ msgstr ""
 "Fonte: <a href='https://github.com/pcm-dpc/COVID-19'>Dati Protezione Civile</"
 "a>"
 
-#: app/templates/pandemic/charts.html:155 app/templates/vaccines/charts.html:72
+#: app/templates/pandemic/charts.html:166 app/templates/vaccines/charts.html:72
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
