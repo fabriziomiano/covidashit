@@ -379,7 +379,7 @@ URL_VAX_SUMMARY_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_SUMMARY_FILE)
 URL_VAX_ADMINS_SUMMARY_DATA = os.path.join(
     BASE_URL_VAX_DATA, VAX_ADMINS_SUMMARY_FILE)
 # Key Dates
-LOCKDOWN_DAY = dt.datetime(2020, 3, 9)
+LOCKDOWN_DAY = dt.datetime(2020, 3, 22)
 PHASE2_DAY = dt.datetime(2020, 5, 4)
 PHASE3_DAY = dt.datetime(2020, 6, 15)
 CRITICAL_AREAS_DAY = dt.datetime(2020, 11, 6)
