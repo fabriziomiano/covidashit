@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 from flask_babel import gettext
 
-VERSION = "4.6"
+VERSION = "4.7"
 PAGE_BASE_TITLE = gettext("COVID-19 Italy")
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
@@ -60,6 +60,9 @@ HEALTHCARE_PERS_KEY = "categoria_operatori_sanitari_sociosanitari"
 NONHEALTHCARE_PERS_KEY = "categoria_personale_non_sanitario"
 HFE_GUESTS_KEY = "categoria_ospiti_rsa"
 OVER_80_KEY = "categoria_over80"
+OTHER_KEY = "categoria_altro"
+ARMED_FORCES_KEY = "categoria_forze_armate"
+SCHOOL_PERS_KEY = "categoria_personale_scolastico"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
 TRANSLATION_DIRNAME = "translations"
 TREND_SYMBOL_LOGIC = {
@@ -348,6 +351,18 @@ VARS[HFE_GUESTS_KEY] = {
 }
 VARS[OVER_80_KEY] = {
     "title": gettext("Over 80"),
+    "type": "vax"
+}
+VARS[OTHER_KEY] = {
+    "title": gettext("Other"),
+    "type": "vax"
+}
+VARS[ARMED_FORCES_KEY] = {
+    "title": gettext("Armed Forces"),
+    "type": "vax"
+}
+VARS[SCHOOL_PERS_KEY] = {
+    "title": gettext("School personnel"),
     "type": "vax"
 }
 
