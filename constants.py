@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 from flask_babel import gettext
 
-VERSION = "4.6"
+VERSION = "4.7"
 PAGE_BASE_TITLE = gettext("COVID-19 Italy")
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"

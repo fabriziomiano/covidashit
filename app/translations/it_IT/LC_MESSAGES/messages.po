@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-03-30 02:15+0200\n"
-"PO-Revision-Date: 2021-03-30 02:21+0200\n"
+"POT-Creation-Date: 2021-03-30 02:29+0200\n"
+"PO-Revision-Date: 2021-03-30 02:30+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -356,6 +356,10 @@ msgstr "Bisogna fare attenzione e mettere la mascherina!"
 msgid "Back to COVIDash"
 msgstr "Torna alla Home"
 
+#: app/templates/vaccines.html:36
+msgid "Latest update: "
+msgstr "Ultimo aggiornamento: "
+
 #: app/templates/vaccines.html:41
 msgid "Total administered:"
 msgstr "Tot somministrazioni:"
@@ -413,17 +417,20 @@ msgstr ""
 "COVID-19 in Italia"
 
 #: app/templates/base/modals/welcome.html:20
-#: app/templates/base/modals/welcome.html:25
 msgid "New!"
 msgstr "Novità!"
 
-#: app/templates/base/modals/welcome.html:22
-msgid "Administrations per provider"
-msgstr "Somministrazioni per fornitore"
+#: app/templates/base/modals/welcome.html:21
+msgid "Added new categories of people;"
+msgstr "Aggiunte nuove categorie vaccinati;"
+
+#: app/templates/base/modals/welcome.html:24
+msgid "Administrations per provider;"
+msgstr "Somministrazioni per fornitore;"
 
 #: app/templates/base/modals/welcome.html:27
-msgid "Percentage of people vaccinated based on the second dose"
-msgstr "Percentuale della popolazione vaccinata sulla base della seconda dose"
+msgid "Percentage of people vaccinated based on the second dose;"
+msgstr "Percentuale della popolazione vaccinata sulla base della seconda dose;"
 
 #: app/templates/base/modals/welcome.html:30
 msgid "Added vaccine data <a href='/vaccines'><strong>here</strong></a>;"
@@ -593,9 +600,6 @@ msgstr "Popolazione Vaccinata"
 #: app/utils/__init__.py:47 app/utils/__init__.py:50 app/utils/__init__.py:53
 msgid "name"
 msgstr ""
-
-#~ msgid "Latest update: "
-#~ msgstr "Ultimo aggiornamento: "
 
 #~ msgid "<b>Select one or more regions</b><br>"
 #~ msgstr "<b>Seleziona una o più regioni</b><br>"
