@@ -33,22 +33,22 @@
 {% endif %}
 
 <div class="row">
-    <div class="col-md-4 col-xl-4">
+    <div class="col-12 col-md-12 col-lg-12 col-xl-4">
         <div class="card shadow mb-4">
             <div id="chart-admins-per-age" class="container-fluid px-0"
                  style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
         </div>
     </div>
 
-    <div class="col-md-4 col-xl-4">
-        <div class="card shadow">
+    <div class="col-12 col-md-12 col-lg-12 col-xl-4">
+        <div class="card shadow mb-4">
             <div id="chart-pie-categories" class="container-fluid px-0"
                  style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
         </div>
     </div>
 
-    <div class="col-md-4 col-xl-4">
-        <div class="card shadow">
+    <div class="col-12 col-md-12 col-lg-12 col-xl-4">
+        <div class="card shadow mb-4">
             <div id="chart-pie-providers" class="container-fluid px-0"
                  style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
         </div>
@@ -56,7 +56,7 @@
 </div>
 
 <script>
-    {#common#}
+    {# common #}
     let totAdmins = {{ tot_admins }};
     let area;
     {% if not area %}
@@ -88,7 +88,7 @@
     let adminsPerProviderSeriesName = "{{ gettext('Doses administered') }}";
     let adminsPerProviderTitle = "{{ gettext('Admins per provider') }} | " + area;
 
-    {#per region#}
+    {# per region #}
     {% if area in regions %}
         let adminsPerRegionData = null;
         let expAdminsPerRegionData = null;
@@ -99,7 +99,6 @@
         let adminsTimeseriesData = null;
         let adminsTimeseriesTitle;
         let adminsTimeseriesyAxisTitle;
-        let adminsTimeseriesSubtitle;
     {% else %}
         adminsPerRegionData = {{ region_chart_data.admins_per_region|safe }};
         expAdminsPerRegionData = {{ region_chart_data.expected_admins|safe }};
@@ -109,9 +108,5 @@
         adminsTimeseriesData = {{ admins_timeseries_data.data|safe }};
         adminsTimeseriesTitle = "{{ gettext('Percentage of people vaccinated') }}";
         adminsTimeseriesyAxisTitle = "{{ gettext('Population vaccinated') }} [%]";
-        adminsTimeseriesSubtitle = {
-            text: "{{ gettext('<b>Select one or more regions</b><br>') }}" + subtitle.text,
-            html: true
-        };
     {% endif %}
 </script>
