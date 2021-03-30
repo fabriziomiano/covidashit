@@ -1,6 +1,7 @@
 // Administrations per region: defined only for the national vax view
 let adminsPerRegion = {}
 if (!REGIONS.includes(area)) {
+    // Administrations per region
     adminsPerRegion = {
         chart: {
             type: 'bar'
@@ -89,11 +90,15 @@ if (!REGIONS.includes(area)) {
                 label: {
                     connectorAllowed: false
                 },
-            }
+                marker: {
+                    enabled: false
+                }
+            },
+
         },
         series: adminsTimeseriesData,
         credits: credits,
-        subtitle: adminsTimeseriesSubtitle
+        subtitle: subtitle
     };
     Highcharts.chart('chart-admins-timeseries', adminsTimeSeries);
 
@@ -166,7 +171,7 @@ let adminsPerCategory = {
         text: adminsPerCategoryTitle
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.y}</b>'
     },
     accessibility: {
         point: {
@@ -179,7 +184,8 @@ let adminsPerCategory = {
             cursor: 'pointer',
             dataLabels: {
                 enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                // distance: -50
             }
         }
     },
@@ -217,7 +223,8 @@ let adminsPerProvider = {
             cursor: 'pointer',
             dataLabels: {
                 enabled: true,
-                format: '{point.name}: <b>{point.percentage:.1f}%</b>'
+                format: '{point.name}: <b>{point.percentage:.1f}%</b>',
+                distance: -50
             }
         }
     },

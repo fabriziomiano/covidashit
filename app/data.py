@@ -25,7 +25,9 @@ from constants import (
     OD_TO_PC_MAP, ITALY_POPULATION, URL_VAX_SUMMARY_DATA, VAX_ADMINS_PERC_KEY,
     ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_DATE_KEY, VAX_TOT_ADMINS_KEY,
     CHART_DATE_FMT, OVER_80_KEY, POP_KEY, VAX_FIRST_DOSE_KEY,
-    VAX_SECOND_DOSE_KEY, VAX_PROVIDER_KEY
+    VAX_SECOND_DOSE_KEY, VAX_PROVIDER_KEY,
+    OTHER_KEY, ARMED_FORCES_KEY,
+    SCHOOL_PERS_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -48,7 +50,9 @@ TREND_CARDS = [
 ]
 PROV_TREND_CARDS = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY]
 VAX_PEOPLE_CATEGORIES = [
-    HEALTHCARE_PERS_KEY, NONHEALTHCARE_PERS_KEY, HFE_GUESTS_KEY, OVER_80_KEY]
+    HEALTHCARE_PERS_KEY, NONHEALTHCARE_PERS_KEY, HFE_GUESTS_KEY, OVER_80_KEY,
+    OTHER_KEY, ARMED_FORCES_KEY, SCHOOL_PERS_KEY
+]
 
 
 def get_query_menu(area=None):
@@ -357,10 +361,12 @@ def get_category_chart_data(area=None):
             '$group': {
                 '_id': f'${VAX_AREA_KEY}',
                 HEALTHCARE_PERS_KEY: {'$sum': f'${HEALTHCARE_PERS_KEY}'},
-                NONHEALTHCARE_PERS_KEY: {
-                    '$sum': f'${NONHEALTHCARE_PERS_KEY}'},
+                NONHEALTHCARE_PERS_KEY: {'$sum': f'${NONHEALTHCARE_PERS_KEY}'},
                 HFE_GUESTS_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
-                OVER_80_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
+                OVER_80_KEY: {'$sum': f'${OVER_80_KEY}'},
+                OTHER_KEY: {'$sum': f'${OTHER_KEY}'},
+                ARMED_FORCES_KEY: {'$sum': f'${ARMED_FORCES_KEY}'},
+                SCHOOL_PERS_KEY: {'$sum': f'${SCHOOL_PERS_KEY}'},
             }
         }
         pipe = [match, group]
@@ -369,10 +375,12 @@ def get_category_chart_data(area=None):
             '$group': {
                 '_id': '',
                 HEALTHCARE_PERS_KEY: {'$sum': f'${HEALTHCARE_PERS_KEY}'},
-                NONHEALTHCARE_PERS_KEY: {
-                    '$sum': f'${NONHEALTHCARE_PERS_KEY}'},
+                NONHEALTHCARE_PERS_KEY: {'$sum': f'${NONHEALTHCARE_PERS_KEY}'},
                 HFE_GUESTS_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
-                OVER_80_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
+                OVER_80_KEY: {'$sum': f'${OVER_80_KEY}'},
+                OTHER_KEY: {'$sum': f'${OTHER_KEY}'},
+                ARMED_FORCES_KEY: {'$sum': f'${ARMED_FORCES_KEY}'},
+                SCHOOL_PERS_KEY: {'$sum': f'${SCHOOL_PERS_KEY}'},
             }
         }
         pipe = [group]

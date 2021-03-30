@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-03-17 22:05+0100\n"
-"PO-Revision-Date: 2021-03-17 22:06+0100\n"
+"POT-Creation-Date: 2021-03-30 02:29+0200\n"
+"PO-Revision-Date: 2021-03-30 02:30+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -23,107 +23,107 @@ msgstr ""
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
-#: constants.py:69
+#: constants.py:72
 msgid "Stable with respect to yesterday"
 msgstr "Stabile rispetto a ieri"
 
-#: constants.py:74 constants.py:79
+#: constants.py:77 constants.py:82
 msgid "Increased with respect to yesterday"
 msgstr "In aumento rispetto a ieri"
 
-#: constants.py:84 constants.py:89
+#: constants.py:87 constants.py:92
 msgid "Decreased with respect to yesterday"
 msgstr "In calo rispetto a ieri"
 
-#: constants.py:96
+#: constants.py:99
 msgid "New Positive"
 msgstr "Nuovi Positivi"
 
-#: constants.py:97 constants.py:98
+#: constants.py:100 constants.py:101
 msgid "Daily count of new positive cases"
 msgstr "Conteggio giornaliero dei nuovi positivi"
 
-#: constants.py:106
+#: constants.py:109
 msgid "Daily ICU"
 msgstr "TI Giornaliere"
 
-#: constants.py:107 constants.py:175
+#: constants.py:110 constants.py:178
 msgid "# of people daily admitted in ICU"
 msgstr "Numero di ingressi giornalieri in TI"
 
-#: constants.py:108 constants.py:176
+#: constants.py:111 constants.py:179
 msgid "Daily count of people in ICU"
 msgstr "Conteggio giornaliero degli ingressi in TI"
 
-#: constants.py:116
+#: constants.py:119
 msgid "Daily Deaths"
 msgstr "Decessi giornalieri"
 
-#: constants.py:117 constants.py:118 constants.py:163 constants.py:164
+#: constants.py:120 constants.py:121 constants.py:166 constants.py:167
 msgid "Daily deaths count"
 msgstr "Conteggio decessi giornalieri"
 
-#: constants.py:128
+#: constants.py:131
 msgid "Daily Swabs"
 msgstr "Tamponi giornalieri"
 
-#: constants.py:129 constants.py:185
+#: constants.py:132 constants.py:188
 msgid "# of swabs performed daily"
 msgstr "Numero di tamponi effettuati giornalmente"
 
-#: constants.py:130 constants.py:186
+#: constants.py:133 constants.py:189
 msgid "Daily number of swabs performed"
 msgstr "Numero di tamponi effettuati giornalmente"
 
-#: constants.py:140
+#: constants.py:143
 msgid "Daily Hospitalized"
 msgstr "Ricoveri giornalieri"
 
-#: constants.py:141 constants.py:197
+#: constants.py:144 constants.py:200
 msgid "# of people daily hospitalized"
 msgstr "Numero di persone ricoverate giornalmente"
 
-#: constants.py:142 constants.py:198
+#: constants.py:145 constants.py:201
 msgid "Daily count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 "Conteggio giornaliero del numero di ricoveri. Tiene conto di quelle in "
 "terapia intensiva"
 
-#: constants.py:152
+#: constants.py:155
 msgid "New Positive (7-day MA)"
 msgstr "Nuovi Positivi (7gg MM)"
 
-#: constants.py:153 constants.py:154
+#: constants.py:156 constants.py:157
 msgid "Daily count of new positve cases"
 msgstr "Conteggio giornaliero dei nuovi casi positivi"
 
-#: constants.py:162
+#: constants.py:165
 msgid "Daily Deaths (7-day MA)"
 msgstr "Decessi giornalieri (7gg MM)"
 
-#: constants.py:174
+#: constants.py:177
 msgid "Daily ICU (7-day MA)"
 msgstr "T.I. giornaliere (7gg MM)"
 
-#: constants.py:184
+#: constants.py:187
 msgid "Daily Swabs (7-day MA)"
 msgstr "Tamponi giornalieri (7gg MM)"
 
-#: constants.py:196
+#: constants.py:199
 msgid "Daily Hospitalized (7-day MA)"
 msgstr "Ricoveri giornalieri (7gg MM)"
 
-#: constants.py:210
+#: constants.py:213
 msgid "Total Positive"
 msgstr "Totale Positivi"
 
-#: constants.py:211
+#: constants.py:214
 msgid "# of people currently hospitalized with symptoms + ICU + self isolation"
 msgstr ""
 "Numero di persone attualmente ricoverate con sintomi + terapia intensiva + "
 "isolamento autonomo"
 
-#: constants.py:215
+#: constants.py:218
 msgid ""
 "People currently positive. Unlike 'Total Cases' it does not take into "
 "account 'healed' and 'deaths'. By the end of the outbreak this should tend "
@@ -135,174 +135,186 @@ msgstr ""
 "zero. In particolare, è definito totale positivi = totale casi - totale "
 "guariti - totale morti"
 
-#: constants.py:229
+#: constants.py:232
 msgid "Intensive Care Unit"
 msgstr "Terapia intensiva"
 
-#: constants.py:230
+#: constants.py:233
 msgid "# of people currently in ICU"
 msgstr "Numero di persone attualmete in terapia intensiva"
 
-#: constants.py:231
+#: constants.py:234
 msgid "Total count of people currently in ICU and positive to COVID-19"
 msgstr ""
 "Conteggi del numero di persone attualmente in terapia intensiva e positive "
 "al COVID-19"
 
-#: constants.py:241
+#: constants.py:244
 msgid "Hospitalized With Symptoms"
 msgstr "Ricoverati con sintomi"
 
-#: constants.py:242
+#: constants.py:245
 msgid "# of people currently hospitalized with symptoms"
 msgstr "Numero di persone attualmente ricoverate con sintomi"
 
-#: constants.py:245
+#: constants.py:248
 msgid ""
 "Total count of people currently in hospital due to coronavirus with symptoms"
 msgstr ""
 "Conteggi del numero di persone attualmente in ospedale con sintomi da Covid"
 
-#: constants.py:257
+#: constants.py:260
 msgid "Total Hospitalized"
 msgstr "Totale ricoverati"
 
-#: constants.py:258
+#: constants.py:261
 msgid "# of people currently hospitalized"
 msgstr "Numero di persone attualmente ricoverate"
 
-#: constants.py:259
+#: constants.py:262
 msgid "Total count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 "Conteggi del numero di persone attualmente positive e ricoverate. Tiene "
 "conto di quelle in terapia intensiva"
 
-#: constants.py:269
+#: constants.py:272
 msgid "Self Isolation"
 msgstr "Isolamento autonomo"
 
-#: constants.py:270
+#: constants.py:273
 msgid "# of people currently in self isolation"
 msgstr "Numero di persone in Terapia Intensiva"
 
-#: constants.py:271
+#: constants.py:274
 msgid "People currently positive but who do not need hospitalization"
 msgstr "Persone attualmente positive che non hanno bisogno di ricovero"
 
-#: constants.py:283
+#: constants.py:286
 msgid "Total Cases"
 msgstr "Totale casi"
 
-#: constants.py:284 constants.py:288
+#: constants.py:287 constants.py:291
 msgid "Total count of the positive tests since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi positivi dall'inizio dell'epidemia"
 
-#: constants.py:299
+#: constants.py:302
 msgid "Total Deaths"
 msgstr "Totale decessi"
 
-#: constants.py:300
+#: constants.py:303
 msgid "Total deaths count"
 msgstr "Conteggio totale decessi"
 
-#: constants.py:301
+#: constants.py:304
 msgid "Total deaths count since the beginning of the outbreak"
 msgstr "Conteggio dei decessi dall'inizio dell'epidemia"
 
-#: constants.py:312
+#: constants.py:315
 msgid "Total Swabs"
 msgstr "Totale tamponi"
 
-#: constants.py:313
+#: constants.py:316
 msgid "# of swabs performed"
 msgstr "Numero di tamponi eseguiti"
 
-#: constants.py:314
+#: constants.py:317
 msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi effettuati dall'inizio dell'epidemia"
 
-#: constants.py:324
+#: constants.py:327
 msgid "Total Healed"
 msgstr "Totale guariti"
 
-#: constants.py:325
+#: constants.py:328
 msgid "Cumulative # of people healed"
 msgstr "Totale cumulativo di persone guarite"
 
-#: constants.py:326
+#: constants.py:329
 msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 "Totale cumulativo del numero di persone guarite dall'inizio dell'epidemia"
 
-#: constants.py:338
+#: constants.py:341
 msgid "Healthcare Personnel"
 msgstr "Personale sanitario e socio-sanitario"
 
-#: constants.py:342
+#: constants.py:345
 msgid "Non-healthcare Personnel"
 msgstr "Personale non sanitario"
 
-#: constants.py:346
+#: constants.py:349
 msgid "HFE Guests"
 msgstr "Ospiti RSA"
 
-#: constants.py:350
+#: constants.py:353
 msgid "Over 80"
 msgstr "Over 80"
 
-#: app/templates/pandemic/charts.html:95 constants.py:391
+#: constants.py:357
+msgid "Other"
+msgstr "Altro"
+
+#: constants.py:361
+msgid "Armed Forces"
+msgstr "Forze Armate"
+
+#: constants.py:365
+msgid "School personnel"
+msgstr "Personale Scolastico"
+
+#: app/templates/pandemic/charts.html:95 constants.py:406
 msgid "Lockdown"
 msgstr "Lockdown"
 
-#: constants.py:392
+#: constants.py:407
 msgid "Days in Lockdown"
 msgstr "Giorni in Lockdown"
 
-#: app/templates/pandemic/charts.html:106 constants.py:399
+#: app/templates/pandemic/charts.html:106 constants.py:414
 msgid "Phase 2"
 msgstr "Fase 2"
 
-#: constants.py:400
+#: constants.py:415
 msgid "Days in \"Phase 2\""
 msgstr "Giorni in \"Fase 2\""
 
-#: app/templates/pandemic/charts.html:117 constants.py:407
+#: app/templates/pandemic/charts.html:117 constants.py:422
 msgid "Phase 3"
 msgstr "Fase 3"
 
-#: constants.py:408
+#: constants.py:423
 msgid "Days in \"Phase 3\""
 msgstr "Giorni in \"Fase 3\""
 
-#: constants.py:415
+#: constants.py:430
 msgid "Critical Areas"
 msgstr "Aree di criticità"
 
-#: constants.py:416
+#: constants.py:431
 msgid "Days since \"Critical areas\""
 msgstr "Giorni in \"aree di criticità\""
 
-#: app/templates/pandemic/charts.html:139 constants.py:423
+#: app/templates/pandemic/charts.html:139 constants.py:438
 msgid "Vaccine day"
 msgstr "Vaccine day"
 
-#: constants.py:424
+#: constants.py:439
 msgid "Days since \"Vaccine day\""
 msgstr "Giorni dal \"Vaccine day\""
 
-#: app/data.py:342 app/templates/vaccines/charts.html:83
+#: app/data.py:346 app/templates/vaccines/charts.html:83
 msgid "Vaccinated"
 msgstr "Vaccinati"
 
-#: app/data.py:384
+#: app/data.py:392
 msgid "title"
 msgstr ""
 
-#: app/data.py:424
+#: app/data.py:432
 msgid "Real"
 msgstr "Reale"
 
-#: app/data.py:428
+#: app/data.py:436
 msgid "Expected"
 msgstr "Atteso"
 
@@ -405,19 +417,20 @@ msgstr ""
 "COVID-19 in Italia"
 
 #: app/templates/base/modals/welcome.html:20
-#: app/templates/base/modals/welcome.html:25
 msgid "New!"
 msgstr "Novità!"
 
-#: app/templates/base/modals/welcome.html:22
-#, fuzzy
-#| msgid "Admins per provider"
-msgid "Administrations per provider"
-msgstr "Somministrazioni per fornitore"
+#: app/templates/base/modals/welcome.html:21
+msgid "Added new categories of people;"
+msgstr "Aggiunte nuove categorie vaccinati;"
+
+#: app/templates/base/modals/welcome.html:24
+msgid "Administrations per provider;"
+msgstr "Somministrazioni per fornitore;"
 
 #: app/templates/base/modals/welcome.html:27
-msgid "Percentage of people vaccinated based on the second dose"
-msgstr "Percentuale della popolazione vaccinata sulla base della seconda dose"
+msgid "Percentage of people vaccinated based on the second dose;"
+msgstr "Percentuale della popolazione vaccinata sulla base della seconda dose;"
 
 #: app/templates/base/modals/welcome.html:30
 msgid "Added vaccine data <a href='/vaccines'><strong>here</strong></a>;"
@@ -572,25 +585,24 @@ msgstr "Dosi somministrate"
 msgid "Admins per provider"
 msgstr "Somministrazioni per fornitore"
 
-#: app/templates/vaccines/charts.html:106
+#: app/templates/vaccines/charts.html:105
 msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
-#: app/templates/vaccines/charts.html:110
+#: app/templates/vaccines/charts.html:109
 msgid "Percentage of people vaccinated"
 msgstr "Percentuale di popolazione vaccinata"
 
-#: app/templates/vaccines/charts.html:111
+#: app/templates/vaccines/charts.html:110
 msgid "Population vaccinated"
 msgstr "Popolazione Vaccinata"
-
-#: app/templates/vaccines/charts.html:113
-msgid "<b>Select one or more regions</b><br>"
-msgstr "<b>Seleziona una o più regioni</b><br>"
 
 #: app/utils/__init__.py:47 app/utils/__init__.py:50 app/utils/__init__.py:53
 msgid "name"
 msgstr ""
+
+#~ msgid "<b>Select one or more regions</b><br>"
+#~ msgstr "<b>Seleziona una o più regioni</b><br>"
 
 #~ msgid "Admins Per Age range"
 #~ msgstr "Somministrazioni per fascia d'età"
