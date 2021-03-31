@@ -10,7 +10,7 @@ from app.data import (
     enrich_frontend_data, get_latest_vax_update, get_tot_admins,
     get_age_chart_data, get_category_chart_data, get_region_chart_data,
     get_perc_pop_vax, get_admins_perc, get_admins_timeseries_chart_data,
-    get_admins_per_provider_chart_data
+    get_admins_per_provider_chart_data, get_vax_trends
 )
 from app.ui import vaccines
 from constants import PAGE_BASE_TITLE, ITALY_POPULATION, PC_TO_OD_MAP, REGIONS
@@ -41,7 +41,8 @@ def national_vax_view():
         cat_chart_data=get_category_chart_data(),
         region_chart_data=get_region_chart_data(tot_admins=tot_admins),
         admins_timeseries_data=get_admins_timeseries_chart_data(),
-        provider_chart_data=get_admins_per_provider_chart_data()
+        provider_chart_data=get_admins_per_provider_chart_data(),
+        trends=get_vax_trends()
     )
     return render_template("vaccines.html", **report_data)
 
@@ -78,6 +79,7 @@ def regional_vax_view(region):
         next_area_url=next_region_url,
         areas_length=len(REGIONS),
         area_index=region_index,
-        area=region
+        area=region,
+        trends=get_vax_trends(area)
     )
     return render_template("vaccines.html", **report_data)
