@@ -185,11 +185,11 @@ def build_trend(df, col):
         percentage = "{0:+}%".format(round(p))
     except (OverflowError, TypeError):
         percentage = "n/a"
-    if df[col].to_numpy()[-1] < df[col].to_numpy()[-2]:
+    if count < yesterday_count:
         status = "decrease"
-    if df[col].to_numpy()[-1] > df[col].to_numpy()[-2]:
+    if count > yesterday_count:
         status = "increase"
-    if df[col].to_numpy()[-1] == df[col].to_numpy()[-2]:
+    if count == yesterday_count:
         status = "stable"
     trend = {
         "id": col,
