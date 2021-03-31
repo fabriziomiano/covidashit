@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 from flask_babel import gettext
 
-VERSION = "4.7"
+VERSION = "4.8"
 PAGE_BASE_TITLE = gettext("COVID-19 Italy")
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
@@ -363,6 +363,22 @@ VARS[ARMED_FORCES_KEY] = {
 }
 VARS[SCHOOL_PERS_KEY] = {
     "title": gettext("School personnel"),
+    "type": "vax"
+}
+VARS[VAX_FIRST_DOSE_KEY] = {
+    "title": gettext("Daily First administrations"),
+    "icon": "fas fa-check",
+    "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "vax"
+}
+VARS[VAX_SECOND_DOSE_KEY] = {
+    "title": gettext("Daily Second administrations"),
+    "icon": "fas fa-check-double",
+    "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "vax"
 }
 

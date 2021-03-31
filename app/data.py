@@ -527,3 +527,72 @@ def get_admins_per_provider_chart_data(area=None):
     data = list(VAX_COLL.aggregate(pipeline=pipe))
     app.logger.info(f"BLA {data}")
     return [{'name': d['_id'], 'y': d['tot']} for d in data]
+
+
+def get_vax_trends_data(area=None):
+    """
+    Return the first- and second-dose data in the last two days
+    :param area: optional, str
+    :return: list of dicts
+    """
+    if area is None:
+        pipe = [
+            {
+                '$group': {
+                    '_id': f'${VAX_DATE_KEY}',
+                    VAX_FIRST_DOSE_KEY: {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
+                    VAX_SECOND_DOSE_KEY: {'$sum': f'${VAX_SECOND_DOSE_KEY}'}
+                }
+            },
+            {"$sort": {"_id": -1}},
+            {'$limit': 2}
+        ]
+    else:
+        pipe = [
+            {'$match': {VAX_AREA_KEY: area}},
+            {
+                '$group': {
+                    '_id': f'$data_somministrazione',
+                    VAX_FIRST_DOSE_KEY: {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
+                    VAX_SECOND_DOSE_KEY: {'$sum': f'${VAX_SECOND_DOSE_KEY}'}
+                }
+            },
+            {"$sort": {"_id": -1}},
+            {'$limit': 2}
+        ]
+    data = list(VAX_COLL.aggregate(pipeline=pipe))
+    return data
+
+
+def get_vax_trends(area=None):
+    """
+    Return the vax-trends array
+    :param area: optional, str
+    :return: list of dicts
+    """
+    data = get_vax_trends_data(area)
+    trends = []
+    status = 'stable'
+    for d in (VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY):
+        count = data[0][d]
+        yesterday_count = data[1][d]
+        diff = count - yesterday_count
+        if diff < 0:
+            status = 'increase'
+        if diff < 0:
+            status = 'decrease'
+        try:
+            perc = '{}%'.format(round(diff / data[1][d] * 100, 1))
+        except ValueError:
+            perc = 'n/a'
+        trends.append({
+            'id': d,
+            'yesterday_count': "{:,d}".format(yesterday_count),
+            'percentage': perc,
+            'title': VARS[d]["title"],
+            "colour": VARS[d][status]["colour"],
+            "icon": VARS[d]["icon"],
+            "status_icon": VARS[d][status]["icon"],
+            'count': "{:,d}".format(count)
+        })
+    return trends
