@@ -6,19 +6,22 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">
-                    {{ _('&#128075; Welcome to COVIDash') }} &#127470;&#127481;</h5>
+                <h5 class="modal-title me-1">{{ _('&#128075; Welcome to COVIDash') }} </h5>
+                <img src="{{ url_for('static', filename="img/flag_it.png") }}" alt="flag-it" width="20"/>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
                 <p class="lead">
-                    {{ _("COVIDashIT is a dashboard that displays the official COVID-19 Italian outbreak data") }}
+                    {{ _("A dashboard that displays the official COVID-19 Italian outbreak and vaccines data") }}
                 </p>
                 <p>
                     <span class="badge badge-pill bg-danger me-2">{{ _("New!") }}</span>
-                    <i class="fas fa-chart-pie me-2"></i>{{ _("Added new categories of people;") }}
+                    <i class="fas fa-syringe me-2"></i>{{ _("Daily administrations trend;") }}
+                </p>
+                <p>
+                    <i class="fas fa-chart-pie me-2"></i>{{ _("Categories of people vaccinate;") }}
                 </p>
                 <p>
                     <i class="fas fa-chart-pie me-2"></i>{{ _("Administrations per provider;") }}
@@ -27,7 +30,7 @@
                     <i class="fas fa-user-shield me-2"></i>{{ _("Percentage of people vaccinated based on the second dose;") }}
                 </p>
                 <p>
-                    <i class="fas fa-syringe me-2"></i>{{ _("Added vaccine data <a href='/vaccines'><strong>here</strong></a>;") }}
+                    <i class="fas fa-syringe me-2"></i>{{ _("Vaccine data <a href='/vaccines'><strong>here</strong></a>;") }}
                 </p>
                 <p>
                     <i class="fas fa-mouse-pointer me-2"></i>{{ _("Use the navigation buttons on the navigation bar when in the regional/provincial views;") }}
