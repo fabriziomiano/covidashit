@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-03-30 02:29+0200\n"
-"PO-Revision-Date: 2021-03-30 02:30+0200\n"
+"POT-Creation-Date: 2021-04-01 01:31+0200\n"
+"PO-Revision-Date: 2021-04-01 01:33+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -262,43 +262,51 @@ msgstr "Forze Armate"
 msgid "School personnel"
 msgstr "Personale Scolastico"
 
-#: app/templates/pandemic/charts.html:95 constants.py:406
+#: constants.py:369
+msgid "Daily First administrations"
+msgstr "Prime somministrazioni giornaliere"
+
+#: constants.py:377
+msgid "Daily Second administrations"
+msgstr "Seconde somministrazioni giornaliere"
+
+#: app/templates/pandemic/charts.html:95 constants.py:422
 msgid "Lockdown"
 msgstr "Lockdown"
 
-#: constants.py:407
+#: constants.py:423
 msgid "Days in Lockdown"
 msgstr "Giorni in Lockdown"
 
-#: app/templates/pandemic/charts.html:106 constants.py:414
+#: app/templates/pandemic/charts.html:106 constants.py:430
 msgid "Phase 2"
 msgstr "Fase 2"
 
-#: constants.py:415
+#: constants.py:431
 msgid "Days in \"Phase 2\""
 msgstr "Giorni in \"Fase 2\""
 
-#: app/templates/pandemic/charts.html:117 constants.py:422
+#: app/templates/pandemic/charts.html:117 constants.py:438
 msgid "Phase 3"
 msgstr "Fase 3"
 
-#: constants.py:423
+#: constants.py:439
 msgid "Days in \"Phase 3\""
 msgstr "Giorni in \"Fase 3\""
 
-#: constants.py:430
+#: constants.py:446
 msgid "Critical Areas"
 msgstr "Aree di criticità"
 
-#: constants.py:431
+#: constants.py:447
 msgid "Days since \"Critical areas\""
 msgstr "Giorni in \"aree di criticità\""
 
-#: app/templates/pandemic/charts.html:139 constants.py:438
+#: app/templates/pandemic/charts.html:139 constants.py:454
 msgid "Vaccine day"
 msgstr "Vaccine day"
 
-#: constants.py:439
+#: constants.py:455
 msgid "Days since \"Vaccine day\""
 msgstr "Giorni dal \"Vaccine day\""
 
@@ -327,7 +335,7 @@ msgstr "Conteggi"
 msgid "Positive Rate: "
 msgstr "Indice di positività: "
 
-#: app/templates/pandemic.html:132 app/templates/vaccines.html:115
+#: app/templates/pandemic.html:131 app/templates/vaccines.html:118
 msgid ""
 "This project is <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> and it is hosted on an Heroku paid dyno."
@@ -335,7 +343,7 @@ msgstr ""
 "Questo progetto è <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> ed utilizza un piano a pagamento su Heroku."
 
-#: app/templates/pandemic.html:133
+#: app/templates/pandemic.html:132
 msgid " Thanks for donating &#128513;"
 msgstr " Le donazioni sono ben accette &#128513;"
 
@@ -376,7 +384,7 @@ msgstr "Popolazione Vaccinata: "
 msgid "Based on the second dose"
 msgstr "Sulla base della seconda dose"
 
-#: app/templates/vaccines.html:116
+#: app/templates/vaccines.html:119
 msgid "Thanks for donating &#128513;"
 msgstr "Le donazioni sono ben accette &#128513;"
 
@@ -404,40 +412,42 @@ msgstr "Vaccini"
 msgid "Search..."
 msgstr "Cerca..."
 
-#: app/templates/base/modals/welcome.html:10
+#: app/templates/base/modals/welcome.html:9
 msgid "&#128075; Welcome to COVIDash"
 msgstr "&#128075; Benvenuti in COVIDash"
 
 #: app/templates/base/modals/welcome.html:17
 msgid ""
-"COVIDashIT is a dashboard that displays the official COVID-19 Italian "
-"outbreak data"
+"A dashboard that displays the official COVID-19 Italian outbreak and "
+"vaccines data"
 msgstr ""
-"COVIDashIT è una dashboard che mostra i dati ufficiali sulla pandemia da "
-"COVID-19 in Italia"
+"Una dashboard che mostra i dati italiani ufficiali su pandemia e vaccini"
 
 #: app/templates/base/modals/welcome.html:20
 msgid "New!"
 msgstr "Novità!"
 
 #: app/templates/base/modals/welcome.html:21
-msgid "Added new categories of people;"
-msgstr "Aggiunte nuove categorie vaccinati;"
+msgid "Daily administrations trend;"
+msgstr "Prime somministrazioni giornaliere;"
 
 #: app/templates/base/modals/welcome.html:24
+msgid "Categories of people vaccinate;"
+msgstr "Categorie di persone vaccinate;"
+
+#: app/templates/base/modals/welcome.html:27
 msgid "Administrations per provider;"
 msgstr "Somministrazioni per fornitore;"
 
-#: app/templates/base/modals/welcome.html:27
+#: app/templates/base/modals/welcome.html:30
 msgid "Percentage of people vaccinated based on the second dose;"
 msgstr "Percentuale della popolazione vaccinata sulla base della seconda dose;"
 
-#: app/templates/base/modals/welcome.html:30
-msgid "Added vaccine data <a href='/vaccines'><strong>here</strong></a>;"
-msgstr ""
-"Aggiunti i dati sui vaccini <a href='/vaccines'><strong>qui</strong></a>;"
-
 #: app/templates/base/modals/welcome.html:33
+msgid "Vaccine data <a href='/vaccines'><strong>here</strong></a>;"
+msgstr "Dati sui vaccini <a href='/vaccines'><strong>qui</strong></a>;"
+
+#: app/templates/base/modals/welcome.html:36
 msgid ""
 "Use the navigation buttons on the navigation bar when in the regional/"
 "provincial views;"
@@ -445,11 +455,11 @@ msgstr ""
 "Usa i bottoni sulla navigation bar per navigare tra le view regionali/"
 "provinciali;"
 
-#: app/templates/base/modals/welcome.html:36
+#: app/templates/base/modals/welcome.html:39
 msgid "Use the search bar to jump to the pandemic dashboard of a desired area;"
 msgstr "Usa la barra di ricerca per saltare ai dati di un'area;"
 
-#: app/templates/base/modals/welcome.html:39
+#: app/templates/base/modals/welcome.html:42
 msgid ""
 "Some cards, where possible, can be expanded to visualize the breakdown of "
 "the sub-areas;"
@@ -457,7 +467,7 @@ msgstr ""
 "Alcune card possono essere espanse per mostrare il dettaglio delle aree "
 "rilevanti;"
 
-#: app/templates/base/modals/welcome.html:42
+#: app/templates/base/modals/welcome.html:45
 msgid ""
 "The data are divided in <code>DAILY</code>, <code>CURRENT</code>, and "
 "<code>CUMULATIVE</code>;"
@@ -465,24 +475,24 @@ msgstr ""
 "Il dato è classificato in <code>GIORN</code> (giornaliero), <code>ATT</code> "
 "(attuale) e <code>CUM</code> (cumulato);"
 
-#: app/templates/base/modals/welcome.html:45
+#: app/templates/base/modals/welcome.html:48
 msgid "The interactive charts allow to zoom in along the x- and y-axis;"
 msgstr "I grafici interattivi permettono di zoomare lungo l'asse x e y;"
 
-#: app/templates/base/modals/welcome.html:48
+#: app/templates/base/modals/welcome.html:51
 msgid "The chart legend can be used to toggle on/off the data series;"
 msgstr ""
 "La legenda può essere utilizzata per attivare/disattivare una serie di dati;"
 
-#: app/templates/base/modals/welcome.html:55
+#: app/templates/base/modals/welcome.html:58
 msgid "Who made this?"
 msgstr "Chi è l'autore?"
 
-#: app/templates/base/modals/welcome.html:59
+#: app/templates/base/modals/welcome.html:62
 msgid "Close"
 msgstr "Chiudi"
 
-#: app/templates/base/modals/welcome.html:66
+#: app/templates/base/modals/welcome.html:69
 msgid ""
 "Made with <span style=\"color: #e25555;\">&#9829;</span> in\n"
 "                        <a href=\"https://goo.gl/maps/rk3BGAvv1HmG3NSs8\" "
@@ -506,6 +516,7 @@ msgstr "Contatta l'admin"
 
 #: app/templates/pandemic/cards.html:29 app/templates/pandemic/cards.html:88
 #: app/templates/pandemic/cards.html:206 app/templates/pandemic/cards.html:324
+#: app/templates/vaccines/cards.html:28
 msgid "Yesterday: "
 msgstr "Ieri: "
 
@@ -600,6 +611,9 @@ msgstr "Popolazione Vaccinata"
 #: app/utils/__init__.py:47 app/utils/__init__.py:50 app/utils/__init__.py:53
 msgid "name"
 msgstr ""
+
+#~ msgid "Added new categories of people;"
+#~ msgstr "Aggiunte nuove categorie vaccinati;"
 
 #~ msgid "<b>Select one or more regions</b><br>"
 #~ msgstr "<b>Seleziona una o più regioni</b><br>"
@@ -887,9 +901,6 @@ msgstr ""
 #~ "Variazione del numero di persone attualmente positive rispetto al giorno "
 #~ "precedente. È negativo se il numero di deceduti e guariti quotidiani "
 #~ "supera il numero 'Nuovi positivi'"
-
-#~ msgid "Daily Positive Variation"
-#~ msgstr "Variazione positivi giornalieri"
 
 #~ msgid ""
 #~ "Variation of daily # people currently positive with respect to yesterday"

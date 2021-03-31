@@ -1,0 +1,34 @@
+<!-- Cards -->
+<div class="row">
+    {% for t in trends %}
+        <div class="col-12 col-lg-6 col-md-6 mb-2">
+            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
+                            <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
+                        </p>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="h6 text-gray-800 mb-0">{{ t.count }}</p>
+                        </div>
+                        <div>
+
+                            <p class="{{ t.colour }} mb-0">
+                                <span><i
+                                        class="{{ t.status_icon }}"></i></span>
+                                <span>{{ t.percentage|safe }}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <p class="small mb-0">
+                        <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
