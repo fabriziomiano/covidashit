@@ -572,15 +572,16 @@ def get_vax_trends(area=None):
     """
     data = get_vax_trends_data(area)
     trends = []
-    status = 'stable'
     for d in (VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY):
         count = data[0][d]
         yesterday_count = data[1][d]
         diff = count - yesterday_count
-        if diff < 0:
+        if diff > 0:
             status = 'increase'
-        if diff < 0:
+        elif diff < 0:
             status = 'decrease'
+        else:
+            status = 'stable'
         try:
             perc = '{}%'.format(round(diff / data[1][d] * 100, 1))
         except ValueError:
