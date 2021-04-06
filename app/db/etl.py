@@ -176,9 +176,6 @@ def build_trend(df, col):
     df[col] = df[col].astype('int')
     count = df[col].to_numpy()[-1]
     yesterday_count = df[col].to_numpy()[-2]
-    if VARS[col]["type"] in ("daily", "current", "cum"):
-        count = "{0:+,d}".format(count)
-        yesterday_count = "{0:+,d}".format(yesterday_count)
     try:
         df[perc_col].dropna(inplace=True)
         p = df[perc_col].to_numpy()[-1]
@@ -191,6 +188,9 @@ def build_trend(df, col):
         status = "increase"
     if count == yesterday_count:
         status = "stable"
+    if VARS[col]["type"] in ("daily", "current", "cum"):
+        count = "{0:+,d}".format(count)
+        yesterday_count = "{0:+,d}".format(yesterday_count)
     trend = {
         "id": col,
         "type": VARS[col]["type"],
