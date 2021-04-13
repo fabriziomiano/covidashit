@@ -14,7 +14,7 @@ from flask_pymongo import PyMongo
 from flask_sitemap import Sitemap
 
 from config import config as app_config
-from constants import LANGUAGES, TRANSLATION_DIRNAME
+from settings import LANGUAGES, TRANSLATION_DIRNAME
 
 load_dotenv()
 mongo = PyMongo()
@@ -96,7 +96,7 @@ def create_app():
     from .api import api
     app.register_blueprint(api)
 
-    from app.db.create import (
+    from app.db_utils.create import (
         create_national_collection, create_national_series_collection,
         create_national_trends_collection, create_regional_collection,
         create_regional_breakdown_collection,

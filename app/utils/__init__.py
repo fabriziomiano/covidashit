@@ -1,11 +1,12 @@
 """
-Utils
+Utilities module
 """
 import re
 
 from flask_babel import gettext
 
-from constants import ITALY_MAP, RUBBISH_NOTE_REGEX
+from settings import ITALY_MAP
+from settings.vars import RUBBISH_NOTE_REGEX
 
 
 def region_of_province(province_in: str) -> str:
