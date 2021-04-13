@@ -7,18 +7,25 @@ from pymongo import UpdateOne, InsertOne
 
 from app import celery
 from app.data import TREND_CARDS
-from app.db.etl import load_df, augment_national_df, build_national_series, \
-    build_trend, augment_regional_df, build_series, build_national_trends, \
-    build_regional_breakdown, augment_provincial_df, \
-    build_provincial_breakdowns, build_provincial_trends, \
+from app.db_utils import (
+    NAT_DATA_COLL, NAT_SERIES_COLL, NAT_TRENDS_COLL, REG_DATA_COLL,
+    REG_SERIES_COLL, REG_TRENDS_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL,
+    PROV_BREAKDOWN_COLL, PROV_TRENDS_COLL, PROV_SERIES_COLL, VAX_COLL,
+    VAX_SUMMARY_COLL
+)
+from app.db_utils.etl import (
+    load_df, augment_national_df, build_national_series, build_trend,
+    augment_regional_df, build_series, build_national_trends,
+    build_regional_breakdown, augment_provincial_df,
+    build_provincial_breakdowns, build_provincial_trends,
     build_provincial_series, augment_vax_df, augment_summary_vax_df
-from app.db import NAT_DATA_COLL, NAT_SERIES_COLL, NAT_TRENDS_COLL, \
-    REG_DATA_COLL, REG_SERIES_COLL, REG_TRENDS_COLL, REG_BREAKDOWN_COLL, \
-    PROV_DATA_COLL, PROV_BREAKDOWN_COLL, PROV_TRENDS_COLL, PROV_SERIES_COLL, \
-    VAX_COLL, VAX_SUMMARY_COLL
-from constants import URL_NATIONAL, DATE_KEY, URL_REGIONAL, REGIONS, \
-    REGION_KEY, URL_PROVINCIAL, PROVINCES, PROVINCE_KEY, URL_VAX_DATA, \
-    VAX_DATE_KEY, URL_VAX_ADMINS_SUMMARY_DATA
+)
+from settings import REGIONS, PROVINCES
+from settings.urls import (
+    URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, URL_VAX_DATA,
+    URL_VAX_ADMINS_SUMMARY_DATA
+)
+from settings.vars import REGION_KEY, PROVINCE_KEY, DATE_KEY, VAX_DATE_KEY
 
 
 @celery.task
