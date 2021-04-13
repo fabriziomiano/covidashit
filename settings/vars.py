@@ -1,14 +1,10 @@
 """
-General configuration file
+Variables settings
 """
-import datetime as dt
-import os
 from collections import OrderedDict
 
 from flask_babel import gettext
 
-VERSION = "4.8"
-PAGE_BASE_TITLE = gettext("COVID-19 Italy")
 HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
 DAILY_ICU_KEY = "ingressi_terapia_intensiva"
@@ -64,7 +60,6 @@ OTHER_KEY = "categoria_altro"
 ARMED_FORCES_KEY = "categoria_forze_armate"
 SCHOOL_PERS_KEY = "categoria_personale_scolastico"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
-TRANSLATION_DIRNAME = "translations"
 TREND_SYMBOL_LOGIC = {
     "stable": {
         "colour": "text-info",
@@ -93,7 +88,6 @@ TREND_SYMBOL_LOGIC = {
     }
 }
 VARS = OrderedDict()
-
 # Daily variables
 VARS[NEW_POSITIVE_KEY] = {
     "title": gettext("New Positive"),
@@ -380,246 +374,4 @@ VARS[VAX_SECOND_DOSE_KEY] = {
     "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "vax"
-}
-
-# Data URLs: Pandemic
-BASE_URL_DATA = (
-    "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/"
-)
-NATIONAL_DATA_FILE = (
-    "dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv")
-REGIONAL_DATA_FILE = "dati-regioni/dpc-covid19-ita-regioni.csv"
-PROVINCIAL_DATE_FILE = "dati-province/dpc-covid19-ita-province.csv"
-
-URL_NATIONAL = os.path.join(BASE_URL_DATA, NATIONAL_DATA_FILE)
-URL_REGIONAL = os.path.join(BASE_URL_DATA, REGIONAL_DATA_FILE)
-URL_PROVINCIAL = os.path.join(BASE_URL_DATA, PROVINCIAL_DATE_FILE)
-
-# Data URLs: Vaccines
-BASE_URL_VAX_DATA = (
-    "https://raw.githubusercontent.com/"
-    "italia/covid19-opendata-vaccini/master/dati/"
-)
-VAX_FILE = "somministrazioni-vaccini-latest.csv"
-VAX_ADMINS_SUMMARY_FILE = "somministrazioni-vaccini-summary-latest.csv"
-VAX_SUMMARY_FILE = "vaccini-summary-latest.csv"
-VAX_LATEST_UPDATE_JSON = "last-update-dataset.json"
-URL_VAX_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_FILE)
-URL_VAX_LATEST_UPDATE = os.path.join(BASE_URL_VAX_DATA, VAX_LATEST_UPDATE_JSON)
-URL_VAX_SUMMARY_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_SUMMARY_FILE)
-URL_VAX_ADMINS_SUMMARY_DATA = os.path.join(
-    BASE_URL_VAX_DATA, VAX_ADMINS_SUMMARY_FILE)
-# Key Dates
-LOCKDOWN_DAY = dt.datetime(2020, 3, 22)
-PHASE2_DAY = dt.datetime(2020, 5, 4)
-PHASE3_DAY = dt.datetime(2020, 6, 15)
-CRITICAL_AREAS_DAY = dt.datetime(2020, 11, 6)
-VACCINE_DAY = dt.datetime(2020, 12, 27)
-
-# Key Periods
-KEY_PERIODS = OrderedDict()
-KEY_PERIODS["lockdown"] = {
-    "title": gettext("Lockdown"),
-    "text": gettext('Days in Lockdown'),
-    "color": "red",
-    "from": LOCKDOWN_DAY,
-    "to": PHASE2_DAY,
-    "n_days": (PHASE2_DAY - LOCKDOWN_DAY).days
-}
-KEY_PERIODS["phase2"] = {
-    "title": gettext("Phase 2"),
-    "text": gettext('Days in "Phase 2"'),
-    "color": "orange",
-    "from": PHASE2_DAY,
-    "to": PHASE3_DAY,
-    "n_days": (PHASE3_DAY - PHASE2_DAY).days,
-}
-KEY_PERIODS["phase3"] = {
-    "title": gettext("Phase 3"),
-    "text": gettext('Days in "Phase 3"'),
-    "color": "green",
-    "from": PHASE3_DAY,
-    "to": CRITICAL_AREAS_DAY,
-    "n_days": (CRITICAL_AREAS_DAY - PHASE3_DAY).days,
-}
-KEY_PERIODS["critical_areas"] = {
-    "title": gettext("Critical Areas"),
-    "text": gettext('Days since "Critical areas"'),
-    "color": "red",
-    "from": CRITICAL_AREAS_DAY,
-    "to": dt.datetime.today(),
-    "n_days": (dt.datetime.today() - CRITICAL_AREAS_DAY).days
-}
-KEY_PERIODS["vaccine_day"] = {
-    "title": gettext("Vaccine day"),
-    "text": gettext('Days since "Vaccine day"'),
-    "color": "blue",
-    "from": VACCINE_DAY,
-    "to": dt.datetime.today(),
-    "n_days": (dt.datetime.today() - VACCINE_DAY).days
-}
-
-LANGUAGES = {
-    "en": "English",
-    "it_IT": "Italiano"
-}
-
-ITALY_MAP = {
-    'Abruzzo': ['Chieti', "L'Aquila", 'Pescara', 'Teramo'],
-    'Basilicata': ['Matera', 'Potenza'],
-    'Calabria': ['Catanzaro',
-                 'Cosenza',
-                 'Crotone',
-                 'Reggio di Calabria',
-                 'Vibo Valentia'],
-    'Campania': ['Avellino', 'Benevento', 'Caserta', 'Napoli', 'Salerno'],
-    'Emilia-Romagna': ['Bologna',
-                       'Ferrara',
-                       'Forlì-Cesena',
-                       'Modena',
-                       'Parma',
-                       'Piacenza',
-                       'Ravenna',
-                       "Reggio nell'Emilia",
-                       'Rimini'],
-    'Friuli Venezia Giulia': ['Gorizia', 'Pordenone', 'Trieste', 'Udine'],
-    'Lazio': ['Frosinone', 'Latina', 'Rieti', 'Roma', 'Viterbo'],
-    'Liguria': ['Genova', 'Imperia', 'La Spezia', 'Savona'],
-    'Lombardia': ['Bergamo',
-                  'Brescia',
-                  'Como',
-                  'Cremona',
-                  'Lecco',
-                  'Lodi',
-                  'Mantova',
-                  'Milano',
-                  'Monza e della Brianza',
-                  'Pavia',
-                  'Sondrio',
-                  'Varese'],
-    'Marche': ['Ancona', 'Ascoli Piceno', 'Fermo', 'Macerata',
-               'Pesaro e Urbino'],
-    'Molise': ['Campobasso', 'Isernia'],
-    'Piemonte': ['Alessandria',
-                 'Asti',
-                 'Biella',
-                 'Cuneo',
-                 'Novara',
-                 'Torino',
-                 'Verbano-Cusio-Ossola',
-                 'Vercelli'],
-    'Puglia': ['Bari',
-               'Barletta-Andria-Trani',
-               'Brindisi',
-               'Lecce',
-               'Foggia',
-               'Taranto'],
-    'Sardegna': ['Cagliari',
-                 'Nuoro',
-                 'Sassari',
-                 'Sud Sardegna'],
-    'Sicilia': ['Agrigento',
-                'Caltanissetta',
-                'Catania',
-                'Enna',
-                'Messina',
-                'Palermo',
-                'Ragusa',
-                'Siracusa',
-                'Trapani'],
-    'Toscana': ['Arezzo',
-                'Firenze',
-                'Grosseto',
-                'Livorno',
-                'Lucca',
-                'Massa Carrara',
-                'Pisa',
-                'Pistoia',
-                'Prato',
-                'Siena'],
-    'P.A. Bolzano': [],
-    'P.A. Trento': [],
-    'Umbria': ['Perugia', 'Terni'],
-    "Valle d'Aosta": ['Aosta'],
-    'Veneto': ['Belluno',
-               'Padova',
-               'Rovigo',
-               'Treviso',
-               'Venezia',
-               'Verona',
-               'Vicenza']
-}
-REGIONS = [key for key in ITALY_MAP]
-PROVINCES = [p for pp in ITALY_MAP.values() for p in pp]
-ITALY_POPULATION = {
-    'Piemonte': 4311217,
-    "Valle d'Aosta": 125034,
-    'Lombardia': 10027602,
-    'P.A. Bolzano': 532250,
-    'P.A. Trento': 542214,
-    'Veneto': 4879133,
-    'Friuli Venezia Giulia': 1206216,
-    'Liguria': 1524826,
-    'Emilia-Romagna': 4464119,
-    'Toscana': 3692555,
-    'Umbria': 870165,
-    'Marche': 1512672,
-    'Lazio': 5755700,
-    'Abruzzo': 1293941,
-    'Molise': 300516,
-    'Campania': 5712143,
-    'Puglia': 3953305,
-    'Basilicata': 553254,
-    'Calabria': 1894110,
-    'Sicilia': 4875290,
-    'Sardegna': 1611621,
-    'Italia': 59641488
-}
-PC_TO_OD_MAP = {
-    'Italia': 'ITA',
-    'Abruzzo': 'ABR',
-    'Basilicata': 'BAS',
-    'Calabria': 'CAL',
-    'Campania': 'CAM',
-    'Emilia-Romagna': 'EMR',
-    'Friuli Venezia Giulia': 'FVG',
-    'Lazio': 'LAZ',
-    'Liguria': 'LIG',
-    'Lombardia': 'LOM',
-    'Marche': 'MAR',
-    'Molise': 'MOL',
-    'P.A. Bolzano': 'PAB',
-    'P.A. Trento': 'PAT',
-    'Piemonte': 'PIE',
-    'Puglia': 'PUG',
-    'Sardegna': 'SAR',
-    'Sicilia': 'SIC',
-    'Toscana': 'TOS',
-    'Umbria': 'UMB',
-    "Valle d'Aosta": 'VDA',
-    'Veneto': 'VEN',
-}
-OD_TO_PC_MAP = {
-    'ITA': 'Italia',
-    'ABR': 'Abruzzo',
-    'BAS': 'Basilicata',
-    'CAL': 'Calabria',
-    'CAM': 'Campania',
-    'EMR': 'Emilia-Romagna',
-    'FVG': 'Friuli Venezia Giulia',
-    'LAZ': 'Lazio',
-    'LIG': 'Liguria',
-    'LOM': 'Lombardia',
-    'MAR': 'Marche',
-    'MOL': 'Molise',
-    'PAB': 'P.A. Bolzano',
-    'PAT': 'P.A. Trento',
-    'PIE': 'Piemonte',
-    'PUG': 'Puglia',
-    'SAR': 'Sardegna',
-    'SIC': 'Sicilia',
-    'TOS': 'Toscana',
-    'UMB': 'Umbria',
-    'VDA': "Valle d'Aosta",
-    'VEN': 'Veneto'
 }
