@@ -527,7 +527,6 @@ def get_admins_per_provider_chart_data(area=None):
     else:
         pipe = [group, sort]
     data = list(VAX_COLL.aggregate(pipeline=pipe))
-    app.logger.info(f"BLA {data}")
     return [{'name': d['_id'], 'y': d['tot']} for d in data]
 
 
