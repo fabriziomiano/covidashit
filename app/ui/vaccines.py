@@ -13,7 +13,7 @@ from app.data import (
     get_admins_per_provider_chart_data, get_vax_trends
 )
 from app.ui import vaccines
-from constants import PAGE_BASE_TITLE, ITALY_POPULATION, PC_TO_OD_MAP, REGIONS
+from settings import PAGE_BASE_TITLE, REGIONS, ITALY_POPULATION, PC_TO_OD_MAP
 
 URL_VACCINES = "/vaccines"
 view_type = 'vaccines'

@@ -6,15 +6,15 @@ import time
 from flask import render_template, redirect
 from flask_babel import gettext
 
-from app.ui import pandemic
-from app.utils import region_of_province
 from app.data import (
     get_notes, get_national_trends, get_regional_trends,
     get_provincial_trends, get_regional_breakdown, get_provincial_breakdown,
     get_national_series, get_regional_series, get_provincial_series,
     get_positivity_idx, get_latest_update, enrich_frontend_data
 )
-from constants import REGIONS, PROVINCES, ITALY_MAP, PAGE_BASE_TITLE
+from app.ui import pandemic
+from app.utils import region_of_province
+from settings import PAGE_BASE_TITLE, ITALY_MAP, REGIONS, PROVINCES
 
 URL_REGIONS = "/regions"
 URL_PROVINCES = "/provinces"
