@@ -5,7 +5,7 @@ from flask import jsonify, request, Response, current_app as app
 from flask_github_signature import verify_signature
 
 from app.api import api
-from app.db.tasks import (
+from app.db_utils.tasks import (
     update_national_collection, update_national_series_collection,
     update_national_trends_collection, update_regional_collection,
     update_regional_series_collection, update_regional_trends_collection,

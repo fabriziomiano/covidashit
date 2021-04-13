@@ -1,5 +1,5 @@
 """
-DB Module
+DB-Utils module
 """
 import os
 

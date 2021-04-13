@@ -80,7 +80,7 @@
 
     {# per category #}
     let adminsPerCategoryData = {{ cat_chart_data|safe }};
-    let adminsPerCategorySeriesName = "% {{ gettext('Vaccinated') }}";
+    let adminsPerCategorySeriesName = "{{ gettext('Doses administered') }}";
     let adminsPerCategoryTitle = "{{ gettext('Admins per category') }} | " + area;
 
     {# per provider #}
