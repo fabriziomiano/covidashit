@@ -12,8 +12,8 @@ from flask_babel import gettext
 from app.db_utils import (
     NAT_DATA_COLL, NAT_TRENDS_COLL, NAT_SERIES_COLL, REG_DATA_COLL,
     REG_TRENDS_COLL, REG_SERIES_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL,
-    PROV_TRENDS_COLL, PROV_SERIES_COLL, PROV_BREAKDOWN_COLL, VAX_COLL,
-    VAX_SUMMARY_COLL
+    PROV_TRENDS_COLL, PROV_SERIES_COLL, PROV_BREAKDOWN_COLL, VAX_ADMINS_COLL,
+    VAX_ADMINS_SUMMARY_COLL
 )
 from app.utils import rubbish_notes, translate_series_lang
 from settings import (
@@ -314,7 +314,7 @@ def get_tot_admins(dtype, area=None):
         else:
             pipe = [{'$group': {'_id': '{}', 'tot': {'$sum': f'${dtype}'}}}]
         try:
-            cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
+            cursor = VAX_ADMINS_SUMMARY_COLL.aggregate(pipeline=pipe)
             tot_adms = next(cursor)['tot']
         except Exception as e:
             app.logger.error(f"While getting total admins: {e}")
@@ -337,7 +337,7 @@ def get_age_chart_data(area=None):
             pipe = [match, group, sort]
         else:
             pipe = [group, sort]
-        cursor = VAX_COLL.aggregate(pipeline=pipe)
+        cursor = VAX_ADMINS_COLL.aggregate(pipeline=pipe)
         data = list(cursor)
         df = pd.DataFrame(data)
         categories = df['_id'].values.tolist()
@@ -345,7 +345,7 @@ def get_age_chart_data(area=None):
         chart_data = {
             "categories": categories,
             "admins_per_age": [{
-                'name': gettext("Vaccinated"),
+                'name': gettext("Doses administered"),
                 'data': admins_per_age
             }]
         }
@@ -387,7 +387,7 @@ def get_category_chart_data(area=None):
         }
         pipe = [group]
     try:
-        cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
+        cursor = VAX_ADMINS_SUMMARY_COLL.aggregate(pipeline=pipe)
         doc = next(cursor)
         app.logger.debug(f"Category chart data: f{doc}")
         chart_data = [
@@ -421,7 +421,7 @@ def get_region_chart_data(tot_admins=1):
             },
             {'$sort': {'tot': -1}}
         ]
-        cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
+        cursor = VAX_ADMINS_SUMMARY_COLL.aggregate(pipeline=pipe)
         data = list(cursor)
         app.logger.debug(f"Per region data: {data}")
         df = pd.DataFrame(data)
@@ -485,7 +485,7 @@ def get_admins_timeseries_chart_data():
             {'$match': {VAX_AREA_KEY: {'$ne': 'ITA'}}},
             {'$sort': {VAX_DATE_KEY: 1}}
         ]
-        cursor = VAX_SUMMARY_COLL.aggregate(pipeline=pipe)
+        cursor = VAX_ADMINS_SUMMARY_COLL.aggregate(pipeline=pipe)
         data = list(cursor)
         df = pd.DataFrame(data)
         dates = df[VAX_DATE_KEY].apply(
@@ -526,7 +526,7 @@ def get_admins_per_provider_chart_data(area=None):
         pipe = [match, group, sort]
     else:
         pipe = [group, sort]
-    data = list(VAX_COLL.aggregate(pipeline=pipe))
+    data = list(VAX_ADMINS_COLL.aggregate(pipeline=pipe))
     return [{'name': d['_id'], 'y': d['tot']} for d in data]
 
 
@@ -561,7 +561,7 @@ def get_vax_trends_data(area=None):
             {"$sort": {"_id": -1}},
             {'$limit': 2}
         ]
-    data = list(VAX_COLL.aggregate(pipeline=pipe))
+    data = list(VAX_ADMINS_COLL.aggregate(pipeline=pipe))
     return data
 
 

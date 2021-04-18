@@ -11,7 +11,7 @@ from app.db_utils.tasks import (
     update_regional_series_collection, update_regional_trends_collection,
     update_regional_breakdown_collection, update_provincial_collection,
     update_provincial_breakdown_collection,
-    update_provincial_series_or_trends_collection, update_vax_collection
+    update_provincial_series_or_trends_collection, update_vax_collections
 )
 from app.plotter import Plotter, validate_plot_request
 
@@ -125,11 +125,11 @@ update_menu = {
     },
     'vax': {
         'root': {
-            'task': update_vax_collection,
+            'task': update_vax_collections,
             'args': None
         },
         'summary': {
-            'task': update_vax_collection,
+            'task': update_vax_collections,
             'args': True
         }
     }

@@ -103,53 +103,52 @@ def clean_df(df):
     return df
 
 
-def augment_national_df(df):
+def preprocess_national_df(df):
     """
-    Augment the national PC DataFrame:
+    Preprocess the national PC DataFrame:
      add the delta, the percentages, and the positivity index
     :param df: pd.DataFrame
     :return: pd.DataFrame
     """
-    df_augmented = df.copy()
-    df_augmented = add_delta(df_augmented)
-    df_augmented = add_moving_avg(df_augmented)
-    df_augmented = add_percentages(df_augmented)
-    df_augmented = add_positivity_idx(df_augmented)
-    df_augmented = clean_df(df_augmented)
-    return df_augmented
+    df = add_delta(df)
+    df = add_moving_avg(df)
+    df = add_percentages(df)
+    df = add_positivity_idx(df)
+    df = clean_df(df)
+    return df
 
 
-def augment_regional_df(df):
+def preprocess_regional_df(df):
     """
-    Augment the regional PC DataFrame:
+    Preprocess the regional PC DataFrame:
      add the delta, the percentages, and the positivity index to every
      region sub-df
     :param df: pd.DataFrame
     :return: pd.DataFrame
     """
     dfs = []
-    for cr in set(df[REGION_CODE]):
-        df_region = df[df[REGION_CODE] == cr].copy()
+    for rc in df[REGION_CODE].unique():
+        df_region = df[df[REGION_CODE] == rc].copy()
         df_region = add_delta(df_region)
         df_region = add_moving_avg(df_region)
         df_region = add_percentages(df_region)
         df_region = add_positivity_idx(df_region)
         dfs.append(df_region)
-    df_augmented = pd.concat(dfs)
-    df_augmented = clean_df(df_augmented)
-    return df_augmented
+    out_df = pd.concat(dfs)
+    out_df = clean_df(out_df)
+    return out_df
 
 
-def augment_provincial_df(df):
+def preprocess_provincial_df(df):
     """
-    Augment the provincial PC DataFrame:
+    Preprocess the provincial PC DataFrame:
      add the new positive and the relevant percentage
     :param df: pd.DataFrame
     :return: pd.DataFrame
     """
     dfs = []
-    for cp in set(df[PROVINCE_CODE]):
-        dfp = df[df[PROVINCE_CODE] == cp].copy()
+    for pc in df[PROVINCE_CODE].unique():
+        dfp = df[df[PROVINCE_CODE] == pc].copy()
         dfp[NEW_POSITIVE_KEY] = dfp[TOTAL_CASES_KEY].diff()
         df_new_pos_diff = dfp[NEW_POSITIVE_KEY].diff()
         dfp["nuovi_positivi_perc"] = df_new_pos_diff.div(
@@ -159,9 +158,9 @@ def augment_provincial_df(df):
                     dfp[TOTAL_CASES_KEY].shift(1).abs()) * 100)
         dfp = add_moving_avg(dfp)
         dfs.append(dfp)
-    df_augmented = pd.concat(dfs)
-    df_augmented = clean_df(df_augmented)
-    return df_augmented
+    out_df = pd.concat(dfs)
+    out_df = clean_df(out_df)
+    return out_df
 
 
 def build_trend(df, col):
@@ -178,10 +177,10 @@ def build_trend(df, col):
     yesterday_count = df[col].to_numpy()[-2]
     try:
         df[perc_col].dropna(inplace=True)
-        p = df[perc_col].to_numpy()[-1]
-        percentage = "{0:+}%".format(round(p))
+        percentage = df[perc_col].to_numpy()[-1]
+        percentage_str = "{0:+}%".format(round(percentage))
     except (OverflowError, TypeError):
-        percentage = "n/a"
+        percentage_str = "n/a"
     if count < yesterday_count:
         status = "decrease"
     if count > yesterday_count:
@@ -202,7 +201,7 @@ def build_trend(df, col):
         "icon": VARS[col]["icon"],
         "status_icon": VARS[col][status]["icon"],
         "tooltip": VARS[col][status]["tooltip"],
-        "percentage_difference": percentage,
+        "percentage_difference": percentage_str,
         "yesterday_count": yesterday_count
     }
     return trend
@@ -232,7 +231,7 @@ def build_regional_trends(df):
     :return: list
     """
     trends = []
-    for cr in set(df[REGION_CODE]):
+    for cr in df[REGION_CODE].unique():
         df_r = df[df[REGION_CODE] == cr].copy()
         trend = {
             REGION_KEY: df_r[REGION_KEY].to_numpy()[-1],
@@ -249,7 +248,7 @@ def build_provincial_trends(df):
     :return: list
     """
     trends = []
-    for cp in set(df[PROVINCE_CODE]):
+    for cp in df[PROVINCE_CODE].unique():
         province_trends = []
         df_province = df[df[PROVINCE_CODE] == cp].copy()
         for col in PROV_TREND_CARDS:
@@ -276,8 +275,8 @@ def build_regional_breakdown(df):
     sub_url = 'regions'
     for col in TREND_CARDS:
         breakdown[col] = []
-        for code in set(df[REGION_CODE]):
-            df_area = df[df[REGION_CODE] == code].copy()
+        for rc in df[REGION_CODE].unique():
+            df_area = df[df[REGION_CODE] == rc].copy()
             area = df_area[REGION_KEY].to_numpy()[-1]
             if area not in REGIONS:
                 continue
@@ -300,8 +299,8 @@ def build_provincial_breakdowns(df):
     :return: list
     """
     breakdowns = []
-    for cr in set(df[REGION_CODE]):
-        df_region = df[df[REGION_CODE] == cr].copy()
+    for rc in df[REGION_CODE].unique():
+        df_region = df[df[REGION_CODE] == rc].copy()
         region = df_region[REGION_KEY].to_numpy()[-1]
         if region not in REGIONS:
             continue
@@ -311,7 +310,7 @@ def build_provincial_breakdowns(df):
         }
         for col in PROV_TREND_CARDS:
             breakdown["breakdowns"][col] = []
-            for cp in set(df_region[PROVINCE_CODE]):
+            for cp in df_region[PROVINCE_CODE].unique():
                 df_province = df_region[df_region[PROVINCE_CODE] == cp].copy()
                 province = df_province[PROVINCE_KEY].to_numpy()[-1]
                 if province not in PROVINCES:
@@ -343,7 +342,7 @@ def build_series(df):
         {
             "id": col,
             "name": VARS[col]["title"],
-            "data": df[col].to_numpy().tolist()
+            "data": df[col].tolist()
         }
         for col in DAILY_QUANTITIES
     ], key=lambda x: max(x[DATE_KEY]), reverse=True)
@@ -351,7 +350,7 @@ def build_series(df):
         {
             "id": col,
             "name": VARS[col]["title"],
-            "data": df[col].to_numpy().tolist()
+            "data": df[col].tolist()
         }
         for col in CUM_QUANTITIES
     ], key=lambda x: max(x[DATE_KEY]), reverse=True)
@@ -359,7 +358,7 @@ def build_series(df):
         {
             "id": col,
             "name": VARS[col]["title"],
-            "data": df[col].to_numpy().tolist()
+            "data": df[col].tolist()
         }
         for col in NON_CUM_QUANTITIES
     ], key=lambda x: max(x[DATE_KEY]), reverse=True)
@@ -390,7 +389,7 @@ def build_regional_series(df):
     :return: list
     """
     regional_series = []
-    for cr in set(df[REGION_CODE]):
+    for cr in df[REGION_CODE].unique():
         df_area = df[df[REGION_CODE] == cr].copy()
         series = build_series(df_area)
         regional_series.append({
@@ -410,7 +409,7 @@ def build_provincial_series(df):
     :return: list
     """
     provincial_series = []
-    for cp in set(df[PROVINCE_CODE]):
+    for cp in df[PROVINCE_CODE].unique():
         df_area = df[df[PROVINCE_CODE] == cp].copy()
         dates = df_area[DATE_KEY].apply(
             lambda x: x.strftime(CHART_DATE_FMT)).tolist()
@@ -438,7 +437,7 @@ def build_provincial_series(df):
     return provincial_series
 
 
-def augment_vax_df(df):
+def preprocess_vax_admins_df(df):
     """
     Return a modified version of the input df.
     Add two columns '_id' and 'totale'.
@@ -459,7 +458,7 @@ def augment_vax_df(df):
     return df
 
 
-def augment_summary_vax_df(df):
+def preprocess_vax_admins_summary_df(df):
     """
     Return a modified version of the input df.
     Add two columns '_id' and POP_TOT_KEY.

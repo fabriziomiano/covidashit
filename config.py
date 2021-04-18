@@ -10,7 +10,6 @@ load_dotenv()
 
 class BaseConfig(object):
     """Base config class."""
-    API_KEY = os.environ.get('API_KEY')
     REDIS_URL = os.environ.get('REDIS_URL')
     MONGO_URI = os.environ.get('MONGO_URI')
     SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS = True
