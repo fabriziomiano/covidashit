@@ -10,19 +10,20 @@ from app.data import TREND_CARDS
 from app.db_utils import (
     NAT_DATA_COLL, NAT_SERIES_COLL, NAT_TRENDS_COLL, REG_DATA_COLL,
     REG_SERIES_COLL, REG_TRENDS_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL,
-    PROV_BREAKDOWN_COLL, PROV_TRENDS_COLL, PROV_SERIES_COLL, VAX_COLL,
-    VAX_SUMMARY_COLL
+    PROV_BREAKDOWN_COLL, PROV_TRENDS_COLL, PROV_SERIES_COLL, VAX_ADMINS_COLL,
+    VAX_ADMINS_SUMMARY_COLL
 )
 from app.db_utils.etl import (
-    load_df, augment_national_df, build_national_series, build_trend,
-    augment_regional_df, build_series, build_national_trends,
-    build_regional_breakdown, augment_provincial_df,
+    load_df, preprocess_national_df, build_national_series, build_trend,
+    preprocess_regional_df, build_series, build_national_trends,
+    build_regional_breakdown, preprocess_provincial_df,
     build_provincial_breakdowns, build_provincial_trends,
-    build_provincial_series, augment_vax_df, augment_summary_vax_df
+    build_provincial_series, preprocess_vax_admins_df,
+    preprocess_vax_admins_summary_df
 )
 from settings import REGIONS, PROVINCES
 from settings.urls import (
-    URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, URL_VAX_DATA,
+    URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, URL_VAX_ADMINS_DATA,
     URL_VAX_ADMINS_SUMMARY_DATA
 )
 from settings.vars import REGION_KEY, PROVINCE_KEY, DATE_KEY, VAX_DATE_KEY
@@ -34,7 +35,7 @@ def update_national_collection():
     response = {"status": "ko", "n_inserted_docs": 0, "errors": []}
     try:
         df = load_df(URL_NATIONAL)
-        df = augment_national_df(df)
+        df = preprocess_national_df(df)
         df['_id'] = df[DATE_KEY]
         inserted_ids = []
         records_in_db = list(NAT_DATA_COLL.find())
@@ -68,7 +69,7 @@ def update_national_series_collection():
     """Update national series collection"""
     response = {"status": "ko", "updated": False, "errors": []}
     df = load_df(URL_NATIONAL)
-    df = augment_national_df(df)
+    df = preprocess_national_df(df)
     df['_id'] = df[DATE_KEY]
     national_series = build_national_series(df)
     cursor = NAT_SERIES_COLL.find({})
@@ -93,7 +94,7 @@ def update_national_trends_collection():
     """Update national trends collection"""
     response = {"ids": [], "updated": False, "errors": []}
     df = load_df(URL_NATIONAL)
-    df = augment_national_df(df)
+    df = preprocess_national_df(df)
     n_docs = 0
     for col in TREND_CARDS:
         response["status"] = "ok"
@@ -123,7 +124,7 @@ def update_regional_collection():
     response = {"status": "ko", "updated": False, "errors": [], "msg": ""}
     try:
         df = load_df(URL_REGIONAL)
-        df = augment_regional_df(df)
+        df = preprocess_regional_df(df)
         latest_dt = df[DATE_KEY].max()
         cursor = REG_DATA_COLL.find().sort(DATE_KEY, -1).limit(1)
         latest_dt_db = cursor.next()[DATE_KEY]
@@ -157,7 +158,7 @@ def update_regional_series_collection():
     updated = False
     try:
         df = load_df(URL_REGIONAL)
-        df = augment_regional_df(df)
+        df = preprocess_regional_df(df)
         for r in REGIONS:
             _filter = {REGION_KEY: r}
             r_series = build_series(df[df[REGION_KEY] == r])
@@ -197,7 +198,7 @@ def update_regional_trends_collection():
     response = {"status": "ko", "regions": [], "updated": False, "errors": []}
     try:
         df = load_df(URL_REGIONAL)
-        df = augment_regional_df(df)
+        df = preprocess_regional_df(df)
         for r in REGIONS:
             _filter = {REGION_KEY: r}
             update = {
@@ -231,7 +232,7 @@ def update_regional_breakdown_collection():
     response = {"status": "ko", "updated": False, "errors": []}
     try:
         df = load_df(URL_REGIONAL)
-        df = augment_regional_df(df)
+        df = preprocess_regional_df(df)
         breakdown = build_regional_breakdown(df)
         try:
             doc = REG_BREAKDOWN_COLL.find().next()
@@ -260,7 +261,7 @@ def update_provincial_collection():
     inserted_ids = []
     try:
         df = load_df(URL_PROVINCIAL)
-        df = augment_provincial_df(df)
+        df = preprocess_provincial_df(df)
         latest_dt = df[DATE_KEY].max()
         cursor = PROV_DATA_COLL.find().sort(DATE_KEY, -1).limit(1)
         latest_dt_db = next(cursor)[DATE_KEY]
@@ -296,7 +297,7 @@ def update_provincial_breakdown_collection():
         df = load_df(URL_PROVINCIAL)
         pattern = "|".join(PROVINCES)
         df = df[df[PROVINCE_KEY].str.contains(pattern)]
-        df = augment_provincial_df(df)
+        df = preprocess_provincial_df(df)
         breakdowns = build_provincial_breakdowns(df)
         for b in breakdowns:
             _filter = {REGION_KEY: b[REGION_KEY]}
@@ -329,7 +330,7 @@ def update_provincial_series_or_trends_collection(coll_type):
     df = load_df(URL_PROVINCIAL)
     pattern = "|".join(PROVINCES)
     df = df[df[PROVINCE_KEY].str.contains(pattern)]
-    df = augment_provincial_df(df)
+    df = preprocess_provincial_df(df)
     if coll_type == "trends":
         records = build_provincial_trends(df)
         coll = PROV_TRENDS_COLL
@@ -364,20 +365,20 @@ def update_provincial_series_or_trends_collection(coll_type):
 
 
 @celery.task
-def update_vax_collection(summary=False):
+def update_vax_collections(summary=False):
     """Update vax / vax_summary collection"""
     response = {"status": "ko", "n_inserted_docs": 0, "errors": []}
     operations = []
     if not summary:
-        collection = VAX_COLL
-        url = URL_VAX_DATA
+        collection = VAX_ADMINS_COLL
+        url = URL_VAX_ADMINS_DATA
         df = pd.read_csv(url, parse_dates=[VAX_DATE_KEY])
-        df = augment_vax_df(df)
+        df = preprocess_vax_admins_df(df)
     else:
-        collection = VAX_SUMMARY_COLL
+        collection = VAX_ADMINS_SUMMARY_COLL
         url = URL_VAX_ADMINS_SUMMARY_DATA
         df = pd.read_csv(url, parse_dates=[VAX_DATE_KEY])
-        df = augment_summary_vax_df(df)
+        df = preprocess_vax_admins_summary_df(df)
     try:
         for index, row in df.iterrows():
             _id = row['_id']

@@ -89,79 +89,6 @@ def create_app():
     celery.config_from_object(app.config)
     celery.conf.update(app.config.get("CELERY_CONFIG", {}))
 
-    from .ui import pandemic, vaccines
-    app.register_blueprint(pandemic)
-    app.register_blueprint(vaccines)
-
-    from .api import api
-    app.register_blueprint(api)
-
-    from app.db_utils.create import (
-        create_national_collection, create_national_series_collection,
-        create_national_trends_collection, create_regional_collection,
-        create_regional_breakdown_collection,
-        create_regional_series_collection,
-        create_regional_trends_collection, create_provincial_collections,
-        create_provincial_breakdown_collection,
-        create_provincial_series_collection,
-        create_provincial_trends_collection, create_vax_collection
-    )
-
-    creation_menu = {
-        "national": {
-            'args': None,
-            'func': create_national_collection
-        },
-        "regional": {
-            'args': None,
-            'func': create_regional_collection
-        },
-        "provincial": {
-            'args': None,
-            'func': create_provincial_collections
-        },
-        "national_trends": {
-            'args': None,
-            'func': create_national_trends_collection
-        },
-        "regional_trends": {
-            'args': None,
-            'func': create_regional_trends_collection
-        },
-        "provincial_trends": {
-            'args': None,
-            'func': create_provincial_trends_collection
-        },
-        "regional_breakdown": {
-            'args': None,
-            'func': create_regional_breakdown_collection
-        },
-        "provincial_breakdown": {
-            'args': None,
-            'func': create_provincial_breakdown_collection
-        },
-        "national_series": {
-            'args': None,
-            'func': create_national_series_collection
-        },
-        "regional_series": {
-            'args': None,
-            'func': create_regional_series_collection
-        },
-        "provincial_series": {
-            'args': None,
-            'func': create_provincial_series_collection
-        },
-        "vax": {
-            'args': None,
-            'func': create_vax_collection
-        },
-        "vax_summary": {
-            'args': True,
-            'func': create_vax_collection
-        }
-    }
-
     @app.after_request
     def add_header(r):
         """
@@ -174,28 +101,49 @@ def create_app():
         r.headers["Cache-Control"] = "public, max-age=0"
         return r
 
+    from .ui import pandemic, vaccines
+    app.register_blueprint(pandemic)
+    app.register_blueprint(vaccines)
+
+    from .api import api
+    app.register_blueprint(api)
+
+    from app.db_utils.create import CollectionCreator
+    cc = CollectionCreator()
+
+    creation_menu = {
+        "national": cc.create_national_collection,
+        "regional": cc.create_regional_collection,
+        "provincial": cc.create_provincial_collections,
+        "national-trends": cc.create_national_trends_collection,
+        "regional-trends": cc.create_regional_trends_collection,
+        "provincial-trends": cc.create_provincial_trends_collection,
+        "regional-breakdown": cc.create_regional_breakdown_collection,
+        "provincial-breakdown": cc.create_provincial_breakdown_collection,
+        "national-series": cc.create_national_series_collection,
+        "regional-series": cc.create_regional_series_collection,
+        "provincial-series": cc.create_provincial_series_collection,
+        "vax-admins": cc.create_vax_admins_collection,
+        "vax-admins-summary": cc.create_vax_admins_summary_collection
+    }
+
     @app.cli.command("create-collections")
     def populate_db():
         """Populate all the collections needed on mongoDB"""
         for _type in creation_menu:
-            args = creation_menu[_type]['args']
-            func = creation_menu[_type]['func']
-            func() if not args else func(args)
+            creation_menu[_type]()
 
     @app.cli.command("create")
     @click.argument("collection_type")
     def populate_collection(collection_type):
-        """
-        Populate a collection_type on mongoDB.
-        Choose one of the following:
-        "national", "regional", "provincial", "latest_regional",
-        "latest_provincial", "national_trends", "regional_trends",
-        "provincial_trends", "regional_breakdown", "provincial_breakdown",
-        "national_series", "regional_series", "provincial_series",
-        "vax", "vax_summary"
-        """
-        args = creation_menu[collection_type]['args']
-        func = creation_menu[collection_type]['func']
-        func() if not args else func(args)
+        """Populate a collection type on the DB"""
+        allowed_types = [k for k in creation_menu]
+        try:
+            creation_menu[collection_type]()
+        except KeyError:
+            app.logger.error(
+                f"Invalid collection type: {collection_type}. " +
+                "Allowed types: [" + ", ".join(a for a in allowed_types) + "]"
+            )
 
     return app
