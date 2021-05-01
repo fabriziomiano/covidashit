@@ -185,7 +185,7 @@ let adminsPerCategory = {
             dataLabels: {
                 enabled: true,
                 format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                // distance: -50
+                // distance: -1
             }
         }
     },
@@ -224,7 +224,7 @@ let adminsPerProvider = {
             dataLabels: {
                 enabled: true,
                 format: '{point.name}: <b>{point.percentage:.1f}%</b>',
-                distance: -50
+                // distance: -1
             }
         }
     },
