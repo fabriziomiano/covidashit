@@ -9,28 +9,15 @@
 
         <!-- Top-page data -->
         <div class="container-fluid">
-            <div class="row">
 
-                <div class="col-12 col-md-8 col-lg-8">
-                    <!-- Area accordion -->
-                    <div class="accordion mb-2" id="areasAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header"
-                                id="flush-headingOne">
-                                <button class="accordion-button text-uppercase collapsed"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseOne"
-                                        aria-expanded="false"
-                                        aria-controls="flush-collapseOne">
-                                    <i class="fas fa-syringe me-2"></i>{{ dashboard_title }}
-                                </button>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
+            <div class="row align-items-center">
 
-                <div class="col-12 col-md-4 col-lg-4">
+                <div class="col- col-md-6 col-lg-6">
+
+                    <!-- Page heading -->
+                    <h2>
+                        <i class="fas fa-syringe me-2"></i>{{ dashboard_title }}
+                    </h2>
                     <!-- Latest update -->
                     <p class="small mb-0 text-info">
                         <i class="fas fa-bullhorn me-2"></i>{{ _("Latest update: ") }}{{ latest_update }}
@@ -51,7 +38,7 @@
 
                     <!-- % people vaccinated -->
                     <p class="small mb-0 text-danger">
-                        <i class="fas fa-user-shield me-2"></i>% {{ _("People Vaccinated: ") }}
+                        <i class="fas fa-user-shield me-2"></i>% {{ _("People vaccinated: ") }}
                         <strong>
                             {{ perc_pop_vax }}
                             <i class="fas fa-info-circle"
@@ -61,15 +48,33 @@
                             </i>
                         </strong>
                     </p>
+                    <!-- progress bar -->
                     <div class="progress mb-1" style="height: 5px;">
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
                              role="progressbar"
-                             aria-valuenow="{{ perc_pop_vax.split('%')[0] }}"
                              aria-valuemin="0" aria-valuemax="100"
                              style="width: {{ perc_pop_vax }}">
                         </div>
                     </div>
+                </div>
 
+                <div class="col- col-md-6 col-lg-6">
+                    <!-- Area accordion -->
+                    <div class="accordion mb-2" id="areasAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header"
+                                id="flush-headingOne">
+                                <button class="accordion-button text-uppercase collapsed"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseOne"
+                                        aria-expanded="false"
+                                        aria-controls="flush-collapseOne">
+                                    {{ ("Regions") }}
+                                </button>
+                            </h2>
+                        </div>
+                    </div>
                 </div>
 
             </div>
