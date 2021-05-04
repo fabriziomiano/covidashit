@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-04-13 15:04+0200\n"
-"PO-Revision-Date: 2021-04-13 15:05+0200\n"
+"POT-Creation-Date: 2021-05-04 22:14+0200\n"
+"PO-Revision-Date: 2021-05-04 22:15+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -16,12 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/data.py:348
-msgid "Vaccinated"
-msgstr "Vaccinati"
+#: app/data.py:348 app/templates/vaccines/charts.html:83
+#: app/templates/vaccines/charts.html:88
+msgid "Doses administered"
+msgstr "Dosi somministrate"
 
 #: app/data.py:394
 msgid "title"
@@ -40,11 +41,19 @@ msgstr "Atteso"
 msgid "Counts"
 msgstr "Conteggi"
 
-#: app/templates/pandemic.html:44
+#: app/templates/pandemic.html:30
 msgid "Positive Rate: "
 msgstr "Indice di positività: "
 
-#: app/templates/pandemic.html:131 app/templates/vaccines.html:118
+#: app/templates/pandemic.html:56
+msgid "Provinces"
+msgstr "Province"
+
+#: app/templates/pandemic.html:56 app/templates/vaccines.html:73
+msgid "Regions"
+msgstr "Regioni"
+
+#: app/templates/pandemic.html:129 app/templates/vaccines.html:123
 msgid ""
 "This project is <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> and it is hosted on an Heroku paid dyno."
@@ -52,7 +61,7 @@ msgstr ""
 "Questo progetto è <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> ed utilizza un piano a pagamento su Heroku."
 
-#: app/templates/pandemic.html:132
+#: app/templates/pandemic.html:130
 msgid " Thanks for donating &#128513;"
 msgstr " Le donazioni sono ben accette &#128513;"
 
@@ -73,27 +82,27 @@ msgstr "Bisogna fare attenzione e mettere la mascherina!"
 msgid "Back to COVIDash"
 msgstr "Torna alla Home"
 
-#: app/templates/vaccines.html:36
+#: app/templates/vaccines.html:23
 msgid "Latest update: "
 msgstr "Ultimo aggiornamento: "
 
-#: app/templates/vaccines.html:41
+#: app/templates/vaccines.html:28
 msgid "Total administered:"
 msgstr "Tot somministrazioni:"
 
-#: app/templates/vaccines.html:47
+#: app/templates/vaccines.html:34
 msgid "Percentage of administered doses wrt the delivered ones"
 msgstr "Percentuale delle dosi somministrate rispetto a quelle ricevute"
 
-#: app/templates/vaccines.html:54
-msgid "People Vaccinated: "
+#: app/templates/vaccines.html:41
+msgid "People vaccinated: "
 msgstr "Popolazione Vaccinata: "
 
-#: app/templates/vaccines.html:60
+#: app/templates/vaccines.html:47
 msgid "Based on the second dose"
 msgstr "Sulla base della seconda dose"
 
-#: app/templates/vaccines.html:119
+#: app/templates/vaccines.html:124
 msgid "Thanks for donating &#128513;"
 msgstr "Le donazioni sono ben accette &#128513;"
 
@@ -308,10 +317,6 @@ msgstr ""
 #: app/templates/vaccines/charts.html:78
 msgid "Admins per age"
 msgstr "Somministrazioni per età"
-
-#: app/templates/vaccines/charts.html:83 app/templates/vaccines/charts.html:88
-msgid "Doses administered"
-msgstr "Dosi somministrate"
 
 #: app/templates/vaccines/charts.html:84
 msgid "Admins per category"
@@ -613,6 +618,9 @@ msgstr "Prime somministrazioni giornaliere"
 msgid "Daily Second administrations"
 msgstr "Seconde somministrazioni giornaliere"
 
+#~ msgid "Vaccinated"
+#~ msgstr "Vaccinati"
+
 #~ msgid "Added new categories of people;"
 #~ msgstr "Aggiunte nuove categorie vaccinati;"
 
@@ -648,9 +656,6 @@ msgstr "Seconde somministrazioni giornaliere"
 
 #~ msgid "Start typing"
 #~ msgstr "Inizia a scrivere"
-
-#~ msgid "Regions"
-#~ msgstr "Regioni"
 
 #~ msgid "No data provided"
 #~ msgstr "Nessun dato fornito"
@@ -1044,9 +1049,6 @@ msgstr "Seconde somministrazioni giornaliere"
 
 #~ msgid "National Trend"
 #~ msgstr "Trend Nazionale"
-
-#~ msgid "Provinces"
-#~ msgstr "Province"
 
 #, fuzzy
 #~| msgid "Daily deaths"
