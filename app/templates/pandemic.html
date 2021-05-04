@@ -47,13 +47,13 @@
                         <div class="accordion mb-2" id="areasAccordion">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-headingOne">
-                                    <button class="accordion-button text-uppercase collapsed"
+                                    <button class="accordion-button collapsed"
                                             type="button"
                                             data-bs-toggle="collapse"
                                             data-bs-target="#flush-collapseOne"
                                             aria-expanded="false"
                                             aria-controls="flush-collapseOne">
-                                        {% if area in regions %}{{ ("Provinces") }}{% else %}{{ ("Regions") }}{% endif %}
+                                        {% if area in regions %}{{ _("Provinces") }}{% else %}{{ _("Regions") }}{% endif %}
                                     </button>
                                 </h2>
                             </div>
