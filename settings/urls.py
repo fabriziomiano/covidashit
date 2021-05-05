@@ -26,3 +26,15 @@ URL_VAX_LATEST_UPDATE = os.path.join(BASE_URL_VAX_DATA, VAX_LATEST_UPDATE)
 URL_VAX_SUMMARY_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_SUMMARY_FILE)
 URL_VAX_ADMINS_SUMMARY_DATA = os.path.join(
     BASE_URL_VAX_DATA, VAX_ADMINS_SUMMARY_FILE)
+URL_ISTAT_IT_POP = (
+    "http://sdmx.istat.it/SDMXWS/rest/data/"
+    "22_289/"
+    ".TOTAL."
+    "ITC1+ITC2+ITC3+ITC4+"
+    "ITD1+ITD2+ITD3+ITD4+ITD5+"
+    "ITE1+ITE2+ITE3+ITE4+"
+    "ITF1+ITF2+ITF3+ITF4+ITF5+ITF6+"
+    "ITG1+ITG2"
+    ".9.99../"
+    "?startPeriod=2021&format=csv"
+)
