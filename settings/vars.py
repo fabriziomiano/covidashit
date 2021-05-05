@@ -29,6 +29,7 @@ REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
 REGION_CODE = "codice_regione"
 PROVINCE_CODE = "codice_provincia"
+NUTS_KEY = 'codice_nuts_2'
 VAX_LATEST_UPDATE_KEY = "ultimo_aggiornamento"
 CP_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 VAX_DATE_FMT = "%Y-%m-%dT%H:%M:%S.%f%z"
@@ -60,6 +61,8 @@ OTHER_KEY = "categoria_altro"
 ARMED_FORCES_KEY = "categoria_forze_armate"
 SCHOOL_PERS_KEY = "categoria_personale_scolastico"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
+NUTS_ISTAT_KEY = 'ITTER107'
+POP_ISTAT_KEY = 'OBS_VALUE'
 TREND_SYMBOL_LOGIC = {
     "stable": {
         "colour": "text-info",
