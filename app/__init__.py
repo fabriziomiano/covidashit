@@ -124,7 +124,8 @@ def create_app():
         "regional-series": cc.create_regional_series_collection,
         "provincial-series": cc.create_provincial_series_collection,
         "vax-admins": cc.create_vax_admins_collection,
-        "vax-admins-summary": cc.create_vax_admins_summary_collection
+        "vax-admins-summary": cc.create_vax_admins_summary_collection,
+        "istat-population": cc.create_istat_pop_collection
     }
 
     @app.cli.command("create-collections")
