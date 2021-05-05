@@ -35,14 +35,15 @@ def national_vax_view():
         latest_update=get_latest_vax_update(),
         tot_admins_str="{:,d}".format(tot_admins),
         tot_admins=tot_admins,
-        admins_perc=f"{get_admins_perc()}%",
-        perc_pop_vax=f"{perc_pop_vax}%",
+        admins_perc=get_admins_perc(),
+        perc_pop_vax=perc_pop_vax,
         age_chart_data=get_age_chart_data(),
         cat_chart_data=get_category_chart_data(),
         region_chart_data=get_region_chart_data(tot_admins=tot_admins),
         admins_timeseries_data=get_admins_timeseries_chart_data(),
         provider_chart_data=get_admins_per_provider_chart_data(),
-        trends=get_vax_trends()
+        trends=get_vax_trends(),
+        population="{:,d}".format(population)
     )
     return render_template("vaccines.html", **report_data)
 
@@ -70,8 +71,8 @@ def regional_vax_view(region):
         latest_update=get_latest_vax_update(),
         tot_admins_str="{:,d}".format(tot_admins),
         tot_admins=tot_admins,
-        admins_perc=f"{get_admins_perc(area=area)}%",
-        perc_pop_vax=f"{perc_pop_vax}%",
+        admins_perc=get_admins_perc(area=area),
+        perc_pop_vax=perc_pop_vax,
         age_chart_data=get_age_chart_data(area=area),
         cat_chart_data=get_category_chart_data(area=area),
         provider_chart_data=get_admins_per_provider_chart_data(area),
@@ -80,6 +81,7 @@ def regional_vax_view(region):
         areas_length=len(REGIONS),
         area_index=region_index,
         area=region,
-        trends=get_vax_trends(area)
+        trends=get_vax_trends(area),
+        population="{:,d}".format(population)
     )
     return render_template("vaccines.html", **report_data)
