@@ -266,8 +266,12 @@ def get_perc_pop_vax(population, area=None):
     :param area: str
     :return: float
     """
-    tot_admins = get_tot_admins(dtype='seconda_dose', area=area)
-    return round(((int(tot_admins) / population) * 100), 2)
+    tot_1st_admins = get_tot_admins(dtype=VAX_FIRST_DOSE_KEY, area=area)
+    tot_2nd_admins = get_tot_admins(dtype=VAX_SECOND_DOSE_KEY, area=area)
+    return {
+        'first': round(((int(tot_1st_admins) / population) * 100), 1),
+        'second': round(((int(tot_2nd_admins) / population) * 100), 1)
+    }
 
 
 def enrich_frontend_data(area=None, **data):
@@ -468,7 +472,7 @@ def get_admins_perc(area=None):
         if area is None:
             admins_perc = round(
                 (df[ADMINS_DOSES_KEY].sum() /
-                 df[DELIVERED_DOSES_KEY].sum() * 100), 2)
+                 df[DELIVERED_DOSES_KEY].sum() * 100), 1)
         else:
             df = df[df[VAX_AREA_KEY] == area]
             admins_perc = df[VAX_ADMINS_PERC_KEY].values[0]
@@ -478,7 +482,10 @@ def get_admins_perc(area=None):
 
 
 def get_admins_timeseries_chart_data():
-    """Return the daily administrations time series"""
+    """
+    Return admins timeseries data to frontend
+    :return: dict
+    """
     chart_data = {}
     try:
         pipe = [
@@ -493,7 +500,7 @@ def get_admins_timeseries_chart_data():
         data = [{
             'name': OD_TO_PC_MAP[r],
             'data': (
-                    df[df[VAX_AREA_KEY] == r][VAX_SECOND_DOSE_KEY].cumsum() /
+                    df[df[VAX_AREA_KEY] == r][VAX_FIRST_DOSE_KEY].cumsum() /
                     df[df[VAX_AREA_KEY] == r][POP_KEY] * 100
             ).round(2).to_list()
         } for r in sorted(df[VAX_AREA_KEY].unique())]
