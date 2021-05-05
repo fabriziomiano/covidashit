@@ -14,7 +14,9 @@ from app.data import (
 )
 from app.ui import pandemic
 from app.utils import region_of_province
-from settings import PAGE_BASE_TITLE, ITALY_MAP, REGIONS, PROVINCES
+from settings import (
+    PAGE_BASE_TITLE, ITALY_MAP, REGIONS, PROVINCES, ITALY_POPULATION
+)
 
 URL_REGIONS = "/regions"
 URL_PROVINCES = "/provinces"
@@ -39,6 +41,7 @@ def national_view():
     notes = get_notes(notes_type=data_type)
     updated_at = get_latest_update(data_type=data_type)
     positivity_idx = get_positivity_idx(area_type=data_type)
+    population = ITALY_POPULATION['Italia']
     data = enrich_frontend_data(
         page_title=PAGE_BASE_TITLE,
         dashboard_title=gettext("Italy"),
@@ -49,7 +52,9 @@ def national_view():
         breakdown=breakdown,
         positivity_idx=positivity_idx,
         data_type=data_type,
-        notes=notes)
+        notes=notes,
+        population="{:,d}".format(population)
+    )
     return render_template("pandemic.html", **data)
 
 
@@ -73,6 +78,7 @@ def regional_view(region):
     provinces = ITALY_MAP[region]
     region_index = REGIONS.index(region)
     previous_url = f"{URL_REGIONS}/{REGIONS[region_index - 1]}"
+    population = ITALY_POPULATION[region]
     try:
         next_region_url = f"{URL_REGIONS}/{REGIONS[region_index + 1]}"
     except IndexError:
@@ -94,7 +100,8 @@ def regional_view(region):
         areas_length=len(REGIONS),
         area_index=region_index,
         data_type=data_type,
-        cards=cards
+        cards=cards,
+        population="{:,d}".format(population)
     )
     dashboard_data = enrich_frontend_data(area=region, **view_data)
     return render_template("pandemic.html", **dashboard_data)

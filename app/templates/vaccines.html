@@ -18,16 +18,36 @@
                     <h2>
                         <i class="fas fa-syringe me-2"></i>{{ dashboard_title }}
                     </h2>
+                    <!-- progress bar -->
+                    <div class="progress mb-1" style="height: 15px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                             role="progressbar"
+                             aria-valuenow="{{ perc_pop_vax.second }}"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             style="width: {{ perc_pop_vax.second }}%">
+                            {{ perc_pop_vax.second|round(1) }}%
+                        </div>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                             role="progressbar"
+                             aria-valuenow="{{ perc_pop_vax.first }}"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             style="width: {{ perc_pop_vax.first }}%">
+                            {{ perc_pop_vax.first|round(1) }}%
+                        </div>
+                    </div>
                     <!-- Latest update -->
                     <p class="small mb-0 text-info">
-                        <i class="fas fa-bullhorn me-2"></i>{{ _("Latest update: ") }}{{ latest_update }}
+                        <i class="fas fa-bullhorn me-2"></i>{{ _("Latest update: ") }}
+                        <strong>{{ latest_update }}</strong>
                     </p>
 
                     <!-- Total Administrations -->
-                    <p class="small mb-0 text-primary">
-                        <i class="fas fa-syringe me-2"></i>{{ _("Total administered:") }}
+                    <p class="small mb-0 text-dark">
+                        <i class="fas fa-syringe me-2"></i>{{ _("Tot. administered:") }}
                         <strong>
-                            {{ tot_admins_str }} &nbsp; {{ admins_perc }}
+                            {{ tot_admins_str }} &nbsp; {{ admins_perc }}%
                             <i class="fas fa-info-circle"
                                data-toggle="tooltip"
                                data-placement="auto"
@@ -37,10 +57,18 @@
                     </p>
 
                     <!-- % people vaccinated -->
-                    <p class="small mb-0 text-danger">
-                        <i class="fas fa-user-shield me-2"></i>% {{ _("People vaccinated: ") }}
-                        <strong>
-                            {{ perc_pop_vax }}
+                    <p class="small mb-0 text-success">
+                        <i class="fas fa-user-shield me-2"></i>{{ _("Pop. vaccinated:") }}
+                        <strong class="text-primary">
+                            {{ perc_pop_vax.first }}%
+                            <i class="fas fa-info-circle"
+                               data-toggle="tooltip"
+                               data-placement="auto"
+                               title="{{ _("Based on the first dose") }}">
+                            </i>
+                        </strong>&nbsp;
+                        <strong class="text-success">
+                            {{ perc_pop_vax.second }}%
                             <i class="fas fa-info-circle"
                                data-toggle="tooltip"
                                data-placement="auto"
@@ -48,17 +76,15 @@
                             </i>
                         </strong>
                     </p>
-                    <!-- progress bar -->
-                    <div class="progress mb-1" style="height: 5px;">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                             role="progressbar"
-                             aria-valuemin="0" aria-valuemax="100"
-                             style="width: {{ perc_pop_vax }}">
-                        </div>
-                    </div>
                 </div>
 
                 <div class="col- col-md-6 col-lg-6">
+
+                    <!-- population -->
+                    <p class="small mb-0 text-dark">
+                        <i class="fas fa-users me-2"></i>{{ _("Population:") }} <strong>{{ population }}</strong>
+                    </p>
+
                     <!-- Area accordion -->
                     <div class="accordion mb-2" id="areasAccordion">
                         <div class="accordion-item">
