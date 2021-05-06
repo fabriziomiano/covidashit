@@ -15,15 +15,14 @@ from app.db_utils.etl import (
     build_national_trends, build_regional_trends, build_provincial_trends,
     build_regional_breakdown, build_provincial_breakdowns,
     build_national_series, build_regional_series, build_provincial_series,
-    COLUMNS_TO_DROP, preprocess_vax_admins_df, preprocess_vax_admins_summary_df
+    COLUMNS_TO_DROP, preprocess_vax_admins_df,
+    preprocess_vax_admins_summary_df, create_istat_population_df
 )
 from settings.urls import (
     URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, URL_VAX_ADMINS_DATA,
-    URL_VAX_ADMINS_SUMMARY_DATA, URL_ISTAT_IT_POP
+    URL_VAX_ADMINS_SUMMARY_DATA
 )
-from settings.vars import (
-    REGION_KEY, DATE_KEY, VAX_DATE_KEY, NUTS_KEY, POP_ISTAT_KEY, NUTS_ISTAT_KEY
-)
+from settings.vars import DATE_KEY, VAX_DATE_KEY
 
 
 class CollectionCreator:
@@ -216,40 +215,10 @@ class CollectionCreator:
     @staticmethod
     def create_istat_pop_collection():
         """Create italy population collection from ISTAT data"""
-        app.logger.info("Creating ISTAT Italy population collection")
         try:
-            df_istat = pd.read_csv(
-                URL_ISTAT_IT_POP,
-                usecols=[NUTS_ISTAT_KEY, POP_ISTAT_KEY]
-            )
-            df_istat[NUTS_ISTAT_KEY] = df_istat[NUTS_ISTAT_KEY].apply(
-                lambda x: x.replace('ITD', 'ITH')).apply(
-                lambda x: x.replace('ITE', 'ITI')
-            )
-            pipe = {
-                'match': {'$match': {NUTS_KEY: {'$ne': 0}}},
-                'group': {
-                    '$group': {
-                        '_id': {
-                            NUTS_KEY: f'${NUTS_KEY}',
-                            REGION_KEY: f'${REGION_KEY}'
-                        }
-                    }
-                }
-            }
-            df_db = pd.json_normalize(
-                list(REG_DATA_COLL.aggregate([v for v in pipe.values()]))
-            )
-            pop_df = df_istat.merge(
-                df_db,
-                left_on=NUTS_ISTAT_KEY,
-                right_on=f'_id.{NUTS_KEY}'
-            )
-            pop_df = pop_df[[POP_ISTAT_KEY, f'_id.{REGION_KEY}']]
-            pop_df = pop_df.rename(columns={
-                f'_id.{REGION_KEY}': REGION_KEY
-            })
+            pop_df = create_istat_population_df()
             records = pop_df.to_dict(orient='records')
+            app.logger.info("Creating ISTAT Italy population collection")
             IT_POP_COLL.drop()
             IT_POP_COLL.insert_many(records)
         except Exception as e:
