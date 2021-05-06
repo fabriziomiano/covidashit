@@ -1,5 +1,11 @@
 version: '3'
 services:
+  mongo:
+    image: mongo
+
+  redis:
+    image: redis
+
   app:
     build: .
     env_file:
@@ -8,5 +14,17 @@ services:
       - "${PORT}:${PORT}"
     links:
       - redis
-  redis:
-    image: redis
+
+  worker:
+    build:
+      context: "."
+    command: celery -A celery_worker.celery worker --concurrency 4
+    depends_on:
+      - redis
+
+  beat:
+    build:
+      context: "."
+    command: celery -A celery_worker.celery beat
+    depends_on:
+      - redis
