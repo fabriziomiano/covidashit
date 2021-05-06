@@ -8,10 +8,10 @@ from pymongo import UpdateOne, InsertOne
 from app import celery
 from app.data import TREND_CARDS
 from app.db_utils import (
-    NAT_DATA_COLL, NAT_SERIES_COLL, NAT_TRENDS_COLL, REG_DATA_COLL,
-    REG_SERIES_COLL, REG_TRENDS_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL,
-    PROV_BREAKDOWN_COLL, PROV_TRENDS_COLL, PROV_SERIES_COLL, VAX_ADMINS_COLL,
-    VAX_ADMINS_SUMMARY_COLL
+    nat_data_coll, nat_series_coll, nat_trends_coll, reg_data_coll,
+    reg_series_coll, reg_trends_coll, reg_bdown_coll, prov_data_coll,
+    prov_bdown_coll, prov_trends_coll, prov_series_coll, vax_admins_coll,
+    vax_admins_summary_coll, it_pop_coll
 )
 from app.db_utils.etl import (
     load_df, preprocess_national_df, build_national_series, build_trend,
@@ -19,14 +19,16 @@ from app.db_utils.etl import (
     build_regional_breakdown, preprocess_provincial_df,
     build_provincial_breakdowns, build_provincial_trends,
     build_provincial_series, preprocess_vax_admins_df,
-    preprocess_vax_admins_summary_df
+    preprocess_vax_admins_summary_df, create_istat_population_df
 )
 from settings import REGIONS, PROVINCES
 from settings.urls import (
     URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, URL_VAX_ADMINS_DATA,
     URL_VAX_ADMINS_SUMMARY_DATA
 )
-from settings.vars import REGION_KEY, PROVINCE_KEY, DATE_KEY, VAX_DATE_KEY
+from settings.vars import (
+    REGION_KEY, PROVINCE_KEY, DATE_KEY, VAX_DATE_KEY, POP_ISTAT_KEY
+)
 
 
 @celery.task
@@ -38,25 +40,25 @@ def update_national_collection():
         df = preprocess_national_df(df)
         df['_id'] = df[DATE_KEY]
         inserted_ids = []
-        records_in_db = list(NAT_DATA_COLL.find())
+        records_in_db = list(nat_data_coll.find())
         if records_in_db:
             df_mongo = pd.DataFrame(records_in_db)
             common = df.merge(df_mongo, on=[DATE_KEY])
             df_to_db = df[(~df[DATE_KEY].isin(common[DATE_KEY]))]
             if not df_to_db.empty:
                 new_records = df_to_db.to_dict(orient='records')
-                r = NAT_DATA_COLL.insert_many(new_records, ordered=True)
+                r = nat_data_coll.insert_many(new_records, ordered=True)
                 inserted_ids.extend(r.inserted_ids)
                 response["n_inserted_docs"] = len(inserted_ids)
                 response["inserted_ids"] = inserted_ids
         else:
-            msg = f"Filling empty {NAT_DATA_COLL.name}"
+            msg = f"Filling empty {nat_data_coll.name}"
             app.logger.warning(msg)
-            r = NAT_DATA_COLL.insert_many(df.to_dict(orient='records'))
+            r = nat_data_coll.insert_many(df.to_dict(orient='records'))
             inserted_ids.extend(r.inserted_ids)
             response["n_inserted_docs"] = len(inserted_ids)
             response["msg"] = msg
-        msg = f"{len(inserted_ids)} docs updated in {NAT_DATA_COLL.name}"
+        msg = f"{len(inserted_ids)} docs updated in {nat_data_coll.name}"
         app.logger.warning(msg)
         response["status"] = "ok"
     except Exception as e:
@@ -72,18 +74,18 @@ def update_national_series_collection():
     df = preprocess_national_df(df)
     df['_id'] = df[DATE_KEY]
     national_series = build_national_series(df)
-    cursor = NAT_SERIES_COLL.find({})
+    cursor = nat_series_coll.find({})
     try:
         doc = cursor.next()
         mongo_id = doc['_id']
         _filter, update = {'_id': mongo_id}, {"$set": national_series}
-        r = NAT_SERIES_COLL.update_one(_filter, update, upsert=True)
-        msg = f"Updated {NAT_SERIES_COLL.name}"
+        r = nat_series_coll.update_one(_filter, update, upsert=True)
+        msg = f"Updated {nat_series_coll.name}"
         app.logger.warning(msg)
         response["status"], response["updated"] = "ok", r.acknowledged
     except StopIteration:
-        r = NAT_SERIES_COLL.insert_one(national_series)
-        msg = f"Filled empty collection {NAT_SERIES_COLL.name}"
+        r = nat_series_coll.insert_one(national_series)
+        msg = f"Filled empty collection {nat_series_coll.name}"
         response["status"], response["updated"] = "ok", r.acknowledged
     response["msg"] = msg
     return response
@@ -101,7 +103,7 @@ def update_national_trends_collection():
         try:
             _filter = {'id': col}
             trend = {"$set": build_trend(df, col)}
-            results = NAT_TRENDS_COLL.update_one(_filter, trend, upsert=True)
+            results = nat_trends_coll.update_one(_filter, trend, upsert=True)
             if results.modified_count:
                 n_docs += 1
                 response["ids"].append(col)
@@ -111,7 +113,7 @@ def update_national_trends_collection():
             app.logger.error(f"{e}")
             continue
     response["n_docs"] = n_docs
-    msg = f"{n_docs} docs updated in {NAT_TRENDS_COLL.name}"
+    msg = f"{n_docs} docs updated in {nat_trends_coll.name}"
     app.logger.warning(msg)
     response["msg"] = msg
     return response
@@ -126,19 +128,19 @@ def update_regional_collection():
         df = load_df(URL_REGIONAL)
         df = preprocess_regional_df(df)
         latest_dt = df[DATE_KEY].max()
-        cursor = REG_DATA_COLL.find().sort(DATE_KEY, -1).limit(1)
+        cursor = reg_data_coll.find().sort(DATE_KEY, -1).limit(1)
         latest_dt_db = cursor.next()[DATE_KEY]
         if latest_dt.date() == latest_dt_db.date():
             msg = "DB up-to-date"
             app.logger.warning(msg)
         else:
             df = df[df[DATE_KEY] > latest_dt_db]
-            msg = f"Latest data missing in {REG_DATA_COLL.name} ! Updating..."
+            msg = f"Latest data missing in {reg_data_coll.name} ! Updating..."
             app.logger.warning(msg)
             new_records = df.to_dict(orient='records')
-            r = REG_DATA_COLL.insert_many(new_records, ordered=True)
+            r = reg_data_coll.insert_many(new_records, ordered=True)
             inserted_ids.extend(r.inserted_ids)
-            msg = f"{len(inserted_ids)} docs updated in {REG_DATA_COLL.name}"
+            msg = f"{len(inserted_ids)} docs updated in {reg_data_coll.name}"
             response["updated"] = True
         response["status"], response["msg"] = "ok", msg
         app.logger.warning(msg)
@@ -171,17 +173,17 @@ def update_regional_series_collection():
                     "cum": r_series[3]
                 }
             }
-            results = REG_SERIES_COLL.update_one(_filter, update, upsert=True)
+            results = reg_series_coll.update_one(_filter, update, upsert=True)
             if results.modified_count:
                 n_docs += 1
                 response["regions"].append(r)
                 response["n_docs"] = n_docs
                 response["updated"] = results.acknowledged
                 updated = True
-        msg = f"{n_docs} docs updated in {REG_DATA_COLL.name}"
+        msg = f"{n_docs} docs updated in {reg_data_coll.name}"
         response["msg"] = msg
         if not updated:
-            msg = f"Nothing to update in {REG_SERIES_COLL.name}"
+            msg = f"Nothing to update in {reg_series_coll.name}"
             response["msg"] = msg
         response["status"] = "ok"
         app.logger.warning(msg)
@@ -207,16 +209,16 @@ def update_regional_trends_collection():
                     "trends": build_national_trends(df[df[REGION_KEY] == r])
                 }
             }
-            results = REG_TRENDS_COLL.update_one(_filter, update, upsert=True)
+            results = reg_trends_coll.update_one(_filter, update, upsert=True)
             if results.modified_count:
                 n_docs += 1
                 response["regions"].append(r)
                 response["n_docs"] = n_docs
                 response["updated"] = results.acknowledged
-        msg = f"{n_docs} docs updated in {REG_TRENDS_COLL.name}"
+        msg = f"{n_docs} docs updated in {reg_trends_coll.name}"
         response["msg"] = msg
         if not response["updated"]:
-            msg = f"Nothing to update in {REG_TRENDS_COLL.name}"
+            msg = f"Nothing to update in {reg_trends_coll.name}"
             response["msg"] = msg
         response["status"] = "ok"
         app.logger.warning(msg)
@@ -235,12 +237,12 @@ def update_regional_breakdown_collection():
         df = preprocess_regional_df(df)
         breakdown = build_regional_breakdown(df)
         try:
-            doc = REG_BREAKDOWN_COLL.find().next()
+            doc = reg_bdown_coll.find().next()
             mongo_id = doc["_id"]
             _filter = {"_id": mongo_id}
             update = {"$set": breakdown}
-            res = REG_BREAKDOWN_COLL.update_one(_filter, update, upsert=True)
-            msg = f"Updated regional breakdown in {REG_BREAKDOWN_COLL.name}"
+            res = reg_bdown_coll.update_one(_filter, update, upsert=True)
+            msg = f"Updated regional breakdown in {reg_bdown_coll.name}"
             response["updated"], response["msg"] = res.acknowledged, msg
             response["status"] = "ok"
             app.logger.warning(msg)
@@ -263,19 +265,19 @@ def update_provincial_collection():
         df = load_df(URL_PROVINCIAL)
         df = preprocess_provincial_df(df)
         latest_dt = df[DATE_KEY].max()
-        cursor = PROV_DATA_COLL.find().sort(DATE_KEY, -1).limit(1)
+        cursor = prov_data_coll.find().sort(DATE_KEY, -1).limit(1)
         latest_dt_db = next(cursor)[DATE_KEY]
         if latest_dt.date() == latest_dt_db.date():
             msg = "DB up-to-date"
             app.logger.warning(msg)
         else:
-            msg = f"Latest data missing in {PROV_DATA_COLL.name}! Updating..."
+            msg = f"Latest data missing in {prov_data_coll.name}! Updating..."
             app.logger.warning(msg)
             df = df[df[DATE_KEY] > latest_dt_db]
             new_records = df.to_dict(orient='records')
-            r = PROV_DATA_COLL.insert_many(new_records, ordered=True)
+            r = prov_data_coll.insert_many(new_records, ordered=True)
             inserted_ids.extend(r.inserted_ids)
-            msg = f"{len(inserted_ids)} docs updated in {PROV_DATA_COLL.name}"
+            msg = f"{len(inserted_ids)} docs updated in {prov_data_coll.name}"
             response["updated"] = True
         response["status"], response["msg"] = "ok", msg
         app.logger.warning(msg)
@@ -302,16 +304,16 @@ def update_provincial_breakdown_collection():
         for b in breakdowns:
             _filter = {REGION_KEY: b[REGION_KEY]}
             update = {"$set": b}
-            res = PROV_BREAKDOWN_COLL.update_one(_filter, update, upsert=True)
+            res = prov_bdown_coll.update_one(_filter, update, upsert=True)
             if res.modified_count:
                 n_docs += 1
                 response["regions"].append(b[REGION_KEY])
                 response["n_docs"] = n_docs
                 response["updated"] = res.acknowledged
                 updated = True
-        msg = f"Updated {n_docs} docs in {PROV_BREAKDOWN_COLL.name}"
+        msg = f"Updated {n_docs} docs in {prov_bdown_coll.name}"
         if not updated:
-            msg = f"Nothing to update in {PROV_BREAKDOWN_COLL.name}"
+            msg = f"Nothing to update in {prov_bdown_coll.name}"
             app.logger.warning(msg)
         response["status"], response["msg"] = "ok", msg
         app.logger.warning(msg)
@@ -333,10 +335,10 @@ def update_provincial_series_or_trends_collection(coll_type):
     df = preprocess_provincial_df(df)
     if coll_type == "trends":
         records = build_provincial_trends(df)
-        coll = PROV_TRENDS_COLL
+        coll = prov_trends_coll
     elif coll_type == "series":
         records = build_provincial_series(df)
-        coll = PROV_SERIES_COLL
+        coll = prov_series_coll
     else:
         msg = "Invalid collection type"
         app.logger.error(msg)
@@ -353,9 +355,9 @@ def update_provincial_series_or_trends_collection(coll_type):
                 response["n_docs"] = n_docs
                 response["updated"] = results.acknowledged
                 updated = True
-        msg = f"Updated {n_docs} docs in {PROV_BREAKDOWN_COLL.name}"
+        msg = f"Updated {n_docs} docs in {prov_bdown_coll.name}"
         if not updated:
-            msg = f"Nothing to update in {PROV_BREAKDOWN_COLL.name}"
+            msg = f"Nothing to update in {prov_bdown_coll.name}"
         app.logger.warning(msg)
         response["status"], response["msg"] = "ok", msg
     except Exception as e:
@@ -370,12 +372,12 @@ def update_vax_collections(summary=False):
     response = {"status": "ko", "n_inserted_docs": 0, "errors": []}
     operations = []
     if not summary:
-        collection = VAX_ADMINS_COLL
+        collection = vax_admins_coll
         url = URL_VAX_ADMINS_DATA
         df = pd.read_csv(url, parse_dates=[VAX_DATE_KEY])
         df = preprocess_vax_admins_df(df)
     else:
-        collection = VAX_ADMINS_SUMMARY_COLL
+        collection = vax_admins_summary_coll
         url = URL_VAX_ADMINS_SUMMARY_DATA
         df = pd.read_csv(url, parse_dates=[VAX_DATE_KEY])
         df = preprocess_vax_admins_summary_df(df)
@@ -401,3 +403,28 @@ def update_vax_collections(summary=False):
         app.logger.error(f"While updating vax collection: {e}")
         response["errors"], response["msg"] = f"{e}", f"{e}"
     return response
+
+
+@celery.task
+def update_istat_it_population_collection():
+    """Update ISTAT Italy population collection"""
+    ops = []
+    cols = [POP_ISTAT_KEY, REGION_KEY]
+    istat_df = create_istat_population_df()
+    try:
+        df_db = pd.DataFrame(list(it_pop_coll.find({})))
+        df_compare = df_db[cols].compare(istat_df)
+        if not df_compare.empty:
+            new_df = istat_df.loc[df_compare.index.values].reset_index()
+            ids = df_db.loc[df_compare.index.values]['_id'].to_list()
+            for r in it_pop_coll.find({'_id': {'$in': ids}}):
+                mask = new_df[REGION_KEY] == r[REGION_KEY]
+                new_value = new_df[mask].to_dict(orient='records')[0]
+                ops.append(UpdateOne({'_id': r['_id']}, {'$set': new_value}))
+            app.logger.info(f"Updating {len(ops)} region population")
+            results = it_pop_coll.bulk_write(ops)
+            app.logger.info(f"Bulk update result: {results.bulk_api_result}")
+        else:
+            app.logger.info("No region population to update")
+    except Exception as e:
+        app.logger.error(f"While updating italy population collection: {e}")
