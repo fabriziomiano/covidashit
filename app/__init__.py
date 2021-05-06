@@ -119,6 +119,7 @@ def create_app():
     cc = CollectionCreator()
 
     creation_menu = {
+        "istat-population": cc.create_istat_pop_collection,
         "national": cc.create_national_collection,
         "regional": cc.create_regional_collection,
         "provincial": cc.create_provincial_collections,
@@ -131,8 +132,7 @@ def create_app():
         "regional-series": cc.create_regional_series_collection,
         "provincial-series": cc.create_provincial_series_collection,
         "vax-admins": cc.create_vax_admins_collection,
-        "vax-admins-summary": cc.create_vax_admins_summary_collection,
-        "istat-population": cc.create_istat_pop_collection
+        "vax-admins-summary": cc.create_vax_admins_summary_collection
     }
 
     @app.cli.command("create-collections")
