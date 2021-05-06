@@ -6,10 +6,10 @@ from flask import current_app as app
 
 from app.data import (
     CUM_QUANTITIES, NON_CUM_QUANTITIES, DAILY_QUANTITIES, TREND_CARDS,
-    PROV_TREND_CARDS
+    PROV_TREND_CARDS, get_it_pop_dict
 )
-from app.db_utils import REG_DATA_COLL
-from settings import REGIONS, PROVINCES, ITALY_POPULATION, OD_TO_PC_MAP
+from app.db_utils import reg_data_coll
+from settings import REGIONS, PROVINCES, OD_TO_PC_MAP
 from settings.urls import URL_ISTAT_IT_POP
 from settings.vars import (
     NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY, TOTAL_CASES_KEY, DAILY_SWABS_KEY,
@@ -470,6 +470,7 @@ def preprocess_vax_admins_summary_df(df):
     :param df: pandas.DataFrame
     :return: pandas.DataFrame
     """
+    it_population = get_it_pop_dict()
     out_df = pd.DataFrame()
     for r in df[VAX_AREA_KEY].unique():
         reg_df = df[df[VAX_AREA_KEY] == r]
@@ -486,7 +487,7 @@ def preprocess_vax_admins_summary_df(df):
                 lambda x: x.strftime(VAX_DATE_FMT)) + out_df[VAX_AREA_KEY]
     )
     out_df[POP_KEY] = out_df[VAX_AREA_KEY].apply(
-        lambda x: ITALY_POPULATION[OD_TO_PC_MAP[x]])
+        lambda x: it_population[OD_TO_PC_MAP[x]])
     return out_df
 
 
@@ -509,7 +510,7 @@ def create_istat_population_df():
                 NUTS_KEY: f'${NUTS_KEY}', REGION_KEY: f'${REGION_KEY}'}
             }}]
         df_db = pd.json_normalize(
-            list(REG_DATA_COLL.aggregate(pipe))
+            list(reg_data_coll.aggregate(pipe))
         )
         out_df = df_istat.merge(
             df_db,
@@ -520,6 +521,10 @@ def create_istat_population_df():
         out_df = out_df.rename(columns={
             f'_id.{REGION_KEY}': REGION_KEY
         })
+        out_df = out_df.append({
+            POP_ISTAT_KEY: out_df[POP_ISTAT_KEY].sum(),
+            REGION_KEY: 'Italia'
+        }, ignore_index=True)
     except Exception as e:
         app.logger.error(f"While creating ISTAT df: {e}")
     return out_df
