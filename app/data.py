@@ -614,9 +614,13 @@ def get_it_pop_dict():
     Return a region:population dict
     :return: dict
     """
-    records = list(it_pop_coll.find({}))
-    app.logger.info(f"records {records}")
-    return {
-        r[REGION_KEY]: r[POP_ISTAT_KEY]
-        for r in records
-    }
+    it_pop_dict = {}
+    try:
+        records = list(it_pop_coll.find({}))
+        it_pop_dict = {
+            r[REGION_KEY]: r[POP_ISTAT_KEY]
+            for r in records
+        }
+    except Exception as e:
+        app.logger.error(f"While getting IT pop dict: {e}")
+    return it_pop_dict
