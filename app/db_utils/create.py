@@ -5,10 +5,10 @@ import pandas as pd
 from flask import current_app as app
 
 from app.db_utils import (
-    NAT_DATA_COLL, NAT_TRENDS_COLL, NAT_SERIES_COLL, REG_DATA_COLL,
-    REG_TRENDS_COLL, REG_SERIES_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL,
-    PROV_TRENDS_COLL, PROV_SERIES_COLL, PROV_BREAKDOWN_COLL, VAX_ADMINS_COLL,
-    VAX_ADMINS_SUMMARY_COLL, IT_POP_COLL
+    nat_data_coll, nat_trends_coll, nat_series_coll, reg_data_coll,
+    reg_trends_coll, reg_series_coll, reg_bdown_coll, prov_data_coll,
+    prov_trends_coll, prov_series_coll, prov_bdown_coll, vax_admins_coll,
+    vax_admins_summary_coll, it_pop_coll
 )
 from app.db_utils.etl import (
     preprocess_national_df, preprocess_regional_df, preprocess_provincial_df,
@@ -37,8 +37,8 @@ class CollectionCreator:
         national_records = df_national_augmented.to_dict(orient='records')
         try:
             app.logger.info("Creating national collection")
-            NAT_DATA_COLL.drop()
-            NAT_DATA_COLL.insert_many(national_records, ordered=True)
+            nat_data_coll.drop()
+            nat_data_coll.insert_many(national_records, ordered=True)
         except Exception as e:
             app.logger.error(e)
 
@@ -51,8 +51,8 @@ class CollectionCreator:
         national_trends = build_national_trends(df_national_augmented)
         try:
             app.logger.info("Creating national trends collection")
-            NAT_TRENDS_COLL.drop()
-            NAT_TRENDS_COLL.insert_many(national_trends)
+            nat_trends_coll.drop()
+            nat_trends_coll.insert_many(national_trends)
         except Exception as e:
             app.logger.error(e)
 
@@ -65,8 +65,8 @@ class CollectionCreator:
         national_series = build_national_series(df_national_augmented)
         try:
             app.logger.info("Creating national series collection")
-            NAT_SERIES_COLL.drop()
-            NAT_SERIES_COLL.insert_one(national_series)
+            nat_series_coll.drop()
+            nat_series_coll.insert_one(national_series)
         except Exception as e:
             app.logger.error(e)
 
@@ -79,8 +79,8 @@ class CollectionCreator:
         regional_records = df_regional_augmented.to_dict(orient='records')
         try:
             app.logger.info("Creating regional collection")
-            REG_DATA_COLL.drop()
-            REG_DATA_COLL.insert_many(regional_records, ordered=True)
+            reg_data_coll.drop()
+            reg_data_coll.insert_many(regional_records, ordered=True)
         except Exception as e:
             app.logger.error(e)
 
@@ -93,8 +93,8 @@ class CollectionCreator:
         regional_breakdown = build_regional_breakdown(df_regional_augmented)
         try:
             app.logger.info("Creating regional breakdown collection")
-            REG_BREAKDOWN_COLL.drop()
-            REG_BREAKDOWN_COLL.insert_one(regional_breakdown)
+            reg_bdown_coll.drop()
+            reg_bdown_coll.insert_one(regional_breakdown)
         except Exception as e:
             app.logger.error(e)
 
@@ -107,8 +107,8 @@ class CollectionCreator:
         regional_series = build_regional_series(df_regional_augmented)
         try:
             app.logger.info("Creating regional series collection")
-            REG_SERIES_COLL.drop()
-            REG_SERIES_COLL.insert_many(regional_series)
+            reg_series_coll.drop()
+            reg_series_coll.insert_many(regional_series)
         except Exception as e:
             app.logger.error(e)
 
@@ -121,8 +121,8 @@ class CollectionCreator:
         regional_trends = build_regional_trends(df_regional_augmented)
         try:
             app.logger.info("Creating regional trends collection")
-            REG_TRENDS_COLL.drop()
-            REG_TRENDS_COLL.insert_many(regional_trends)
+            reg_trends_coll.drop()
+            reg_trends_coll.insert_many(regional_trends)
         except Exception as e:
             app.logger.error(e)
 
@@ -135,8 +135,8 @@ class CollectionCreator:
         provincial_records = df_provincial_augmented.to_dict(orient='records')
         try:
             app.logger.info("Creating provincial")
-            PROV_DATA_COLL.drop()
-            PROV_DATA_COLL.insert_many(provincial_records, ordered=True)
+            prov_data_coll.drop()
+            prov_data_coll.insert_many(provincial_records, ordered=True)
         except Exception as e:
             app.logger.error(e)
 
@@ -150,8 +150,8 @@ class CollectionCreator:
             df_provincial_augmented)
         try:
             app.logger.info("Creating provincial breakdowns collection")
-            PROV_BREAKDOWN_COLL.drop()
-            PROV_BREAKDOWN_COLL.insert_many(provincial_breakdowns)
+            prov_bdown_coll.drop()
+            prov_bdown_coll.insert_many(provincial_breakdowns)
         except Exception as e:
             app.logger.error(e)
 
@@ -165,8 +165,8 @@ class CollectionCreator:
             df_provincial_augmented)
         try:
             app.logger.info("Creating provincial series collection")
-            PROV_SERIES_COLL.drop()
-            PROV_SERIES_COLL.insert_many(provincial_series)
+            prov_series_coll.drop()
+            prov_series_coll.insert_many(provincial_series)
         except Exception as e:
             app.logger.error(e)
 
@@ -179,8 +179,8 @@ class CollectionCreator:
         provincial_trends = build_provincial_trends(df_provincial_augmented)
         try:
             app.logger.info("Creating provincial trends collection")
-            PROV_TRENDS_COLL.drop()
-            PROV_TRENDS_COLL.insert_many(provincial_trends)
+            prov_trends_coll.drop()
+            prov_trends_coll.insert_many(provincial_trends)
         except Exception as e:
             app.logger.error(e)
 
@@ -192,8 +192,8 @@ class CollectionCreator:
         records = df.to_dict(orient='records')
         try:
             app.logger.info("Creating vax admins collection")
-            VAX_ADMINS_COLL.drop()
-            VAX_ADMINS_COLL.insert_many(records, ordered=True)
+            vax_admins_coll.drop()
+            vax_admins_coll.insert_many(records, ordered=True)
         except Exception as e:
             app.logger.error(f"While creating vax admins collection: {e}")
 
@@ -206,8 +206,8 @@ class CollectionCreator:
         records = df.to_dict(orient='records')
         try:
             app.logger.info("Creating vax admins summary collection")
-            VAX_ADMINS_SUMMARY_COLL.drop()
-            VAX_ADMINS_SUMMARY_COLL.insert_many(records, ordered=True)
+            vax_admins_summary_coll.drop()
+            vax_admins_summary_coll.insert_many(records, ordered=True)
         except Exception as e:
             app.logger.error(
                 f"While creating vax admins summary collection: {e}")
@@ -219,7 +219,7 @@ class CollectionCreator:
             pop_df = create_istat_population_df()
             records = pop_df.to_dict(orient='records')
             app.logger.info("Creating ISTAT Italy population collection")
-            IT_POP_COLL.drop()
-            IT_POP_COLL.insert_many(records)
+            it_pop_coll.drop()
+            it_pop_coll.insert_many(records)
         except Exception as e:
             app.logger.error(f"While creating ISTAT Italy population: {e}")
