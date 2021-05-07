@@ -6,15 +6,17 @@ from flask import current_app as app
 
 from app.data import (
     CUM_QUANTITIES, NON_CUM_QUANTITIES, DAILY_QUANTITIES, TREND_CARDS,
-    PROV_TREND_CARDS
+    PROV_TREND_CARDS, get_it_pop_dict
 )
-from settings import REGIONS, PROVINCES, ITALY_POPULATION, OD_TO_PC_MAP
+from app.db_utils import reg_data_coll
+from settings import REGIONS, PROVINCES, OD_TO_PC_MAP
+from settings.urls import URL_ISTAT_IT_POP
 from settings.vars import (
     NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY, TOTAL_CASES_KEY, DAILY_SWABS_KEY,
     DAILY_POSITIVITY_INDEX, REGION_KEY, PROVINCE_KEY, REGION_CODE,
     PROVINCE_CODE, VAX_DATE_FMT, CHART_DATE_FMT, DATE_KEY, STATE_KEY,
     VAX_DATE_KEY, VAX_AREA_KEY, VAX_TYPE_KEY, VAX_AGE_KEY, POP_KEY, F_SEX_KEY,
-    M_SEX_KEY, VARS
+    M_SEX_KEY, VARS, POP_ISTAT_KEY, NUTS_ISTAT_KEY, NUTS_KEY
 )
 
 COLUMNS_TO_DROP = [STATE_KEY]
@@ -468,6 +470,7 @@ def preprocess_vax_admins_summary_df(df):
     :param df: pandas.DataFrame
     :return: pandas.DataFrame
     """
+    it_population = get_it_pop_dict()
     out_df = pd.DataFrame()
     for r in df[VAX_AREA_KEY].unique():
         reg_df = df[df[VAX_AREA_KEY] == r]
@@ -484,5 +487,44 @@ def preprocess_vax_admins_summary_df(df):
                 lambda x: x.strftime(VAX_DATE_FMT)) + out_df[VAX_AREA_KEY]
     )
     out_df[POP_KEY] = out_df[VAX_AREA_KEY].apply(
-        lambda x: ITALY_POPULATION[OD_TO_PC_MAP[x]])
+        lambda x: it_population[OD_TO_PC_MAP[x]])
+    return out_df
+
+
+def create_istat_population_df():
+    """
+    Create a population df from ISTAT data
+    :return: pd.DataFrame
+    """
+    columns = [NUTS_ISTAT_KEY, POP_ISTAT_KEY]
+    out_df = pd.DataFrame()
+    try:
+        df_istat = pd.read_csv(URL_ISTAT_IT_POP, usecols=columns)
+        df_istat[NUTS_ISTAT_KEY] = df_istat[NUTS_ISTAT_KEY].apply(
+            lambda x: x.replace('ITD', 'ITH')).apply(
+            lambda x: x.replace('ITE', 'ITI')
+        )
+        pipe = [
+            {'$match': {NUTS_KEY: {'$ne': 0}}},
+            {'$group': {'_id': {
+                NUTS_KEY: f'${NUTS_KEY}', REGION_KEY: f'${REGION_KEY}'}
+            }}]
+        df_db = pd.json_normalize(
+            list(reg_data_coll.aggregate(pipe))
+        )
+        out_df = df_istat.merge(
+            df_db,
+            left_on=NUTS_ISTAT_KEY,
+            right_on=f'_id.{NUTS_KEY}'
+        )
+        out_df = out_df[[POP_ISTAT_KEY, f'_id.{REGION_KEY}']]
+        out_df = out_df.rename(columns={
+            f'_id.{REGION_KEY}': REGION_KEY
+        })
+        out_df = out_df.append({
+            POP_ISTAT_KEY: out_df[POP_ISTAT_KEY].sum(),
+            REGION_KEY: 'Italia'
+        }, ignore_index=True)
+    except Exception as e:
+        app.logger.error(f"While creating ISTAT df: {e}")
     return out_df

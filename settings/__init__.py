@@ -147,30 +147,6 @@ ITALY_MAP = {
 }
 REGIONS = [key for key in ITALY_MAP]
 PROVINCES = [p for pp in ITALY_MAP.values() for p in pp]
-ITALY_POPULATION = {
-    'Piemonte': 4273210,
-    "Valle d'Aosta": 123895,
-    'Lombardia': 9966992,
-    'P.A. Bolzano': 533715,
-    'P.A. Trento': 544745,
-    'Veneto': 4852453,
-    'Friuli Venezia Giulia': 1198753,
-    'Liguria': 1509805,
-    'Emilia-Romagna': 4445549,
-    'Toscana': 3668333,
-    'Umbria': 865013,
-    'Marche': 1501406,
-    'Lazio': 5720796,
-    'Abruzzo': 1285256,
-    'Molise': 296547,
-    'Campania': 5679759,
-    'Puglia': 3926931,
-    'Basilicata': 547579,
-    'Calabria': 1877728,
-    'Sicilia': 4840876,
-    'Sardegna': 1598225,
-    'Italia': 59257566
-}
 PC_TO_OD_MAP = {
     'Italia': 'ITA',
     'Abruzzo': 'ABR',

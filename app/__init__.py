@@ -1,6 +1,7 @@
 """
 Flask application factory
 """
+import datetime as dt
 import logging
 import os
 
@@ -88,6 +89,12 @@ def create_app():
     set_favicon_rule(app)
     celery.config_from_object(app.config)
     celery.conf.update(app.config.get("CELERY_CONFIG", {}))
+    celery.conf.beat_schedule = {
+        'run-me-every-ten-seconds': {
+            'task': 'app.db_utils.tasks.update_istat_it_population_collection',
+            'schedule': dt.timedelta(days=1)
+        }
+    }
 
     @app.after_request
     def add_header(r):
@@ -112,6 +119,7 @@ def create_app():
     cc = CollectionCreator()
 
     creation_menu = {
+        "istat-population": cc.create_istat_pop_collection,
         "national": cc.create_national_collection,
         "regional": cc.create_regional_collection,
         "provincial": cc.create_provincial_collections,
