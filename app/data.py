@@ -10,15 +10,15 @@ from flask import current_app as app
 from flask_babel import gettext
 
 from app.db_utils import (
-    NAT_DATA_COLL, NAT_TRENDS_COLL, NAT_SERIES_COLL, REG_DATA_COLL,
-    REG_TRENDS_COLL, REG_SERIES_COLL, REG_BREAKDOWN_COLL, PROV_DATA_COLL,
-    PROV_TRENDS_COLL, PROV_SERIES_COLL, PROV_BREAKDOWN_COLL, VAX_ADMINS_COLL,
-    VAX_ADMINS_SUMMARY_COLL
+    nat_data_coll, nat_trends_coll, nat_series_coll, reg_data_coll,
+    reg_trends_coll, reg_series_coll, reg_bdown_coll, prov_data_coll,
+    prov_trends_coll, prov_series_coll, prov_bdown_coll, vax_admins_coll,
+    vax_admins_summary_coll, it_pop_coll
 )
 from app.utils import rubbish_notes, translate_series_lang
 from settings import (
     VERSION, KEY_PERIODS, ITALY_MAP, REGIONS, PROVINCES,
-    ITALY_POPULATION, OD_TO_PC_MAP
+    OD_TO_PC_MAP
 )
 from settings.urls import URL_VAX_LATEST_UPDATE, URL_VAX_SUMMARY_DATA
 from settings.vars import (
@@ -29,7 +29,7 @@ from settings.vars import (
     VAX_ADMINS_PERC_KEY, VAX_TOT_ADMINS_KEY, VAX_FIRST_DOSE_KEY,
     VAX_SECOND_DOSE_KEY, VAX_PROVIDER_KEY, HEALTHCARE_PERS_KEY,
     NONHEALTHCARE_PERS_KEY, HFE_GUESTS_KEY, OVER_80_KEY, OTHER_KEY,
-    ARMED_FORCES_KEY, SCHOOL_PERS_KEY, VARS
+    ARMED_FORCES_KEY, SCHOOL_PERS_KEY, VARS, POP_ISTAT_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -66,15 +66,15 @@ def get_query_menu(area=None):
     return {
         "national": {
             "query": {},
-            "collection": NAT_DATA_COLL
+            "collection": nat_data_coll
         },
         "regional": {
             "query": {REGION_KEY: area},
-            "collection": REG_DATA_COLL
+            "collection": reg_data_coll
         },
         "provincial": {
             "query": {PROVINCE_KEY: area},
-            "collection": PROV_DATA_COLL
+            "collection": prov_data_coll
         }
     }
 
@@ -102,7 +102,7 @@ def get_notes(notes_type="national", area=None):
 def get_national_trends():
     """Return national trends from DB"""
     return sorted(
-        list(NAT_TRENDS_COLL.find({})),
+        list(nat_trends_coll.find({})),
         key=lambda x: list(VARS.keys()).index(x['id'])
     )
 
@@ -114,7 +114,7 @@ def get_regional_trends(region):
     :return: list
     """
     trends = []
-    doc = REG_TRENDS_COLL.find_one({REGION_KEY: region})
+    doc = reg_trends_coll.find_one({REGION_KEY: region})
     if doc:
         trends = doc["trends"]
     return trends
@@ -126,13 +126,13 @@ def get_provincial_trends(province):
     :param province: str
     :return: list
     """
-    doc = PROV_TRENDS_COLL.find_one({PROVINCE_KEY: province})
+    doc = prov_trends_coll.find_one({PROVINCE_KEY: province})
     return doc["trends"]
 
 
 def get_regional_breakdown():
     """Return regional breakdown from DB"""
-    doc = REG_BREAKDOWN_COLL.find_one({}, {"_id": False})
+    doc = reg_bdown_coll.find_one({}, {"_id": False})
     if doc:
         breakdown = {
             key: sorted(doc[key], key=lambda x: x['count'], reverse=True)
@@ -146,7 +146,7 @@ def get_regional_breakdown():
 def get_provincial_breakdown(region):
     """Return provincial breakdown from DB"""
     b = {}
-    doc = PROV_BREAKDOWN_COLL.find_one({REGION_KEY: region}, {"_id": False})
+    doc = prov_bdown_coll.find_one({REGION_KEY: region}, {"_id": False})
     if doc:
         b = doc["breakdowns"]
         for key in b.keys():
@@ -156,7 +156,7 @@ def get_provincial_breakdown(region):
 
 def get_national_series():
     """Return national series from DB"""
-    series = NAT_SERIES_COLL.find_one({}, {"_id": False})
+    series = nat_series_coll.find_one({}, {"_id": False})
     if series:
         data = translate_series_lang(series)
     else:
@@ -167,7 +167,7 @@ def get_national_series():
 def get_regional_series(region):
     """Return regional series from DB"""
     data = {}
-    series = REG_SERIES_COLL.find_one({REGION_KEY: region}, {"_id": False})
+    series = reg_series_coll.find_one({REGION_KEY: region}, {"_id": False})
     if series:
         data = translate_series_lang(series)
     return data
@@ -175,7 +175,7 @@ def get_regional_series(region):
 
 def get_provincial_series(province):
     """Return provincial series from DB"""
-    series = PROV_SERIES_COLL.find_one(
+    series = prov_series_coll.find_one(
         {PROVINCE_KEY: province}, {"_id": False})
     return translate_series_lang(series)
 
@@ -202,7 +202,7 @@ def get_positivity_idx(area_type="national", area=None):
 
 def get_national_data():
     """Return a data frame of the national data from DB"""
-    cursor = NAT_DATA_COLL.find({})
+    cursor = nat_data_coll.find({})
     df = pd.DataFrame(list(cursor))
     if df.empty:
         app.logger.error("While getting national data: no data")
@@ -211,7 +211,7 @@ def get_national_data():
 
 def get_region_data(region):
     """Return a data frame for a given region from the regional collection"""
-    cursor = REG_DATA_COLL.find({REGION_KEY: region})
+    cursor = reg_data_coll.find({REGION_KEY: region})
     df = pd.DataFrame(list(cursor))
     if df.empty:
         app.logger.error(f"While getting {region} data: no data")
@@ -222,7 +222,7 @@ def get_province_data(province):
     """
     Return a data frame for a given province from the provincial collection
     """
-    cursor = PROV_DATA_COLL.find({PROVINCE_KEY: province})
+    cursor = prov_data_coll.find({PROVINCE_KEY: province})
     df = pd.DataFrame(list(cursor))
     if df.empty:
         app.logger.error(f"While getting {province} data: no data")
@@ -318,7 +318,7 @@ def get_tot_admins(dtype, area=None):
         else:
             pipe = [{'$group': {'_id': '{}', 'tot': {'$sum': f'${dtype}'}}}]
         try:
-            cursor = VAX_ADMINS_SUMMARY_COLL.aggregate(pipeline=pipe)
+            cursor = vax_admins_summary_coll.aggregate(pipeline=pipe)
             tot_adms = next(cursor)['tot']
         except Exception as e:
             app.logger.error(f"While getting total admins: {e}")
@@ -341,7 +341,7 @@ def get_age_chart_data(area=None):
             pipe = [match, group, sort]
         else:
             pipe = [group, sort]
-        cursor = VAX_ADMINS_COLL.aggregate(pipeline=pipe)
+        cursor = vax_admins_coll.aggregate(pipeline=pipe)
         data = list(cursor)
         df = pd.DataFrame(data)
         categories = df['_id'].values.tolist()
@@ -391,7 +391,7 @@ def get_category_chart_data(area=None):
         }
         pipe = [group]
     try:
-        cursor = VAX_ADMINS_SUMMARY_COLL.aggregate(pipeline=pipe)
+        cursor = vax_admins_summary_coll.aggregate(pipeline=pipe)
         doc = next(cursor)
         app.logger.debug(f"Category chart data: f{doc}")
         chart_data = [
@@ -425,7 +425,7 @@ def get_region_chart_data(tot_admins=1):
             },
             {'$sort': {'tot': -1}}
         ]
-        cursor = VAX_ADMINS_SUMMARY_COLL.aggregate(pipeline=pipe)
+        cursor = vax_admins_summary_coll.aggregate(pipeline=pipe)
         data = list(cursor)
         app.logger.debug(f"Per region data: {data}")
         df = pd.DataFrame(data)
@@ -450,13 +450,15 @@ def get_region_chart_data(tot_admins=1):
 
 def exp_tot_admins(x, tot_admins):
     """Return tot administration scaled to the region pop percentage"""
+    it_population = get_it_pop_dict()
     return round(
-        ITALY_POPULATION[x] / ITALY_POPULATION['Italia'] * tot_admins)
+        it_population[x] / it_population['Italia'] * tot_admins)
 
 
 def pop_perc(x):
     """Return percentage of population in a given region"""
-    return round(ITALY_POPULATION[x] / ITALY_POPULATION['Italia'] * 100, 2)
+    it_population = get_it_pop_dict()
+    return round(it_population[x] / it_population['Italia'] * 100, 2)
 
 
 def get_admins_perc(area=None):
@@ -492,7 +494,7 @@ def get_admins_timeseries_chart_data():
             {'$match': {VAX_AREA_KEY: {'$ne': 'ITA'}}},
             {'$sort': {VAX_DATE_KEY: 1}}
         ]
-        cursor = VAX_ADMINS_SUMMARY_COLL.aggregate(pipeline=pipe)
+        cursor = vax_admins_summary_coll.aggregate(pipeline=pipe)
         data = list(cursor)
         df = pd.DataFrame(data)
         dates = df[VAX_DATE_KEY].apply(
@@ -533,7 +535,7 @@ def get_admins_per_provider_chart_data(area=None):
         pipe = [match, group, sort]
     else:
         pipe = [group, sort]
-    data = list(VAX_ADMINS_COLL.aggregate(pipeline=pipe))
+    data = list(vax_admins_coll.aggregate(pipeline=pipe))
     return [{'name': d['_id'], 'y': d['tot']} for d in data]
 
 
@@ -568,7 +570,7 @@ def get_vax_trends_data(area=None):
             {"$sort": {"_id": -1}},
             {'$limit': 2}
         ]
-    data = list(VAX_ADMINS_COLL.aggregate(pipeline=pipe))
+    data = list(vax_admins_coll.aggregate(pipeline=pipe))
     return data
 
 
@@ -605,3 +607,20 @@ def get_vax_trends(area=None):
             'count': "{:,d}".format(count)
         })
     return trends
+
+
+def get_it_pop_dict():
+    """
+    Return a region:population dict
+    :return: dict
+    """
+    it_pop_dict = {}
+    try:
+        records = list(it_pop_coll.find({}))
+        it_pop_dict = {
+            r[REGION_KEY]: r[POP_ISTAT_KEY]
+            for r in records
+        }
+    except Exception as e:
+        app.logger.error(f"While getting IT pop dict: {e}")
+    return it_pop_dict

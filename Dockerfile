@@ -1,8 +1,8 @@
+# Grab the latest alpine image
+FROM python:3.8
+
 # maintainer stuff
 LABEL maintainer='fabriziomiano@gmail.com'
-
-#Grab the latest alpine image
-FROM python:3.8
 
 # Add requirements and install dependencies
 ADD ./requirements.txt /tmp/requirements.txt

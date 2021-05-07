@@ -10,12 +10,13 @@ from app.data import (
     get_notes, get_national_trends, get_regional_trends,
     get_provincial_trends, get_regional_breakdown, get_provincial_breakdown,
     get_national_series, get_regional_series, get_provincial_series,
-    get_positivity_idx, get_latest_update, enrich_frontend_data
+    get_positivity_idx, get_latest_update, enrich_frontend_data,
+    get_it_pop_dict
 )
 from app.ui import pandemic
 from app.utils import region_of_province
 from settings import (
-    PAGE_BASE_TITLE, ITALY_MAP, REGIONS, PROVINCES, ITALY_POPULATION
+    PAGE_BASE_TITLE, ITALY_MAP, REGIONS, PROVINCES
 )
 
 URL_REGIONS = "/regions"
@@ -41,7 +42,7 @@ def national_view():
     notes = get_notes(notes_type=data_type)
     updated_at = get_latest_update(data_type=data_type)
     positivity_idx = get_positivity_idx(area_type=data_type)
-    population = ITALY_POPULATION['Italia']
+    population = get_it_pop_dict()['Italia']
     data = enrich_frontend_data(
         page_title=PAGE_BASE_TITLE,
         dashboard_title=gettext("Italy"),
@@ -78,7 +79,7 @@ def regional_view(region):
     provinces = ITALY_MAP[region]
     region_index = REGIONS.index(region)
     previous_url = f"{URL_REGIONS}/{REGIONS[region_index - 1]}"
-    population = ITALY_POPULATION[region]
+    population = get_it_pop_dict()[region]
     try:
         next_region_url = f"{URL_REGIONS}/{REGIONS[region_index + 1]}"
     except IndexError:
