@@ -10,10 +10,10 @@ from app.data import (
     enrich_frontend_data, get_latest_vax_update, get_tot_admins,
     get_age_chart_data, get_category_chart_data, get_region_chart_data,
     get_perc_pop_vax, get_admins_perc, get_admins_timeseries_chart_data,
-    get_admins_per_provider_chart_data, get_vax_trends
+    get_admins_per_provider_chart_data, get_vax_trends, get_it_pop_dict
 )
 from app.ui import vaccines
-from settings import PAGE_BASE_TITLE, REGIONS, ITALY_POPULATION, PC_TO_OD_MAP
+from settings import PAGE_BASE_TITLE, REGIONS, PC_TO_OD_MAP
 
 URL_VACCINES = "/vaccines"
 view_type = 'vaccines'
@@ -24,7 +24,7 @@ def national_vax_view():
     """Render the vax report"""
     dashboard_title = gettext("Italy")
     page_title = f'{gettext("Vaccines")} | {PAGE_BASE_TITLE}'
-    population = ITALY_POPULATION['Italia']
+    population = get_it_pop_dict()['Italia']
     tot_admins = get_tot_admins(dtype='totale')
     perc_pop_vax = get_perc_pop_vax(population)
     report_data = enrich_frontend_data(
@@ -54,7 +54,7 @@ def regional_vax_view(region):
     dashboard_title = region
     page_title = f'{gettext("Vaccines")} | {region} | {PAGE_BASE_TITLE}'
     area = PC_TO_OD_MAP[region]
-    population = ITALY_POPULATION[region]
+    population = get_it_pop_dict()[region]
     tot_admins = get_tot_admins(dtype='totale', area=area)
     perc_pop_vax = get_perc_pop_vax(population, area)
     region_index = REGIONS.index(region)
