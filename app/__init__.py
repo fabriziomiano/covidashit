@@ -118,10 +118,10 @@ def create_app():
     from app.db_utils.create import CollectionCreator
     cc = CollectionCreator()
 
-    creation_menu = {
-        "istat-population": cc.create_istat_pop_collection,
+    creation_menu = {  # functional dependency in data creation. order matters
         "national": cc.create_national_collection,
         "regional": cc.create_regional_collection,
+        "istat-population": cc.create_istat_pop_collection,
         "provincial": cc.create_provincial_collections,
         "national-trends": cc.create_national_trends_collection,
         "regional-trends": cc.create_regional_trends_collection,
