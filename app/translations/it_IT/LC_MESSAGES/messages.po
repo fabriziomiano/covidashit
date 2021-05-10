@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-05-10 21:42+0200\n"
-"PO-Revision-Date: 2021-05-10 21:43+0200\n"
+"POT-Creation-Date: 2021-05-10 23:48+0200\n"
+"PO-Revision-Date: 2021-05-10 23:48+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -19,35 +19,50 @@ msgstr ""
 "X-Generator: Poedit 2.4.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/data.py:352 app/templates/vaccines/charts.html:83
-#: app/templates/vaccines/charts.html:88
+#: app/data.py:352
+msgid "Admins per age"
+msgstr "Somministrazioni per età"
+
+#: app/data.py:353 app/plotter/__init__.py:56
+#: app/templates/pandemic/charts.html:149
+msgid "Counts"
+msgstr "Conteggi"
+
+#: app/data.py:356 app/data.py:403 app/data.py:555
 msgid "Doses administered"
 msgstr "Dosi somministrate"
 
-#: app/data.py:398
+#: app/data.py:404
+msgid "Admins per category"
+msgstr "Somministrazioni per categoria"
+
+#: app/data.py:406
 msgid "title"
 msgstr ""
 
-#: app/data.py:439
+#: app/data.py:446
+msgid "Admins per region"
+msgstr "Somministrazioni per regione"
+
+#: app/data.py:449
 msgid "Real"
 msgstr "Reale"
 
-#: app/data.py:443
+#: app/data.py:453
 msgid "Expected"
 msgstr "Atteso"
 
-#: app/data.py:511
+#: app/data.py:521
 msgid "Vaccination trend"
 msgstr "Andamento vaccinazioni"
 
-#: app/data.py:512
+#: app/data.py:522
 msgid "Pop. vaccinated (1st dose) [%]"
 msgstr "Pop. vaccinata (dose 1) [%]"
 
-#: app/plotter/__init__.py:56 app/templates/pandemic/charts.html:149
-#: app/templates/vaccines/charts.html:79
-msgid "Counts"
-msgstr "Conteggi"
+#: app/data.py:554
+msgid "Admins per provider"
+msgstr "Somministrazioni per fornitore"
 
 #: app/templates/pandemic.html:30
 msgid "Positive Rate: "
@@ -297,8 +312,9 @@ msgstr "Aree di criticità"
 msgid "Vaccine day"
 msgstr "Vaccine day"
 
-#: app/templates/pandemic/charts.html:156 app/templates/vaccines/charts.html:63
-#: app/ui/pandemic.py:48 app/ui/vaccines.py:24
+#: app/templates/pandemic/charts.html:156
+#: app/templates/vaccines/charts.html:127 app/ui/pandemic.py:48
+#: app/ui/vaccines.py:23
 msgid "Italy"
 msgstr "Italia"
 
@@ -310,37 +326,22 @@ msgstr ""
 "Fonte: <a href='https://github.com/pcm-dpc/COVID-19'>Dati Protezione Civile</"
 "a>"
 
-#: app/templates/pandemic/charts.html:166 app/templates/vaccines/charts.html:72
+#: app/templates/pandemic/charts.html:166
+#: app/templates/vaccines/charts.html:136
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
-#: app/templates/vaccines/charts.html:8
+#: app/templates/vaccines/charts.html:9
 msgid "Select one or more regions"
 msgstr "Seleziona una o più regioni"
 
-#: app/templates/vaccines/charts.html:68
+#: app/templates/vaccines/charts.html:132
 msgid ""
 "Source: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a>"
 msgstr ""
 "Fonte: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a>"
-
-#: app/templates/vaccines/charts.html:78
-msgid "Admins per age"
-msgstr "Somministrazioni per età"
-
-#: app/templates/vaccines/charts.html:84
-msgid "Admins per category"
-msgstr "Somministrazioni per categoria"
-
-#: app/templates/vaccines/charts.html:89
-msgid "Admins per provider"
-msgstr "Somministrazioni per fornitore"
-
-#: app/templates/vaccines/charts.html:95
-msgid "Admins per region"
-msgstr "Somministrazioni per regione"
 
 #: app/utils/__init__.py:48 app/utils/__init__.py:51 app/utils/__init__.py:54
 msgid "name"
