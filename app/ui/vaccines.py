@@ -8,9 +8,9 @@ from flask_babel import gettext
 
 from app.data import (
     enrich_frontend_data, get_latest_vax_update, get_tot_admins,
-    get_age_chart_data, get_category_chart_data, get_region_chart_data,
-    get_perc_pop_vax, get_admins_perc, get_admins_timeseries_chart_data,
-    get_admins_per_provider_chart_data, get_vax_trends, get_it_pop_dict
+    get_age_chart_data, get_category_chart_data, get_perc_pop_vax,
+    get_admins_perc, get_admins_per_provider_chart_data, get_vax_trends,
+    get_it_pop_dict
 )
 from app.ui import vaccines
 from settings import PAGE_BASE_TITLE, REGIONS, PC_TO_OD_MAP
@@ -39,8 +39,6 @@ def national_vax_view():
         perc_pop_vax=perc_pop_vax,
         age_chart_data=get_age_chart_data(),
         cat_chart_data=get_category_chart_data(),
-        region_chart_data=get_region_chart_data(tot_admins=tot_admins),
-        admins_timeseries_data=get_admins_timeseries_chart_data(),
         provider_chart_data=get_admins_per_provider_chart_data(),
         trends=get_vax_trends(),
         population="{:,d}".format(population)

@@ -90,23 +90,8 @@
 
     {# per region #}
     {% if area in regions %}
-        let adminsPerRegionData = null;
-        let expAdminsPerRegionData = null;
         let adminsPerRegionTitle;
-        let adminsPerRegionyAxisTitle;
-        let adminsPerRegionCategories = null;
-        let adminsTimeseriesDates = null;
-        let adminsTimeseriesData = null;
-        let adminsTimeseriesTitle;
-        let adminsTimeseriesyAxisTitle;
     {% else %}
-        adminsPerRegionData = {{ region_chart_data.admins_per_region|safe }};
-        expAdminsPerRegionData = {{ region_chart_data.expected_admins|safe }};
         adminsPerRegionTitle = "{{ gettext('Admins per region') }}";
-        adminsPerRegionCategories = {{ region_chart_data.categories|safe }};
-        adminsTimeseriesDates = {{ admins_timeseries_data.dates|safe }};
-        adminsTimeseriesData = {{ admins_timeseries_data.data|safe }};
-        adminsTimeseriesTitle = "{{ gettext('Vaccination trend') }}";
-        adminsTimeseriesyAxisTitle = "{{ gettext('Pop. vaccinated (1st dose)') }} [%]";
     {% endif %}
 </script>
