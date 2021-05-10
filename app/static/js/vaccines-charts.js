@@ -1,119 +1,125 @@
 // Administrations per region: defined only for the national vax view
 let adminsPerRegion = {}
 if (!REGIONS.includes(area)) {
+
     // Administrations per region
-    adminsPerRegion = {
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: adminsPerRegionTitle
-        },
-        plotOptions: {
-            series: {
-                dataLabels: {
-                    enabled: true,
-                    formatter: function () {
-                        let pcnt = (this.y / totAdmins) * 100;
-                        return Highcharts.numberFormat(pcnt, '1') + '%';
+    $.getJSON('/api/charts/vax-per-data', function (regionChartData) {
+        let adminsPerRegionData = regionChartData.admins_per_region;
+        let expAdminsPerRegionData = regionChartData.expected_admins;
+        let adminsPerRegionCategories = regionChartData.categories;
+        $('#chart-admins-per-region').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: adminsPerRegionData.title
+            },
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function () {
+                            let pcnt = (this.y / totAdmins) * 100;
+                            return Highcharts.numberFormat(pcnt, '1') + '%';
+                        }
                     }
                 }
-            }
-        },
-        xAxis: {
-            lineColor: '#999',
-            lineWidth: 1,
-            tickColor: '#666',
-            tickLength: 3,
-            categories: adminsPerRegionCategories,
-        },
-        yAxis: {
-            title: {
-                enabled: false
             },
-            labels: {
-                enabled: false
-            }
-        },
-        series: [{
-            name: adminsPerRegionData.name,
-            data: adminsPerRegionData.data
-        }, {
-            name: expAdminsPerRegionData.name,
-            data: expAdminsPerRegionData.data,
-            visible: false
-        }],
-        subtitle: subtitle,
-        credits: credits
-    };
-    Highcharts.chart('chart-admins-per-region', adminsPerRegion);
-
-
-    // Vax time series for a given area
-    adminsTimeseriesData = adminsTimeseriesData.map(function (o, i) {
-        o.visible = i <= 2;
-        return o;
-    })
-    let adminsTimeSeries = {
-        chart: {
-            zoomType: 'x',
-            type: 'spline'
-        },
-        title: {
-            text: adminsTimeseriesTitle
-        },
-        xAxis: {
-            type: 'datetime',
-            categories: adminsTimeseriesDates
-        },
-        yAxis: {
-            title: {
-                text: adminsTimeseriesyAxisTitle
-            }
-        },
-        tooltip: {
-            crosshairs: {
-                width: 1,
-                color: 'gray',
-                dashStyle: 'ShortDashDot'
+            xAxis: {
+                lineColor: '#999',
+                lineWidth: 1,
+                tickColor: '#666',
+                tickLength: 3,
+                categories: adminsPerRegionCategories,
             },
-            shared: true,
-            split: false,
-            enabled: true
-        },
-        legend: {
-            enabled: false
-        },
-
-        plotOptions: {
-            series: {
-                label: {
-                    connectorAllowed: false
+            yAxis: {
+                title: {
+                    enabled: false
                 },
-                marker: {
+                labels: {
                     enabled: false
                 }
             },
+            series: [{
+                name: adminsPerRegionData.name,
+                data: adminsPerRegionData.data
+            }, {
+                name: expAdminsPerRegionData.name,
+                data: expAdminsPerRegionData.data,
+                visible: false
+            }],
+            subtitle: subtitle,
+            credits: credits
+        });
+    });
 
-        },
-        series: adminsTimeseriesData,
-        credits: credits,
-        subtitle: subtitle
-    };
-    Highcharts.chart('chart-admins-timeseries', adminsTimeSeries);
 
-    let series = $("#chart-admins-timeseries").highcharts().series;
-    let seriesIMap = {}
-    for (let i = 0; i < series.length; i++) {
-        seriesIMap[series[i].name] = i;
-    }
-    $(function () {
-        $('#timeseries-select').change(function (e) {
-            let selRegions = $(e.target).val();
-            REGIONS.forEach(function (region) {
-                selRegions.includes(region) ? series[seriesIMap[region]].show() : series[seriesIMap[region]].hide();
-            });
+    $.getJSON('/api/charts/vax-trend', function (adminsTimeseriesData) {
+        // Vax time series for a given area
+        adminsTimeseriesData.data = adminsTimeseriesData.data.map(function (o, i) {
+            o.visible = i <= 2;
+            return o;
         })
+        $('#chart-admins-timeseries').highcharts({
+            chart: {
+                zoomType: 'x',
+                type: 'spline'
+            },
+            title: {
+                text: adminsTimeseriesData.title
+            },
+            xAxis: {
+                type: 'datetime',
+                categories: adminsTimeseriesData.dates
+            },
+            yAxis: {
+                title: {
+                    text: adminsTimeseriesData.yAxisTitle
+                }
+            },
+            tooltip: {
+                crosshairs: {
+                    width: 1,
+                    color: 'gray',
+                    dashStyle: 'ShortDashDot'
+                },
+                shared: true,
+                split: false,
+                enabled: true
+            },
+            legend: {
+                enabled: false
+            },
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    marker: {
+                        enabled: false
+                    }
+                },
+
+            },
+            series: adminsTimeseriesData.data,
+            credits: credits,
+            subtitle: subtitle
+        });
+
+        let series = $("#chart-admins-timeseries").highcharts().series;
+        let seriesIMap = {}
+        for (let i = 0; i < series.length; i++) {
+            seriesIMap[series[i].name] = i;
+        }
+        $(function () {
+            $('#timeseries-select').change(function (e) {
+                let selRegions = $(e.target).val();
+                REGIONS.forEach(function (region) {
+                    selRegions.includes(region) ? series[seriesIMap[region]].show() : series[seriesIMap[region]].hide();
+                });
+            })
+        });
     });
 }
 
