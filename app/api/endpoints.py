@@ -5,6 +5,7 @@ from flask import jsonify, request, Response, current_app as app
 from flask_github_signature import verify_signature
 
 from app.api import api
+from app.data import get_admins_timeseries_chart_data, get_region_chart_data
 from app.db_utils.tasks import (
     update_national_collection, update_national_series_collection,
     update_national_trends_collection, update_regional_collection,
@@ -157,3 +158,18 @@ def update_collection(data_type, coll_type='root'):
         msg = f'While submitting {data_type} {coll_type} update task: {e}'
         app.logger.error(msg)
     return jsonify(**{'status': status, 'msg': msg})
+
+
+@api.route('charts/<chart_id>')
+def get_chart(chart_id):
+    data_menu = {
+        'vax-trend': get_admins_timeseries_chart_data,
+        'vax-per-data': get_region_chart_data
+    }
+    data = {}
+    try:
+        get_data = data_menu[chart_id]
+        data = get_data()
+    except Exception as e:
+        app.logger.error(f"While calling charts API: {e}")
+    return jsonify(**data)
