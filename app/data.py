@@ -18,7 +18,7 @@ from app.db_utils import (
 from app.utils import rubbish_notes, translate_series_lang
 from settings import (
     VERSION, KEY_PERIODS, ITALY_MAP, REGIONS, PROVINCES,
-    OD_TO_PC_MAP
+    OD_TO_PC_MAP, PC_TO_OD_MAP
 )
 from settings.urls import URL_VAX_LATEST_UPDATE, URL_VAX_SUMMARY_DATA
 from settings.vars import (
@@ -327,6 +327,8 @@ def get_tot_admins(dtype, area=None):
 
 def get_age_chart_data(area=None):
     """Return age series data"""
+    if area is not None:
+        area = PC_TO_OD_MAP[area]
     chart_data = {}
     match = {'$match': {VAX_AREA_KEY: area}}
     group = {
@@ -347,8 +349,10 @@ def get_age_chart_data(area=None):
         categories = df['_id'].values.tolist()
         admins_per_age = df['tot'].values.tolist()
         chart_data = {
+            "title": gettext('Admins per age'),
+            "yAxisTitle": gettext('Counts'),
             "categories": categories,
-            "admins_per_age": [{
+            "data": [{
                 'name': gettext("Doses administered"),
                 'data': admins_per_age
             }]
@@ -362,6 +366,7 @@ def get_category_chart_data(area=None):
     """Return category series data"""
     chart_data = []
     if area is not None:
+        area = PC_TO_OD_MAP[area]
         match = {'$match': {VAX_AREA_KEY: area}}
         group = {
             '$group': {
@@ -394,17 +399,22 @@ def get_category_chart_data(area=None):
         cursor = vax_admins_summary_coll.aggregate(pipeline=pipe)
         doc = next(cursor)
         app.logger.debug(f"Category chart data: f{doc}")
-        chart_data = [
-            {'name': gettext(VARS[cat]["title"]), 'y': doc[cat]}
-            for cat in VAX_PEOPLE_CATEGORIES
-        ]
+        chart_data = {
+            "name": gettext('Doses administered'),
+            "title": gettext('Admins per category'),
+            "data": [
+                {'name': gettext(VARS[cat]["title"]), 'y': doc[cat]}
+                for cat in VAX_PEOPLE_CATEGORIES
+            ]
+        }
     except Exception as e:
         app.logger.error(f"While getting category-chart data: {e}")
     return chart_data
 
 
-def get_region_chart_data(tot_admins=1):
+def get_region_chart_data():
     """Return administrations data per region"""
+    tot_admins = get_tot_admins(dtype='totale')
     chart_data = {}
     try:
         pipe = [
@@ -433,12 +443,13 @@ def get_region_chart_data(tot_admins=1):
         df['exp_admins'] = df['region'].apply(
             lambda x: exp_tot_admins(x, tot_admins))
         chart_data = {
+            "title": gettext('Admins per region'),
             "categories": df['region'].values.tolist(),
-            "admins_per_region": {
+            "real": {
                 'name': gettext("Real"),
                 'data': df['tot'].values.tolist()
             },
-            "expected_admins": {
+            "expected": {
                 'name': gettext("Expected"),
                 'data': df['exp_admins'].values.tolist()
             }
@@ -507,6 +518,8 @@ def get_admins_timeseries_chart_data():
             ).round(2).to_list()
         } for r in sorted(df[VAX_AREA_KEY].unique())]
         chart_data = {
+            "title": gettext('Vaccination trend'),
+            "yAxisTitle": gettext('Pop. vaccinated (1st dose) [%]'),
             "dates": dates,
             "data": data
         }
@@ -531,12 +544,20 @@ def get_admins_per_provider_chart_data(area=None):
     }
     sort = {'$sort': {'tot': -1}}
     if area is not None:
+        area = PC_TO_OD_MAP[area]
         match = {'$match': {VAX_AREA_KEY: area}}
         pipe = [match, group, sort]
     else:
         pipe = [group, sort]
     data = list(vax_admins_coll.aggregate(pipeline=pipe))
-    return [{'name': d['_id'], 'y': d['tot']} for d in data]
+    return {
+        "title": gettext('Admins per provider'),
+        "name": gettext('Doses administered'),
+        "data": [
+            {'name': d['_id'], 'y': d['tot']}
+            for d in data
+        ]
+    }
 
 
 def get_vax_trends_data(area=None):
