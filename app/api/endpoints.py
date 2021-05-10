@@ -5,7 +5,11 @@ from flask import jsonify, request, Response, current_app as app
 from flask_github_signature import verify_signature
 
 from app.api import api
-from app.data import get_admins_timeseries_chart_data, get_region_chart_data
+from app.data import (
+    get_admins_timeseries_chart_data, get_region_chart_data,
+    get_age_chart_data, get_category_chart_data,
+    get_admins_per_provider_chart_data
+)
 from app.db_utils.tasks import (
     update_national_collection, update_national_series_collection,
     update_national_trends_collection, update_regional_collection,
@@ -15,6 +19,7 @@ from app.db_utils.tasks import (
     update_provincial_series_or_trends_collection, update_vax_collections
 )
 from app.plotter import Plotter, validate_plot_request
+from settings import REGIONS
 
 
 @api.route('/plot')
@@ -160,16 +165,24 @@ def update_collection(data_type, coll_type='root'):
     return jsonify(**{'status': status, 'msg': msg})
 
 
-@api.route('charts/<chart_id>')
+@api.route('vax_charts/<chart_id>')
 def get_chart(chart_id):
+    args = request.args
+    area = args.get('area')
     data_menu = {
-        'vax-trend': get_admins_timeseries_chart_data,
-        'vax-per-data': get_region_chart_data
+        'trend': get_admins_timeseries_chart_data,
+        'region': get_region_chart_data,
+        'age': get_age_chart_data,
+        'category': get_category_chart_data,
+        'provider': get_admins_per_provider_chart_data
     }
     data = {}
     try:
         get_data = data_menu[chart_id]
-        data = get_data()
+        if area in REGIONS:
+            data = get_data(area=area)
+        else:
+            data = get_data()
     except Exception as e:
         app.logger.error(f"While calling charts API: {e}")
-    return jsonify(**data)
+    return jsonify(data)
