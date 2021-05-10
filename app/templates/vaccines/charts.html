@@ -4,28 +4,53 @@
         <div class="col-12 col-md-12 col-lg-12 col-xl-6">
             <div class="card shadow mb-4">
                 <!-- multiple dropdown -->
-                <select id="timeseries-select" class="chosen" multiple="multiple"
+                <select id="timeseries-select" class="chosen"
+                        multiple="multiple"
                         data-placeholder="{{ _("Select one or more regions") }}"
                         aria-label="region multi select">
                     {% for r in regions %}
                         {% if loop.index < 4 %}
-                            <option selected="selected" value="{{ r }}">{{ r }}</option>
+                            <option selected="selected"
+                                    value="{{ r }}">{{ r }}</option>
                         {% else %}
                             <option value="{{ r }}">{{ r }}</option>
                         {% endif %}
                     {% endfor %}
                 </select>
 
-                <div id="chart-admins-timeseries" class="container-fluid px-0"
-                     style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+                <div class="container h-100">
+                    <div class="row h-100 justify-content-center align-items-center">
+                        <div id='vax-timeseries-loading-spinner'
+                             class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div id="chart-admins-timeseries"
+                             class="container-fluid px-0"
+                             style="border: none; width:100%; height: 450px; margin: 0 auto">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="col-12 col-md-12 col-lg-12 col-xl-6">
             <div class="card shadow mb-4">
-                <div id="chart-admins-per-region" class="container-fluid px-0"
-                     style="border: none; width:100%; height: 450px; margin: 0 auto">
+
+                <div class="container h-100">
+                    <div class="row h-100 justify-content-center align-items-center">
+                        <div id='vax-region-loading-spinner'
+                             class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                        <div id="chart-admins-per-region"
+                             class="container-fluid px-0"
+                             style="border: none; width:100%; height: 450px; margin: 0 auto">
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
 
@@ -35,22 +60,61 @@
 <div class="row">
     <div class="col-12 col-md-12 col-lg-12 col-xl-4">
         <div class="card shadow mb-4">
-            <div id="chart-admins-per-age" class="container-fluid px-0"
-                 style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+
+            <div class="container h-100">
+                <div class="row h-100 justify-content-center align-items-center">
+                    <div id='vax-age-loading-spinner'
+                         class="spinner-grow text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+
+                    <div id="chart-admins-per-age"
+                         class="container-fluid px-0"
+                         style="border: none; width:100%; height: 450px; margin: 0 auto">
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <div class="col-12 col-md-12 col-lg-12 col-xl-4">
         <div class="card shadow mb-4">
-            <div id="chart-pie-categories" class="container-fluid px-0"
-                 style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+
+            <div class="container h-100">
+                <div class="row h-100 justify-content-center align-items-center">
+                    <div id='vax-categories-loading-spinner'
+                         class="spinner-grow text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+
+                    <div id="chart-pie-categories"
+                         class="container-fluid px-0"
+                         style="border: none; width:100%; height: 450px; margin: 0 auto">
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <div class="col-12 col-md-12 col-lg-12 col-xl-4">
         <div class="card shadow mb-4">
-            <div id="chart-pie-providers" class="container-fluid px-0"
-                 style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+
+            <div class="container h-100">
+                <div class="row h-100 justify-content-center align-items-center">
+                    <div id='vax-provider-loading-spinner'
+                         class="spinner-grow text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+
+                    <div id="chart-pie-providers"
+                         class="container-fluid px-0"
+                         style="border: none; width:100%; height: 450px; margin: 0 auto">
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -72,26 +136,4 @@
         text: "{{ gettext("by Fabrizio Miano | Made with Highcharts.com") }}"
     };
 
-    {# per age #}
-    let ageCategories = {{ age_chart_data.categories|safe }};
-    let adminsPerAgeData = {{ age_chart_data.admins_per_age|safe }};
-    let adminsPerAgeTitle = "{{ gettext('Admins per age') }} | " + area;
-    let adminsPerAgeyAxisTitle = "{{ gettext('Counts') }}";
-
-    {# per category #}
-    let adminsPerCategoryData = {{ cat_chart_data|safe }};
-    let adminsPerCategorySeriesName = "{{ gettext('Doses administered') }}";
-    let adminsPerCategoryTitle = "{{ gettext('Admins per category') }} | " + area;
-
-    {# per provider #}
-    let adminsPerProviderData = {{ provider_chart_data|safe }};
-    let adminsPerProviderSeriesName = "{{ gettext('Doses administered') }}";
-    let adminsPerProviderTitle = "{{ gettext('Admins per provider') }} | " + area;
-
-    {# per region #}
-    {% if area in regions %}
-        let adminsPerRegionTitle;
-    {% else %}
-        adminsPerRegionTitle = "{{ gettext('Admins per region') }}";
-    {% endif %}
 </script>
