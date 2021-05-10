@@ -403,8 +403,9 @@ def get_category_chart_data(area=None):
     return chart_data
 
 
-def get_region_chart_data(tot_admins=1):
+def get_region_chart_data():
     """Return administrations data per region"""
+    tot_admins = get_tot_admins(dtype='totale')
     chart_data = {}
     try:
         pipe = [
@@ -507,6 +508,8 @@ def get_admins_timeseries_chart_data():
             ).round(2).to_list()
         } for r in sorted(df[VAX_AREA_KEY].unique())]
         chart_data = {
+            "title": gettext('Vaccination trend'),
+            "yAxisTitle": gettext('Pop. vaccinated (1st dose) [%]'),
             "dates": dates,
             "data": data
         }
