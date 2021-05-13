@@ -167,6 +167,14 @@ def update_collection(data_type, coll_type='root'):
 
 @api.route('vax_charts/<chart_id>')
 def get_chart(chart_id):
+    """
+    Return JSON-formatted data for a chart
+    :param chart_id: str: must be one of
+        ['trend', 'region', 'age', 'category', 'provider'].
+        Additionally, an 'area' argument can be passed via query string for
+        the types ['age', 'category', 'provider']
+    :return: json-formatted string
+    """
     args = request.args
     area = args.get('area')
     data_menu = {
