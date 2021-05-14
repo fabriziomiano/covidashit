@@ -4,6 +4,7 @@ API endpoints
 from flask import jsonify, request, Response, current_app as app
 from flask_github_signature import verify_signature
 
+from app import limiter
 from app.api import api
 from app.data import (
     get_admins_timeseries_chart_data, get_region_chart_data,
@@ -23,6 +24,7 @@ from settings import REGIONS
 
 
 @api.route('/plot')
+@limiter.limit("20 per second")
 def plot_trend():
     """
     API to make plot for a given data_type, varname, and area
@@ -162,11 +164,20 @@ def update_collection(data_type, coll_type='root'):
     except Exception as e:
         msg = f'While submitting {data_type} {coll_type} update task: {e}'
         app.logger.error(msg)
-    return jsonify(**{'status': status, 'msg': msg})
+    return {'status': status, 'msg': msg}
 
 
 @api.route('vax_charts/<chart_id>')
+@limiter.limit("10 per second")
 def get_chart(chart_id):
+    """
+    Return JSON-formatted data for a chart
+    :param chart_id: str: must be one of
+        ['trend', 'region', 'age', 'category', 'provider'].
+        Additionally, an 'area' argument can be passed via query string for
+        the types ['age', 'category', 'provider']
+    :return: json-formatted string
+    """
     args = request.args
     area = args.get('area')
     data_menu = {
@@ -185,4 +196,4 @@ def get_chart(chart_id):
             data = get_data()
     except Exception as e:
         app.logger.error(f"While calling charts API: {e}")
-    return jsonify(data)
+    return data
