@@ -1,16 +1,18 @@
 """
 Flask application factory
 """
-import datetime as dt
 import logging
 import os
 
 import click
 from celery import Celery
+from celery.schedules import crontab
 from dotenv import load_dotenv
 from flask import Flask, request, render_template, send_from_directory
 from flask_babel import Babel
 from flask_compress import Compress
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from flask_pymongo import PyMongo
 from flask_sitemap import Sitemap
 
@@ -23,6 +25,7 @@ babel = Babel()
 sitemap = Sitemap()
 compress = Compress()
 celery = Celery(__name__)
+limiter = Limiter(key_func=get_remote_address)
 
 
 @babel.localeselector
@@ -87,12 +90,13 @@ def create_app():
     set_error_handlers(app)
     set_robots_txt_rule(app)
     set_favicon_rule(app)
+    limiter.init_app(app)
     celery.config_from_object(app.config)
     celery.conf.update(app.config.get("CELERY_CONFIG", {}))
     celery.conf.beat_schedule = {
-        'run-me-every-ten-seconds': {
+        'istat-population-update': {
             'task': 'app.db_utils.tasks.update_istat_it_population_collection',
-            'schedule': dt.timedelta(days=1)
+            'schedule': crontab(hour=0, minute=0)
         }
     }
 
