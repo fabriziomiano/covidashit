@@ -1,13 +1,13 @@
 <!-- Cards -->
-{% if area in province %}
-    <div class="row align-items-center">
+{% if area in provinces %}
+    <div class="row">
         {% for t in trend_cards %}
             <div class="col-lg-6 col-md-6 mb-2">
                 <div class="card border-left-{{ t.colour.split('-')[1] }} shadow"
                      data-bs-toggle="modal"
                      data-target="#ModalCenter_{{ t.id }}">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
+                        <div class="row no-gutters">
                             <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
                                 <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                             </p>
@@ -61,14 +61,14 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="daily" role="tabpanel"
              aria-labelledby="nav-daily-tab">
-            <div class="row align-items-center">
+            <div class="row">
                 {% for t in trend_cards %}
                     {% if t.type == "daily" %}
                         <div class="col-lg col-md- mb-2">
 
                             <div class="card border-left-{{ t.colour.split('-')[1] }} shadow">
                                 <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
+                                    <div class="row no-gutters">
                                         <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
                                             <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                                         </p>
@@ -186,7 +186,7 @@
 
                             <div class="card border-left-{{ t.colour.split('-')[1] }} shadow">
                                 <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
+                                    <div class="row no-gutters">
                                         <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
                                             <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                                         </p>
@@ -304,7 +304,7 @@
 
                             <div class="card border-left-{{ t.colour.split('-')[1] }} shadow">
                                 <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
+                                    <div class="row no-gutters">
                                         <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
                                             <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                                         </p>
