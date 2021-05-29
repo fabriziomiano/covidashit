@@ -53,13 +53,6 @@ VAX_SECOND_DOSE_KEY = "seconda_dose"
 VAX_PROVIDER_KEY = "fornitore"
 F_SEX_KEY = "sesso_femminile"
 M_SEX_KEY = "sesso_maschile"
-HEALTHCARE_PERS_KEY = "categoria_operatori_sanitari_sociosanitari"
-NONHEALTHCARE_PERS_KEY = "categoria_personale_non_sanitario"
-HFE_GUESTS_KEY = "categoria_ospiti_rsa"
-OVER_80_KEY = "categoria_over80"
-OTHER_KEY = "categoria_altro"
-ARMED_FORCES_KEY = "categoria_forze_armate"
-SCHOOL_PERS_KEY = "categoria_personale_scolastico"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
 NUTS_ISTAT_KEY = 'ITTER107'
 POP_ISTAT_KEY = 'OBS_VALUE'
@@ -334,34 +327,6 @@ VARS[TOTAL_HEALED_KEY] = {
 }
 
 # Vax variables
-VARS[HEALTHCARE_PERS_KEY] = {
-    "title": gettext("Healthcare Personnel"),
-    "type": "vax"
-}
-VARS[NONHEALTHCARE_PERS_KEY] = {
-    "title": gettext("Non-healthcare Personnel"),
-    "type": "vax"
-}
-VARS[HFE_GUESTS_KEY] = {
-    "title": gettext("HFE Guests"),
-    "type": "vax"
-}
-VARS[OVER_80_KEY] = {
-    "title": gettext("Over 80"),
-    "type": "vax"
-}
-VARS[OTHER_KEY] = {
-    "title": gettext("Other"),
-    "type": "vax"
-}
-VARS[ARMED_FORCES_KEY] = {
-    "title": gettext("Armed Forces"),
-    "type": "vax"
-}
-VARS[SCHOOL_PERS_KEY] = {
-    "title": gettext("School personnel"),
-    "type": "vax"
-}
 VARS[VAX_FIRST_DOSE_KEY] = {
     "title": gettext("Daily First administrations"),
     "icon": "fas fa-check",
