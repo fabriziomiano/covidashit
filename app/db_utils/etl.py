@@ -29,7 +29,7 @@ def load_df(url):
     :param url: str: CP-repository data URL
     :return: pd.DataFrame
     """
-    df = pd.read_csv(url, parse_dates=[DATE_KEY])
+    df = pd.read_csv(url, parse_dates=[DATE_KEY], low_memory=False)
     df.drop(columns=COLUMNS_TO_DROP, inplace=True)
     return df
 
@@ -500,32 +500,25 @@ def create_istat_population_df():
     columns = [NUTS_ISTAT_KEY, POP_ISTAT_KEY]
     out_df = pd.DataFrame()
     try:
-        df_istat = pd.read_csv(URL_ISTAT_IT_POP, usecols=columns)
-        df_istat[NUTS_ISTAT_KEY] = df_istat[NUTS_ISTAT_KEY].apply(
+        df = pd.read_csv(URL_ISTAT_IT_POP, usecols=columns, low_memory=False)
+        df[NUTS_ISTAT_KEY] = df[NUTS_ISTAT_KEY].apply(
             lambda x: x.replace('ITD', 'ITH')).apply(
-            lambda x: x.replace('ITE', 'ITI')
-        )
+            lambda x: x.replace('ITE', 'ITI'))
         pipe = [
             {'$match': {NUTS_KEY: {'$ne': 0}}},
             {'$group': {'_id': {
                 NUTS_KEY: f'${NUTS_KEY}', REGION_KEY: f'${REGION_KEY}'}
             }}]
-        df_db = pd.json_normalize(
-            list(reg_data_coll.aggregate(pipe))
-        )
-        out_df = df_istat.merge(
-            df_db,
-            left_on=NUTS_ISTAT_KEY,
-            right_on=f'_id.{NUTS_KEY}'
-        )
+        df_db = pd.json_normalize(list(reg_data_coll.aggregate(pipe)))
+        out_df = df.merge(
+            df_db, left_on=NUTS_ISTAT_KEY, right_on=f'_id.{NUTS_KEY}')
         out_df = out_df[[POP_ISTAT_KEY, f'_id.{REGION_KEY}']]
         out_df = out_df.rename(columns={
             f'_id.{REGION_KEY}': REGION_KEY
         })
-        out_df = out_df.append({
-            POP_ISTAT_KEY: out_df[POP_ISTAT_KEY].sum(),
-            REGION_KEY: 'Italia'
-        }, ignore_index=True)
+        out_df = out_df.append(
+            {POP_ISTAT_KEY: out_df[POP_ISTAT_KEY].sum(), REGION_KEY: 'Italia'},
+            ignore_index=True)
     except Exception as e:
         app.logger.error(f"While creating ISTAT df: {e}")
     return out_df

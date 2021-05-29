@@ -87,7 +87,8 @@ class CollectionCreator:
     @staticmethod
     def create_regional_breakdown_collection():
         """Drop and recreate regional breakdown data collection"""
-        df = pd.read_csv(URL_REGIONAL, parse_dates=[DATE_KEY])
+        df = pd.read_csv(
+            URL_REGIONAL, parse_dates=[DATE_KEY], low_memory=False)
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_regional_augmented = preprocess_regional_df(df)
         regional_breakdown = build_regional_breakdown(df_regional_augmented)
@@ -101,7 +102,8 @@ class CollectionCreator:
     @staticmethod
     def create_regional_series_collection():
         """Drop and recreate regional series data collection"""
-        df = pd.read_csv(URL_REGIONAL, parse_dates=[DATE_KEY])
+        df = pd.read_csv(
+            URL_REGIONAL, parse_dates=[DATE_KEY], low_memory=False)
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_regional_augmented = preprocess_regional_df(df)
         regional_series = build_regional_series(df_regional_augmented)
@@ -115,7 +117,8 @@ class CollectionCreator:
     @staticmethod
     def create_regional_trends_collection():
         """Drop and recreate regional trends data collection"""
-        df = pd.read_csv(URL_REGIONAL, parse_dates=[DATE_KEY])
+        df = pd.read_csv(
+            URL_REGIONAL, parse_dates=[DATE_KEY], low_memory=False)
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_regional_augmented = preprocess_regional_df(df)
         regional_trends = build_regional_trends(df_regional_augmented)
@@ -129,7 +132,8 @@ class CollectionCreator:
     @staticmethod
     def create_provincial_collections():
         """Drop and recreate provincial collection"""
-        df = pd.read_csv(URL_PROVINCIAL, parse_dates=[DATE_KEY])
+        df = pd.read_csv(
+            URL_PROVINCIAL, parse_dates=[DATE_KEY], low_memory=False)
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_provincial_augmented = preprocess_provincial_df(df)
         provincial_records = df_provincial_augmented.to_dict(orient='records')
@@ -143,7 +147,8 @@ class CollectionCreator:
     @staticmethod
     def create_provincial_breakdown_collection():
         """Drop and create provincial breakdown collection"""
-        df = pd.read_csv(URL_PROVINCIAL, parse_dates=[DATE_KEY])
+        df = pd.read_csv(
+            URL_PROVINCIAL, parse_dates=[DATE_KEY], low_memory=False)
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_provincial_augmented = preprocess_provincial_df(df)
         provincial_breakdowns = build_provincial_breakdowns(
@@ -158,7 +163,8 @@ class CollectionCreator:
     @staticmethod
     def create_provincial_series_collection():
         """Drop and recreate provincial series data collection"""
-        df = pd.read_csv(URL_PROVINCIAL, parse_dates=[DATE_KEY])
+        df = pd.read_csv(
+            URL_PROVINCIAL, parse_dates=[DATE_KEY], low_memory=False)
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_provincial_augmented = preprocess_provincial_df(df)
         provincial_series = build_provincial_series(
@@ -173,7 +179,8 @@ class CollectionCreator:
     @staticmethod
     def create_provincial_trends_collection():
         """Create provincial trends data collection"""
-        df = pd.read_csv(URL_PROVINCIAL, parse_dates=[DATE_KEY])
+        df = pd.read_csv(
+            URL_PROVINCIAL, parse_dates=[DATE_KEY], low_memory=False)
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_provincial_augmented = preprocess_provincial_df(df)
         provincial_trends = build_provincial_trends(df_provincial_augmented)
@@ -187,7 +194,8 @@ class CollectionCreator:
     @staticmethod
     def create_vax_admins_collection():
         """Create vaccine administrations colleciton"""
-        df = pd.read_csv(URL_VAX_ADMINS_DATA, parse_dates=[VAX_DATE_KEY])
+        df = pd.read_csv(
+            URL_VAX_ADMINS_DATA, parse_dates=[VAX_DATE_KEY], low_memory=False)
         df = preprocess_vax_admins_df(df)
         records = df.to_dict(orient='records')
         try:
