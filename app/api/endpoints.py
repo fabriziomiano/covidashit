@@ -23,7 +23,7 @@ from app.plotter import Plotter, validate_plot_request
 from settings import REGIONS
 
 
-@api.route('/plot')
+@api.get('/plot')
 @limiter.limit("20 per second")
 def plot_trend():
     """
@@ -144,8 +144,8 @@ update_menu = {
 }
 
 
-@api.route('/update/<data_type>', methods=['POST'])
-@api.route('/update/<data_type>/<coll_type>', methods=['POST'])
+@api.post('/update/<data_type>')
+@api.post('/update/<data_type>/<coll_type>')
 @verify_signature
 def update_collection(data_type, coll_type='root'):
     """Trigger collection update task"""
@@ -167,7 +167,7 @@ def update_collection(data_type, coll_type='root'):
     return {'status': status, 'msg': msg}
 
 
-@api.route('vax_charts/<chart_id>')
+@api.get('vax_charts/<chart_id>')
 @limiter.limit("10 per second")
 def get_chart(chart_id):
     """

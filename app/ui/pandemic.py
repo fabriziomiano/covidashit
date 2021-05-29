@@ -23,13 +23,13 @@ URL_REGIONS = "/regions"
 URL_PROVINCES = "/provinces"
 
 
-@pandemic.route("/national")
+@pandemic.get("/national")
 def old_national_view():
     """Redirect old national view to home"""
     return redirect('/')
 
 
-@pandemic.route("/")
+@pandemic.get("/")
 def national_view():
     """
     Render the national view
@@ -59,7 +59,7 @@ def national_view():
     return render_template("pandemic.html", **data)
 
 
-@pandemic.route(f"{URL_REGIONS}/<region>")
+@pandemic.get(f"{URL_REGIONS}/<region>")
 def regional_view(region):
     """
     Render the regional view
@@ -108,7 +108,7 @@ def regional_view(region):
     return render_template("pandemic.html", **dashboard_data)
 
 
-@pandemic.route(f"{URL_PROVINCES}/<province>")
+@pandemic.get(f"{URL_PROVINCES}/<province>")
 def provincial_view(province):
     """
     Render the provincial view
@@ -152,7 +152,7 @@ def provincial_view(province):
     return render_template("pandemic.html", **dashboard_data)
 
 
-@pandemic.route("/thanks")
+@pandemic.get("/thanks")
 def thanks_view():
     """
     Render the "thank you" view
