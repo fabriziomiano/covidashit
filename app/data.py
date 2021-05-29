@@ -27,9 +27,7 @@ from settings.vars import (
     UPDATE_FMT, VAX_UPDATE_FMT, DATE_KEY, NOTE_KEY, VAX_DATE_KEY, VAX_AREA_KEY,
     VAX_AGE_KEY, POP_KEY, ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY,
     VAX_ADMINS_PERC_KEY, VAX_TOT_ADMINS_KEY, VAX_FIRST_DOSE_KEY,
-    VAX_SECOND_DOSE_KEY, VAX_PROVIDER_KEY, HEALTHCARE_PERS_KEY,
-    NONHEALTHCARE_PERS_KEY, HFE_GUESTS_KEY, OVER_80_KEY, OTHER_KEY,
-    ARMED_FORCES_KEY, SCHOOL_PERS_KEY, VARS, POP_ISTAT_KEY
+    VAX_SECOND_DOSE_KEY, VAX_PROVIDER_KEY, VARS, POP_ISTAT_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -51,10 +49,6 @@ TREND_CARDS = [
     if not qty.endswith("_ma") and VARS[qty]["type"] != "vax"
 ]
 PROV_TREND_CARDS = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY]
-VAX_PEOPLE_CATEGORIES = [
-    HEALTHCARE_PERS_KEY, NONHEALTHCARE_PERS_KEY, HFE_GUESTS_KEY, OVER_80_KEY,
-    OTHER_KEY, ARMED_FORCES_KEY, SCHOOL_PERS_KEY
-]
 
 
 def get_query_menu(area=None):
@@ -334,7 +328,8 @@ def get_age_chart_data(area=None):
     group = {
         '$group': {
             '_id': f'${VAX_AGE_KEY}',
-            'tot': {'$sum': f'${VAX_TOT_ADMINS_KEY}'}
+            f'{VAX_FIRST_DOSE_KEY}': {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
+            f'{VAX_SECOND_DOSE_KEY}': {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
         }
     }
     sort = {'$sort': {'_id': 1}}
@@ -347,68 +342,22 @@ def get_age_chart_data(area=None):
         data = list(cursor)
         df = pd.DataFrame(data)
         categories = df['_id'].values.tolist()
-        admins_per_age = df['tot'].values.tolist()
+        cols = [VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY]
+        names = [
+            gettext("First dose"),
+            gettext("Second dose")
+        ]
         chart_data = {
-            "title": gettext('Admins per age'),
+            "title": gettext('Admins per age*'),
             "yAxisTitle": gettext('Counts'),
             "categories": categories,
             "data": [{
-                'name': gettext("Doses administered"),
-                'data': admins_per_age
-            }]
+                'name': md[0],
+                'data': df[md[1]].values.tolist()
+            } for md in zip(names, cols)]
         }
     except Exception as e:
         app.logger.error(f"While getting age chart data: {e}")
-    return chart_data
-
-
-def get_category_chart_data(area=None):
-    """Return category series data"""
-    chart_data = []
-    if area is not None:
-        area = PC_TO_OD_MAP[area]
-        match = {'$match': {VAX_AREA_KEY: area}}
-        group = {
-            '$group': {
-                '_id': f'${VAX_AREA_KEY}',
-                HEALTHCARE_PERS_KEY: {'$sum': f'${HEALTHCARE_PERS_KEY}'},
-                NONHEALTHCARE_PERS_KEY: {'$sum': f'${NONHEALTHCARE_PERS_KEY}'},
-                HFE_GUESTS_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
-                OVER_80_KEY: {'$sum': f'${OVER_80_KEY}'},
-                OTHER_KEY: {'$sum': f'${OTHER_KEY}'},
-                ARMED_FORCES_KEY: {'$sum': f'${ARMED_FORCES_KEY}'},
-                SCHOOL_PERS_KEY: {'$sum': f'${SCHOOL_PERS_KEY}'},
-            }
-        }
-        pipe = [match, group]
-    else:
-        group = {
-            '$group': {
-                '_id': '',
-                HEALTHCARE_PERS_KEY: {'$sum': f'${HEALTHCARE_PERS_KEY}'},
-                NONHEALTHCARE_PERS_KEY: {'$sum': f'${NONHEALTHCARE_PERS_KEY}'},
-                HFE_GUESTS_KEY: {'$sum': f'${HFE_GUESTS_KEY}'},
-                OVER_80_KEY: {'$sum': f'${OVER_80_KEY}'},
-                OTHER_KEY: {'$sum': f'${OTHER_KEY}'},
-                ARMED_FORCES_KEY: {'$sum': f'${ARMED_FORCES_KEY}'},
-                SCHOOL_PERS_KEY: {'$sum': f'${SCHOOL_PERS_KEY}'},
-            }
-        }
-        pipe = [group]
-    try:
-        cursor = vax_admins_summary_coll.aggregate(pipeline=pipe)
-        doc = next(cursor)
-        app.logger.debug(f"Category chart data: f{doc}")
-        chart_data = {
-            "name": gettext('Doses administered'),
-            "title": gettext('Admins per category'),
-            "data": [
-                {'name': gettext(VARS[cat]["title"]), 'y': doc[cat]}
-                for cat in VAX_PEOPLE_CATEGORIES
-            ]
-        }
-    except Exception as e:
-        app.logger.error(f"While getting category-chart data: {e}")
     return chart_data
 
 

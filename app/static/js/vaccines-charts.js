@@ -152,22 +152,24 @@ $.ajax(baseUrl + 'age', {
         $('#vax-age-loading-spinner').hide();
         $('#chart-admins-per-age').highcharts({
             chart: {
-                type: 'column'
+                type: 'bar'
             },
             title: {
                 text: adminsPerAge.title + ' | ' + area
             },
             plotOptions: {
-                series: {
-                    shadow: false,
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        formatter: function () {
-                            let pcnt = (this.y / totAdmins) * 100;
-                            return Highcharts.numberFormat(pcnt, '1') + '%';
-                        }
-                    }
+                // series: {
+                //     borderWidth: 0,
+                //     dataLabels: {
+                //         enabled: true,
+                //         formatter: function () {
+                //             let pcnt = (this.y / totAdmins) * 100;
+                //             return Highcharts.numberFormat(pcnt, '1') + '%';
+                //         }
+                //     }
+                // },
+                bar: {
+                    grouping: false
                 }
             },
             xAxis: {
@@ -178,70 +180,16 @@ $.ajax(baseUrl + 'age', {
                 categories: adminsPerAge.categories,
             },
             yAxis: {
+                visible: false,
                 title: {
                     text: adminsPerAge.yAxisTitle
                 },
             },
-            legend: {
-                enabled: false
-            },
             series: adminsPerAge.data,
             subtitle: subtitle,
-            credits: credits
+            credits: credits,
+            caption: caption
         });
-    }
-});
-
-
-// Administrations per category
-$.ajax(baseUrl + 'category', {
-    area: area,
-    dataType: 'json',
-    cache: false,
-    beforeSend: function () {
-        $('#vax-categories-loading-spinner').show();
-    },
-    data: {
-        area: area
-    },
-    success: function (adminsPerCategory) {
-        $('#vax-categories-loading-spinner').hide();
-        $('#chart-pie-categories').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: adminsPerCategory.title + ' | ' + area
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.y}</b>'
-            },
-            accessibility: {
-                point: {
-                    valueSuffix: '%'
-                }
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                        // distance: -1
-                    }
-                }
-            },
-            series: [{
-                name: adminsPerCategory.name,
-                data: adminsPerCategory.data
-            }],
-            subtitle: subtitle,
-            credits: credits
-        })
     }
 });
 
