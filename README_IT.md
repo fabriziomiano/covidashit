@@ -32,19 +32,15 @@ Perché l'app funzioni è necessario popolare un database mongo
 Inoltre, le collezioni del DB devono essere aggiornate giornalmente. Per questo motivo, l'app contiene delle API che vengono chiamate da un GitHub Webhook che viene lanciato quando il branch `master` della repository della PC viene aggiornato (vedi GitHub workflow nel mio fork della repo della PC [qui](https://github.com/fabriziomiano/COVID-19/blob/master/.github/workflows/merge-upstream.yml)).
 Infine, bisogna settare i vari webhooks sul fork della repo della PC per le seguenti API: 
 
- * `POST /update/national`
- * `POST /update/national/series`
- * `POST /update/national/trends`
- * `POST /update/regional`
- * `POST /update/regional/breakdown`
- * `POST /update/regional/series`
- * `POST /update/regional/trends`
- * `POST /update/provincial`
- * `POST /update/provincial/breakdown`
- * `POST /update/provincial/series`
- * `POST /update/provincial/trends`
- * `POST /update/vax/`
- * `POST /update/vax/summary`
+ * `POST /update/<data_type>`
+ * `POST /update/<data_type>/<coll_type>`
+
+| data_type  | coll_type                   |
+|------------|-----------------------------|
+| national   | [series, trends]            |
+| regional   | [breakdown, series, trends] |
+| provincial | [breakdown, series, trends] |
+| vax        | [summary]                   |
 
 ### Setup locale  (DEV)
 * creazione e attivazione di un virtual environment [(seguire questi passaggi)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
@@ -61,9 +57,14 @@ flask create-collections
 ```
 Questa, tramite una semplicissima procedura ETL, creerà e popolerà le collezioni su DB 
 con i dati ufficiali del Dipartimento della Protezione Civile.
-Successivamente, avviare il worker: 
+
+Successivamente, avviare il worker, 
 ```shell
 celery -A celery_worker.celery worker
+```
+e il beat per i task in background:
+```shell
+celery -A celery_worker.celery beat
 ```
 Infine, lanciare l'application server in una nuova shell:
 ```shell
@@ -108,49 +109,13 @@ contenuto in byte per scaricare il file.
 `https://www.covidash.it/api/plot`
 
 ### Query parameters
-#### Data type
-```
-data_type = [national, regional, provincial]
-```
-#### Var name
-```
-varname = [nuovi_positivi, ingressi_terapia_intensiva, deceduti_g, tamponi_g,
- totale_ospedalizzati_g, nuovi_positivi_ma, deceduti_g_ma, 
- ingressi_terapia_intensiva_ma, tamponi_g_ma, totale_ospedalizzati_g_ma, 
- totale_positivi, terapia_intensiva, ricoverati_con_sintomi, 
- totale_ospedalizzati, isolamento_domiciliare, totale_casi, deceduti, 
- tamponi, dimessi_guariti]
-```
-se `data_type = [national, regional]`
-```
-varname = [nuovi_positivi, nuovi_positivi_ma, totale_casi]
-```
-se `data_type = [provincial]`
-#### Area (regions)
-```
-area = [Abruzzo, Basilicata, Calabria, Campania, Emilia-Romagna, Friuli Venezia Giulia,
- Lazio, Liguria, Lombardia, Marche, Molise, Piemonte, Puglia, Sardegna, 
- Sicilia, Toscana, P.A. Bolzano, P.A. Trento, Umbria, Valle d'Aosta, Veneto]
-```
 
-#### Area (provinces)
-```
-area = [Chieti, L'Aquila, Pescara, Teramo, Matera, Potenza, Catanzaro, Cosenza,
-Crotone, Reggio di Calabria, Vibo Valentia, Avellino, Benevento, Caserta, 
-Napoli, Salerno, Bologna, Ferrara, Forlì-Cesena, Modena, Parma, Piacenza, 
-Ravenna, Reggio nell'Emilia, Rimini, Gorizia, Pordenone, Trieste, Udine, 
-Frosinone, Latina, Rieti, Roma, Viterbo, Genova, Imperia, La Spezia, Savona, 
-Bergamo, Brescia, Como, Cremona, Lecco, Lodi, Mantova, Milano, 
-Monza e della Brianza, Pavia, Sondrio, Varese, Ancona, Ascoli Piceno, Fermo, 
-Macerata, Pesaro e Urbino, Campobasso, Isernia, Alessandria, Asti, Biella, 
-Cuneo, Novara, Torino, Verbano-Cusio-Ossola, Vercelli, Bari, 
-Barletta-Andria-Trani, Brindisi, Lecce, Foggia, Taranto, Cagliari, Nuoro, 
-Sassari, Sud Sardegna, Agrigento, Caltanissetta, Catania, Enna, Messina, 
-Palermo, Ragusa, Siracusa, Trapani, Arezzo, Firenze, Grosseto, Livorno, Lucca,
-Massa Carrara, Pisa, Pistoia, Prato, Siena, Perugia, Terni, Aosta, Belluno, 
-Padova, Rovigo, Treviso, Venezia, Verona, Vicenza]
-```
-
+| data_type  | var_name                                                                                                                                                                                                                                                                                                                                                            | area                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| national   | [nuovi_positivi, ingressi_terapia_intensiva,  deceduti_g, tamponi_g,totale_ospedalizzati_g,  nuovi_positivi_ma, deceduti_g_ma,  ingressi_terapia_intensiva_ma, tamponi_g_ma, totale_ospedalizzati_g_ma, totale_positivi, terapia_intensiva, ricoverati_con_sintomi, totale_ospedalizzati, isolamento_domiciliare, totale_casi, deceduti,  tamponi, dimessi_guariti] | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| regional   | [nuovi_positivi, ingressi_terapia_intensiva,  deceduti_g, tamponi_g,totale_ospedalizzati_g,  nuovi_positivi_ma, deceduti_g_ma,  ingressi_terapia_intensiva_ma, tamponi_g_ma, totale_ospedalizzati_g_ma, totale_positivi, terapia_intensiva, ricoverati_con_sintomi, totale_ospedalizzati, isolamento_domiciliare, totale_casi, deceduti,  tamponi, dimessi_guariti] | [Abruzzo, Basilicata, Calabria, Campania, Emilia-Romagna, Friuli Venezia Giulia, Lazio, Liguria, Lombardia, Marche, Molise, Piemonte, Puglia, Sardegna, Sicilia, Toscana, P.A. Bolzano, P.A. Trento, Umbria, Valle d'Aosta, Veneto]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| provincial | [nuovi_positivi, nuovi_positivi_ma, totale_casi]                                                                                                                                                                                                                                                                                                                    | [Chieti, L'Aquila, Pescara, Teramo,  Matera, Potenza, Catanzaro, Cosenza, Crotone, Reggio di Calabria, Vibo Valentia,  Avellino, Benevento, Caserta,  Napoli, Salerno, Bologna, Ferrara,  Forlì-Cesena, Modena, Parma, Piacenza,  Ravenna, Reggio nell'Emilia, Rimini,  Gorizia, Pordenone, Trieste, Udine,  Frosinone, Latina, Rieti, Roma, Viterbo,  Genova, Imperia, La Spezia, Savona,  Bergamo, Brescia, Como, Cremona, Lecco,  Lodi, Mantova, Milano,  Monza e della Brianza, Pavia, Sondrio,  Varese, Ancona, Ascoli Piceno, Fermo,  Macerata, Pesaro e Urbino, Campobasso,  Isernia, Alessandria, Asti, Biella,  Cuneo, Novara, Torino, Verbano-Cusio-Ossola,  Vercelli, Bari, Barletta-Andria-Trani,  Brindisi, Lecce, Foggia, Taranto, Cagliari,  Nuoro, Sassari, Sud Sardegna, Agrigento,  Caltanissetta, Catania, Enna, Messina,  Palermo, Ragusa, Siracusa, Trapani, Arezzo,  Firenze, Grosseto, Livorno, Lucca, Massa Carrara, Pisa, Pistoia, Prato, Siena,  Perugia, Terni, Aosta, Belluno,  Padova, Rovigo, Treviso, Venezia, Verona, Vicenza] |
+        
 ### Examples
 #### Plot nazionale 
 `GET /api/plot?data_type=national&varname=<varname>`
