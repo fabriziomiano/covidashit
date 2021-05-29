@@ -1,5 +1,5 @@
 """
-Data Module
+Data tools module
 """
 import datetime as dt
 
@@ -9,25 +9,25 @@ import requests
 from flask import current_app as app
 from flask_babel import gettext
 
-from app.db_utils import (
-    nat_data_coll, nat_trends_coll, nat_series_coll, reg_data_coll,
-    reg_trends_coll, reg_series_coll, reg_bdown_coll, prov_data_coll,
-    prov_trends_coll, prov_series_coll, prov_bdown_coll, vax_admins_coll,
-    vax_admins_summary_coll, it_pop_coll
+from app.db_tools import (
+    nat_data_coll, reg_data_coll, prov_data_coll, nat_trends_coll,
+    reg_trends_coll, prov_trends_coll, reg_bdown_coll, prov_bdown_coll,
+    nat_series_coll, reg_series_coll, prov_series_coll,
+    vax_admins_summary_coll, vax_admins_coll, it_pop_coll
 )
 from app.utils import rubbish_notes, translate_series_lang
 from settings import (
-    VERSION, KEY_PERIODS, ITALY_MAP, REGIONS, PROVINCES,
-    OD_TO_PC_MAP, PC_TO_OD_MAP
+    ITALY_MAP, VERSION, REGIONS, PROVINCES, KEY_PERIODS, PC_TO_OD_MAP,
+    OD_TO_PC_MAP
 )
 from settings.urls import URL_VAX_LATEST_UPDATE, URL_VAX_SUMMARY_DATA
 from settings.vars import (
-    NEW_POSITIVE_KEY, TOTAL_CASES_KEY, DAILY_POSITIVITY_INDEX, REGION_KEY,
-    PROVINCE_KEY, VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, CHART_DATE_FMT,
-    UPDATE_FMT, VAX_UPDATE_FMT, DATE_KEY, NOTE_KEY, VAX_DATE_KEY, VAX_AREA_KEY,
-    VAX_AGE_KEY, POP_KEY, ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY,
-    VAX_ADMINS_PERC_KEY, VAX_TOT_ADMINS_KEY, VAX_FIRST_DOSE_KEY,
-    VAX_SECOND_DOSE_KEY, VAX_PROVIDER_KEY, VARS, POP_ISTAT_KEY
+    VARS, TOTAL_CASES_KEY, NEW_POSITIVE_KEY, REGION_KEY, PROVINCE_KEY,
+    DATE_KEY, NOTE_KEY, DAILY_POSITIVITY_INDEX, UPDATE_FMT,
+    VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_UPDATE_FMT, VAX_FIRST_DOSE_KEY,
+    VAX_SECOND_DOSE_KEY, VAX_TOT_ADMINS_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
+    ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_ADMINS_PERC_KEY, VAX_DATE_KEY,
+    CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, POP_ISTAT_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -40,7 +40,6 @@ DASHBOARD_DATA = {
     "provinces": PROVINCES,
     "key_periods": KEY_PERIODS
 }
-
 CUM_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "cum"]
 NON_CUM_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "current"]
 DAILY_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "daily"]

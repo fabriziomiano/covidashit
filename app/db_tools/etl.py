@@ -4,11 +4,11 @@ Where the ETL happens
 import pandas as pd
 from flask import current_app as app
 
-from app.data import (
+from app.data_tools import (
     CUM_QUANTITIES, NON_CUM_QUANTITIES, DAILY_QUANTITIES, TREND_CARDS,
     PROV_TREND_CARDS, get_it_pop_dict
 )
-from app.db_utils import reg_data_coll
+from app.db_tools import reg_data_coll
 from settings import REGIONS, PROVINCES, OD_TO_PC_MAP
 from settings.urls import URL_ISTAT_IT_POP
 from settings.vars import (

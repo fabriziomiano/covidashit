@@ -6,14 +6,14 @@ from flask import current_app as app
 from pymongo import UpdateOne, InsertOne
 
 from app import celery
-from app.data import TREND_CARDS
-from app.db_utils import (
+from app.data_tools import TREND_CARDS
+from app.db_tools import (
     nat_data_coll, nat_series_coll, nat_trends_coll, reg_data_coll,
     reg_series_coll, reg_trends_coll, reg_bdown_coll, prov_data_coll,
     prov_bdown_coll, prov_trends_coll, prov_series_coll, vax_admins_coll,
     vax_admins_summary_coll, it_pop_coll
 )
-from app.db_utils.etl import (
+from app.db_tools.etl import (
     load_df, preprocess_national_df, build_national_series, build_trend,
     preprocess_regional_df, build_series, build_national_trends,
     build_regional_breakdown, preprocess_provincial_df,

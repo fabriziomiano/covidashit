@@ -6,9 +6,9 @@ import time
 from flask import render_template
 from flask_babel import gettext
 
-from app.data import (
-    enrich_frontend_data, get_latest_vax_update, get_tot_admins,
-    get_perc_pop_vax, get_admins_perc, get_vax_trends, get_it_pop_dict
+from app.data_tools import (
+    get_latest_vax_update, get_perc_pop_vax, enrich_frontend_data,
+    get_tot_admins, get_admins_perc, get_vax_trends, get_it_pop_dict
 )
 from app.ui import vaccines
 from settings import PAGE_BASE_TITLE, REGIONS, PC_TO_OD_MAP

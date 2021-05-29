@@ -95,7 +95,7 @@ def create_app():
     celery.conf.update(app.config.get("CELERY_CONFIG", {}))
     celery.conf.beat_schedule = {
         'istat-population-update': {
-            'task': 'app.db_utils.tasks.update_istat_it_population_collection',
+            'task': 'app.db_tools.tasks.update_istat_it_population_collection',
             'schedule': crontab(hour=0, minute=0)
         }
     }
@@ -119,7 +119,7 @@ def create_app():
     from .api import api
     app.register_blueprint(api)
 
-    from app.db_utils.create import CollectionCreator
+    from app.db_tools.create import CollectionCreator
     cc = CollectionCreator()
 
     creation_menu = {  # functional dependency in data creation. order matters

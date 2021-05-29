@@ -8,7 +8,9 @@ import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 from flask_babel import gettext
 
-from app.data import get_national_data, get_region_data, get_province_data
+from app.data_tools import (
+    get_national_data, get_region_data, get_province_data
+)
 from settings import KEY_PERIODS, REGIONS, PROVINCES
 from settings.vars import (
     NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY, TOTAL_CASES_KEY, REGION_KEY,

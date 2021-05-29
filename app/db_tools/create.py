@@ -4,13 +4,13 @@ DB Recovery
 import pandas as pd
 from flask import current_app as app
 
-from app.db_utils import (
+from app.db_tools import (
     nat_data_coll, nat_trends_coll, nat_series_coll, reg_data_coll,
     reg_trends_coll, reg_series_coll, reg_bdown_coll, prov_data_coll,
     prov_trends_coll, prov_series_coll, prov_bdown_coll, vax_admins_coll,
     vax_admins_summary_coll, it_pop_coll
 )
-from app.db_utils.etl import (
+from app.db_tools.etl import (
     preprocess_national_df, preprocess_regional_df, preprocess_provincial_df,
     build_national_trends, build_regional_trends, build_provincial_trends,
     build_regional_breakdown, build_provincial_breakdowns,
