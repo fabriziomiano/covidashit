@@ -8,8 +8,7 @@ from app import limiter
 from app.api import api
 from app.data import (
     get_admins_timeseries_chart_data, get_region_chart_data,
-    get_age_chart_data, get_category_chart_data,
-    get_admins_per_provider_chart_data
+    get_age_chart_data, get_admins_per_provider_chart_data
 )
 from app.db_utils.tasks import (
     update_national_collection, update_national_series_collection,
@@ -184,7 +183,6 @@ def get_chart(chart_id):
         'trend': get_admins_timeseries_chart_data,
         'region': get_region_chart_data,
         'age': get_age_chart_data,
-        'category': get_category_chart_data,
         'provider': get_admins_per_provider_chart_data
     }
     data = {}
