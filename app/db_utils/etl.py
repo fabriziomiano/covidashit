@@ -19,6 +19,7 @@ from settings.vars import (
     M_SEX_KEY, VARS, POP_ISTAT_KEY, NUTS_ISTAT_KEY, NUTS_KEY
 )
 
+pd.options.mode.chained_assignment = None
 COLUMNS_TO_DROP = [STATE_KEY]
 
 
