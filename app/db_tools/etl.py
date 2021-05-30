@@ -1,6 +1,7 @@
 """
 Where the ETL happens
 """
+import numpy as np
 import pandas as pd
 from flask import current_app as app
 
@@ -10,13 +11,13 @@ from app.data_tools import (
 )
 from app.db_tools import reg_data_coll
 from settings import REGIONS, PROVINCES, OD_TO_PC_MAP
-from settings.urls import URL_ISTAT_IT_POP
+from settings.urls import URL_ISTAT_POP, URL_ISTAT_AGE_POP
 from settings.vars import (
     NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY, TOTAL_CASES_KEY, DAILY_SWABS_KEY,
     DAILY_POSITIVITY_INDEX, REGION_KEY, PROVINCE_KEY, REGION_CODE,
     PROVINCE_CODE, VAX_DATE_FMT, CHART_DATE_FMT, DATE_KEY, STATE_KEY,
     VAX_DATE_KEY, VAX_AREA_KEY, VAX_TYPE_KEY, VAX_AGE_KEY, POP_KEY, F_SEX_KEY,
-    M_SEX_KEY, VARS, POP_ISTAT_KEY, NUTS_ISTAT_KEY, NUTS_KEY
+    M_SEX_KEY, VARS, ISTAT_POP_KEY, ISTAT_NUTS_KEY, NUTS_KEY, ISTAT_AGE_KEY
 )
 
 pd.options.mode.chained_assignment = None
@@ -497,11 +498,11 @@ def create_istat_population_df():
     Create a population df from ISTAT data
     :return: pd.DataFrame
     """
-    columns = [NUTS_ISTAT_KEY, POP_ISTAT_KEY]
+    columns = [ISTAT_NUTS_KEY, ISTAT_POP_KEY]
     out_df = pd.DataFrame()
     try:
-        df = pd.read_csv(URL_ISTAT_IT_POP, usecols=columns, low_memory=False)
-        df[NUTS_ISTAT_KEY] = df[NUTS_ISTAT_KEY].apply(
+        df = pd.read_csv(URL_ISTAT_POP, usecols=columns, low_memory=False)
+        df[ISTAT_NUTS_KEY] = df[ISTAT_NUTS_KEY].apply(
             lambda x: x.replace('ITD', 'ITH')).apply(
             lambda x: x.replace('ITE', 'ITI'))
         pipe = [
@@ -511,11 +512,39 @@ def create_istat_population_df():
             }}]
         df_db = pd.json_normalize(list(reg_data_coll.aggregate(pipe)))
         out_df = df.merge(
-            df_db, left_on=NUTS_ISTAT_KEY, right_on=f'_id.{NUTS_KEY}')
+            df_db, left_on=ISTAT_NUTS_KEY, right_on=f'_id.{NUTS_KEY}')
         out_df = out_df.rename(columns={
             f'_id.{REGION_KEY}': REGION_KEY,
             f'_id.{NUTS_KEY}': f'{NUTS_KEY}'
         })
     except Exception as e:
-        app.logger.error(f"While creating ISTAT df: {e}")
+        app.logger.error(f"While creating ISTAT regional population df: {e}")
     return out_df
+
+
+def create_istat_age_population_df():
+    """
+    Create a population per-age-range df from ISTAT data
+    :return: pd.DataFrame
+    """
+    df = pd.read_csv(URL_ISTAT_AGE_POP)
+    df = df[[ISTAT_AGE_KEY, ISTAT_POP_KEY, ISTAT_NUTS_KEY]]
+    df = df.groupby([ISTAT_AGE_KEY, ISTAT_NUTS_KEY]).sum()
+    df = df.drop(index='TOTAL').reset_index()
+    regex = r"([A-Z]*.*[A-Z])*(\d*)"
+    df[ISTAT_AGE_KEY] = df[ISTAT_AGE_KEY].str.extract(regex)[1].astype('int')
+    df = df[df[ISTAT_AGE_KEY] > 15]
+    df[ISTAT_NUTS_KEY] = df[ISTAT_NUTS_KEY].apply(
+        lambda x: x.replace('ITD', 'ITH')).apply(
+        lambda x: x.replace('ITE', 'ITI'))
+    labels = [
+        "16-19", "20-29", "30-39", "40-49", "50-59",
+        "60-69", "70-79", "80-89", "90+"
+    ]
+    df = df.groupby([
+        ISTAT_NUTS_KEY,
+        pd.cut(df['ETA'], np.arange(10, 101, 10), labels=labels)
+    ]).sum()
+    df.drop(columns=[ISTAT_AGE_KEY], inplace=True)
+    df.reset_index(inplace=True)
+    return df

@@ -8,7 +8,7 @@ from app.db_tools import (
     nat_data_coll, nat_trends_coll, nat_series_coll, reg_data_coll,
     reg_trends_coll, reg_series_coll, reg_bdown_coll, prov_data_coll,
     prov_trends_coll, prov_series_coll, prov_bdown_coll, vax_admins_coll,
-    vax_admins_summary_coll, it_pop_coll
+    vax_admins_summary_coll, pop_coll, age_pop_coll
 )
 from app.db_tools.etl import (
     preprocess_national_df, preprocess_regional_df, preprocess_provincial_df,
@@ -16,7 +16,8 @@ from app.db_tools.etl import (
     build_regional_breakdown, build_provincial_breakdowns,
     build_national_series, build_regional_series, build_provincial_series,
     COLUMNS_TO_DROP, preprocess_vax_admins_df,
-    preprocess_vax_admins_summary_df, create_istat_population_df
+    preprocess_vax_admins_summary_df, create_istat_population_df,
+    create_istat_age_population_df
 )
 from settings.urls import (
     URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, URL_VAX_ADMINS_DATA,
@@ -226,8 +227,22 @@ class CollectionCreator:
         try:
             pop_df = create_istat_population_df()
             records = pop_df.to_dict(orient='records')
-            app.logger.info("Creating ISTAT Italy population collection")
-            it_pop_coll.drop()
-            it_pop_coll.insert_many(records)
+            app.logger.info("Creating ISTAT population collection")
+            pop_coll.drop()
+            pop_coll.insert_many(records)
         except Exception as e:
-            app.logger.error(f"While creating ISTAT Italy population: {e}")
+            app.logger.error(
+                f"While creating ISTAT population collection: {e}")
+
+    @staticmethod
+    def create_istat_age_pop_collection():
+        """Create region-per-age-range population collection from ISTAT data"""
+        try:
+            pop_df = create_istat_age_population_df()
+            records = pop_df.to_dict(orient='records')
+            app.logger.info("Creating ISTAT pupulation per-age collection")
+            age_pop_coll.drop()
+            age_pop_coll.insert_many(records)
+        except Exception as e:
+            app.logger.error(
+                f"While creating ISTAT population per-age collection: {e}")
