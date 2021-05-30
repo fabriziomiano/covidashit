@@ -1,5 +1,5 @@
 """
-Data Module
+Data tools module
 """
 import datetime as dt
 
@@ -9,25 +9,26 @@ import requests
 from flask import current_app as app
 from flask_babel import gettext
 
-from app.db_utils import (
-    nat_data_coll, nat_trends_coll, nat_series_coll, reg_data_coll,
-    reg_trends_coll, reg_series_coll, reg_bdown_coll, prov_data_coll,
-    prov_trends_coll, prov_series_coll, prov_bdown_coll, vax_admins_coll,
-    vax_admins_summary_coll, it_pop_coll
+from app.db_tools import (
+    nat_data_coll, reg_data_coll, prov_data_coll, nat_trends_coll,
+    reg_trends_coll, prov_trends_coll, reg_bdown_coll, prov_bdown_coll,
+    nat_series_coll, reg_series_coll, prov_series_coll,
+    vax_admins_summary_coll, vax_admins_coll, pop_coll, age_pop_coll
 )
 from app.utils import rubbish_notes, translate_series_lang
 from settings import (
-    VERSION, KEY_PERIODS, ITALY_MAP, REGIONS, PROVINCES,
-    OD_TO_PC_MAP, PC_TO_OD_MAP
+    ITALY_MAP, VERSION, REGIONS, PROVINCES, KEY_PERIODS, PC_TO_OD_MAP,
+    OD_TO_PC_MAP
 )
 from settings.urls import URL_VAX_LATEST_UPDATE, URL_VAX_SUMMARY_DATA
 from settings.vars import (
-    NEW_POSITIVE_KEY, TOTAL_CASES_KEY, DAILY_POSITIVITY_INDEX, REGION_KEY,
-    PROVINCE_KEY, VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, CHART_DATE_FMT,
-    UPDATE_FMT, VAX_UPDATE_FMT, DATE_KEY, NOTE_KEY, VAX_DATE_KEY, VAX_AREA_KEY,
-    VAX_AGE_KEY, POP_KEY, ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY,
-    VAX_ADMINS_PERC_KEY, VAX_TOT_ADMINS_KEY, VAX_FIRST_DOSE_KEY,
-    VAX_SECOND_DOSE_KEY, VAX_PROVIDER_KEY, VARS, POP_ISTAT_KEY
+    VARS, TOTAL_CASES_KEY, NEW_POSITIVE_KEY, REGION_KEY, PROVINCE_KEY,
+    DATE_KEY, NOTE_KEY, DAILY_POSITIVITY_INDEX, UPDATE_FMT,
+    VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_UPDATE_FMT, VAX_FIRST_DOSE_KEY,
+    VAX_SECOND_DOSE_KEY, VAX_TOT_ADMINS_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
+    ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_ADMINS_PERC_KEY, VAX_DATE_KEY,
+    CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, ISTAT_POP_KEY, ISTAT_NUTS_KEY,
+    OD_NUTS_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -40,7 +41,6 @@ DASHBOARD_DATA = {
     "provinces": PROVINCES,
     "key_periods": KEY_PERIODS
 }
-
 CUM_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "cum"]
 NON_CUM_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "current"]
 DAILY_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "daily"]
@@ -319,31 +319,63 @@ def get_tot_admins(dtype, area=None):
     return int(tot_adms)
 
 
+def get_age_pop(nuts_code=None):
+    """
+    Return population-per-age-range data
+    :param nuts_code: str
+    :return: pd.DataFrame
+    """
+    pop_match = {'$match': {ISTAT_NUTS_KEY: nuts_code}}
+    pop_group = {
+        '$group': {
+            '_id': {ISTAT_NUTS_KEY: f'${ISTAT_NUTS_KEY}', 'ETA': '$ETA'},
+            ISTAT_POP_KEY: {'$sum': f'${ISTAT_POP_KEY}'},
+        }
+    }
+    pop_sort = {'$sort': {'_id': 1}}
+    if nuts_code is not None:
+        pop_pipe = [pop_match, pop_group, pop_sort]
+    else:
+        pop_pipe = [pop_group, pop_sort]
+    df_pop = pd.json_normalize(list(age_pop_coll.aggregate(pop_pipe)))
+    return df_pop
+
+
 def get_age_chart_data(area=None):
     """Return age series data"""
-    if area is not None:
-        area = PC_TO_OD_MAP[area]
     chart_data = {}
-    match = {'$match': {VAX_AREA_KEY: area}}
-    group = {
+    vax_group = {
         '$group': {
-            '_id': f'${VAX_AGE_KEY}',
+            '_id': {
+                VAX_AGE_KEY: f'${VAX_AGE_KEY}',
+                OD_NUTS_KEY: f'${OD_NUTS_KEY}'
+            },
             f'{VAX_FIRST_DOSE_KEY}': {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
             f'{VAX_SECOND_DOSE_KEY}': {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
         }
     }
-    sort = {'$sort': {'_id': 1}}
+    vax_sort = {'$sort': {'_id': 1}}
     try:
         if area is not None:
-            pipe = [match, group, sort]
+            area = PC_TO_OD_MAP[area]
+            vax_match = {'$match': {VAX_AREA_KEY: area}}
+            vax_pipe = [vax_match, vax_group, vax_sort]
         else:
-            pipe = [group, sort]
-        cursor = vax_admins_coll.aggregate(pipeline=pipe)
-        data = list(cursor)
-        df = pd.DataFrame(data)
-        categories = df['_id'].values.tolist()
-        cols = [VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY]
+            vax_pipe = [vax_group, vax_sort]
+        cursor = vax_admins_coll.aggregate(pipeline=vax_pipe)
+        df_vax = pd.json_normalize(list(cursor))
+        df_pop = get_age_pop() if area is None \
+            else get_age_pop(df_vax[f'_id.{OD_NUTS_KEY}'].values[0])
+        out_df = df_pop.merge(
+            df_vax,
+            left_on=['_id.ETA', f'_id.{ISTAT_NUTS_KEY}'],
+            right_on=[f'_id.{VAX_AGE_KEY}', f'_id.{OD_NUTS_KEY}']
+        )
+        out_df = out_df.groupby('_id.ETA').sum()
+        categories = df_vax[f'_id.{VAX_AGE_KEY}'].unique().tolist()
+        cols = [ISTAT_POP_KEY, VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY]
         names = [
+            gettext("Population"),
             gettext("First dose"),
             gettext("Second dose")
         ]
@@ -353,7 +385,7 @@ def get_age_chart_data(area=None):
             "categories": categories,
             "data": [{
                 'name': md[0],
-                'data': df[md[1]].values.tolist()
+                'data': out_df[md[1]].values.tolist()
             } for md in zip(names, cols)]
         }
     except Exception as e:
@@ -361,21 +393,13 @@ def get_age_chart_data(area=None):
     return chart_data
 
 
-def get_region_chart_data():
+def get_admins_per_region():
     """Return administrations data per region"""
     tot_admins = get_tot_admins(dtype='totale')
     chart_data = {}
     try:
         pipe = [
-            {
-                '$match': {
-                    VAX_AREA_KEY: {
-                        '$not': {
-                            '$eq': 'ITA'
-                        }
-                    }
-                }
-            },
+            {'$match': {VAX_AREA_KEY: {'$not': {'$eq': 'ITA'}}}},
             {
                 '$group': {
                     '_id': f'${VAX_AREA_KEY}',
@@ -410,15 +434,10 @@ def get_region_chart_data():
 
 def exp_tot_admins(x, tot_admins):
     """Return tot administration scaled to the region pop percentage"""
-    it_population = get_it_pop_dict()
+    pop_dict = get_it_pop_dict()
+    it_pop = sum([v for v in pop_dict.values()])
     return round(
-        it_population[x] / it_population['Italia'] * tot_admins)
-
-
-def pop_perc(x):
-    """Return percentage of population in a given region"""
-    it_population = get_it_pop_dict()
-    return round(it_population[x] / it_population['Italia'] * 100, 2)
+        pop_dict[x] / it_pop * tot_admins)
 
 
 def get_admins_perc(area=None):
@@ -586,11 +605,25 @@ def get_it_pop_dict():
     """
     it_pop_dict = {}
     try:
-        records = list(it_pop_coll.find({}))
+        records = list(pop_coll.find({}))
         it_pop_dict = {
-            r[REGION_KEY]: r[POP_ISTAT_KEY]
+            r[REGION_KEY]: r[ISTAT_POP_KEY]
             for r in records
         }
     except Exception as e:
         app.logger.error(f"While getting IT pop dict: {e}")
     return it_pop_dict
+
+
+def get_area_population(area=None):
+    """
+
+    :param area:
+    :return:
+    """
+    pop_dict = get_it_pop_dict()
+    try:
+        population = pop_dict[area]
+    except KeyError:
+        population = sum([v for v in pop_dict.values()])
+    return population

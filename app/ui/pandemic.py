@@ -6,12 +6,11 @@ import time
 from flask import render_template, redirect
 from flask_babel import gettext
 
-from app.data import (
-    get_notes, get_national_trends, get_regional_trends,
-    get_provincial_trends, get_regional_breakdown, get_provincial_breakdown,
-    get_national_series, get_regional_series, get_provincial_series,
-    get_positivity_idx, get_latest_update, enrich_frontend_data,
-    get_it_pop_dict
+from app.data_tools import (
+    get_notes, get_national_trends, get_regional_trends, get_provincial_trends,
+    get_regional_breakdown, get_provincial_breakdown, get_national_series,
+    get_regional_series, get_provincial_series, get_positivity_idx,
+    get_latest_update, enrich_frontend_data, get_area_population
 )
 from app.ui import pandemic
 from app.utils import region_of_province
@@ -42,7 +41,7 @@ def national_view():
     notes = get_notes(notes_type=data_type)
     updated_at = get_latest_update(data_type=data_type)
     positivity_idx = get_positivity_idx(area_type=data_type)
-    population = get_it_pop_dict()['Italia']
+    population = get_area_population()
     data = enrich_frontend_data(
         page_title=PAGE_BASE_TITLE,
         dashboard_title=gettext("Italy"),
@@ -79,7 +78,7 @@ def regional_view(region):
     provinces = ITALY_MAP[region]
     region_index = REGIONS.index(region)
     previous_url = f"{URL_REGIONS}/{REGIONS[region_index - 1]}"
-    population = get_it_pop_dict()[region]
+    population = get_area_population(region)
     try:
         next_region_url = f"{URL_REGIONS}/{REGIONS[region_index + 1]}"
     except IndexError:
