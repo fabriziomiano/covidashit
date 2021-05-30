@@ -30,6 +30,7 @@ PROVINCE_KEY = "denominazione_provincia"
 REGION_CODE = "codice_regione"
 PROVINCE_CODE = "codice_provincia"
 NUTS_KEY = 'codice_nuts_2'
+OD_NUTS_KEY = 'codice_NUTS2'
 VAX_LATEST_UPDATE_KEY = "ultimo_aggiornamento"
 CP_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 VAX_DATE_FMT = "%Y-%m-%dT%H:%M:%S.%f%z"
