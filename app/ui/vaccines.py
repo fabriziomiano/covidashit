@@ -6,9 +6,9 @@ import time
 from flask import render_template
 from flask_babel import gettext
 
-from app.data import (
-    enrich_frontend_data, get_latest_vax_update, get_tot_admins,
-    get_perc_pop_vax, get_admins_perc, get_vax_trends, get_it_pop_dict
+from app.data_tools import (
+    get_latest_vax_update, get_perc_pop_vax, enrich_frontend_data,
+    get_tot_admins, get_admins_perc, get_vax_trends, get_area_population
 )
 from app.ui import vaccines
 from settings import PAGE_BASE_TITLE, REGIONS, PC_TO_OD_MAP
@@ -17,12 +17,12 @@ URL_VACCINES = "/vaccines"
 view_type = 'vaccines'
 
 
-@vaccines.route('/')
+@vaccines.get('/')
 def national_vax_view():
     """Render the vax report"""
     dashboard_title = gettext("Italy")
     page_title = f'{gettext("Vaccines")} | {PAGE_BASE_TITLE}'
-    population = get_it_pop_dict()['Italia']
+    population = get_area_population('Italia')
     tot_admins = get_tot_admins(dtype='totale')
     perc_pop_vax = get_perc_pop_vax(population)
     report_data = enrich_frontend_data(
@@ -41,13 +41,13 @@ def national_vax_view():
     return render_template("vaccines.html", **report_data)
 
 
-@vaccines.route('/<region>')
+@vaccines.get('/<region>')
 def regional_vax_view(region):
     """Render the vax regional view"""
     dashboard_title = region
     page_title = f'{gettext("Vaccines")} | {region} | {PAGE_BASE_TITLE}'
     area = PC_TO_OD_MAP[region]
-    population = get_it_pop_dict()[region]
+    population = get_area_population(region)
     tot_admins = get_tot_admins(dtype='totale', area=area)
     perc_pop_vax = get_perc_pop_vax(population, area)
     region_index = REGIONS.index(region)
