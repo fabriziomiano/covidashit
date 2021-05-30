@@ -55,8 +55,9 @@ VAX_PROVIDER_KEY = "fornitore"
 F_SEX_KEY = "sesso_femminile"
 M_SEX_KEY = "sesso_maschile"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
-NUTS_ISTAT_KEY = 'ITTER107'
-POP_ISTAT_KEY = 'OBS_VALUE'
+ISTAT_NUTS_KEY = 'ITTER107'
+ISTAT_POP_KEY = 'OBS_VALUE'
+ISTAT_AGE_KEY = 'ETA'
 TREND_SYMBOL_LOGIC = {
     "stable": {
         "colour": "text-info",
