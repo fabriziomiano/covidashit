@@ -512,13 +512,10 @@ def create_istat_population_df():
         df_db = pd.json_normalize(list(reg_data_coll.aggregate(pipe)))
         out_df = df.merge(
             df_db, left_on=NUTS_ISTAT_KEY, right_on=f'_id.{NUTS_KEY}')
-        out_df = out_df[[POP_ISTAT_KEY, f'_id.{REGION_KEY}']]
         out_df = out_df.rename(columns={
-            f'_id.{REGION_KEY}': REGION_KEY
+            f'_id.{REGION_KEY}': REGION_KEY,
+            f'_id.{NUTS_KEY}': f'{NUTS_KEY}'
         })
-        out_df = out_df.append(
-            {POP_ISTAT_KEY: out_df[POP_ISTAT_KEY].sum(), REGION_KEY: 'Italia'},
-            ignore_index=True)
     except Exception as e:
         app.logger.error(f"While creating ISTAT df: {e}")
     return out_df
