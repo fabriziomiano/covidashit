@@ -7,7 +7,7 @@ from flask_github_signature import verify_signature
 from app import limiter
 from app.api import api
 from app.data_tools import (
-    get_age_chart_data, get_region_chart_data,
+    get_age_chart_data, get_admins_per_region,
     get_admins_timeseries_chart_data, get_admins_per_provider_chart_data
 )
 from app.db_tools.tasks import (
@@ -181,7 +181,7 @@ def get_chart(chart_id):
     area = args.get('area')
     data_menu = {
         'trend': get_admins_timeseries_chart_data,
-        'region': get_region_chart_data,
+        'region': get_admins_per_region,
         'age': get_age_chart_data,
         'provider': get_admins_per_provider_chart_data
     }
