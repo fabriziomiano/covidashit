@@ -6,14 +6,14 @@ from flask import current_app as app
 from pymongo import UpdateOne, InsertOne
 
 from app import celery
-from app.data import TREND_CARDS
-from app.db_utils import (
+from app.data_tools import TREND_CARDS
+from app.db_tools import (
     nat_data_coll, nat_series_coll, nat_trends_coll, reg_data_coll,
     reg_series_coll, reg_trends_coll, reg_bdown_coll, prov_data_coll,
     prov_bdown_coll, prov_trends_coll, prov_series_coll, vax_admins_coll,
-    vax_admins_summary_coll, it_pop_coll
+    vax_admins_summary_coll, pop_coll
 )
-from app.db_utils.etl import (
+from app.db_tools.etl import (
     load_df, preprocess_national_df, build_national_series, build_trend,
     preprocess_regional_df, build_series, build_national_trends,
     build_regional_breakdown, preprocess_provincial_df,
@@ -27,7 +27,7 @@ from settings.urls import (
     URL_VAX_ADMINS_SUMMARY_DATA
 )
 from settings.vars import (
-    REGION_KEY, PROVINCE_KEY, DATE_KEY, VAX_DATE_KEY, POP_ISTAT_KEY
+    REGION_KEY, PROVINCE_KEY, DATE_KEY, VAX_DATE_KEY, ISTAT_POP_KEY
 )
 
 
@@ -409,20 +409,20 @@ def update_vax_collections(summary=False):
 def update_istat_it_population_collection():
     """Update ISTAT Italy population collection"""
     ops = []
-    cols = [POP_ISTAT_KEY, REGION_KEY]
+    cols = [ISTAT_POP_KEY, REGION_KEY]
     istat_df = create_istat_population_df()
     try:
-        df_db = pd.DataFrame(list(it_pop_coll.find({})))
+        df_db = pd.DataFrame(list(pop_coll.find({})))
         df_compare = df_db[cols].compare(istat_df)
         if not df_compare.empty:
             new_df = istat_df.loc[df_compare.index.values].reset_index()
             ids = df_db.loc[df_compare.index.values]['_id'].to_list()
-            for r in it_pop_coll.find({'_id': {'$in': ids}}):
+            for r in pop_coll.find({'_id': {'$in': ids}}):
                 mask = new_df[REGION_KEY] == r[REGION_KEY]
                 new_value = new_df[mask].to_dict(orient='records')[0]
                 ops.append(UpdateOne({'_id': r['_id']}, {'$set': new_value}))
             app.logger.info(f"Updating {len(ops)} region population")
-            results = it_pop_coll.bulk_write(ops)
+            results = pop_coll.bulk_write(ops)
             app.logger.info(f"Bulk update result: {results.bulk_api_result}")
         else:
             app.logger.info("No region population to update")
