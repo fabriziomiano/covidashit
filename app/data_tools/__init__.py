@@ -27,7 +27,7 @@ from settings.vars import (
     VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_UPDATE_FMT, VAX_FIRST_DOSE_KEY,
     VAX_SECOND_DOSE_KEY, VAX_TOT_ADMINS_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
     ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_ADMINS_PERC_KEY, VAX_DATE_KEY,
-    CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, POP_ISTAT_KEY, NUTS_ISTAT_KEY,
+    CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, ISTAT_POP_KEY, ISTAT_NUTS_KEY,
     OD_NUTS_KEY
 )
 
@@ -325,11 +325,11 @@ def get_age_pop(nuts_code=None):
     :param nuts_code: str
     :return: pd.DataFrame
     """
-    pop_match = {'$match': {NUTS_ISTAT_KEY: nuts_code}}
+    pop_match = {'$match': {ISTAT_NUTS_KEY: nuts_code}}
     pop_group = {
         '$group': {
-            '_id': {NUTS_ISTAT_KEY: f'${NUTS_ISTAT_KEY}', 'ETA': '$ETA'},
-            POP_ISTAT_KEY: {'$sum': f'${POP_ISTAT_KEY}'},
+            '_id': {ISTAT_NUTS_KEY: f'${ISTAT_NUTS_KEY}', 'ETA': '$ETA'},
+            ISTAT_POP_KEY: {'$sum': f'${ISTAT_POP_KEY}'},
         }
     }
     pop_sort = {'$sort': {'_id': 1}}
@@ -368,12 +368,12 @@ def get_age_chart_data(area=None):
             else get_age_pop(df_vax[f'_id.{OD_NUTS_KEY}'].values[0])
         out_df = df_pop.merge(
             df_vax,
-            left_on=['_id.ETA', f'_id.{NUTS_ISTAT_KEY}'],
+            left_on=['_id.ETA', f'_id.{ISTAT_NUTS_KEY}'],
             right_on=[f'_id.{VAX_AGE_KEY}', f'_id.{OD_NUTS_KEY}']
         )
         out_df = out_df.groupby('_id.ETA').sum()
         categories = df_vax[f'_id.{VAX_AGE_KEY}'].unique().tolist()
-        cols = [POP_ISTAT_KEY, VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY]
+        cols = [ISTAT_POP_KEY, VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY]
         names = [
             gettext("Population"),
             gettext("First dose"),
@@ -607,7 +607,7 @@ def get_it_pop_dict():
     try:
         records = list(pop_coll.find({}))
         it_pop_dict = {
-            r[REGION_KEY]: r[POP_ISTAT_KEY]
+            r[REGION_KEY]: r[ISTAT_POP_KEY]
             for r in records
         }
     except Exception as e:

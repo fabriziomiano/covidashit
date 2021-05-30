@@ -27,7 +27,7 @@ from settings.urls import (
     URL_VAX_ADMINS_SUMMARY_DATA
 )
 from settings.vars import (
-    REGION_KEY, PROVINCE_KEY, DATE_KEY, VAX_DATE_KEY, POP_ISTAT_KEY
+    REGION_KEY, PROVINCE_KEY, DATE_KEY, VAX_DATE_KEY, ISTAT_POP_KEY
 )
 
 
@@ -409,7 +409,7 @@ def update_vax_collections(summary=False):
 def update_istat_it_population_collection():
     """Update ISTAT Italy population collection"""
     ops = []
-    cols = [POP_ISTAT_KEY, REGION_KEY]
+    cols = [ISTAT_POP_KEY, REGION_KEY]
     istat_df = create_istat_population_df()
     try:
         df_db = pd.DataFrame(list(pop_coll.find({})))
