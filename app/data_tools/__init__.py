@@ -518,14 +518,12 @@ def get_admins_per_provider_chart_data(area=None):
     else:
         pipe = [group, sort]
     data = list(vax_admins_coll.aggregate(pipeline=pipe))
-    return {
+    chart_data = {
         "title": gettext('Admins per provider'),
         "name": gettext('Doses administered'),
-        "data": [
-            {'name': d['_id'], 'y': d['tot']}
-            for d in data
-        ]
+        "data": [[d['_id'], d['tot']] for d in data]
     }
+    return chart_data
 
 
 def get_vax_trends_data(area=None):

@@ -345,3 +345,8 @@ VARS[VAX_SECOND_DOSE_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "vax"
 }
+AGE_RANGE_LABELS = [
+    "12-19", "20-29", "30-39", "40-49", "50-59",
+    "60-69", "70-79", "80-89", "90+"
+]
+MIN_VAX_AGE = 11
