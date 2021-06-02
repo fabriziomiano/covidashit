@@ -158,16 +158,6 @@ $.ajax(baseUrl + 'age', {
                 text: adminsPerAge.title + ' | ' + area
             },
             plotOptions: {
-                // series: {
-                //     borderWidth: 0,
-                //     dataLabels: {
-                //         enabled: true,
-                //         formatter: function () {
-                //             let pcnt = (this.y / totAdmins) * 100;
-                //             return Highcharts.numberFormat(pcnt, '1') + '%';
-                //         }
-                //     }
-                // },
                 bar: {
                     grouping: false
                 }
@@ -227,17 +217,24 @@ $.ajax(baseUrl + 'provider', {
             },
             plotOptions: {
                 pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
+                        distance: -50,
                         format: '{point.name}: <b>{point.percentage:.1f}%</b>',
-                        // distance: -1
-                    }
+                        style: {
+                            fontWeight: 'bold',
+                            color: 'white'
+                        }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%'],
+                    size: '110%'
                 }
             },
             series: [{
                 name: adminsPerProvider.name,
+                innerSize: '50%',
                 data: adminsPerProvider.data
             }],
             subtitle: subtitle,

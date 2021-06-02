@@ -17,7 +17,8 @@ from settings.vars import (
     DAILY_POSITIVITY_INDEX, REGION_KEY, PROVINCE_KEY, REGION_CODE,
     PROVINCE_CODE, VAX_DATE_FMT, CHART_DATE_FMT, DATE_KEY, STATE_KEY,
     VAX_DATE_KEY, VAX_AREA_KEY, VAX_TYPE_KEY, VAX_AGE_KEY, POP_KEY, F_SEX_KEY,
-    M_SEX_KEY, VARS, ISTAT_POP_KEY, ISTAT_NUTS_KEY, NUTS_KEY, ISTAT_AGE_KEY
+    M_SEX_KEY, VARS, ISTAT_POP_KEY, ISTAT_NUTS_KEY, NUTS_KEY, ISTAT_AGE_KEY,
+    AGE_RANGE_LABELS, MIN_VAX_AGE
 )
 
 pd.options.mode.chained_assignment = None
@@ -533,17 +534,13 @@ def create_istat_age_population_df():
     df = df.drop(index='TOTAL').reset_index()
     regex = r"([A-Z]*.*[A-Z])*(\d*)"
     df[ISTAT_AGE_KEY] = df[ISTAT_AGE_KEY].str.extract(regex)[1].astype('int')
-    df = df[df[ISTAT_AGE_KEY] > 15]
+    df = df[df[ISTAT_AGE_KEY] > MIN_VAX_AGE]
     df[ISTAT_NUTS_KEY] = df[ISTAT_NUTS_KEY].apply(
         lambda x: x.replace('ITD', 'ITH')).apply(
         lambda x: x.replace('ITE', 'ITI'))
-    labels = [
-        "16-19", "20-29", "30-39", "40-49", "50-59",
-        "60-69", "70-79", "80-89", "90+"
-    ]
     df = df.groupby([
         ISTAT_NUTS_KEY,
-        pd.cut(df['ETA'], np.arange(10, 101, 10), labels=labels)
+        pd.cut(df['ETA'], bins=np.arange(10, 101, 10), labels=AGE_RANGE_LABELS)
     ]).sum()
     df.drop(columns=[ISTAT_AGE_KEY], inplace=True)
     df.reset_index(inplace=True)

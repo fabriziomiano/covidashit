@@ -140,23 +140,26 @@ def create_app():
         "vax-admins-summary": cc.create_vax_admins_summary_collection
     }
 
-    @app.cli.command("create-collections")
-    def populate_db():
-        """Populate all the collections needed on mongoDB"""
+    @app.cli.command("createdb")
+    def create_db():
+        """Create DB and populate all the collections in creation_menu"""
         for _type in creation_menu:
             creation_menu[_type]()
 
     @app.cli.command("create")
-    @click.argument("collection_type")
-    def populate_collection(collection_type):
-        """Populate a collection type on the DB"""
+    @click.argument("coll_names", nargs=-1)
+    def populate_collections(coll_names):
+        """Populate one ore more collections on the DB"""
         allowed_types = [k for k in creation_menu]
         try:
-            creation_menu[collection_type]()
-        except KeyError:
+            for c in coll_names:
+                assert c in allowed_types
+                creation_menu[c]()
+        except AssertionError:
             app.logger.error(
-                f"Invalid collection type: {collection_type}. " +
-                "Allowed types: [" + ", ".join(a for a in allowed_types) + "]"
-            )
+                f"One or more collection names provided is invalid.\n" +
+                "Allowed types: [" +
+                ", ".join(a for a in allowed_types) +
+                "]")
 
     return app
