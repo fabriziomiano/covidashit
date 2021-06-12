@@ -2,6 +2,8 @@
 
 {% block content %}
     <main class="mt-2">
+
+        <!-- Back to top button -->
         <a class="btn btn-primary" id="back2Top" title="Back to top"
            href="#">
             <i class="fas fa-chevron-up"></i>
@@ -107,9 +109,11 @@
                 </div>
             </div>
 
-            {% include 'pandemic/cards.html' %}
-            {% include 'pandemic/charts.html' %}
+        </div>
 
+        <!-- Cards and Charts -->
+        <div class="container-fluid">
+            {% include 'pandemic/cards-charts.html' %}
         </div>
 
         <!-- Footers -->
