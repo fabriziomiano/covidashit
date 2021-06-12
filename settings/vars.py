@@ -5,13 +5,10 @@ from collections import OrderedDict
 
 from flask_babel import gettext
 
-HOSPITALIZED_WITH_SYMPTOMS_KEY = "ricoverati_con_sintomi"
 ICU_KEY = "terapia_intensiva"
 DAILY_ICU_KEY = "ingressi_terapia_intensiva"
 DAILY_ICU_MA_KEY = "ingressi_terapia_intensiva_ma"
 TOTAL_HOSPITALIZED_KEY = "totale_ospedalizzati"
-DAILY_HOSPITALIZED_KEY = "totale_ospedalizzati_g"
-DAILY_HOSPITALIZED_MA_KEY = "totale_ospedalizzati_g_ma"
 SELF_ISOLATION_KEY = "isolamento_domiciliare"
 TOTAL_POSITIVE_KEY = "totale_positivi"
 NEW_POSITIVE_KEY = "nuovi_positivi"
@@ -131,18 +128,6 @@ VARS[DAILY_SWABS_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "daily"
 }
-VARS[DAILY_HOSPITALIZED_KEY] = {
-    "title": gettext("Daily Hospitalized"),
-    "desc": gettext("# of people daily hospitalized"),
-    "longdesc": gettext(
-        "Daily count of people currently hospitalized. "
-        "It takes into account ICU"),
-    "icon": "fas fa-hospital-symbol",
-    "increase": TREND_SYMBOL_LOGIC["increase"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "daily"
-}
 VARS[NEW_POSITIVE_MA_KEY] = {
     "title": gettext("New Positive (7-day MA)"),
     "desc": gettext("Daily count of new positve cases"),
@@ -187,22 +172,10 @@ VARS[DAILY_SWABS_MA_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "daily"
 }
-VARS[DAILY_HOSPITALIZED_MA_KEY] = {
-    "title": gettext("Daily Hospitalized (7-day MA)"),
-    "desc": gettext("# of people daily hospitalized"),
-    "longdesc": gettext(
-        "Daily count of people currently hospitalized. "
-        "It takes into account ICU"),
-    "icon": "fas fa-hospital-symbol",
-    "increase": TREND_SYMBOL_LOGIC["increase"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "daily"
-}
 
 # Current-state variables
 VARS[TOTAL_POSITIVE_KEY] = {
-    "title": gettext("Total Positive"),
+    "title": gettext("Tot Positive"),
     "desc": gettext(
         "# of people currently "
         "hospitalized with symptoms + ICU + self isolation"
@@ -221,7 +194,7 @@ VARS[TOTAL_POSITIVE_KEY] = {
     "type": "current"
 }
 VARS[ICU_KEY] = {
-    "title": gettext("Intensive Care Unit"),
+    "title": gettext("ICU"),
     "desc": gettext("# of people currently in ICU"),
     "longdesc": gettext(
         "Total count of people currently in ICU and positive to COVID-19"
@@ -232,24 +205,9 @@ VARS[ICU_KEY] = {
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "current"
 }
-VARS[HOSPITALIZED_WITH_SYMPTOMS_KEY] = {
-    "title": gettext("Hospitalized With Symptoms"),
-    "desc": gettext(
-        "# of people currently hospitalized with symptoms"
-    ),
-    "longdesc": gettext(
-        "Total count of people currently in hospital "
-        "due to coronavirus with symptoms"
-    ),
-    "icon": "fas fa-hospital-symbol",
-    "increase": TREND_SYMBOL_LOGIC["increase"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "current"
-}
 
 VARS[TOTAL_HOSPITALIZED_KEY] = {
-    "title": gettext("Total Hospitalized"),
+    "title": gettext("Tot Hospitalized"),
     "desc": gettext("# of people currently hospitalized"),
     "longdesc": gettext(
         "Total count of people currently hospitalized. "

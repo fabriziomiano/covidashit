@@ -15,5 +15,5 @@ WORKDIR /opt/app
 
 # Run the app.  CMD is required to run on Heroku
 # crate the collections on DB before running the gunicorn server
-CMD python3 -m flask create-collections && \
+CMD python3 -m flask createdb && \
     gunicorn --bind 0.0.0.0:$PORT wsgi:app

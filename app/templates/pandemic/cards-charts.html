@@ -1,4 +1,4 @@
-<!-- Cards -->
+<!-- Provincial View -->
 {% if area in provinces %}
     <div class="row">
         {% for t in trend_cards %}
@@ -32,35 +32,41 @@
                 </div>
             </div>
         {% endfor %}
+
+        <div class="col-md-6 col-xl-6 mb-2">
+            <div class="card shadow">
+                <div id="chart-trend-cum" class="container-fluid px-0"
+                     style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-6">
+            <div class="card shadow">
+                <div id="chart-trend-daily" class="container-fluid px-0"
+                     style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+            </div>
+        </div>
+
     </div>
 
+<!-- National/Regional views -->
 {% else %}
-    <!-- Card Tabs -->
-    <ul class="nav nav-pills nav-justified mb-1" role="tablist">
+    <!-- Tabs -->
+    <ul class="nav nav-pills nav-justified small mb-1" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="nav-daily-tab" data-bs-toggle="tab"
-               href="#daily" role="tab" aria-controls="nav-daily"
-               aria-selected="true">{{ _("DAILY") }}</a>
+            <a class="nav-link active" id="nav-daily-tab" data-bs-toggle="pill" href="#daily" role="tab" aria-controls="nav-daily" aria-selected="true">{{ _("Daily") }}</a>
         </li>
-        {% if area not in provinces %}
-            <li class="nav-item" role="presentation">
-                <a class="nav-item nav-link" id="nav-current-tab"
-                   data-bs-toggle="tab" href="#current" role="tab"
-                   aria-controls="nav-current"
-                   aria-selected="false">{{ _("CURRENT") }}</a>
-            </li>
-        {% endif %}
         <li class="nav-item" role="presentation">
-            <a class="nav-item nav-link" id="nav-cum-tab" data-bs-toggle="tab"
-               href="#cum" role="tab" aria-controls="nav-cum"
-               aria-selected="false">{{ _("CUMULATIVE") }}</a>
+            <a class="nav-item nav-link" id="nav-current-tab" data-bs-toggle="pill" href="#current" role="tab" aria-controls="nav-current" aria-selected="false">{{ _("Current") }}</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-item nav-link" id="nav-cum-tab" data-bs-toggle="pill" href="#cum" role="tab" aria-controls="nav-cum" aria-selected="false">{{ _("Cumulative") }}</a>
         </li>
     </ul>
 
-    <!-- Cards -->
+    <!-- Tabs Content -->
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="daily" role="tabpanel"
-             aria-labelledby="nav-daily-tab">
+        <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="nav-daily-tab">
             <div class="row">
                 {% for t in trend_cards %}
                     {% if t.type == "daily" %}
@@ -175,10 +181,16 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div id="chart-trend-daily" class="container-fluid px-0" style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="tab-pane fade" id="current" role="tabpanel"
-             aria-labelledby="nav-current-tab">
+        <div class="tab-pane fade" id="current" role="tabpanel" aria-labelledby="nav-current-tab">
             <div class="row">
                 {% for t in trend_cards %}
                     {% if t.type == "current" %}
@@ -293,10 +305,16 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div id="chart-trend-current" class="container-fluid px-0" style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="tab-pane fade" id="cum" role="tabpanel"
-             aria-labelledby="nav-cum-tab">
+        <div class="tab-pane fade" id="cum" role="tabpanel" aria-labelledby="nav-cum-tab">
             <div class="row">
                 {% for t in trend_cards %}
                     {% if t.type == "cum" %}
@@ -411,6 +429,106 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div id="chart-trend-cum" class="container-fluid px-0" style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 {% endif %}
+
+
+
+<script>
+    let seriesDaily = {{ series.daily|safe }};
+    let seriesCurrent = null;
+    {% if area not in provinces %}
+        seriesCurrent = {{ series.current|safe }};
+    {% endif %}
+    let seriesCum = {{ series.cum|safe }};
+    let xAxis = {
+        categories: {{ series.dates|safe }},
+        plotLines: [
+            {
+                color: 'rgba(255,0,0)',
+                width: 1,
+                value: 27,
+                label: {
+                    text: "{{ gettext("Lockdown") }}",
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            {
+                color: 'rgba(252,115,3)',
+                width: 1,
+                value: 70,
+                label: {
+                    text: "{{ gettext("Phase 2") }}",
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            {
+                color: 'rgb(0,255,0)',
+                width: 1,
+                value: 112,
+                label: {
+                    text: "{{ gettext("Phase 3") }}",
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            {
+                color: 'rgb(255,0,0)',
+                width: 1,
+                value: 256,
+                label: {
+                    text: "{{ gettext("Critical areas") }}",
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            {
+                color: 'rgb(255,0,0)',
+                width: 1,
+                value: 307,
+                label: {
+                    text: "{{ gettext("Vaccine day") }}",
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                }
+            }
+        ]
+    };
+    let yAxis = {
+        title: {
+            text: "{{ gettext("Counts") }}"
+        }
+    };
+    let title = {
+        align: "left"
+    };
+    {% if not area %}
+        title.text = "{{ gettext("Italy") }}"
+    {% else %}
+        title.text = "{{ area }}"
+    {% endif %}
+    let subtitle = {
+        text: "{{ gettext("Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection dataset</a>") }}",
+        align: "left"
+    };
+    let credits = {
+        href: "https://fabriziomiano.github.io",
+        text: "{{ gettext("by Fabrizio Miano | Made with Highcharts.com") }}"
+    };
+</script>
