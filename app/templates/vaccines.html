@@ -33,7 +33,7 @@
                              aria-valuenow="{{ perc_pop_vax.first }}"
                              aria-valuemin="0"
                              aria-valuemax="100"
-                             style="width: {{ perc_pop_vax.first }}%">
+                             style="width: {{ perc_pop_vax.first - perc_pop_vax.second }}%">
                             {{ perc_pop_vax.first|round(1) }}%
                         </div>
                     </div>
