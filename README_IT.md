@@ -10,7 +10,7 @@ English Version [here](https://github.com/fabriziomiano/covidashit/blob/main/REA
 
 Una semplice dashboard per la visualizzazione e il monitoraggio dei dati ufficiali sulla pandemia da COVID-19 rilasciati giornalmente dal [Dipartimento della Protezione Civile](https://github.com/pcm-dpc) 
 
-**La WebApp è pubblicata su Heroku [qui](https://www/covidash.it)**
+**La WebApp è pubblicata su Heroku [qui](https://www.covidash.it)**
 
 **Dati ufficiali sulla pandemia: [repository ufficiale della proezione civile](https://github.com/pcm-dpc/COVID-19)**
 

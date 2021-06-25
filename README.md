@@ -14,14 +14,14 @@ A simple dashboard to display and monitor the official data of the COVID-19 outb
 
 **Pandemic data from the [official CP Dept repository](https://github.com/pcm-dpc/COVID-19/)**
 
-**Vaccine data from the [official open-data repository/](https://github.com/italia/covid19-opendata-vaccini)**
+**Vaccine data from the [official open-data repository](https://github.com/italia/covid19-opendata-vaccini)**
 
 
 ## For developers
 The WebApp requires Python 3.8+ and reads the data from a mongoDB. It employs a Flask server with `gunicorn` in front of it.
 Furthermore, it employs Flask-babel for the italian translation, as English is set as primary language. 
 The script `make_pot.sh` creates the files needed by Babel for the translations.
-A `Batch` version of the script is provided for Windows users. 
+A `Batch` version of the script for Windows users is provided. 
 The app language is decided upon the client request (browser / OS).
 
 The front-end lives under `covidashit/templates` and it uses JS to create the chart object, 
