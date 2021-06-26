@@ -14,7 +14,7 @@ from settings import REGIONS, PROVINCES, OD_TO_PC_MAP
 from settings.urls import URL_ISTAT_POP, URL_ISTAT_AGE_POP
 from settings.vars import (
     NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY, TOTAL_CASES_KEY, DAILY_SWABS_KEY,
-    DAILY_POSITIVITY_INDEX, REGION_KEY, PROVINCE_KEY, REGION_CODE,
+    POSITIVITY_INDEX, REGION_KEY, PROVINCE_KEY, REGION_CODE,
     PROVINCE_CODE, VAX_DATE_FMT, CHART_DATE_FMT, DATE_KEY, STATE_KEY,
     VAX_DATE_KEY, VAX_AREA_KEY, VAX_TYPE_KEY, VAX_AGE_KEY, POP_KEY, F_SEX_KEY,
     M_SEX_KEY, VARS, ISTAT_POP_KEY, ISTAT_NUTS_KEY, NUTS_KEY, ISTAT_AGE_KEY,
@@ -76,8 +76,9 @@ def add_positivity_idx(df):
     :param df: pd.DataFrame
     :return: pd.DataFrame
     """
-    df[DAILY_POSITIVITY_INDEX] = (
-            df[NEW_POSITIVE_KEY].div(df[DAILY_SWABS_KEY]) * 100)
+    df[POSITIVITY_INDEX] = (
+            df[NEW_POSITIVE_KEY].div(df[DAILY_SWABS_KEY]) * 100
+    ).round(decimals=2)
     return df
 
 
