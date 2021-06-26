@@ -23,7 +23,7 @@ from settings import (
 from settings.urls import URL_VAX_LATEST_UPDATE, URL_VAX_SUMMARY_DATA
 from settings.vars import (
     VARS, TOTAL_CASES_KEY, NEW_POSITIVE_KEY, REGION_KEY, PROVINCE_KEY,
-    DATE_KEY, NOTE_KEY, DAILY_POSITIVITY_INDEX, UPDATE_FMT,
+    DATE_KEY, NOTE_KEY, POSITIVITY_INDEX, UPDATE_FMT,
     VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_UPDATE_FMT, VAX_FIRST_DOSE_KEY,
     VAX_SECOND_DOSE_KEY, VAX_TOT_ADMINS_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
     ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_ADMINS_PERC_KEY, VAX_DATE_KEY,
@@ -187,7 +187,7 @@ def get_positivity_idx(area_type="national", area=None):
     collection = query_menu[area_type]["collection"]
     try:
         doc = next(collection.find(query).sort([(DATE_KEY, -1)]).limit(1))
-        idx = f"{round(doc[DAILY_POSITIVITY_INDEX])}%"
+        idx = f"{doc[POSITIVITY_INDEX]}%"
     except StopIteration:
         app.logger.error("While getting positivity idx: no data")
         idx = "n/a"
