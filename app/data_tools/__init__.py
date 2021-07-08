@@ -372,21 +372,25 @@ def get_age_chart_data(area=None):
             right_on=[f'_id.{VAX_AGE_KEY}', f'_id.{OD_NUTS_KEY}']
         )
         out_df = out_df.groupby('_id.ETA').sum()
+        app.logger.debug(f"OUT DF \n{out_df}")
         categories = df_vax[f'_id.{VAX_AGE_KEY}'].unique().tolist()
-        cols = [ISTAT_POP_KEY, VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY]
-        names = [
-            gettext("Population"),
-            gettext("First dose"),
-            gettext("Second dose")
-        ]
         chart_data = {
-            "title": gettext('Admins per age*'),
+            "title": gettext('Admins per age'),
             "yAxisTitle": gettext('Counts'),
             "categories": categories,
-            "data": [{
-                'name': md[0],
-                'data': out_df[md[1]].values.tolist()
-            } for md in zip(names, cols)]
+            "pop_dict": out_df.to_dict()[ISTAT_POP_KEY],
+            "first": {
+                'name': gettext("First Dose"),
+                'data': out_df[VAX_FIRST_DOSE_KEY].tolist()
+            },
+            "second": {
+                'name': gettext("Second Dose"),
+                'data': out_df[VAX_SECOND_DOSE_KEY].tolist()
+            },
+            "population": {
+                'name': gettext("Population"),
+                'data': out_df[ISTAT_POP_KEY].tolist()
+            }
         }
     except Exception as e:
         app.logger.error(f"While getting age chart data: {e}")
@@ -395,7 +399,6 @@ def get_age_chart_data(area=None):
 
 def get_admins_per_region():
     """Return administrations data per region"""
-    tot_admins = get_tot_admins(dtype='totale')
     chart_data = {}
     try:
         pipe = [
@@ -403,30 +406,36 @@ def get_admins_per_region():
             {
                 '$group': {
                     '_id': f'${VAX_AREA_KEY}',
-                    'tot': {'$sum': f'${VAX_TOT_ADMINS_KEY}'}
+                    'first': {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
+                    'second': {'$sum': f'${VAX_SECOND_DOSE_KEY}'}
                 }
             },
-            {'$sort': {'tot': -1}}
+            {'$sort': {'second': -1}}
         ]
         cursor = vax_admins_summary_coll.aggregate(pipeline=pipe)
         data = list(cursor)
-        app.logger.debug(f"Per region data: {data}")
         df = pd.DataFrame(data)
         df['region'] = df['_id'].apply(lambda x: OD_TO_PC_MAP[x])
-        df['exp_admins'] = df['region'].apply(
-            lambda x: exp_tot_admins(x, tot_admins))
+        pop_dict = get_it_pop_dict()
+        df['population'] = df['region'].apply(lambda x: pop_dict[x])
         chart_data = {
             "title": gettext('Admins per region'),
             "categories": df['region'].values.tolist(),
-            "real": {
-                'name': gettext("Real"),
-                'data': df['tot'].values.tolist()
+            "pop_dict": pop_dict,
+            "first": {
+                'name': gettext("First Dose"),
+                'data': df['first'].values.tolist()
             },
-            "expected": {
-                'name': gettext("Expected"),
-                'data': df['exp_admins'].values.tolist()
+            "second": {
+                'name': gettext("Second Dose"),
+                'data': df['second'].values.tolist()
+            },
+            "population": {
+                'name': gettext("Population"),
+                'data': df['population'].values.tolist()
             }
         }
+        app.logger.debug(f"region df : \n{df}")
     except Exception as e:
         app.logger.error(f"While getting region chart data: {e}")
     return chart_data

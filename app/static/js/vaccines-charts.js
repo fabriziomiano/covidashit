@@ -9,9 +9,11 @@ if (!REGIONS.includes(area)) {
             $('#vax-region-loading-spinner').show();
         },
         success: function (adminsPerRegion) {
-            let adminsPerRegionData = adminsPerRegion.real;
-            let expAdminsPerRegionData = adminsPerRegion.expected;
+            let firstAdminsPerRegionData = adminsPerRegion.first;
+            let secondAdminsPerRegionData = adminsPerRegion.second;
+            let populationData = adminsPerRegion.population;
             let adminsPerRegionCategories = adminsPerRegion.categories;
+            let popDict = adminsPerRegion.pop_dict;
             $('#vax-region-loading-spinner').hide();
             $('#chart-admins-per-region').highcharts({
                 chart: {
@@ -21,14 +23,9 @@ if (!REGIONS.includes(area)) {
                     text: adminsPerRegion.title
                 },
                 plotOptions: {
-                    series: {
-                        dataLabels: {
-                            enabled: true,
-                            formatter: function () {
-                                let pcnt = (this.y / totAdmins) * 100;
-                                return Highcharts.numberFormat(pcnt, '1') + '%';
-                            }
-                        }
+                    bar: {
+                        grouping: false,
+                        pointWidth: 15
                     }
                 },
                 xAxis: {
@@ -46,14 +43,38 @@ if (!REGIONS.includes(area)) {
                         enabled: false
                     }
                 },
-                series: [{
-                    name: adminsPerRegionData.name,
-                    data: adminsPerRegionData.data
-                }, {
-                    name: expAdminsPerRegionData.name,
-                    data: expAdminsPerRegionData.data,
-                    visible: false
-                }],
+                series: [
+                    {
+                        name: populationData.name,
+                        data: populationData.data
+                    },
+                    {
+                        name: firstAdminsPerRegionData.name,
+                        data: firstAdminsPerRegionData.data,
+                        dataLabels: {
+                            enabled: true,
+                            x: -40,
+                            color: 'white',
+                            formatter: function () {
+                                let pcnt = (this.y / popDict[this.x]) * 100;
+                                return Highcharts.numberFormat(pcnt, '1') + '%';
+                            }
+                        }
+                    },
+                    {
+                        name: secondAdminsPerRegionData.name,
+                        data: secondAdminsPerRegionData.data,
+                        dataLabels: {
+                            enabled: true,
+                            x: -40,
+                            color: 'black',
+                            formatter: function () {
+                                let pcnt = (this.y / popDict[this.x]) * 100;
+                                return Highcharts.numberFormat(pcnt, '1') + '%';
+                            }
+                        }
+                    }
+                ],
                 subtitle: subtitle,
                 credits: credits
             });
@@ -149,6 +170,10 @@ $.ajax(baseUrl + 'age', {
         area: area
     },
     success: function (adminsPerAge) {
+        let firstAdminsPerAgeData = adminsPerAge.first;
+        let secondAdminsPerAgeData = adminsPerAge.second;
+        let populationData = adminsPerAge.population;
+        let adminsPerAgeCategories = adminsPerAge.categories;
         $('#vax-age-loading-spinner').hide();
         $('#chart-admins-per-age').highcharts({
             chart: {
@@ -159,7 +184,8 @@ $.ajax(baseUrl + 'age', {
             },
             plotOptions: {
                 bar: {
-                    grouping: false
+                    grouping: false,
+                    pointWidth: 25
                 }
             },
             xAxis: {
@@ -167,7 +193,7 @@ $.ajax(baseUrl + 'age', {
                 lineWidth: 1,
                 tickColor: '#666',
                 tickLength: 3,
-                categories: adminsPerAge.categories,
+                categories: adminsPerAgeCategories,
             },
             yAxis: {
                 visible: false,
@@ -175,10 +201,22 @@ $.ajax(baseUrl + 'age', {
                     text: adminsPerAge.yAxisTitle
                 },
             },
-            series: adminsPerAge.data,
+            series: [
+                {
+                    name: populationData.name,
+                    data: populationData.data
+                },
+                {
+                    name: firstAdminsPerAgeData.name,
+                    data: firstAdminsPerAgeData.data
+                },
+                {
+                    name: secondAdminsPerAgeData.name,
+                    data: secondAdminsPerAgeData.data
+                }
+            ],
             subtitle: subtitle,
-            credits: credits,
-            caption: caption
+            credits: credits
         });
     }
 });
