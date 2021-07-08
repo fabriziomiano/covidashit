@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-06-12 14:33+0200\n"
-"PO-Revision-Date: 2021-06-12 14:33+0200\n"
+"POT-Creation-Date: 2021-07-09 01:36+0200\n"
+"PO-Revision-Date: 2021-07-09 01:40+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -16,55 +16,47 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: app/data_tools/__init__.py:378
-msgid "Population"
-msgstr "Popolazione"
+msgid "Admins per age"
+msgstr "Somministrazioni per età"
 
-#: app/data_tools/__init__.py:379
-msgid "First dose"
-msgstr "Prima dose"
-
-#: app/data_tools/__init__.py:380
-msgid "Second dose"
-msgstr "Seconda dose"
-
-#: app/data_tools/__init__.py:383
-msgid "Admins per age*"
-msgstr "Somministrazioni per età*"
-
-#: app/data_tools/__init__.py:384 app/plotter/__init__.py:58
+#: app/data_tools/__init__.py:379 app/plotter/__init__.py:58
 #: app/templates/pandemic/cards-charts.html:515
 msgid "Counts"
 msgstr "Conteggi"
 
-#: app/data_tools/__init__.py:419
+#: app/data_tools/__init__.py:383 app/data_tools/__init__.py:426
+msgid "First Dose"
+msgstr "Prima Dose"
+
+#: app/data_tools/__init__.py:387 app/data_tools/__init__.py:430
+msgid "Second Dose"
+msgstr "Seconda Dose"
+
+#: app/data_tools/__init__.py:391 app/data_tools/__init__.py:434
+msgid "Population"
+msgstr "Popolazione"
+
+#: app/data_tools/__init__.py:422
 msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
-#: app/data_tools/__init__.py:422
-msgid "Real"
-msgstr "Reale"
-
-#: app/data_tools/__init__.py:426
-msgid "Expected"
-msgstr "Atteso"
-
-#: app/data_tools/__init__.py:489
+#: app/data_tools/__init__.py:498
 msgid "Vaccination trend"
 msgstr "Andamento vaccinazioni"
 
-#: app/data_tools/__init__.py:490
+#: app/data_tools/__init__.py:499
 msgid "Pop. vaccinated (1st dose) [%]"
 msgstr "Pop. vaccinata (dose 1) [%]"
 
-#: app/data_tools/__init__.py:522
+#: app/data_tools/__init__.py:531
 msgid "Admins per provider"
 msgstr "Somministrazioni per fornitore"
 
-#: app/data_tools/__init__.py:523
+#: app/data_tools/__init__.py:532
 msgid "Doses administered"
 msgstr "Dosi somministrate"
 
@@ -182,18 +174,18 @@ msgid "New!"
 msgstr "Novità!"
 
 #: app/templates/base/modals/welcome.html:21
-msgid "Data-type tabs at the top now refresh cards and charts simultaneously;"
-msgstr ""
-"I tab tipo di dato in cima alla pagina adesso aggiornano cards e grafici "
-"contemporaneamente;"
-
-#: app/templates/base/modals/welcome.html:25
 msgid ""
 "Administrations-per-region chart enriched with regional/national population "
 "data (ISTAT);"
 msgstr ""
 "Dati sulle somministrazioni per regione arricchite con popolazione per "
 "regione e fasce d'età (ISTAT)"
+
+#: app/templates/base/modals/welcome.html:25
+msgid "Data-type tabs at the top now refresh cards and charts simultaneously;"
+msgstr ""
+"I tab tipo di dato in cima alla pagina adesso aggiornano cards e grafici "
+"contemporaneamente;"
 
 #: app/templates/base/modals/welcome.html:28
 msgid "Daily administrations trend;"
@@ -498,7 +490,7 @@ msgstr ""
 
 #: settings/vars.py:197
 msgid "ICU"
-msgstr "T.I."
+msgstr "TI"
 
 #: settings/vars.py:198
 msgid "# of people currently in ICU"
@@ -588,6 +580,12 @@ msgstr "Prime somministrazioni giornaliere"
 #: settings/vars.py:299
 msgid "Daily Second administrations"
 msgstr "Seconde somministrazioni giornaliere"
+
+#~ msgid "Real"
+#~ msgstr "Reale"
+
+#~ msgid "Expected"
+#~ msgstr "Atteso"
 
 #~ msgid "DAILY"
 #~ msgstr "Giornaliero"
