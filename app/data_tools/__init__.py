@@ -409,8 +409,7 @@ def get_admins_per_region():
                     'first': {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
                     'second': {'$sum': f'${VAX_SECOND_DOSE_KEY}'}
                 }
-            },
-            {'$sort': {'second': -1}}
+            }
         ]
         cursor = vax_admins_summary_coll.aggregate(pipeline=pipe)
         data = list(cursor)
@@ -418,6 +417,8 @@ def get_admins_per_region():
         df['region'] = df['_id'].apply(lambda x: OD_TO_PC_MAP[x])
         pop_dict = get_it_pop_dict()
         df['population'] = df['region'].apply(lambda x: pop_dict[x])
+        df['percentage'] = df['second'].div(df['population'])
+        df.sort_values(by=['population'], ascending=False, inplace=True)
         chart_data = {
             "title": gettext('Admins per region'),
             "categories": df['region'].values.tolist(),
