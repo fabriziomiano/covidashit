@@ -17,7 +17,8 @@ if (!REGIONS.includes(area)) {
             $('#vax-region-loading-spinner').hide();
             $('#chart-admins-per-region').highcharts({
                 chart: {
-                    type: 'bar'
+                    type: 'bar',
+                    zoomType: 'y'
                 },
                 title: {
                     text: adminsPerRegion.title
@@ -36,12 +37,11 @@ if (!REGIONS.includes(area)) {
                     categories: adminsPerRegionCategories,
                 },
                 yAxis: {
+                    type: 'logarithmic',
                     title: {
                         enabled: false
                     },
-                    labels: {
-                        enabled: false
-                    }
+                    max: populationData.data[0]
                 },
                 series: [
                     {
@@ -75,6 +75,26 @@ if (!REGIONS.includes(area)) {
                         }
                     }
                 ],
+                exporting: {
+                    buttons: {
+                        linScale: {
+                            text: 'Lin',
+                            onclick: function () {
+                                this.yAxis[0].update({
+                                    type: 'linear'
+                                });
+                            }
+                        },
+                        logScale: {
+                            text: 'Log',
+                            onclick: function () {
+                                this.yAxis[0].update({
+                                    type: 'logarithmic'
+                                });
+                            }
+                        },
+                    }
+                },
                 subtitle: subtitle,
                 credits: credits
             });
