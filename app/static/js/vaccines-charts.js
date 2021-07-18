@@ -26,7 +26,7 @@ if (!REGIONS.includes(area)) {
                 plotOptions: {
                     bar: {
                         grouping: false,
-                        pointWidth: 15
+                        pointWidth: 14
                     }
                 },
                 xAxis: {
@@ -53,11 +53,10 @@ if (!REGIONS.includes(area)) {
                         data: firstAdminsPerRegionData.data,
                         dataLabels: {
                             enabled: true,
-                            x: -40,
                             color: 'white',
                             formatter: function () {
                                 let pcnt = (this.y / popDict[this.x]) * 100;
-                                return Highcharts.numberFormat(pcnt, '1') + '%';
+                                return Highcharts.numberFormat(pcnt, '0') + '%';
                             }
                         }
                     },
@@ -66,11 +65,10 @@ if (!REGIONS.includes(area)) {
                         data: secondAdminsPerRegionData.data,
                         dataLabels: {
                             enabled: true,
-                            x: -40,
-                            color: 'black',
+                            color: 'white',
                             formatter: function () {
                                 let pcnt = (this.y / popDict[this.x]) * 100;
-                                return Highcharts.numberFormat(pcnt, '1') + '%';
+                                return Highcharts.numberFormat(pcnt, '0') + '%';
                             }
                         }
                     }
