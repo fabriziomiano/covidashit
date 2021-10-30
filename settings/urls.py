@@ -21,11 +21,13 @@ VAX_ADMINS_FILE = "somministrazioni-vaccini-latest.csv"
 VAX_ADMINS_SUMMARY_FILE = "somministrazioni-vaccini-summary-latest.csv"
 VAX_SUMMARY_FILE = "vaccini-summary-latest.csv"
 VAX_LATEST_UPDATE = "last-update-dataset.json"
+VAX_POP_FILE = "platea.csv"
 URL_VAX_ADMINS_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_ADMINS_FILE)
 URL_VAX_LATEST_UPDATE = os.path.join(BASE_URL_VAX_DATA, VAX_LATEST_UPDATE)
 URL_VAX_SUMMARY_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_SUMMARY_FILE)
 URL_VAX_ADMINS_SUMMARY_DATA = os.path.join(
     BASE_URL_VAX_DATA, VAX_ADMINS_SUMMARY_FILE)
+URL_VAX_POP_DATA = os.path.join(BASE_URL_VAX_DATA, VAX_POP_FILE)
 BASE_ISTAT_URL = "http://sdmx.istat.it/SDMXWS/rest/data"
 URL_ISTAT_POP = os.path.join(
     BASE_ISTAT_URL,
