@@ -8,7 +8,7 @@ from app.db_tools import (
     nat_data_coll, nat_trends_coll, nat_series_coll, reg_data_coll,
     reg_trends_coll, reg_series_coll, reg_bdown_coll, prov_data_coll,
     prov_trends_coll, prov_series_coll, prov_bdown_coll, vax_admins_coll,
-    vax_admins_summary_coll, pop_coll, age_pop_coll
+    vax_admins_summary_coll, pop_coll, age_pop_coll, od_pop_coll
 )
 from app.db_tools.etl import (
     preprocess_national_df, preprocess_regional_df, preprocess_provincial_df,
@@ -17,7 +17,7 @@ from app.db_tools.etl import (
     build_national_series, build_regional_series, build_provincial_series,
     COLUMNS_TO_DROP, preprocess_vax_admins_df,
     preprocess_vax_admins_summary_df, create_istat_population_df,
-    create_istat_age_population_df
+    create_istat_age_population_df, create_vax_pop_df
 )
 from settings.urls import (
     URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, URL_VAX_ADMINS_DATA,
@@ -246,3 +246,17 @@ class CollectionCreator:
         except Exception as e:
             app.logger.error(
                 f"While creating ISTAT population per-age collection: {e}")
+
+    @staticmethod
+    def create_vax_pop_collection():
+        """
+
+        """
+        try:
+            pop_df = create_vax_pop_df()
+            records = pop_df.to_dict(orient='records')
+            app.logger.info("Creating Vax platea collection")
+            od_pop_coll.drop()
+            od_pop_coll.insert_many(records)
+        except Exception as e:
+            app.logger.error(f"While creating population collection: {e}")

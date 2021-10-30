@@ -1,7 +1,6 @@
 """
 Where the ETL happens
 """
-import numpy as np
 import pandas as pd
 from flask import current_app as app
 
@@ -18,7 +17,7 @@ from settings.vars import (
     PROVINCE_CODE, VAX_DATE_FMT, CHART_DATE_FMT, DATE_KEY, STATE_KEY,
     VAX_DATE_KEY, VAX_AREA_KEY, VAX_TYPE_KEY, VAX_AGE_KEY, POP_KEY, F_SEX_KEY,
     M_SEX_KEY, VARS, ISTAT_POP_KEY, ISTAT_NUTS_KEY, NUTS_KEY, ISTAT_AGE_KEY,
-    AGE_RANGE_LABELS, MIN_VAX_AGE
+    AGE_RANGE_LABELS, MIN_VAX_AGE, OD_NUTS2_KEY, OD_NUTS1_KEY, OD_REGION_CODE
 )
 
 pd.options.mode.chained_assignment = None
@@ -453,7 +452,13 @@ def preprocess_vax_admins_df(df):
     :param df: pandas.DataFrame
     :return: pandas.DataFrame
     """
-    df[VAX_AGE_KEY] = df[VAX_AGE_KEY].apply(lambda x: x.strip())
+    df[VAX_AGE_KEY] = df[VAX_AGE_KEY].apply(
+        lambda x: x.strip()).apply(
+        lambda x: x.replace('80-89', '80+')).apply(
+        lambda x: x.replace('90+', '80+'))
+    df = df.groupby(by=[
+        VAX_DATE_KEY, VAX_TYPE_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
+        OD_NUTS1_KEY, OD_NUTS2_KEY, OD_REGION_CODE]).sum().reset_index()
     df['totale'] = df[M_SEX_KEY] + df[F_SEX_KEY]
     df['_id'] = (
             df[VAX_DATE_KEY].apply(lambda x: x.strftime(VAX_DATE_FMT)) +
@@ -541,8 +546,18 @@ def create_istat_age_population_df():
         lambda x: x.replace('ITE', 'ITI'))
     df = df.groupby([
         ISTAT_NUTS_KEY,
-        pd.cut(df['ETA'], bins=np.arange(10, 101, 10), labels=AGE_RANGE_LABELS)
+        pd.cut(df['ETA'], bins=[11, 19, 29, 39, 49, 59, 69, 79, 89, 99],
+               labels=AGE_RANGE_LABELS)
     ]).sum()
     df.drop(columns=[ISTAT_AGE_KEY], inplace=True)
     df.reset_index(inplace=True)
+    return df
+
+
+def create_vax_pop_df():
+    """
+
+    """
+    from settings.urls import URL_VAX_POP_DATA
+    df = pd.read_csv(URL_VAX_POP_DATA)
     return df

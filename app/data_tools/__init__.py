@@ -13,7 +13,8 @@ from app.db_tools import (
     nat_data_coll, reg_data_coll, prov_data_coll, nat_trends_coll,
     reg_trends_coll, prov_trends_coll, reg_bdown_coll, prov_bdown_coll,
     nat_series_coll, reg_series_coll, prov_series_coll,
-    vax_admins_summary_coll, vax_admins_coll, pop_coll, age_pop_coll
+    vax_admins_summary_coll, vax_admins_coll, pop_coll, age_pop_coll,
+    od_pop_coll
 )
 from app.utils import rubbish_notes, translate_series_lang
 from settings import (
@@ -28,7 +29,7 @@ from settings.vars import (
     VAX_SECOND_DOSE_KEY, VAX_TOT_ADMINS_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
     ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_ADMINS_PERC_KEY, VAX_DATE_KEY,
     CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, ISTAT_POP_KEY, ISTAT_NUTS_KEY,
-    OD_NUTS_KEY
+    OD_POP_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -348,7 +349,7 @@ def get_age_chart_data(area=None):
         '$group': {
             '_id': {
                 VAX_AGE_KEY: f'${VAX_AGE_KEY}',
-                OD_NUTS_KEY: f'${OD_NUTS_KEY}'
+                VAX_AREA_KEY: f'${VAX_AREA_KEY}'
             },
             f'{VAX_FIRST_DOSE_KEY}': {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
             f'{VAX_SECOND_DOSE_KEY}': {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
@@ -362,23 +363,24 @@ def get_age_chart_data(area=None):
             vax_pipe = [vax_match, vax_group, vax_sort]
         else:
             vax_pipe = [vax_group, vax_sort]
-        cursor = vax_admins_coll.aggregate(pipeline=vax_pipe)
-        df_vax = pd.json_normalize(list(cursor))
-        df_pop = get_age_pop() if area is None \
-            else get_age_pop(df_vax[f'_id.{OD_NUTS_KEY}'].values[0])
+        vax_cursor = vax_admins_coll.aggregate(pipeline=vax_pipe)
+        pop_cursor = od_pop_coll.find()
+        df_vax = pd.json_normalize(list(vax_cursor))
+        df_pop = pd.json_normalize((list(pop_cursor)))
+        app.logger.info(df_vax)
         out_df = df_pop.merge(
             df_vax,
-            left_on=['_id.ETA', f'_id.{ISTAT_NUTS_KEY}'],
-            right_on=[f'_id.{VAX_AGE_KEY}', f'_id.{OD_NUTS_KEY}']
+            left_on=[VAX_AREA_KEY, VAX_AGE_KEY],
+            right_on=['_id.' + VAX_AREA_KEY, '_id.' + VAX_AGE_KEY]
         )
-        out_df = out_df.groupby('_id.ETA').sum()
-        app.logger.debug(f"OUT DF \n{out_df}")
+        app.logger.info(out_df)
+        out_df = out_df.groupby('_id.' + VAX_AGE_KEY).sum()
         categories = df_vax[f'_id.{VAX_AGE_KEY}'].unique().tolist()
         chart_data = {
             "title": gettext('Admins per age'),
             "yAxisTitle": gettext('Counts'),
             "categories": categories,
-            "pop_dict": out_df.to_dict()[ISTAT_POP_KEY],
+            "pop_dict": out_df.to_dict()[OD_POP_KEY],
             "first": {
                 'name': gettext("First Dose"),
                 'data': out_df[VAX_FIRST_DOSE_KEY].tolist()
@@ -389,7 +391,7 @@ def get_age_chart_data(area=None):
             },
             "population": {
                 'name': gettext("Population"),
-                'data': out_df[ISTAT_POP_KEY].tolist()
+                'data': out_df[OD_POP_KEY].tolist()
             }
         }
     except Exception as e:
