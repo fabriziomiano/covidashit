@@ -126,8 +126,6 @@ def create_app():
         "national": cc.create_national_collection,
         "regional": cc.create_regional_collection,
         "pop-coll": cc.create_vax_pop_collection,
-        "regional-population": cc.create_istat_pop_collection,
-        "per-age-population": cc.create_istat_age_pop_collection,
         "provincial": cc.create_provincial_collections,
         "national-trends": cc.create_national_trends_collection,
         "regional-trends": cc.create_regional_trends_collection,

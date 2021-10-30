@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-07-09 01:36+0200\n"
-"PO-Revision-Date: 2021-07-09 01:40+0200\n"
+"POT-Creation-Date: 2021-10-30 23:54+0200\n"
+"PO-Revision-Date: 2021-10-30 23:55+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -19,44 +19,44 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/data_tools/__init__.py:378
+#: app/data_tools/__init__.py:355
 msgid "Admins per age"
 msgstr "Somministrazioni per età"
 
-#: app/data_tools/__init__.py:379 app/plotter/__init__.py:58
+#: app/data_tools/__init__.py:356 app/plotter/__init__.py:58
 #: app/templates/pandemic/cards-charts.html:515
 msgid "Counts"
 msgstr "Conteggi"
 
-#: app/data_tools/__init__.py:383 app/data_tools/__init__.py:426
+#: app/data_tools/__init__.py:360 app/data_tools/__init__.py:404
 msgid "First Dose"
 msgstr "Prima Dose"
 
-#: app/data_tools/__init__.py:387 app/data_tools/__init__.py:430
+#: app/data_tools/__init__.py:364 app/data_tools/__init__.py:408
 msgid "Second Dose"
 msgstr "Seconda Dose"
 
-#: app/data_tools/__init__.py:391 app/data_tools/__init__.py:434
+#: app/data_tools/__init__.py:368 app/data_tools/__init__.py:412
 msgid "Population"
 msgstr "Popolazione"
 
-#: app/data_tools/__init__.py:422
+#: app/data_tools/__init__.py:400
 msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
-#: app/data_tools/__init__.py:498
+#: app/data_tools/__init__.py:476
 msgid "Vaccination trend"
 msgstr "Andamento vaccinazioni"
 
-#: app/data_tools/__init__.py:499
-msgid "Pop. vaccinated (1st dose) [%]"
-msgstr "Pop. vaccinata (dose 1) [%]"
+#: app/data_tools/__init__.py:477
+msgid "Pop. vaccinated (2nd dose) [%]"
+msgstr "Pop. vaccinata (2a dose) [%]"
 
-#: app/data_tools/__init__.py:531
+#: app/data_tools/__init__.py:509
 msgid "Admins per provider"
 msgstr "Somministrazioni per fornitore"
 
-#: app/data_tools/__init__.py:532
+#: app/data_tools/__init__.py:510
 msgid "Doses administered"
 msgstr "Dosi somministrate"
 
@@ -393,90 +393,90 @@ msgstr "Giorni in \"aree di criticità\""
 msgid "Days since \"Vaccine day\""
 msgstr "Giorni dal \"Vaccine day\""
 
-#: settings/vars.py:62
+#: settings/vars.py:63
 msgid "Stable with respect to yesterday"
 msgstr "Stabile rispetto a ieri"
 
-#: settings/vars.py:67 settings/vars.py:72
+#: settings/vars.py:68 settings/vars.py:73
 msgid "Increased with respect to yesterday"
 msgstr "In aumento rispetto a ieri"
 
-#: settings/vars.py:77 settings/vars.py:82
+#: settings/vars.py:78 settings/vars.py:83
 msgid "Decreased with respect to yesterday"
 msgstr "In calo rispetto a ieri"
 
-#: settings/vars.py:88
+#: settings/vars.py:89
 msgid "New Positive"
 msgstr "Nuovi Positivi"
 
-#: settings/vars.py:89 settings/vars.py:90
+#: settings/vars.py:90 settings/vars.py:91
 msgid "Daily count of new positive cases"
 msgstr "Conteggio giornaliero dei nuovi positivi"
 
-#: settings/vars.py:98
+#: settings/vars.py:99
 msgid "Daily ICU"
 msgstr "T.I. Giornaliere"
 
-#: settings/vars.py:99 settings/vars.py:155
+#: settings/vars.py:100 settings/vars.py:156
 msgid "# of people daily admitted in ICU"
 msgstr "Numero di ingressi giornalieri in TI"
 
-#: settings/vars.py:100 settings/vars.py:156
+#: settings/vars.py:101 settings/vars.py:157
 msgid "Daily count of people in ICU"
 msgstr "Conteggio giornaliero degli ingressi in TI"
 
-#: settings/vars.py:108
+#: settings/vars.py:109
 msgid "Daily Deaths"
 msgstr "Decessi giornalieri"
 
-#: settings/vars.py:109 settings/vars.py:110 settings/vars.py:143
-#: settings/vars.py:144
+#: settings/vars.py:110 settings/vars.py:111 settings/vars.py:144
+#: settings/vars.py:145
 msgid "Daily deaths count"
 msgstr "Conteggio decessi giornalieri"
 
-#: settings/vars.py:120
+#: settings/vars.py:121
 msgid "Daily Swabs"
 msgstr "Tamponi giornalieri"
 
-#: settings/vars.py:121 settings/vars.py:165
+#: settings/vars.py:122 settings/vars.py:166
 msgid "# of swabs performed daily"
 msgstr "Numero di tamponi effettuati giornalmente"
 
-#: settings/vars.py:122 settings/vars.py:166
+#: settings/vars.py:123 settings/vars.py:167
 msgid "Daily number of swabs performed"
 msgstr "Numero di tamponi effettuati giornalmente"
 
-#: settings/vars.py:132
+#: settings/vars.py:133
 msgid "New Positive (7-day MA)"
 msgstr "Nuovi Positivi (7gg MM)"
 
-#: settings/vars.py:133 settings/vars.py:134
+#: settings/vars.py:134 settings/vars.py:135
 msgid "Daily count of new positve cases"
 msgstr "Conteggio giornaliero dei nuovi casi positivi"
 
-#: settings/vars.py:142
+#: settings/vars.py:143
 msgid "Daily Deaths (7-day MA)"
 msgstr "Decessi giornalieri (7gg MM)"
 
-#: settings/vars.py:154
+#: settings/vars.py:155
 msgid "Daily ICU (7-day MA)"
 msgstr "T.I. giornaliere (7gg MM)"
 
-#: settings/vars.py:164
+#: settings/vars.py:165
 msgid "Daily Swabs (7-day MA)"
 msgstr "Tamponi giornalieri (7gg MM)"
 
-#: settings/vars.py:178
+#: settings/vars.py:179
 msgid "Tot Positive"
 msgstr "Tot Positivi"
 
-#: settings/vars.py:179
+#: settings/vars.py:180
 msgid "# of people currently hospitalized with symptoms + ICU + self isolation"
 msgstr ""
 "Numero di persone attualmente ricoverate con sintomi + terapia intensiva + "
 "isolamento autonomo"
 
-#: settings/vars.py:183
+#: settings/vars.py:184
 msgid ""
 "People currently positive. Unlike 'Total Cases' it does not take into "
 "account 'healed' and 'deaths'. By the end of the outbreak this should tend "
@@ -488,96 +488,96 @@ msgstr ""
 "zero. In particolare, è definito totale positivi = totale casi - totale "
 "guariti - totale morti"
 
-#: settings/vars.py:197
+#: settings/vars.py:198
 msgid "ICU"
 msgstr "TI"
 
-#: settings/vars.py:198
+#: settings/vars.py:199
 msgid "# of people currently in ICU"
 msgstr "Numero di persone attualmete in terapia intensiva"
 
-#: settings/vars.py:199
+#: settings/vars.py:200
 msgid "Total count of people currently in ICU and positive to COVID-19"
 msgstr ""
 "Conteggi del numero di persone attualmente in terapia intensiva e positive "
 "al COVID-19"
 
-#: settings/vars.py:210
+#: settings/vars.py:211
 msgid "Tot Hospitalized"
 msgstr "Tot ricoverati"
 
-#: settings/vars.py:211
+#: settings/vars.py:212
 msgid "# of people currently hospitalized"
 msgstr "Numero di persone attualmente ricoverate"
 
-#: settings/vars.py:212
+#: settings/vars.py:213
 msgid "Total count of people currently hospitalized. It takes into account ICU"
 msgstr ""
 "Conteggi del numero di persone attualmente positive e ricoverate. Tiene "
 "conto di quelle in terapia intensiva"
 
-#: settings/vars.py:222
+#: settings/vars.py:223
 msgid "Self Isolation"
 msgstr "Isolamento"
 
-#: settings/vars.py:223
+#: settings/vars.py:224
 msgid "# of people currently in self isolation"
 msgstr "Numero di persone in Terapia Intensiva"
 
-#: settings/vars.py:224
+#: settings/vars.py:225
 msgid "People currently positive but who do not need hospitalization"
 msgstr "Persone attualmente positive che non hanno bisogno di ricovero"
 
-#: settings/vars.py:236
+#: settings/vars.py:237
 msgid "Total Cases"
 msgstr "Totale casi"
 
-#: settings/vars.py:237 settings/vars.py:241
+#: settings/vars.py:238 settings/vars.py:242
 msgid "Total count of the positive tests since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi positivi dall'inizio dell'epidemia"
 
-#: settings/vars.py:252
+#: settings/vars.py:253
 msgid "Total Deaths"
 msgstr "Totale decessi"
 
-#: settings/vars.py:253
+#: settings/vars.py:254
 msgid "Total deaths count"
 msgstr "Conteggio totale decessi"
 
-#: settings/vars.py:254
+#: settings/vars.py:255
 msgid "Total deaths count since the beginning of the outbreak"
 msgstr "Conteggio dei decessi dall'inizio dell'epidemia"
 
-#: settings/vars.py:265
+#: settings/vars.py:266
 msgid "Total Swabs"
 msgstr "Totale tamponi"
 
-#: settings/vars.py:266
+#: settings/vars.py:267
 msgid "# of swabs performed"
 msgstr "Numero di tamponi eseguiti"
 
-#: settings/vars.py:267
+#: settings/vars.py:268
 msgid "Total number of swabs performed since the beginning of the outbreak"
 msgstr "Conteggio dei tamponi effettuati dall'inizio dell'epidemia"
 
-#: settings/vars.py:277
+#: settings/vars.py:278
 msgid "Total Healed"
 msgstr "Totale guariti"
 
-#: settings/vars.py:278
+#: settings/vars.py:279
 msgid "Cumulative # of people healed"
 msgstr "Totale cumulativo di persone guarite"
 
-#: settings/vars.py:279
+#: settings/vars.py:280
 msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 "Totale cumulativo del numero di persone guarite dall'inizio dell'epidemia"
 
-#: settings/vars.py:291
+#: settings/vars.py:292
 msgid "Daily First administrations"
 msgstr "Prime somministrazioni giornaliere"
 
-#: settings/vars.py:299
+#: settings/vars.py:300
 msgid "Daily Second administrations"
 msgstr "Seconde somministrazioni giornaliere"
 

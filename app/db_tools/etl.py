@@ -6,18 +6,15 @@ from flask import current_app as app
 
 from app.data_tools import (
     CUM_QUANTITIES, NON_CUM_QUANTITIES, DAILY_QUANTITIES, TREND_CARDS,
-    PROV_TREND_CARDS, get_it_pop_dict
+    PROV_TREND_CARDS, get_region_pop_dict
 )
-from app.db_tools import reg_data_coll
 from settings import REGIONS, PROVINCES, OD_TO_PC_MAP
-from settings.urls import URL_ISTAT_POP, URL_ISTAT_AGE_POP
 from settings.vars import (
     NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY, TOTAL_CASES_KEY, DAILY_SWABS_KEY,
     POSITIVITY_INDEX, REGION_KEY, PROVINCE_KEY, REGION_CODE,
     PROVINCE_CODE, VAX_DATE_FMT, CHART_DATE_FMT, DATE_KEY, STATE_KEY,
     VAX_DATE_KEY, VAX_AREA_KEY, VAX_TYPE_KEY, VAX_AGE_KEY, POP_KEY, F_SEX_KEY,
-    M_SEX_KEY, VARS, ISTAT_POP_KEY, ISTAT_NUTS_KEY, NUTS_KEY, ISTAT_AGE_KEY,
-    AGE_RANGE_LABELS, MIN_VAX_AGE, OD_NUTS2_KEY, OD_NUTS1_KEY, OD_REGION_CODE
+    M_SEX_KEY, VARS, OD_NUTS1_KEY, OD_NUTS2_KEY, OD_REGION_CODE
 )
 
 pd.options.mode.chained_assignment = None
@@ -479,7 +476,7 @@ def preprocess_vax_admins_summary_df(df):
     :param df: pandas.DataFrame
     :return: pandas.DataFrame
     """
-    it_population = get_it_pop_dict()
+    it_population = get_region_pop_dict()
     out_df = pd.DataFrame()
     for r in df[VAX_AREA_KEY].unique():
         reg_df = df[df[VAX_AREA_KEY] == r]
@@ -498,66 +495,3 @@ def preprocess_vax_admins_summary_df(df):
     out_df[POP_KEY] = out_df[VAX_AREA_KEY].apply(
         lambda x: it_population[OD_TO_PC_MAP[x]])
     return out_df
-
-
-def create_istat_population_df():
-    """
-    Create a population df from ISTAT data
-    :return: pd.DataFrame
-    """
-    columns = [ISTAT_NUTS_KEY, ISTAT_POP_KEY]
-    out_df = pd.DataFrame()
-    try:
-        df = pd.read_csv(URL_ISTAT_POP, usecols=columns, low_memory=False)
-        df[ISTAT_NUTS_KEY] = df[ISTAT_NUTS_KEY].apply(
-            lambda x: x.replace('ITD', 'ITH')).apply(
-            lambda x: x.replace('ITE', 'ITI'))
-        pipe = [
-            {'$match': {NUTS_KEY: {'$ne': 0}}},
-            {'$group': {'_id': {
-                NUTS_KEY: f'${NUTS_KEY}', REGION_KEY: f'${REGION_KEY}'}
-            }}]
-        df_db = pd.json_normalize(list(reg_data_coll.aggregate(pipe)))
-        out_df = df.merge(
-            df_db, left_on=ISTAT_NUTS_KEY, right_on=f'_id.{NUTS_KEY}')
-        out_df = out_df.rename(columns={
-            f'_id.{REGION_KEY}': REGION_KEY,
-            f'_id.{NUTS_KEY}': f'{NUTS_KEY}'
-        })
-    except Exception as e:
-        app.logger.error(f"While creating ISTAT regional population df: {e}")
-    return out_df
-
-
-def create_istat_age_population_df():
-    """
-    Create a population per-age-range df from ISTAT data
-    :return: pd.DataFrame
-    """
-    df = pd.read_csv(URL_ISTAT_AGE_POP)
-    df = df[[ISTAT_AGE_KEY, ISTAT_POP_KEY, ISTAT_NUTS_KEY]]
-    df = df.groupby([ISTAT_AGE_KEY, ISTAT_NUTS_KEY]).sum()
-    df = df.drop(index='TOTAL').reset_index()
-    regex = r"([A-Z]*.*[A-Z])*(\d*)"
-    df[ISTAT_AGE_KEY] = df[ISTAT_AGE_KEY].str.extract(regex)[1].astype('int')
-    df = df[df[ISTAT_AGE_KEY] > MIN_VAX_AGE]
-    df[ISTAT_NUTS_KEY] = df[ISTAT_NUTS_KEY].apply(
-        lambda x: x.replace('ITD', 'ITH')).apply(
-        lambda x: x.replace('ITE', 'ITI'))
-    df = df.groupby([
-        ISTAT_NUTS_KEY,
-        pd.cut(df['ETA'], bins=[11, 19, 29, 39, 49, 59, 69, 79, 89, 99],
-               labels=AGE_RANGE_LABELS)
-    ]).sum()
-    df.drop(columns=[ISTAT_AGE_KEY], inplace=True)
-    df.reset_index(inplace=True)
-    return df
-
-
-def create_vax_pop_df():
-    """
-
-    """
-    from settings.urls import URL_VAX_POP_DATA
-    df = pd.read_csv(URL_VAX_POP_DATA)
-    return df

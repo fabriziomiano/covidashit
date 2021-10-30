@@ -13,8 +13,7 @@ from app.db_tools import (
     nat_data_coll, reg_data_coll, prov_data_coll, nat_trends_coll,
     reg_trends_coll, prov_trends_coll, reg_bdown_coll, prov_bdown_coll,
     nat_series_coll, reg_series_coll, prov_series_coll,
-    vax_admins_summary_coll, vax_admins_coll, pop_coll, age_pop_coll,
-    od_pop_coll
+    vax_admins_summary_coll, vax_admins_coll, pop_coll
 )
 from app.utils import rubbish_notes, translate_series_lang
 from settings import (
@@ -28,8 +27,7 @@ from settings.vars import (
     VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_UPDATE_FMT, VAX_FIRST_DOSE_KEY,
     VAX_SECOND_DOSE_KEY, VAX_TOT_ADMINS_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
     ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_ADMINS_PERC_KEY, VAX_DATE_KEY,
-    CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, ISTAT_POP_KEY, ISTAT_NUTS_KEY,
-    OD_POP_KEY
+    CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, OD_POP_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -320,28 +318,6 @@ def get_tot_admins(dtype, area=None):
     return int(tot_adms)
 
 
-def get_age_pop(nuts_code=None):
-    """
-    Return population-per-age-range data
-    :param nuts_code: str
-    :return: pd.DataFrame
-    """
-    pop_match = {'$match': {ISTAT_NUTS_KEY: nuts_code}}
-    pop_group = {
-        '$group': {
-            '_id': {ISTAT_NUTS_KEY: f'${ISTAT_NUTS_KEY}', 'ETA': '$ETA'},
-            ISTAT_POP_KEY: {'$sum': f'${ISTAT_POP_KEY}'},
-        }
-    }
-    pop_sort = {'$sort': {'_id': 1}}
-    if nuts_code is not None:
-        pop_pipe = [pop_match, pop_group, pop_sort]
-    else:
-        pop_pipe = [pop_group, pop_sort]
-    df_pop = pd.json_normalize(list(age_pop_coll.aggregate(pop_pipe)))
-    return df_pop
-
-
 def get_age_chart_data(area=None):
     """Return age series data"""
     chart_data = {}
@@ -364,23 +340,22 @@ def get_age_chart_data(area=None):
         else:
             vax_pipe = [vax_group, vax_sort]
         vax_cursor = vax_admins_coll.aggregate(pipeline=vax_pipe)
-        pop_cursor = od_pop_coll.find()
+        pop_cursor = pop_coll.find()
         df_vax = pd.json_normalize(list(vax_cursor))
         df_pop = pd.json_normalize((list(pop_cursor)))
-        app.logger.info(df_vax)
         out_df = df_pop.merge(
             df_vax,
             left_on=[VAX_AREA_KEY, VAX_AGE_KEY],
             right_on=['_id.' + VAX_AREA_KEY, '_id.' + VAX_AGE_KEY]
         )
-        app.logger.info(out_df)
         out_df = out_df.groupby('_id.' + VAX_AGE_KEY).sum()
         categories = df_vax[f'_id.{VAX_AGE_KEY}'].unique().tolist()
+        age_pop_dict = get_age_pop_dict()
         chart_data = {
             "title": gettext('Admins per age'),
             "yAxisTitle": gettext('Counts'),
             "categories": categories,
-            "pop_dict": out_df.to_dict()[OD_POP_KEY],
+            "age_dict": age_pop_dict,
             "first": {
                 'name': gettext("First Dose"),
                 'data': out_df[VAX_FIRST_DOSE_KEY].tolist()
@@ -417,7 +392,7 @@ def get_admins_per_region():
         data = list(cursor)
         df = pd.DataFrame(data)
         df['region'] = df['_id'].apply(lambda x: OD_TO_PC_MAP[x])
-        pop_dict = get_it_pop_dict()
+        pop_dict = get_region_pop_dict()
         df['population'] = df['region'].apply(lambda x: pop_dict[x])
         df['percentage'] = df['second'].div(df['population'])
         df.sort_values(by=['population'], ascending=False, inplace=True)
@@ -446,7 +421,7 @@ def get_admins_per_region():
 
 def exp_tot_admins(x, tot_admins):
     """Return tot administration scaled to the region pop percentage"""
-    pop_dict = get_it_pop_dict()
+    pop_dict = get_region_pop_dict()
     it_pop = sum([v for v in pop_dict.values()])
     return round(
         pop_dict[x] / it_pop * tot_admins)
@@ -493,13 +468,13 @@ def get_admins_timeseries_chart_data():
         data = [{
             'name': OD_TO_PC_MAP[r],
             'data': (
-                    df[df[VAX_AREA_KEY] == r][VAX_FIRST_DOSE_KEY].cumsum() /
+                    df[df[VAX_AREA_KEY] == r][VAX_SECOND_DOSE_KEY].cumsum() /
                     df[df[VAX_AREA_KEY] == r][POP_KEY] * 100
             ).round(2).to_list()
         } for r in sorted(df[VAX_AREA_KEY].unique())]
         chart_data = {
             "title": gettext('Vaccination trend'),
-            "yAxisTitle": gettext('Pop. vaccinated (1st dose) [%]'),
+            "yAxisTitle": gettext('Pop. vaccinated (2nd dose) [%]'),
             "dates": dates,
             "data": data
         }
@@ -608,32 +583,65 @@ def get_vax_trends(area=None):
     return trends
 
 
-def get_it_pop_dict():
+def get_region_pop_dict():
     """
     Return a region:population dict
     :return: dict
     """
     it_pop_dict = {}
     try:
-        records = list(pop_coll.find({}))
+        pop_pipe = [{
+            '$group': {
+                '_id': {
+                    VAX_AREA_KEY: f'${VAX_AREA_KEY}'
+                },
+                f'{OD_POP_KEY}': {'$sum': f'${OD_POP_KEY}'}
+            },
+        }]
+        records = list(pop_coll.aggregate(pipeline=pop_pipe))
         it_pop_dict = {
-            r[REGION_KEY]: r[ISTAT_POP_KEY]
+            OD_TO_PC_MAP[r['_id'][VAX_AREA_KEY]]: r[OD_POP_KEY]
             for r in records
         }
     except Exception as e:
-        app.logger.error(f"While getting IT pop dict: {e}")
+        app.logger.error(f"While getting region pop dict: {e}")
     return it_pop_dict
 
 
 def get_area_population(area=None):
     """
-
-    :param area:
-    :return:
+    Return population for a given area if area is defined else for Italy
+    :param area: str
+    :return: int
     """
-    pop_dict = get_it_pop_dict()
+    pop_dict = get_region_pop_dict()
     try:
         population = pop_dict[area]
     except KeyError:
         population = sum([v for v in pop_dict.values()])
     return population
+
+
+def get_age_pop_dict():
+    """
+    Return a age_range:population dict
+    :return: dict
+    """
+    age_pop_dict = {}
+    try:
+        pop_pipe = [{
+            '$group': {
+                '_id': {
+                    VAX_AGE_KEY: f'${VAX_AGE_KEY}'
+                },
+                f'{OD_POP_KEY}': {'$sum': f'${OD_POP_KEY}'}
+            },
+        }]
+        records = list(pop_coll.aggregate(pipeline=pop_pipe))
+        age_pop_dict = {
+            r['_id'][VAX_AGE_KEY]: r[OD_POP_KEY]
+            for r in records
+        }
+    except Exception as e:
+        app.logger.error(f"While getting age pop dict: {e}")
+    return age_pop_dict
