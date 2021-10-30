@@ -192,6 +192,7 @@ $.ajax(baseUrl + 'age', {
         let secondAdminsPerAgeData = adminsPerAge.second;
         let populationData = adminsPerAge.population;
         let adminsPerAgeCategories = adminsPerAge.categories;
+        let ageDict = adminsPerAge.age_dict;
         $('#vax-age-loading-spinner').hide();
         $('#chart-admins-per-age').highcharts({
             chart: {
@@ -230,7 +231,15 @@ $.ajax(baseUrl + 'age', {
                 },
                 {
                     name: secondAdminsPerAgeData.name,
-                    data: secondAdminsPerAgeData.data
+                    data: secondAdminsPerAgeData.data,
+                    dataLabels: {
+                        enabled: true,
+                        color: 'white',
+                        formatter: function () {
+                            let pcnt = (this.y / ageDict[this.x]) * 100;
+                            return Highcharts.numberFormat(pcnt, '0') + '%';
+                        }
+                    }
                 }
             ],
             subtitle: subtitle,

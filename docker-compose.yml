@@ -21,10 +21,3 @@ services:
     command: celery -A celery_worker.celery worker --concurrency 4
     depends_on:
       - redis
-
-  beat:
-    build:
-      context: "."
-    command: celery -A celery_worker.celery beat
-    depends_on:
-      - redis
