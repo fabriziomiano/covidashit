@@ -25,9 +25,11 @@ POSITIVITY_INDEX = "indice_positivita"
 REGION_KEY = "denominazione_regione"
 PROVINCE_KEY = "denominazione_provincia"
 REGION_CODE = "codice_regione"
+OD_REGION_CODE = "codice_regione_ISTAT"
 PROVINCE_CODE = "codice_provincia"
 NUTS_KEY = 'codice_nuts_2'
-OD_NUTS_KEY = 'codice_NUTS2'
+OD_NUTS1_KEY = 'codice_NUTS1'
+OD_NUTS2_KEY = 'codice_NUTS2'
 VAX_LATEST_UPDATE_KEY = "ultimo_aggiornamento"
 CP_DATE_FMT = "%Y-%m-%dT%H:%M:%S"
 VAX_DATE_FMT = "%Y-%m-%dT%H:%M:%S.%f%z"
@@ -39,9 +41,11 @@ NOTE_KEY = "note"
 STATE_KEY = "stato"
 VAX_DATE_KEY = "data_somministrazione"
 VAX_AREA_KEY = "area"
+OD_AREA_KEY = "nome_area"
 VAX_TYPE_KEY = "fornitore"
 VAX_AGE_KEY = "fascia_anagrafica"
 POP_KEY = "popolazione"
+OD_POP_KEY = "totale_popolazione"
 ADMINS_DOSES_KEY = "dosi_somministrate"
 DELIVERED_DOSES_KEY = "dosi_consegnate"
 VAX_ADMINS_PERC_KEY = "percentuale_somministrazione"
@@ -52,9 +56,6 @@ VAX_PROVIDER_KEY = "fornitore"
 F_SEX_KEY = "sesso_femminile"
 M_SEX_KEY = "sesso_maschile"
 RUBBISH_NOTE_REGEX = r"[a-z][a-z]-[A-Z]\w+-[0-9][0-9][0-9][0-9]"
-ISTAT_NUTS_KEY = 'ITTER107'
-ISTAT_POP_KEY = 'OBS_VALUE'
-ISTAT_AGE_KEY = 'ETA'
 TREND_SYMBOL_LOGIC = {
     "stable": {
         "colour": "text-info",
@@ -307,4 +308,3 @@ AGE_RANGE_LABELS = [
     "12-19", "20-29", "30-39", "40-49", "50-59",
     "60-69", "70-79", "80-89", "90+"
 ]
-MIN_VAX_AGE = 11

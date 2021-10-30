@@ -11,7 +11,7 @@ from app.db_tools import (
     nat_data_coll, nat_series_coll, nat_trends_coll, reg_data_coll,
     reg_series_coll, reg_trends_coll, reg_bdown_coll, prov_data_coll,
     prov_bdown_coll, prov_trends_coll, prov_series_coll, vax_admins_coll,
-    vax_admins_summary_coll, pop_coll
+    vax_admins_summary_coll
 )
 from app.db_tools.etl import (
     load_df, preprocess_national_df, build_national_series, build_trend,
@@ -19,7 +19,7 @@ from app.db_tools.etl import (
     build_regional_breakdown, preprocess_provincial_df,
     build_provincial_breakdowns, build_provincial_trends,
     build_provincial_series, preprocess_vax_admins_df,
-    preprocess_vax_admins_summary_df, create_istat_population_df
+    preprocess_vax_admins_summary_df
 )
 from settings import REGIONS, PROVINCES
 from settings.urls import (
@@ -27,7 +27,7 @@ from settings.urls import (
     URL_VAX_ADMINS_SUMMARY_DATA
 )
 from settings.vars import (
-    REGION_KEY, PROVINCE_KEY, DATE_KEY, VAX_DATE_KEY, ISTAT_POP_KEY
+    REGION_KEY, PROVINCE_KEY, DATE_KEY, VAX_DATE_KEY
 )
 
 
@@ -403,28 +403,3 @@ def update_vax_collections(summary=False):
         app.logger.error(f"While updating vax collection: {e}")
         response["errors"], response["msg"] = f"{e}", f"{e}"
     return response
-
-
-@celery.task
-def update_istat_it_population_collection():
-    """Update ISTAT Italy population collection"""
-    ops = []
-    cols = [ISTAT_POP_KEY, REGION_KEY]
-    istat_df = create_istat_population_df()
-    try:
-        df_db = pd.DataFrame(list(pop_coll.find({})))
-        df_compare = df_db[cols].compare(istat_df)
-        if not df_compare.empty:
-            new_df = istat_df.loc[df_compare.index.values].reset_index()
-            ids = df_db.loc[df_compare.index.values]['_id'].to_list()
-            for r in pop_coll.find({'_id': {'$in': ids}}):
-                mask = new_df[REGION_KEY] == r[REGION_KEY]
-                new_value = new_df[mask].to_dict(orient='records')[0]
-                ops.append(UpdateOne({'_id': r['_id']}, {'$set': new_value}))
-            app.logger.info(f"Updating {len(ops)} region population")
-            results = pop_coll.bulk_write(ops)
-            app.logger.info(f"Bulk update result: {results.bulk_api_result}")
-        else:
-            app.logger.info("No region population to update")
-    except Exception as e:
-        app.logger.error(f"While updating italy population collection: {e}")
