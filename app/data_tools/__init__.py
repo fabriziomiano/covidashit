@@ -339,6 +339,8 @@ def get_age_chart_data(area=None):
             vax_pipe = [vax_match, vax_group, vax_sort]
         else:
             vax_pipe = [vax_group, vax_sort]
+        age_pop_dict = get_age_pop_dict(area)
+        app.logger.info(age_pop_dict)
         vax_cursor = vax_admins_coll.aggregate(pipeline=vax_pipe)
         pop_cursor = pop_coll.find()
         df_vax = pd.json_normalize(list(vax_cursor))
@@ -350,7 +352,6 @@ def get_age_chart_data(area=None):
         )
         out_df = out_df.groupby('_id.' + VAX_AGE_KEY).sum()
         categories = df_vax[f'_id.{VAX_AGE_KEY}'].unique().tolist()
-        age_pop_dict = get_age_pop_dict()
         chart_data = {
             "title": gettext('Admins per age'),
             "yAxisTitle": gettext('Counts'),
@@ -622,21 +623,33 @@ def get_area_population(area=None):
     return population
 
 
-def get_age_pop_dict():
+def get_age_pop_dict(area=None):
     """
-    Return a age_range:population dict
+    Return an age_range:population dict
     :return: dict
     """
     age_pop_dict = {}
     try:
-        pop_pipe = [{
-            '$group': {
-                '_id': {
-                    VAX_AGE_KEY: f'${VAX_AGE_KEY}'
+        if area is None:
+            pop_pipe = [{
+                '$group': {
+                    '_id': {
+                        VAX_AGE_KEY: f'${VAX_AGE_KEY}'
+                    },
+                    f'{OD_POP_KEY}': {'$sum': f'${OD_POP_KEY}'}
                 },
-                f'{OD_POP_KEY}': {'$sum': f'${OD_POP_KEY}'}
-            },
-        }]
+            }]
+        else:
+            pop_pipe = [{
+                '$match': {VAX_AREA_KEY: area}
+            }, {
+                '$group': {
+                    '_id': {
+                        VAX_AGE_KEY: f'${VAX_AGE_KEY}'
+                    },
+                    f'{OD_POP_KEY}': {'$sum': f'${OD_POP_KEY}'}
+                },
+            }]
         records = list(pop_coll.aggregate(pipeline=pop_pipe))
         age_pop_dict = {
             r['_id'][VAX_AGE_KEY]: r[OD_POP_KEY]
