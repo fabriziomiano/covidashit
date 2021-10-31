@@ -132,8 +132,9 @@ class CollectionCreator:
     @staticmethod
     def create_provincial_collections():
         """Drop and recreate provincial collection"""
-        df = pd.read_csv(
-            URL_PROVINCIAL, parse_dates=[DATE_KEY], low_memory=False)
+        df = pd.read_csv(URL_PROVINCIAL)
+        df = df.rename(columns=lambda x: x.strip())
+        df[DATE_KEY] = pd.to_datetime(df[DATE_KEY])
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_provincial_augmented = preprocess_provincial_df(df)
         provincial_records = df_provincial_augmented.to_dict(orient='records')
@@ -147,8 +148,9 @@ class CollectionCreator:
     @staticmethod
     def create_provincial_breakdown_collection():
         """Drop and create provincial breakdown collection"""
-        df = pd.read_csv(
-            URL_PROVINCIAL, parse_dates=[DATE_KEY], low_memory=False)
+        df = pd.read_csv(URL_PROVINCIAL)
+        df = df.rename(columns=lambda x: x.strip())
+        df[DATE_KEY] = pd.to_datetime(df[DATE_KEY])
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_provincial_augmented = preprocess_provincial_df(df)
         provincial_breakdowns = build_provincial_breakdowns(
@@ -163,8 +165,9 @@ class CollectionCreator:
     @staticmethod
     def create_provincial_series_collection():
         """Drop and recreate provincial series data collection"""
-        df = pd.read_csv(
-            URL_PROVINCIAL, parse_dates=[DATE_KEY], low_memory=False)
+        df = pd.read_csv(URL_PROVINCIAL)
+        df = df.rename(columns=lambda x: x.strip())
+        df[DATE_KEY] = pd.to_datetime(df[DATE_KEY])
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_provincial_augmented = preprocess_provincial_df(df)
         provincial_series = build_provincial_series(
@@ -179,8 +182,9 @@ class CollectionCreator:
     @staticmethod
     def create_provincial_trends_collection():
         """Create provincial trends data collection"""
-        df = pd.read_csv(
-            URL_PROVINCIAL, parse_dates=[DATE_KEY], low_memory=False)
+        df = pd.read_csv(URL_PROVINCIAL)
+        df = df.rename(columns=lambda x: x.strip())
+        df[DATE_KEY] = pd.to_datetime(df[DATE_KEY])
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_provincial_augmented = preprocess_provincial_df(df)
         provincial_trends = build_provincial_trends(df_provincial_augmented)
