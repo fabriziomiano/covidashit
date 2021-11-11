@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-11-11 20:54+0100\n"
-"PO-Revision-Date: 2021-11-11 20:55+0100\n"
+"POT-Creation-Date: 2021-11-11 21:09+0100\n"
+"PO-Revision-Date: 2021-11-11 21:09+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -19,44 +19,44 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/data_tools/__init__.py:360
+#: app/data_tools/__init__.py:361
 msgid "Admins per age"
 msgstr "Somministrazioni per età"
 
-#: app/data_tools/__init__.py:361 app/plotter/__init__.py:58
+#: app/data_tools/__init__.py:362 app/plotter/__init__.py:58
 #: app/templates/pandemic/cards-charts.html:515
 msgid "Counts"
 msgstr "Conteggi"
 
-#: app/data_tools/__init__.py:365 app/data_tools/__init__.py:409
+#: app/data_tools/__init__.py:366 app/data_tools/__init__.py:410
 msgid "First Dose"
 msgstr "Prima Dose"
 
-#: app/data_tools/__init__.py:369 app/data_tools/__init__.py:413
+#: app/data_tools/__init__.py:370 app/data_tools/__init__.py:414
 msgid "Second Dose"
 msgstr "Seconda Dose"
 
-#: app/data_tools/__init__.py:373 app/data_tools/__init__.py:417
+#: app/data_tools/__init__.py:374 app/data_tools/__init__.py:418
 msgid "Population"
 msgstr "Popolazione"
 
-#: app/data_tools/__init__.py:405
+#: app/data_tools/__init__.py:406
 msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
-#: app/data_tools/__init__.py:481
+#: app/data_tools/__init__.py:482
 msgid "Vaccination trend"
 msgstr "Andamento vaccinazioni"
 
-#: app/data_tools/__init__.py:482
+#: app/data_tools/__init__.py:483
 msgid "Pop. vaccinated (2nd dose) [%]"
 msgstr "Pop. vaccinata (2a dose) [%]"
 
-#: app/data_tools/__init__.py:514
+#: app/data_tools/__init__.py:515
 msgid "Admins per provider"
 msgstr "Somministrazioni per fornitore"
 
-#: app/data_tools/__init__.py:515
+#: app/data_tools/__init__.py:516
 msgid "Doses administered"
 msgstr "Dosi somministrate"
 
@@ -169,11 +169,14 @@ msgstr ""
 "Una dashboard che mostra i dati italiani ufficiali su pandemia e vaccini"
 
 #: app/templates/base/modals/welcome.html:20
-#: app/templates/base/modals/welcome.html:24
 msgid "New!"
 msgstr "Novità!"
 
 #: app/templates/base/modals/welcome.html:21
+msgid "Additional- and booster-dose daily trends;"
+msgstr "Andamento giornalieri somministrazioni dosi aggiuntive e dosi booster;"
+
+#: app/templates/base/modals/welcome.html:24
 msgid ""
 "Administrations-per-region chart enriched with regional/national population "
 "data (ISTAT);"
@@ -181,25 +184,25 @@ msgstr ""
 "Dati sulle somministrazioni per regione arricchite con popolazione per "
 "regione e fasce d'età (ISTAT)"
 
-#: app/templates/base/modals/welcome.html:25
+#: app/templates/base/modals/welcome.html:27
 msgid "Data-type tabs at the top now refresh cards and charts simultaneously;"
 msgstr ""
 "I tab tipo di dato in cima alla pagina adesso aggiornano cards e grafici "
 "contemporaneamente;"
 
-#: app/templates/base/modals/welcome.html:28
+#: app/templates/base/modals/welcome.html:30
 msgid "Daily administrations trend;"
 msgstr "Andamento somministrazioni giornaliere;"
 
-#: app/templates/base/modals/welcome.html:31
+#: app/templates/base/modals/welcome.html:33
 msgid "Administrations per provider;"
 msgstr "Somministrazioni per fornitore;"
 
-#: app/templates/base/modals/welcome.html:34
+#: app/templates/base/modals/welcome.html:36
 msgid "Vaccine data <a href='/vaccines'><strong>here</strong></a>;"
 msgstr "Dati sui vaccini <a href='/vaccines'><strong>qui</strong></a>;"
 
-#: app/templates/base/modals/welcome.html:37
+#: app/templates/base/modals/welcome.html:39
 msgid ""
 "Use the navigation buttons on the navigation bar when in the regional/"
 "provincial views;"
@@ -207,11 +210,11 @@ msgstr ""
 "Usa i bottoni sulla navigation bar per navigare tra le view regionali/"
 "provinciali;"
 
-#: app/templates/base/modals/welcome.html:40
+#: app/templates/base/modals/welcome.html:42
 msgid "Use the search bar to jump to the pandemic dashboard of a desired area;"
 msgstr "Usa la barra di ricerca per saltare ai dati di un'area;"
 
-#: app/templates/base/modals/welcome.html:43
+#: app/templates/base/modals/welcome.html:45
 msgid ""
 "Some cards, where possible, can be expanded to visualize the breakdown of "
 "the sub-areas;"
@@ -219,7 +222,7 @@ msgstr ""
 "Alcune card possono essere espanse per mostrare il dettaglio delle aree "
 "rilevanti;"
 
-#: app/templates/base/modals/welcome.html:46
+#: app/templates/base/modals/welcome.html:48
 msgid ""
 "The data are divided in <code>Daily</code>, <code>Current</code>, and "
 "<code>Cumulative</code>;"
@@ -227,24 +230,24 @@ msgstr ""
 "Il dato è classificato in <code>Giornaliero</code> , <code>Corrente</code> e "
 "<code>Cumulato</code>;"
 
-#: app/templates/base/modals/welcome.html:49
+#: app/templates/base/modals/welcome.html:51
 msgid "The interactive charts allow to zoom in along the x- and y-axis;"
 msgstr "I grafici interattivi permettono di zoomare lungo l'asse x e y;"
 
-#: app/templates/base/modals/welcome.html:52
+#: app/templates/base/modals/welcome.html:54
 msgid "The chart legend can be used to toggle on/off the data series;"
 msgstr ""
 "La legenda può essere utilizzata per attivare/disattivare una serie di dati;"
 
-#: app/templates/base/modals/welcome.html:59
+#: app/templates/base/modals/welcome.html:61
 msgid "Who made this?"
 msgstr "Chi è l'autore?"
 
-#: app/templates/base/modals/welcome.html:63
+#: app/templates/base/modals/welcome.html:65
 msgid "Close"
 msgstr "Chiudi"
 
-#: app/templates/base/modals/welcome.html:70
+#: app/templates/base/modals/welcome.html:72
 msgid ""
 "Made with <span style=\"color: #e25555;\">&#9829;</span> in\n"
 "                        <a href=\"https://goo.gl/maps/rk3BGAvv1HmG3NSs8\" "
