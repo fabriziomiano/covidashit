@@ -52,6 +52,8 @@ VAX_ADMINS_PERC_KEY = "percentuale_somministrazione"
 VAX_TOT_ADMINS_KEY = "totale"
 VAX_FIRST_DOSE_KEY = "prima_dose"
 VAX_SECOND_DOSE_KEY = "seconda_dose"
+VAX_BOOSTER_DOSE_KEY = "dose_booster"
+VAX_ADDITIONAL_DOSE_KEY = "dose_aggiuntiva"
 VAX_PROVIDER_KEY = "fornitore"
 F_SEX_KEY = "sesso_femminile"
 M_SEX_KEY = "sesso_maschile"
@@ -290,7 +292,7 @@ VARS[TOTAL_HEALED_KEY] = {
 # Vax variables
 VARS[VAX_FIRST_DOSE_KEY] = {
     "title": gettext("Daily First administrations"),
-    "icon": "fas fa-check",
+    "icon": "fas fa-battery-half",
     "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
     "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
@@ -298,13 +300,25 @@ VARS[VAX_FIRST_DOSE_KEY] = {
 }
 VARS[VAX_SECOND_DOSE_KEY] = {
     "title": gettext("Daily Second administrations"),
-    "icon": "fas fa-check-double",
+    "icon": "fas fa-battery-full",
     "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
     "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
     "type": "vax"
 }
-AGE_RANGE_LABELS = [
-    "12-19", "20-29", "30-39", "40-49", "50-59",
-    "60-69", "70-79", "80-89", "90+"
-]
+VARS[VAX_BOOSTER_DOSE_KEY] = {
+    "title": gettext("Daily Booster administrations"),
+    "icon": "fas fa-plug",
+    "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "vax"
+}
+VARS[VAX_ADDITIONAL_DOSE_KEY] = {
+    "title": gettext("Daily Additional administrations"),
+    "icon": "fab fa-superpowers",
+    "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
+    "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
+    "stable": TREND_SYMBOL_LOGIC["stable"],
+    "type": "vax"
+}
