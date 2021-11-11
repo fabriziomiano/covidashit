@@ -226,7 +226,7 @@ class CollectionCreator:
         try:
             pop_df = pd.read_csv(URL_VAX_POP_DATA)
             records = pop_df.to_dict(orient='records')
-            app.logger.info("Creating Vax platea collection")
+            app.logger.info("Creating population collection")
             pop_coll.drop()
             pop_coll.insert_many(records)
         except Exception as e:
