@@ -27,7 +27,8 @@ from settings.vars import (
     VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_UPDATE_FMT, VAX_FIRST_DOSE_KEY,
     VAX_SECOND_DOSE_KEY, VAX_TOT_ADMINS_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
     ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_ADMINS_PERC_KEY, VAX_DATE_KEY,
-    CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, OD_POP_KEY
+    CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, OD_POP_KEY,
+    VAX_BOOSTER_DOSE_KEY, VAX_ADDITIONAL_DOSE_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -48,6 +49,10 @@ TREND_CARDS = [
     if not qty.endswith("_ma") and VARS[qty]["type"] != "vax"
 ]
 PROV_TREND_CARDS = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY]
+VAX_DOSES = [
+    VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY, VAX_BOOSTER_DOSE_KEY,
+    VAX_ADDITIONAL_DOSE_KEY
+]
 
 
 def get_query_menu(area=None):
@@ -340,7 +345,7 @@ def get_age_chart_data(area=None):
         else:
             vax_pipe = [vax_group, vax_sort]
         age_pop_dict = get_age_pop_dict(area)
-        app.logger.info(age_pop_dict)
+        app.logger.debug(age_pop_dict)
         vax_cursor = vax_admins_coll.aggregate(pipeline=vax_pipe)
         pop_cursor = pop_coll.find()
         df_vax = pd.json_normalize(list(vax_cursor))
@@ -526,7 +531,9 @@ def get_vax_trends_data(area=None):
                 '$group': {
                     '_id': f'${VAX_DATE_KEY}',
                     VAX_FIRST_DOSE_KEY: {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
-                    VAX_SECOND_DOSE_KEY: {'$sum': f'${VAX_SECOND_DOSE_KEY}'}
+                    VAX_SECOND_DOSE_KEY: {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
+                    VAX_BOOSTER_DOSE_KEY: {'$sum': f'${VAX_BOOSTER_DOSE_KEY}'},
+                    VAX_ADDITIONAL_DOSE_KEY: {'$sum': f'${VAX_ADDITIONAL_DOSE_KEY}'}
                 }
             },
             {"$sort": {"_id": -1}},
@@ -539,7 +546,9 @@ def get_vax_trends_data(area=None):
                 '$group': {
                     '_id': f'$data_somministrazione',
                     VAX_FIRST_DOSE_KEY: {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
-                    VAX_SECOND_DOSE_KEY: {'$sum': f'${VAX_SECOND_DOSE_KEY}'}
+                    VAX_SECOND_DOSE_KEY: {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
+                    VAX_BOOSTER_DOSE_KEY: {'$sum': f'${VAX_BOOSTER_DOSE_KEY}'},
+                    VAX_ADDITIONAL_DOSE_KEY: {'$sum': f'${VAX_ADDITIONAL_DOSE_KEY}'}
                 }
             },
             {"$sort": {"_id": -1}},
@@ -557,7 +566,7 @@ def get_vax_trends(area=None):
     """
     data = get_vax_trends_data(area)
     trends = []
-    for d in (VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY):
+    for d in VAX_DOSES:
         count = data[0][d]
         yesterday_count = data[1][d]
         diff = count - yesterday_count
