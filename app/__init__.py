@@ -126,7 +126,7 @@ def create_app():
         "national": cc.create_national_collection,
         "regional": cc.create_regional_collection,
         "pop-coll": cc.create_vax_pop_collection,
-        "provincial": cc.create_provincial_collections,
+        "provincial": cc.create_provincial_collection,
         "national-trends": cc.create_national_trends_collection,
         "regional-trends": cc.create_regional_trends_collection,
         "provincial-trends": cc.create_provincial_trends_collection,
