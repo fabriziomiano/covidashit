@@ -10,16 +10,11 @@ from app.data_tools import (
     get_age_chart_data, get_admins_per_region,
     get_admins_timeseries_chart_data, get_admins_per_provider_chart_data
 )
-from app.db_tools.tasks import (
-    update_national_collection, update_national_series_collection,
-    update_national_trends_collection, update_regional_collection,
-    update_regional_series_collection, update_regional_trends_collection,
-    update_regional_breakdown_collection, update_provincial_collection,
-    update_provincial_breakdown_collection,
-    update_provincial_series_or_trends_collection, update_vax_collections
-)
+from app.db_tools.create import CollectionCreator
 from app.plotter import Plotter, validate_plot_request
 from settings import REGIONS
+
+cc = CollectionCreator()
 
 
 @api.get('/plot')
@@ -82,62 +77,49 @@ def plot_trend():
 update_menu = {
     'national': {
         'root': {
-            'task': update_national_collection,
-            'args': None
+            'task': cc.create_national_collection,
         },
         'series': {
-            'task': update_national_series_collection,
-            'args': None
+            'task': cc.create_national_series_collection,
         },
         'trends': {
-            'task': update_national_trends_collection,
-            'args': None
+            'task': cc.create_national_trends_collection,
         }
     },
     'regional': {
         'root': {
-            'task': update_regional_collection,
-            'args': None
+            'task': cc.create_regional_collection,
         },
         'breakdown': {
-            'task': update_regional_breakdown_collection,
-            'args': None
+            'task': cc.create_regional_breakdown_collection,
         },
         'series': {
-            'task': update_regional_series_collection,
-            'args': None
+            'task': cc.create_regional_series_collection,
         },
         'trends': {
-            'task': update_regional_trends_collection,
-            'args': None
+            'task': cc.create_regional_trends_collection,
         }
     },
     'provincial': {
         'root': {
-            'task': update_provincial_collection,
-            'args': None
+            'task': cc.create_provincial_collection,
         },
         'breakdown': {
-            'task': update_provincial_breakdown_collection,
-            'args': None
+            'task': cc.create_provincial_breakdown_collection,
         },
         'series': {
-            'task': update_provincial_series_or_trends_collection,
-            'args': 'series'
+            'task': cc.create_provincial_series_collection,
         },
         'trends': {
-            'task': update_provincial_series_or_trends_collection,
-            'args': 'trends'
+            'task': cc.create_provincial_trends_collection,
         }
     },
     'vax': {
         'root': {
-            'task': update_vax_collections,
-            'args': None
+            'task': cc.create_vax_admins_collection,
         },
         'summary': {
-            'task': update_vax_collections,
-            'args': True
+            'task': cc.create_vax_admins_summary_collection,
         }
     }
 }
@@ -152,11 +134,7 @@ def update_collection(data_type, coll_type='root'):
     status = 'ko'
     try:
         task_to_exec = update_menu[data_type][coll_type]['task']
-        args = update_menu[data_type][coll_type]['args']
-        if args:
-            task = task_to_exec.apply_async(args=[args])
-        else:
-            task = task_to_exec.delay()
+        task = task_to_exec.delay()
         msg = f'Task {task.id} submitted. Status {task.state}'
         app.logger.warning(msg)
         status = 'ok'
