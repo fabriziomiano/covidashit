@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-11-11 21:09+0100\n"
-"PO-Revision-Date: 2021-11-11 21:09+0100\n"
+"POT-Creation-Date: 2021-11-24 19:47+0100\n"
+"PO-Revision-Date: 2021-11-24 19:48+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -262,10 +262,15 @@ msgstr ""
 "target=_blank> Fabrizio Miano</a>"
 
 #: app/templates/errors/generic.html:18
-msgid "Please use this button to report any bug"
-msgstr "Usa questo bottone per segnalare un bug"
+msgid "OPS! Date could be being refreshed. Reload the page shortly"
+msgstr ""
+"OPS! I dati potrebbero essere in aggiornamento. Ricarica la pagina a breve"
 
 #: app/templates/errors/generic.html:19
+msgid "Alternatively, please use this button to report any bug"
+msgstr "In alternativa, usa questo bottone per segnalare un bug"
+
+#: app/templates/errors/generic.html:20
 msgid "Contact admin"
 msgstr "Contatta l'admin"
 
