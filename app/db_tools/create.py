@@ -4,6 +4,7 @@ DB Recovery
 import pandas as pd
 from flask import current_app as app
 
+from app import celery
 from app.db_tools import (
     nat_data_coll, nat_trends_coll, nat_series_coll, reg_data_coll,
     reg_trends_coll, reg_series_coll, reg_bdown_coll, prov_data_coll,
@@ -29,6 +30,7 @@ class CollectionCreator:
     """Collection Creator"""
 
     @staticmethod
+    @celery.task
     def create_national_collection():
         """Drop and recreate national data collection"""
         df = pd.read_csv(URL_NATIONAL, parse_dates=[DATE_KEY])
@@ -43,6 +45,7 @@ class CollectionCreator:
             app.logger.error(e)
 
     @staticmethod
+    @celery.task
     def create_national_trends_collection():
         """Drop and recreate national trends data collection"""
         df = pd.read_csv(URL_NATIONAL, parse_dates=[DATE_KEY])
@@ -57,6 +60,7 @@ class CollectionCreator:
             app.logger.error(e)
 
     @staticmethod
+    @celery.task
     def create_national_series_collection():
         """Drop and recreate national series data collection"""
         df = pd.read_csv(URL_NATIONAL, parse_dates=[DATE_KEY])
@@ -71,6 +75,7 @@ class CollectionCreator:
             app.logger.error(e)
 
     @staticmethod
+    @celery.task
     def create_regional_collection():
         """Drop and recreate regional data collection"""
         df = pd.read_csv(URL_REGIONAL, parse_dates=[DATE_KEY])
@@ -85,6 +90,7 @@ class CollectionCreator:
             app.logger.error(e)
 
     @staticmethod
+    @celery.task
     def create_regional_breakdown_collection():
         """Drop and recreate regional breakdown data collection"""
         df = pd.read_csv(
@@ -100,6 +106,7 @@ class CollectionCreator:
             app.logger.error(e)
 
     @staticmethod
+    @celery.task
     def create_regional_series_collection():
         """Drop and recreate regional series data collection"""
         df = pd.read_csv(
@@ -115,6 +122,7 @@ class CollectionCreator:
             app.logger.error(e)
 
     @staticmethod
+    @celery.task
     def create_regional_trends_collection():
         """Drop and recreate regional trends data collection"""
         df = pd.read_csv(
@@ -130,7 +138,8 @@ class CollectionCreator:
             app.logger.error(e)
 
     @staticmethod
-    def create_provincial_collections():
+    @celery.task
+    def create_provincial_collection():
         """Drop and recreate provincial collection"""
         df = pd.read_csv(URL_PROVINCIAL)
         df = df.rename(columns=lambda x: x.strip())
@@ -146,6 +155,7 @@ class CollectionCreator:
             app.logger.error(e)
 
     @staticmethod
+    @celery.task
     def create_provincial_breakdown_collection():
         """Drop and create provincial breakdown collection"""
         df = pd.read_csv(URL_PROVINCIAL)
@@ -163,6 +173,7 @@ class CollectionCreator:
             app.logger.error(e)
 
     @staticmethod
+    @celery.task
     def create_provincial_series_collection():
         """Drop and recreate provincial series data collection"""
         df = pd.read_csv(URL_PROVINCIAL)
@@ -180,6 +191,7 @@ class CollectionCreator:
             app.logger.error(e)
 
     @staticmethod
+    @celery.task
     def create_provincial_trends_collection():
         """Create provincial trends data collection"""
         df = pd.read_csv(URL_PROVINCIAL)
@@ -196,6 +208,7 @@ class CollectionCreator:
             app.logger.error(e)
 
     @staticmethod
+    @celery.task
     def create_vax_admins_collection():
         """Create vaccine administrations colleciton"""
         df = pd.read_csv(
@@ -210,6 +223,7 @@ class CollectionCreator:
             app.logger.error(f"While creating vax admins collection: {e}")
 
     @staticmethod
+    @celery.task
     def create_vax_admins_summary_collection():
         """Create vaccine administrations summary colleciton"""
         df = pd.read_csv(
@@ -225,6 +239,7 @@ class CollectionCreator:
                 f"While creating vax admins summary collection: {e}")
 
     @staticmethod
+    @celery.task
     def create_vax_pop_collection():
         """Create OD population collection"""
         try:
