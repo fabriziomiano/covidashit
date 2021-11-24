@@ -357,6 +357,7 @@ def get_age_chart_data(area=None):
         )
         out_df = out_df.groupby('_id.' + VAX_AGE_KEY).sum()
         categories = df_vax[f'_id.{VAX_AGE_KEY}'].unique().tolist()
+        age_pop_dict = get_age_pop_dict()
         chart_data = {
             "title": gettext('Admins per age'),
             "yAxisTitle": gettext('Counts'),
