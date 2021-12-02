@@ -52,8 +52,7 @@ VAX_ADMINS_PERC_KEY = "percentuale_somministrazione"
 VAX_TOT_ADMINS_KEY = "totale"
 VAX_FIRST_DOSE_KEY = "prima_dose"
 VAX_SECOND_DOSE_KEY = "seconda_dose"
-VAX_BOOSTER_DOSE_KEY = "dose_booster"
-VAX_ADDITIONAL_DOSE_KEY = "dose_aggiuntiva"
+VAX_BOOSTER_DOSE_KEY = "dose_addizionale_booster"
 VAX_PROVIDER_KEY = "fornitore"
 F_SEX_KEY = "sesso_femminile"
 M_SEX_KEY = "sesso_maschile"
@@ -309,14 +308,6 @@ VARS[VAX_SECOND_DOSE_KEY] = {
 VARS[VAX_BOOSTER_DOSE_KEY] = {
     "title": gettext("Daily Booster administrations"),
     "icon": "fas fa-plug",
-    "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
-    "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
-    "stable": TREND_SYMBOL_LOGIC["stable"],
-    "type": "vax"
-}
-VARS[VAX_ADDITIONAL_DOSE_KEY] = {
-    "title": gettext("Daily Additional administrations"),
-    "icon": "fab fa-superpowers",
     "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
     "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
