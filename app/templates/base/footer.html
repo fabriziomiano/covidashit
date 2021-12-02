@@ -1,0 +1,27 @@
+<!-- Footers -->
+<footer class="py-4 bg-light mt-auto text-center">
+
+    <p class="text-dark small">
+        {% for k in key_periods %}
+            {{ _(key_periods[k]['text']) }}:
+            {{ key_periods[k]['n_days'] }}<br>
+        {% endfor %}
+    </p>
+
+    <hr class="mt-0">
+
+    <p class="small">{{ _("This project is <a href='https://github.com/fabriziomiano/covidashit' target='_blank'>open source</a> and it is hosted on <i class='fab fa-aws'></i> ") }}</p>
+    <p class="small">{{ _(" Thanks for donating &#128513;") }}</p>
+    <div class="container-fluid">
+        <form action="https://www.paypal.com/donate" method="post"
+              target="_blank">
+            <input type="hidden" name="hosted_button_id"
+                   value="4LSC44UTDTDWA"/>
+            <input type="image"
+                   src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"
+                   name="submit"
+                   title="PayPal - The safer, easier way to pay online!"
+                   alt="Donate with PayPal button"/>
+        </form>
+    </div>
+</footer>

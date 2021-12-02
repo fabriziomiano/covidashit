@@ -40,20 +40,24 @@
 
                         <!-- population -->
                         <p class="small mb-0 text-dark">
-                            <i class="fas fa-users me-2"></i>Pop: <strong>{{ population }}</strong>
+                            <i class="fas fa-users me-2"></i>Pop:
+                            <strong>{{ population }}</strong>
                         </p>
 
                         <!-- Area accordion -->
                         <div class="accordion mb-2" id="areasAccordion">
                             <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingOne">
+                                <h2 class="accordion-header"
+                                    id="flush-headingOne">
                                     <button class="accordion-button collapsed"
                                             type="button"
                                             data-bs-toggle="collapse"
                                             data-bs-target="#flush-collapseOne"
                                             aria-expanded="false"
                                             aria-controls="flush-collapseOne">
-                                        {% if area in regions %}{{ _("Provinces") }}{% else %}{{ _("Regions") }}{% endif %}
+                                        {% if area in regions %}
+                                            {{ _("Provinces") }}{% else %}
+                                            {{ _("Regions") }}{% endif %}
                                     </button>
                                 </h2>
                             </div>
@@ -116,33 +120,7 @@
             {% include 'pandemic/cards-charts.html' %}
         </div>
 
-        <!-- Footers -->
-        <footer class="py-4 bg-light mt-auto text-center">
-
-            <p class="text-dark small">
-                {% for k in key_periods %}
-                    {{ _(key_periods[k]['text']) }}:
-                    {{ key_periods[k]['n_days'] }}<br>
-                {% endfor %}
-            </p>
-
-            <hr class="mt-0">
-
-            <p class="small">{{ _("This project is <a href='https://github.com/fabriziomiano/covidashit' target='_blank'>open source</a> and it is hosted on <i class='fab fa-aws'></i> ") }}</p>
-            <p class="small">{{ _(" Thanks for donating &#128513;") }}</p>
-            <div class="container-fluid">
-                <form action="https://www.paypal.com/donate" method="post"
-                      target="_blank">
-                    <input type="hidden" name="hosted_button_id"
-                           value="4LSC44UTDTDWA"/>
-                    <input type="image"
-                           src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"
-                           name="submit"
-                           title="PayPal - The safer, easier way to pay online!"
-                           alt="Donate with PayPal button"/>
-                </form>
-            </div>
-        </footer>
+        {% include 'base/footer.html' %}
 
     </main>
 {% endblock %}

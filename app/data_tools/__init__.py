@@ -332,7 +332,7 @@ def get_age_chart_data(area=None):
                 VAX_AREA_KEY: f'${VAX_AREA_KEY}'
             },
             f'{VAX_FIRST_DOSE_KEY}': {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
-            f'{VAX_SECOND_DOSE_KEY}': {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
+            f'{VAX_SECOND_DOSE_KEY}': {'$sum': f'${VAX_SECOND_DOSE_KEY}'}
         }
     }
     vax_sort = {'$sort': {'_id': 1}}
@@ -356,7 +356,6 @@ def get_age_chart_data(area=None):
         )
         out_df = out_df.groupby('_id.' + VAX_AGE_KEY).sum()
         categories = df_vax[f'_id.{VAX_AGE_KEY}'].unique().tolist()
-        age_pop_dict = get_age_pop_dict()
         chart_data = {
             "title": gettext('Admins per age'),
             "yAxisTitle": gettext('Counts'),
