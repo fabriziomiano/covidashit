@@ -10,7 +10,7 @@ Versione Italiana [qui](https://github.com/fabriziomiano/covidashit/blob/main/RE
 
 A simple dashboard to display and monitor the official data of the COVID-19 outbreak in Italy released by the [Civil Protection Dept.](https://github.com/pcm-dpc/COVID-19) and updated on a daily basis.
 
-**The app is deployed on Heroku [here](https://www.covidash.it/)**
+**The app is deployed on an AWS EC2 instance [here](https://www.covidash.it/)**
 
 **Pandemic data from the [official CP Dept repository](https://github.com/pcm-dpc/COVID-19/)**
 
@@ -57,28 +57,15 @@ the DB with the official data released by the Civil Protection Dept.
 
 Clone the repo, `cd` into it, activate the virtual environment, and run the procedure
 ```shell
-flask create-collections
+flask createdb
 ```
 then run the worker 
 ```shell
 celery -A celery_worker.celery worker
 ```
-in a new shell, the celery beat for the background scheduled tasks
-```shell
-celery -A celery_worker.celery beat
-```
 and, in a new shell, run the application server
 ```shell
-flask run
-```
-Flask will be listening at [http://127.0.0.1:5000](http://127.0.0.1:5000)
-
-### Local deployment (PROD)
-First, replace the value of `APPLICATION_ENV` in `.env` with `production`
-#### Procfile
-to test the `Procfile` configuration, Simply run the heroku CLI 
-```shell
-heroku local
+gunicorn wsgi:app
 ```
 
 #### Docker
@@ -94,9 +81,6 @@ Stop it with
 ```shell
 docker-compose down
 ```
-
-### Deployment on Heroku
-The app can be deployed on Heroku either as a docker container or simply using the Procfile
 
 ## Plots API
 The app provides an API to produce a server-side plot with `matplotlib`.

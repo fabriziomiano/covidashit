@@ -10,7 +10,7 @@ English Version [here](https://github.com/fabriziomiano/covidashit/blob/main/REA
 
 Una semplice dashboard per la visualizzazione e il monitoraggio dei dati ufficiali sulla pandemia da COVID-19 rilasciati giornalmente dal [Dipartimento della Protezione Civile](https://github.com/pcm-dpc) 
 
-**La WebApp è pubblicata su Heroku [qui](https://www.covidash.it)**
+**La WebApp è pubblicata su un'istanza EC2 di AWS [qui](https://www.covidash.it)**
 
 **Dati ufficiali sulla pandemia: [repository ufficiale della proezione civile](https://github.com/pcm-dpc/COVID-19)**
 
@@ -53,7 +53,7 @@ sarà necessario popolare il DB tramite la Flask CLI inclusa.
 
 Dopo aver clonato la repo e attivato il virtual environment: 
 ```shell
-flask create-collections
+flask createdb
 ```
 Questa, tramite una semplicissima procedura ETL, creerà e popolerà le collezioni su DB 
 con i dati ufficiali del Dipartimento della Protezione Civile.
@@ -62,28 +62,16 @@ Successivamente, avviare il worker,
 ```shell
 celery -A celery_worker.celery worker
 ```
-e il beat per i task in background:
-```shell
-celery -A celery_worker.celery beat
-```
+
 Infine, lanciare l'application server in una nuova shell:
 ```shell
-flask run
+gunicorn wsgi:app
 ```
 
 Flask sarà in ascolto all'url [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ### Setup locale (PROD)
 Nel `.env` file settare il valore di `APPLICATION_ENV` con `production`.
-
-#### Procfile 
-Per testare la corretta configurazione del `Procfile` usare la CLI fornita da
-heroku tramite 
-```shell
-heroku local
-```
-Flask sarà in ascolto all'url [http://127.0.0.1:5000](http://127.0.0.1:5000)
-
 
 #### Docker
 Per avviare il container:
@@ -92,12 +80,6 @@ docker-compose up -d
 ```
 Flask sarà in ascolto all'url [http://127.0.0.1:PORT] dove `PORT` viene 
 settata in `.env`.
-
-
-##### Deployment su Heroku
-L'app puo' essere pubblicata su Heroku sia come docker container che
-semplicemente utilizzando il Procfile.
-
 
 ## Plot API
 L'app fornisce delle API per produrre i plot delle variabili con `matplotlib`.
