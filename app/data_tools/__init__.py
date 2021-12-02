@@ -332,7 +332,7 @@ def get_age_chart_data(area=None):
                 VAX_AREA_KEY: f'${VAX_AREA_KEY}'
             },
             f'{VAX_FIRST_DOSE_KEY}': {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
-            f'{VAX_SECOND_DOSE_KEY}': {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
+            f'{VAX_SECOND_DOSE_KEY}': {'$sum': f'${VAX_SECOND_DOSE_KEY}'}
         }
     }
     vax_sort = {'$sort': {'_id': 1}}
