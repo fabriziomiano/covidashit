@@ -28,7 +28,7 @@ from settings.vars import (
     VAX_SECOND_DOSE_KEY, VAX_TOT_ADMINS_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
     ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_ADMINS_PERC_KEY, VAX_DATE_KEY,
     CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, OD_POP_KEY,
-    VAX_BOOSTER_DOSE_KEY, VAX_ADDITIONAL_DOSE_KEY
+    VAX_BOOSTER_DOSE_KEY
 )
 
 DATA_SERIES = [VARS[key]["title"] for key in VARS]
@@ -50,8 +50,7 @@ TREND_CARDS = [
 ]
 PROV_TREND_CARDS = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY]
 VAX_DOSES = [
-    VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY, VAX_BOOSTER_DOSE_KEY,
-    VAX_ADDITIONAL_DOSE_KEY
+    VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY, VAX_BOOSTER_DOSE_KEY
 ]
 
 
@@ -533,8 +532,7 @@ def get_vax_trends_data(area=None):
                     '_id': f'${VAX_DATE_KEY}',
                     VAX_FIRST_DOSE_KEY: {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
                     VAX_SECOND_DOSE_KEY: {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
-                    VAX_BOOSTER_DOSE_KEY: {'$sum': f'${VAX_BOOSTER_DOSE_KEY}'},
-                    VAX_ADDITIONAL_DOSE_KEY: {'$sum': f'${VAX_ADDITIONAL_DOSE_KEY}'}
+                    VAX_BOOSTER_DOSE_KEY: {'$sum': f'${VAX_BOOSTER_DOSE_KEY}'}
                 }
             },
             {"$sort": {"_id": -1}},
@@ -548,8 +546,7 @@ def get_vax_trends_data(area=None):
                     '_id': f'$data_somministrazione',
                     VAX_FIRST_DOSE_KEY: {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
                     VAX_SECOND_DOSE_KEY: {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
-                    VAX_BOOSTER_DOSE_KEY: {'$sum': f'${VAX_BOOSTER_DOSE_KEY}'},
-                    VAX_ADDITIONAL_DOSE_KEY: {'$sum': f'${VAX_ADDITIONAL_DOSE_KEY}'}
+                    VAX_BOOSTER_DOSE_KEY: {'$sum': f'${VAX_BOOSTER_DOSE_KEY}'}
                 }
             },
             {"$sort": {"_id": -1}},
@@ -579,7 +576,7 @@ def get_vax_trends(area=None):
             status = 'stable'
         try:
             perc = '{}%'.format(round(diff / data[1][d] * 100, 1))
-        except ValueError:
+        except (ValueError, ZeroDivisionError):
             perc = 'n/a'
         trends.append({
             'id': d,
