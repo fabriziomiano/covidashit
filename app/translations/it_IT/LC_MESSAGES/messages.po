@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-12-02 04:38+0100\n"
-"PO-Revision-Date: 2021-12-02 04:39+0100\n"
+"POT-Creation-Date: 2021-12-27 15:14+0100\n"
+"PO-Revision-Date: 2021-12-27 15:15+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -19,44 +19,48 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/data_tools/__init__.py:360
+#: app/data_tools/__init__.py:366
 msgid "Admins per age"
 msgstr "Somministrazioni per età"
 
-#: app/data_tools/__init__.py:361 app/plotter/__init__.py:58
+#: app/data_tools/__init__.py:367 app/plotter/__init__.py:58
 #: app/templates/pandemic/cards-charts.html:515
 msgid "Counts"
 msgstr "Conteggi"
 
-#: app/data_tools/__init__.py:365 app/data_tools/__init__.py:409
+#: app/data_tools/__init__.py:371 app/data_tools/__init__.py:421
 msgid "First Dose"
 msgstr "Prima Dose"
 
-#: app/data_tools/__init__.py:369 app/data_tools/__init__.py:413
+#: app/data_tools/__init__.py:375 app/data_tools/__init__.py:425
 msgid "Second Dose"
 msgstr "Seconda Dose"
 
-#: app/data_tools/__init__.py:373 app/data_tools/__init__.py:417
+#: app/data_tools/__init__.py:379 app/data_tools/__init__.py:429
+msgid "Booster Dose"
+msgstr "Dose Booster"
+
+#: app/data_tools/__init__.py:383 app/data_tools/__init__.py:433
 msgid "Population"
 msgstr "Popolazione"
 
-#: app/data_tools/__init__.py:405
+#: app/data_tools/__init__.py:417
 msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
-#: app/data_tools/__init__.py:481
+#: app/data_tools/__init__.py:497
 msgid "Vaccination trend"
 msgstr "Andamento vaccinazioni"
 
-#: app/data_tools/__init__.py:482
+#: app/data_tools/__init__.py:498
 msgid "Pop. vaccinated (2nd dose) [%]"
 msgstr "Pop. vaccinata (2a dose) [%]"
 
-#: app/data_tools/__init__.py:514
+#: app/data_tools/__init__.py:530
 msgid "Admins per provider"
 msgstr "Somministrazioni per fornitore"
 
-#: app/data_tools/__init__.py:515
+#: app/data_tools/__init__.py:531
 msgid "Doses administered"
 msgstr "Dosi somministrate"
 
@@ -64,26 +68,13 @@ msgstr "Dosi somministrate"
 msgid "Positive Rate: "
 msgstr "Indice positività: "
 
-#: app/templates/pandemic.html:56
+#: app/templates/pandemic.html:59
 msgid "Provinces"
 msgstr "Province"
 
-#: app/templates/pandemic.html:56 app/templates/vaccines.html:99
+#: app/templates/pandemic.html:60 app/templates/vaccines.html:80
 msgid "Regions"
 msgstr "Regioni"
-
-#: app/templates/pandemic.html:131
-msgid ""
-"This project is <a href='https://github.com/fabriziomiano/covidashit' "
-"target='_blank'>open source</a> and it is hosted on <i class='fab fa-aws'></"
-"i> "
-msgstr ""
-"Questo progetto è <a href='https://github.com/fabriziomiano/covidashit' "
-"target='_blank'>open source</a> e si trova su <i class='fab fa-aws'></i> "
-
-#: app/templates/pandemic.html:132
-msgid " Thanks for donating &#128513;"
-msgstr " Le donazioni sono ben accette &#128513;"
 
 #: app/templates/thanks.html:14
 msgid "Thank You!"
@@ -102,45 +93,30 @@ msgstr "Bisogna fare attenzione e mettere la mascherina!"
 msgid "Back to COVIDash"
 msgstr "Torna alla Home"
 
-#: app/templates/vaccines.html:42
+#: app/templates/vaccines.html:24
 msgid "Latest update: "
 msgstr "Ultimo aggiornamento: "
 
-#: app/templates/vaccines.html:48
-msgid "Tot. administered:"
-msgstr "Tot. somministrazioni:"
+#: app/templates/vaccines.html:30
+msgid "Pop. vaccinated "
+msgstr "Pop. vaccinata "
 
-#: app/templates/vaccines.html:54
-msgid "Percentage of administered doses wrt the delivered ones"
-msgstr "Percentuale delle dosi somministrate rispetto a quelle ricevute"
-
-#: app/templates/vaccines.html:61
-msgid "Pop. vaccinated:"
-msgstr "Pop. vaccinata:"
-
-#: app/templates/vaccines.html:67
-msgid "Based on the first dose"
-msgstr "Rispetto alla prima dose"
-
-#: app/templates/vaccines.html:75
-msgid "Based on the second dose"
-msgstr "RIspetto alla seconda dose"
-
-#: app/templates/vaccines.html:85
+#: app/templates/vaccines.html:66
 msgid "Population:"
 msgstr "Popolazione:"
 
-#: app/templates/vaccines.html:149
+#: app/templates/base/footer.html:13
 msgid ""
 "This project is <a href='https://github.com/fabriziomiano/covidashit' "
-"target='_blank'>open source</a> and it is hosted on an Heroku paid dyno."
+"target='_blank'>open source</a> and it is hosted on <i class='fab fa-aws'></"
+"i> "
 msgstr ""
 "Questo progetto è <a href='https://github.com/fabriziomiano/covidashit' "
-"target='_blank'>open source</a> ed utilizza un piano a pagamento su Heroku."
+"target='_blank'>open source</a> e si trova su <i class='fab fa-aws'></i> "
 
-#: app/templates/vaccines.html:150
-msgid "Thanks for donating &#128513;"
-msgstr "Le donazioni sono ben accette &#128513;"
+#: app/templates/base/footer.html:14
+msgid " Thanks for donating &#128513;"
+msgstr " Le donazioni sono ben accette &#128513;"
 
 #: app/templates/base/head.html:18
 msgid "COVID-19 Italy outbreak dashboard"
@@ -342,7 +318,7 @@ msgid "Vaccine day"
 msgstr "Vaccine day"
 
 #: app/templates/pandemic/cards-charts.html:522
-#: app/templates/vaccines/charts.html:107 app/ui/pandemic.py:47
+#: app/templates/vaccines/charts.html:102 app/ui/pandemic.py:47
 #: app/ui/vaccines.py:23
 msgid "Italy"
 msgstr "Italia"
@@ -356,15 +332,15 @@ msgstr ""
 "a>"
 
 #: app/templates/pandemic/cards-charts.html:532
-#: app/templates/vaccines/charts.html:116
+#: app/templates/vaccines/charts.html:111
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
-#: app/templates/vaccines/charts.html:9
+#: app/templates/vaccines/charts.html:51
 msgid "Select one or more regions"
 msgstr "Seleziona una o più regioni"
 
-#: app/templates/vaccines/charts.html:112
+#: app/templates/vaccines/charts.html:107
 msgid ""
 "Source: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a> | <a href='https://www.istat.it'>ISTAT</a>"
@@ -372,7 +348,7 @@ msgstr ""
 "Fonte: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a> | <a href='https://istat.it'>ISTAT</a>"
 
-#: app/templates/vaccines/charts.html:119
+#: app/templates/vaccines/charts.html:114
 msgid "*Hover / tap on a bar to display the administered-dose data"
 msgstr ""
 "*Passa sopra col mouse o tocca una barra per visualizzare i dati sulle "
@@ -601,6 +577,29 @@ msgstr "Seconde somministrazioni giornaliere"
 #: settings/vars.py:309
 msgid "Daily Booster administrations"
 msgstr "Somministrazioni giornaliere dose booster"
+
+#~ msgid "Tot. administered:"
+#~ msgstr "Tot. somministrazioni:"
+
+#~ msgid "Percentage of administered doses wrt the delivered ones"
+#~ msgstr "Percentuale delle dosi somministrate rispetto a quelle ricevute"
+
+#~ msgid "Based on the first dose"
+#~ msgstr "Rispetto alla prima dose"
+
+#~ msgid "Based on the second dose"
+#~ msgstr "RIspetto alla seconda dose"
+
+#~ msgid ""
+#~ "This project is <a href='https://github.com/fabriziomiano/covidashit' "
+#~ "target='_blank'>open source</a> and it is hosted on an Heroku paid dyno."
+#~ msgstr ""
+#~ "Questo progetto è <a href='https://github.com/fabriziomiano/covidashit' "
+#~ "target='_blank'>open source</a> ed utilizza un piano a pagamento su "
+#~ "Heroku."
+
+#~ msgid "Thanks for donating &#128513;"
+#~ msgstr "Le donazioni sono ben accette &#128513;"
 
 #~ msgid "Daily Additional administrations"
 #~ msgstr "Somministrazioni giornaliere dose aggiuntiva"
