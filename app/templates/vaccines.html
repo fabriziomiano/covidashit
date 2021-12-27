@@ -18,14 +18,33 @@
                     <h2>
                         <i class="fas fa-syringe me-2"></i>{{ dashboard_title }}
                     </h2>
+
+                    <!-- Latest update -->
+                    <p class="small mb-0 text-info">
+                        <i class="fas fa-bullhorn me-2"></i>{{ _("Latest update: ") }}
+                        <strong>{{ latest_update }}</strong>
+                    </p>
+
                     <!-- progress bar -->
-                    <div class="progress mb-1" style="height: 15px;">
+                    <p class="small mb-0 text-dark">
+                        <i class="fas fa-user-shield me-2"></i>{{ _("Pop. vaccinated ") }}(%)
+                    </p>
+                    <div class="progress mb-1" style="height: 15px;" >
+
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                             role="progressbar"
+                             aria-valuenow="{{ perc_pop_vax.booster }}"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             style="width: {{ perc_pop_vax.booster }}%">
+                            {{ perc_pop_vax.booster|round(1) }}%
+                        </div>
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
                              role="progressbar"
                              aria-valuenow="{{ perc_pop_vax.second }}"
                              aria-valuemin="0"
                              aria-valuemax="100"
-                             style="width: {{ perc_pop_vax.second }}%">
+                             style="width: {{ perc_pop_vax.second - perc_pop_vax.booster }}%">
                             {{ perc_pop_vax.second|round(1) }}%
                         </div>
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
@@ -33,49 +52,11 @@
                              aria-valuenow="{{ perc_pop_vax.first }}"
                              aria-valuemin="0"
                              aria-valuemax="100"
-                             style="width: {{ perc_pop_vax.first - perc_pop_vax.second }}%">
+                             style="width: {{ perc_pop_vax.first - perc_pop_vax.second - perc_pop_vax.booster }}%">
                             {{ perc_pop_vax.first|round(1) }}%
                         </div>
                     </div>
-                    <!-- Latest update -->
-                    <p class="small mb-0 text-info">
-                        <i class="fas fa-bullhorn me-2"></i>{{ _("Latest update: ") }}
-                        <strong>{{ latest_update }}</strong>
-                    </p>
 
-                    <!-- Total Administrations -->
-                    <p class="small mb-0 text-dark">
-                        <i class="fas fa-syringe me-2"></i>{{ _("Tot. administered:") }}
-                        <strong>
-                            {{ tot_admins_str }} &nbsp; {{ admins_perc }}%
-                            <i class="fas fa-info-circle"
-                               data-toggle="tooltip"
-                               data-placement="auto"
-                               title="{{ _("Percentage of administered doses wrt the delivered ones") }}"
-                            ></i>
-                        </strong>
-                    </p>
-
-                    <!-- % people vaccinated -->
-                    <p class="small mb-0 text-success">
-                        <i class="fas fa-user-shield me-2"></i>{{ _("Pop. vaccinated:") }}
-                        <strong class="text-primary">
-                            {{ perc_pop_vax.first }}%
-                            <i class="fas fa-info-circle"
-                               data-toggle="tooltip"
-                               data-placement="auto"
-                               title="{{ _("Based on the first dose") }}">
-                            </i>
-                        </strong>&nbsp;
-                        <strong class="text-success">
-                            {{ perc_pop_vax.second }}%
-                            <i class="fas fa-info-circle"
-                               data-toggle="tooltip"
-                               data-placement="auto"
-                               title="{{ _("Based on the second dose") }}">
-                            </i>
-                        </strong>
-                    </p>
                 </div>
 
                 <div class="col- col-md-6 col-lg-6">
