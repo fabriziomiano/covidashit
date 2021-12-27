@@ -265,9 +265,11 @@ def get_perc_pop_vax(population, area=None):
     """
     tot_1st_admins = get_tot_admins(dtype=VAX_FIRST_DOSE_KEY, area=area)
     tot_2nd_admins = get_tot_admins(dtype=VAX_SECOND_DOSE_KEY, area=area)
+    tot_3rd_admins = get_tot_admins(dtype=VAX_BOOSTER_DOSE_KEY, area=area)
     return {
         'first': round(((int(tot_1st_admins) / population) * 100), 1),
-        'second': round(((int(tot_2nd_admins) / population) * 100), 1)
+        'second': round(((int(tot_2nd_admins) / population) * 100), 1),
+        'booster': round(((int(tot_3rd_admins) / population) * 100), 1)
     }
 
 
@@ -297,7 +299,10 @@ def get_tot_admins(dtype, area=None):
         if the data type is in allowed_types else 0
     """
     allowed_types = (
-        VAX_TOT_ADMINS_KEY, VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY)
+        VAX_TOT_ADMINS_KEY,
+        VAX_FIRST_DOSE_KEY,
+        VAX_SECOND_DOSE_KEY,
+        VAX_BOOSTER_DOSE_KEY)
     tot_adms = 0
     if dtype in allowed_types:
         if area:
@@ -332,7 +337,8 @@ def get_age_chart_data(area=None):
                 VAX_AREA_KEY: f'${VAX_AREA_KEY}'
             },
             f'{VAX_FIRST_DOSE_KEY}': {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
-            f'{VAX_SECOND_DOSE_KEY}': {'$sum': f'${VAX_SECOND_DOSE_KEY}'}
+            f'{VAX_SECOND_DOSE_KEY}': {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
+            f'{VAX_BOOSTER_DOSE_KEY}': {'$sum': f'${VAX_BOOSTER_DOSE_KEY}'}
         }
     }
     vax_sort = {'$sort': {'_id': 1}}
@@ -369,6 +375,10 @@ def get_age_chart_data(area=None):
                 'name': gettext("Second Dose"),
                 'data': out_df[VAX_SECOND_DOSE_KEY].tolist()
             },
+            "booster": {
+                'name': gettext("Booster Dose"),
+                'data': out_df[VAX_BOOSTER_DOSE_KEY].tolist()
+            },
             "population": {
                 'name': gettext("Population"),
                 'data': out_df[OD_POP_KEY].tolist()
@@ -389,7 +399,8 @@ def get_admins_per_region():
                 '$group': {
                     '_id': f'${VAX_AREA_KEY}',
                     'first': {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
-                    'second': {'$sum': f'${VAX_SECOND_DOSE_KEY}'}
+                    'second': {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
+                    'booster': {'$sum': f'${VAX_BOOSTER_DOSE_KEY}'}
                 }
             }
         ]
@@ -399,7 +410,8 @@ def get_admins_per_region():
         df['region'] = df['_id'].apply(lambda x: OD_TO_PC_MAP[x])
         pop_dict = get_region_pop_dict()
         df['population'] = df['region'].apply(lambda x: pop_dict[x])
-        df['percentage'] = df['second'].div(df['population'])
+        df['percentage_2nd'] = df['second'].div(df['population'])
+        df['percentage_3rd'] = df['booster'].div(df['population'])
         df.sort_values(by=['population'], ascending=False, inplace=True)
         chart_data = {
             "title": gettext('Admins per region'),
@@ -412,6 +424,10 @@ def get_admins_per_region():
             "second": {
                 'name': gettext("Second Dose"),
                 'data': df['second'].values.tolist()
+            },
+            "booster": {
+                'name': gettext("Booster Dose"),
+                'data': df['booster'].values.tolist()
             },
             "population": {
                 'name': gettext("Population"),
@@ -462,7 +478,6 @@ def get_admins_timeseries_chart_data():
     chart_data = {}
     try:
         pipe = [
-            {'$match': {VAX_AREA_KEY: {'$ne': 'ITA'}}},
             {'$sort': {VAX_DATE_KEY: 1}}
         ]
         cursor = vax_admins_summary_coll.aggregate(pipeline=pipe)
