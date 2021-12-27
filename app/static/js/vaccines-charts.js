@@ -11,9 +11,9 @@ if (!REGIONS.includes(area)) {
         success: function (adminsPerRegion) {
             let firstAdminsPerRegionData = adminsPerRegion.first;
             let secondAdminsPerRegionData = adminsPerRegion.second;
+            let boosterAdminsPerRegionData = adminsPerRegion.booster;
             let populationData = adminsPerRegion.population;
             let adminsPerRegionCategories = adminsPerRegion.categories;
-            let popDict = adminsPerRegion.pop_dict;
             $('#vax-region-loading-spinner').hide();
             $('#chart-admins-per-region').highcharts({
                 chart: {
@@ -25,23 +25,14 @@ if (!REGIONS.includes(area)) {
                 },
                 plotOptions: {
                     bar: {
-                        grouping: false,
-                        pointWidth: 14
+                        grouping: false
                     }
                 },
                 xAxis: {
-                    lineColor: '#999',
-                    lineWidth: 1,
-                    tickColor: '#666',
-                    tickLength: 3,
                     categories: adminsPerRegionCategories,
                 },
                 yAxis: {
-                    type: 'logarithmic',
-                    title: {
-                        enabled: false
-                    },
-                    max: populationData.data[0]
+                    visible: false
                 },
                 series: [
                     {
@@ -50,27 +41,15 @@ if (!REGIONS.includes(area)) {
                     },
                     {
                         name: firstAdminsPerRegionData.name,
-                        data: firstAdminsPerRegionData.data,
-                        dataLabels: {
-                            enabled: true,
-                            color: 'white',
-                            formatter: function () {
-                                let pcnt = (this.y / popDict[this.x]) * 100;
-                                return Highcharts.numberFormat(pcnt, '0') + '%';
-                            }
-                        }
+                        data: firstAdminsPerRegionData.data
                     },
                     {
                         name: secondAdminsPerRegionData.name,
-                        data: secondAdminsPerRegionData.data,
-                        dataLabels: {
-                            enabled: true,
-                            color: 'white',
-                            formatter: function () {
-                                let pcnt = (this.y / popDict[this.x]) * 100;
-                                return Highcharts.numberFormat(pcnt, '0') + '%';
-                            }
-                        }
+                        data: secondAdminsPerRegionData.data
+                    },
+                    {
+                        name: boosterAdminsPerRegionData.name,
+                        data: boosterAdminsPerRegionData.data
                     }
                 ],
                 exporting: {
@@ -190,6 +169,7 @@ $.ajax(baseUrl + 'age', {
     success: function (adminsPerAge) {
         let firstAdminsPerAgeData = adminsPerAge.first;
         let secondAdminsPerAgeData = adminsPerAge.second;
+        let boosterAdminsPerAgeData = adminsPerAge.booster;
         let populationData = adminsPerAge.population;
         let adminsPerAgeCategories = adminsPerAge.categories;
         let ageDict = adminsPerAge.age_dict;
@@ -203,22 +183,14 @@ $.ajax(baseUrl + 'age', {
             },
             plotOptions: {
                 bar: {
-                    grouping: false,
-                    pointWidth: 25
+                    grouping: false
                 }
             },
             xAxis: {
-                lineColor: '#999',
-                lineWidth: 1,
-                tickColor: '#666',
-                tickLength: 3,
                 categories: adminsPerAgeCategories,
             },
             yAxis: {
-                visible: false,
-                title: {
-                    text: adminsPerAge.yAxisTitle
-                },
+                visible: false
             },
             series: [
                 {
@@ -231,16 +203,12 @@ $.ajax(baseUrl + 'age', {
                 },
                 {
                     name: secondAdminsPerAgeData.name,
-                    data: secondAdminsPerAgeData.data,
-                    dataLabels: {
-                        enabled: true,
-                        color: 'white',
-                        formatter: function () {
-                            let pcnt = (this.y / ageDict[this.x]) * 100;
-                            return Highcharts.numberFormat(pcnt, '0') + '%';
-                        }
-                    }
-                }
+                    data: secondAdminsPerAgeData.data
+                },
+                {
+                    name: boosterAdminsPerAgeData.name,
+                    data: boosterAdminsPerAgeData.data
+                },
             ],
             subtitle: subtitle,
             credits: credits
@@ -273,7 +241,7 @@ $.ajax(baseUrl + 'provider', {
                 text: adminsPerProvider.title + ' | ' + area
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.y}</b>'
+                pointFormat: '{point.y} (<b>{point.percentage:.1f}%</b>)'
             },
             accessibility: {
                 point: {
@@ -284,22 +252,16 @@ $.ajax(baseUrl + 'provider', {
                 pie: {
                     dataLabels: {
                         enabled: true,
-                        distance: -50,
-                        format: '{point.name}: <b>{point.percentage:.1f}%</b>',
-                        style: {
-                            fontWeight: 'bold',
-                            color: 'white'
-                        }
                     },
                     startAngle: -90,
                     endAngle: 90,
-                    center: ['50%', '75%'],
-                    size: '110%'
+                    center: ['50%', '70%'],
+                    // size: '150%'
                 }
             },
             series: [{
                 name: adminsPerProvider.name,
-                innerSize: '50%',
+                innerSize: '20%',
                 data: adminsPerProvider.data
             }],
             subtitle: subtitle,
