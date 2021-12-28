@@ -1,4 +1,4 @@
-celery==5.1.0
+celery==5.1.1
 click==7.1.2
 dnspython==2.1.0
 Flask==2.0.1
