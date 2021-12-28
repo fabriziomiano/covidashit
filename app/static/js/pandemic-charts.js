@@ -100,8 +100,7 @@ let colorMap = {
 }
 seriesDaily.forEach(function (entry, i) {
     entry.showInLegend = entry.id.endsWith("_ma");
-    !entry.id.endsWith("_ma") ? entry.dashStyle = 'Dot' : 'Solid'
-    entry.visible = !entry.id.includes("tamponi")
+    entry.visible = (entry.id.endsWith("_ma") || entry.id.endsWith("_ma")) && !entry.id.includes("tamponi")
     entry.linkedTo = links[entry.id]
     entry.color = colorMap[entry.id]
     entry.borderColor = 'black'

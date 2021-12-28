@@ -3,26 +3,16 @@
     <div class="row">
         {% for t in trend_cards %}
             <div class="col-lg-6 col-md-6 mb-2">
-                <div class="card border-left-{{ t.colour.split('-')[1] }} shadow"
-                     data-bs-toggle="modal"
-                     data-target="#ModalCenter_{{ t.id }}">
+                <div class="card bg-{{ t.colour.split('-')[1] }} shadow text-light text-center">
                     <div class="card-body">
-                        <div class="row no-gutters">
-                            <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
-                                <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
-                            </p>
+                        <div class="h5 mb-1 text-uppercase">
+                            <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                         </div>
 
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <p class="h6 text-gray-800 mb-0">{{ t.count }}</p>
-                            </div>
-                            <div>
-                                <p class="{{ t.colour }} mb-0">
-                                    <span><i class="{{ t.status_icon }}"></i></span>
-                                    <span>{{ t.percentage_difference|safe }}</span>
-                                </p>
-                            </div>
+                        <div>
+                            <span class="h6 text-gray-800 mb-0">{{ t.count }}</span>
+                            <span class="h6 text-gray-800 mb-0"><i class="{{ t.status_icon }}"></i></span>
+                            <span class="h6 text-gray-800 mb-0">{{ t.percentage_difference|safe }}</span>
                         </div>
 
                         <p class="small mb-0">
@@ -49,52 +39,48 @@
 
     </div>
 
-<!-- National/Regional views -->
+    <!-- National/Regional views -->
 {% else %}
     <!-- Tabs -->
     <ul class="nav nav-pills nav-justified small mb-1" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="nav-daily-tab" data-bs-toggle="pill" href="#daily" role="tab" aria-controls="nav-daily" aria-selected="true">{{ _("Daily") }}</a>
+            <a class="nav-link active" id="nav-daily-tab" data-bs-toggle="pill" href="#daily" role="tab"
+               aria-controls="nav-daily" aria-selected="true">{{ _("Daily") }}</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-item nav-link" id="nav-current-tab" data-bs-toggle="pill" href="#current" role="tab" aria-controls="nav-current" aria-selected="false">{{ _("Current") }}</a>
+            <a class="nav-item nav-link" id="nav-current-tab" data-bs-toggle="pill" href="#current" role="tab"
+               aria-controls="nav-current" aria-selected="false">{{ _("Current") }}</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-item nav-link" id="nav-cum-tab" data-bs-toggle="pill" href="#cum" role="tab" aria-controls="nav-cum" aria-selected="false">{{ _("Cumulative") }}</a>
+            <a class="nav-item nav-link" id="nav-cum-tab" data-bs-toggle="pill" href="#cum" role="tab"
+               aria-controls="nav-cum" aria-selected="false">{{ _("Cumulative") }}</a>
         </li>
     </ul>
 
     <!-- Tabs Content -->
     <div class="tab-content" id="nav-tabContent">
+
         <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="nav-daily-tab">
             <div class="row">
                 {% for t in trend_cards %}
                     {% if t.type == "daily" %}
                         <div class="col-lg col-md- mb-2">
 
-                            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow">
+                            <div class="card bg-{{ t.colour.split('-')[1] }} shadow text-light text-center">
                                 <div class="card-body">
-                                    <div class="row no-gutters">
-                                        <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
-                                            <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
-                                        </p>
+                                    <div class="h5 mb-1 text-uppercase">
+                                        <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <p class="h6 text-gray-800 mb-0">{{ t.count }}</p>
-                                        </div>
-                                        <div>
-                                            <p class="{{ t.colour }} mb-0">
-                                                <span><i class="{{ t.status_icon }}"></i></span>
-                                                <span>{{ t.percentage_difference|safe }}</span>
-                                            </p>
-                                        </div>
+                                    <div>
+                                        <span class="h6 text-gray-800">{{ t.count }}</span>
+                                        <span class="h6 text-gray-800"><i class="{{ t.status_icon }}"></i></span>
+                                        <span class="h6 text-gray-800">{{ t.percentage_difference|safe }}</span>
                                     </div>
-                                    <p class="small mb-0">
-                                        <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
-                                    </p>
+                                    <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
                                 </div>
+                            </div>
 
+                            {% if breakdown[t.id] %}
                                 {% set ns = namespace(found=false) %}
                                 {% for data_type, data in breakdown.items() %}
                                     {% if data_type == t.id %}
@@ -110,7 +96,7 @@
                                                             data-bs-target="#flush-{{ t.id }}"
                                                             aria-expanded="false"
                                                             aria-controls="flush-{{ t.id }}" style="height: 20px">
-                                                        <small>{{ _("Breakdown") }}</small>
+                                                        <small>{{ _("See more...") }}</small>
                                                     </button>
                                                 </h2>
                                                 <div id="flush-{{ t.id }}"
@@ -118,14 +104,11 @@
                                                      aria-labelledby="flush-areas"
                                                      data-bs-parent="#areasAccordion">
                                                     <div class="accordion-body">
-                                                        <p class="small mb-0">
-                                                            <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
-                                                        </p>
-                                                        <table class="table table-sm table-striped table-responsive">
+                                                        <table class="table table-sm table-striped table-responsive bg-light text-center small">
                                                             <thead class="table-light">
                                                             <tr>
-                                                                <th>{{ _("Area") }}</th>
-                                                                <th>{{ _("Count") }}</th>
+                                                                <th scope="col"> {{ _("Area") }} </th>
+                                                                <th scope="col">{{ _("Count") }}</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -145,38 +128,7 @@
                                         </div>
                                     {% endif %}
                                 {% endfor %}
-
-                                {% if not ns.found %}
-                                    <div class="accordion"
-                                         id="areasAccordion">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header"
-                                                id="flush-areas">
-                                                <button class="accordion-button collapsed"
-                                                        type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-{{ t.id }}"
-                                                        aria-expanded="false"
-                                                        aria-controls="flush-{{ t.id }}" style="height: 20px">
-                                                    <small style="color: gray">n/a</small>
-                                                </button>
-                                            </h2>
-                                            <div id="flush-{{ t.id }}"
-                                                 class="accordion-collapse collapse"
-                                                 aria-labelledby="flush-areas"
-                                                 data-bs-parent="#areasAccordion">
-                                                <div class="accordion-body">
-                                                    <p>No data</p>
-                                                    <p class="small mb-0">
-                                                        <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endif %}
-
-                            </div>
+                            {% endif %}
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -184,7 +136,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card shadow">
-                        <div id="chart-trend-daily" class="container-fluid px-0" style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+                        <div id="chart-trend-daily" class="container-fluid px-0"
+                             style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
                     </div>
                 </div>
             </div>
@@ -196,29 +149,21 @@
                     {% if t.type == "current" %}
                         <div class="col-lg col-md- mb-2">
 
-                            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow">
+                            <div class="card bg-{{ t.colour.split('-')[1] }} shadow text-light text-center">
                                 <div class="card-body">
-                                    <div class="row no-gutters">
-                                        <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
-                                            <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
-                                        </p>
+                                    <div class="h5 mb-1 text-uppercase">
+                                        <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <p class="h6 text-gray-800 mb-0">{{ t.count }}</p>
-                                        </div>
-                                        <div>
-                                            <p class="{{ t.colour }} mb-0">
-                                                <span><i class="{{ t.status_icon }}"></i></span>
-                                                <span>{{ t.percentage_difference|safe }}</span>
-                                            </p>
-                                        </div>
+                                    <div>
+                                        <span class="h6 text-gray-800">{{ t.count }}</span>
+                                        <span class="h6 text-gray-800"><i class="{{ t.status_icon }}"></i></span>
+                                        <span class="h6 text-gray-800">{{ t.percentage_difference|safe }}</span>
                                     </div>
-                                    <p class="small mb-0">
-                                        <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
-                                    </p>
+                                    <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
                                 </div>
+                            </div>
 
+                            {% if breakdown[t.id] %}
                                 {% set ns = namespace(found=false) %}
                                 {% for data_type, data in breakdown.items() %}
                                     {% if data_type == t.id %}
@@ -234,7 +179,7 @@
                                                             data-bs-target="#flush-{{ t.id }}"
                                                             aria-expanded="false"
                                                             aria-controls="flush-{{ t.id }}" style="height: 20px">
-                                                        <small>{{ _("Breakdown") }}</small>
+                                                        <small>{{ _("See more...") }}</small>
                                                     </button>
                                                 </h2>
                                                 <div id="flush-{{ t.id }}"
@@ -242,14 +187,11 @@
                                                      aria-labelledby="flush-areas"
                                                      data-bs-parent="#areasAccordion">
                                                     <div class="accordion-body">
-                                                        <p class="small mb-0">
-                                                            <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
-                                                        </p>
-                                                        <table class="table table-sm table-hover">
+                                                        <table class="table table-sm table-striped table-responsive bg-light text-center small">
                                                             <thead class="table-light">
                                                             <tr>
-                                                                <th>{{ _("Area") }}</th>
-                                                                <th>{{ _("Count") }}</th>
+                                                                <th scope="col"> {{ _("Area") }} </th>
+                                                                <th scope="col">{{ _("Count") }}</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -269,38 +211,7 @@
                                         </div>
                                     {% endif %}
                                 {% endfor %}
-
-                                {% if not ns.found %}
-                                    <div class="accordion"
-                                         id="areasAccordion">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header"
-                                                id="flush-areas">
-                                                <button class="accordion-button collapsed"
-                                                        type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-{{ t.id }}"
-                                                        aria-expanded="false"
-                                                        aria-controls="flush-{{ t.id }}" style="height: 20px">
-                                                    <small style="color: gray">n/a</small>
-                                                </button>
-                                            </h2>
-                                            <div id="flush-{{ t.id }}"
-                                                 class="accordion-collapse collapse"
-                                                 aria-labelledby="flush-areas"
-                                                 data-bs-parent="#areasAccordion">
-                                                <div class="accordion-body">
-                                                    <p>No data</p>
-                                                    <p class="small mb-0">
-                                                        <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endif %}
-
-                            </div>
+                            {% endif %}
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -308,7 +219,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card shadow">
-                        <div id="chart-trend-current" class="container-fluid px-0" style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+                        <div id="chart-trend-current" class="container-fluid px-0"
+                             style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
                     </div>
                 </div>
             </div>
@@ -320,29 +232,21 @@
                     {% if t.type == "cum" %}
                         <div class="col-lg col-md- mb-2">
 
-                            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow">
+                            <div class="card bg-{{ t.colour.split('-')[1] }} shadow text-light text-center">
                                 <div class="card-body">
-                                    <div class="row no-gutters">
-                                        <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
-                                            <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
-                                        </p>
+                                    <div class="h5 mb-1 text-uppercase">
+                                        <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <p class="h6 text-gray-800 mb-0">{{ t.count }}</p>
-                                        </div>
-                                        <div>
-                                            <p class="{{ t.colour }} mb-0">
-                                                <span><i class="{{ t.status_icon }}"></i></span>
-                                                <span>{{ t.percentage_difference|safe }}</span>
-                                            </p>
-                                        </div>
+                                    <div>
+                                        <span class="h6 text-gray-800">{{ t.count }}</span>
+                                        <span class="h6 text-gray-800"><i class="{{ t.status_icon }}"></i></span>
+                                        <span class="h6 text-gray-800">{{ t.percentage_difference|safe }}</span>
                                     </div>
-                                    <p class="small mb-0">
-                                        <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
-                                    </p>
+                                    <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
                                 </div>
+                            </div>
 
+                            {% if breakdown[t.id] %}
                                 {% set ns = namespace(found=false) %}
                                 {% for data_type, data in breakdown.items() %}
                                     {% if data_type == t.id %}
@@ -358,7 +262,7 @@
                                                             data-bs-target="#flush-{{ t.id }}"
                                                             aria-expanded="false"
                                                             aria-controls="flush-{{ t.id }}" style="height: 20px">
-                                                        <small>{{ _("Breakdown") }}</small>
+                                                        <small>{{ _("See more...") }}</small>
                                                     </button>
                                                 </h2>
                                                 <div id="flush-{{ t.id }}"
@@ -366,14 +270,11 @@
                                                      aria-labelledby="flush-areas"
                                                      data-bs-parent="#areasAccordion">
                                                     <div class="accordion-body">
-                                                        <p class="small mb-0">
-                                                            <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
-                                                        </p>
-                                                        <table class="table table-sm table-hover">
+                                                        <table class="table table-sm table-striped table-responsive bg-light text-center small">
                                                             <thead class="table-light">
                                                             <tr>
-                                                                <th>{{ _("Area") }}</th>
-                                                                <th>{{ _("Count") }}</th>
+                                                                <th scope="col"> {{ _("Area") }} </th>
+                                                                <th scope="col">{{ _("Count") }}</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -393,38 +294,7 @@
                                         </div>
                                     {% endif %}
                                 {% endfor %}
-
-                                {% if not ns.found %}
-                                    <div class="accordion"
-                                         id="areasAccordion">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header"
-                                                id="flush-areas">
-                                                <button class="accordion-button collapsed"
-                                                        type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-{{ t.id }}"
-                                                        aria-expanded="false"
-                                                        aria-controls="flush-{{ t.id }}" style="height: 20px">
-                                                    <small style="color: gray">n/a</small>
-                                                </button>
-                                            </h2>
-                                            <div id="flush-{{ t.id }}"
-                                                 class="accordion-collapse collapse"
-                                                 aria-labelledby="flush-areas"
-                                                 data-bs-parent="#areasAccordion">
-                                                <div class="accordion-body">
-                                                    <p>No data</p>
-                                                    <p class="small mb-0">
-                                                        <i class="fas fa-info-circle me-2"></i>{{ _(t.longdesc) }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endif %}
-
-                            </div>
+                            {% endif %}
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -432,7 +302,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card shadow">
-                        <div id="chart-trend-cum" class="container-fluid px-0" style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+                        <div id="chart-trend-cum" class="container-fluid px-0"
+                             style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
                     </div>
                 </div>
             </div>
