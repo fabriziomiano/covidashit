@@ -2,26 +2,15 @@
 <div class="row align-items-center">
     {% for t in trends %}
         <div class="col-12 col-lg-4 col-md-4 mb-2">
-            <div class="card border-left-{{ t.colour.split('-')[1] }} shadow">
+            <div class="card bg-{{ t.colour.split('-')[1] }} shadow text-light text-center">
                 <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <p class="small h6 mb-1 {{ t.colour }} text-uppercase">
-                            <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
-                        </p>
+                    <div class="h5 mb-1 text-uppercase">
+                        <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                     </div>
-
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p class="h6 text-gray-800 mb-0">{{ t.count }}</p>
-                        </div>
-                        <div>
-
-                            <p class="{{ t.colour }} mb-0">
-                                <span><i
-                                        class="{{ t.status_icon }}"></i></span>
-                                <span>{{ t.percentage|safe }}</span>
-                            </p>
-                        </div>
+                    <div>
+                        {{ t.count }}
+                        <span class="h6 text-gray-800"><i class="{{ t.status_icon }}"></i></span>
+                        <span class="h6 text-gray-800">{{ t.percentage|safe }}</span>
                     </div>
 
                     <p class="small mb-0">
