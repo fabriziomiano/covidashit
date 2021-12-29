@@ -43,7 +43,10 @@ DASHBOARD_DATA = {
 }
 CUM_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "cum"]
 NON_CUM_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "current"]
-DAILY_QUANTITIES = [qty for qty in VARS if VARS[qty]["type"] == "daily"]
+DAILY_QUANTITIES = [
+    qty for qty in VARS
+    if VARS[qty]["type"] == "daily" and qty.endswith('_ma')
+]
 TREND_CARDS = [
     qty for qty in VARS
     if not qty.endswith("_ma") and VARS[qty]["type"] != "vax"
