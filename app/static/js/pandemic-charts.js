@@ -99,9 +99,10 @@ let colorMap = {
     "ingressi_terapia_intensiva_ma": colors[4]
 }
 seriesDaily.forEach(function (entry, i) {
-    entry.showInLegend = entry.id.endsWith("_ma");
-    entry.visible = (entry.id.endsWith("_ma") || entry.id.endsWith("_ma")) && !entry.id.includes("tamponi")
-    entry.linkedTo = links[entry.id]
+    // entry.showInLegend = entry.id.endsWith("_ma");
+    // entry.visible = (entry.id.endsWith("_ma") || entry.id.endsWith("_ma")) && !entry.id.includes("tamponi")
+    entry.visible = !entry.id.includes("tamponi")
+    // entry.linkedTo = links[entry.id]
     entry.color = colorMap[entry.id]
     entry.borderColor = 'black'
     entry.borderWidth = 1
