@@ -378,8 +378,8 @@ def build_national_series(df):
     series = {
         "dates": data_series[0],
         "daily": data_series[1],
-        "current": data_series[2],
-        "cum": data_series[3]
+        "current": data_series[2]
+        # "cum": data_series[3]
     }
     return series
 
@@ -417,11 +417,10 @@ def build_provincial_series(df):
             lambda x: x.strftime(CHART_DATE_FMT)).tolist()
         series_daily = [
             {
-                "id": var,
-                "name": VARS[var]["title"],
-                "data": df_area[var].to_numpy().tolist()
+                "id": NEW_POSITIVE_MA_KEY,
+                "name": VARS[NEW_POSITIVE_MA_KEY]["title"],
+                "data": df_area[NEW_POSITIVE_MA_KEY].to_numpy().tolist()
             }
-            for var in [NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY]
         ]
         series_cum = [
             {
