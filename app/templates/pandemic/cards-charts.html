@@ -43,7 +43,7 @@
     <!-- National/Regional views -->
 {% else %}
     <!-- Tabs -->
-    <ul class="nav nav-tabs bg-dark nav-justified small mb-1" role="tablist">
+    <ul class="nav nav-tabs nav-justified mb-1" role="tablist">
         <li class="nav-item text-uppercase" role="presentation">
             <a class="nav-link active" id="nav-daily-tab" data-bs-toggle="pill"
                href="#daily" role="tab"
@@ -201,8 +201,8 @@
                                                      aria-labelledby="flush-areas"
                                                      data-bs-parent="#areasAccordion">
                                                     <div class="accordion-body">
-                                                        <table class="table table-sm table-striped table-responsive bg-light text-center small">
-                                                            <thead class="table-light">
+                                                        <table class="table table-sm table-striped table-responsive text-center small">
+                                                            <thead class="table-dark">
                                                             <tr>
                                                                 <th scope="col"> {{ _("Area") }} </th>
                                                                 <th scope="col">{{ _("Count") }}</th>
@@ -287,9 +287,9 @@
                                                      class="accordion-collapse collapse"
                                                      aria-labelledby="flush-areas"
                                                      data-bs-parent="#areasAccordion">
-                                                    <div class="accordion-body">
-                                                        <table class="table table-sm table-striped table-responsive bg-light text-center small">
-                                                            <thead class="table-light">
+                                                    <div class="accordion-body bg-dark">
+                                                        <table class="table table-dark table-sm table-striped table-responsive text-center small">
+                                                            <thead class="table-dark">
                                                             <tr>
                                                                 <th scope="col"> {{ _("Area") }} </th>
                                                                 <th scope="col">{{ _("Count") }}</th>
@@ -328,10 +328,11 @@
 <script>
     let seriesDaily = {{ series.daily|safe }};
     let seriesCurrent = null;
+    let seriesCum = null;
     {% if area not in provinces %}
         seriesCurrent = {{ series.current|safe }};
     {% else %}
-        let seriesCum = {{ series.cum|safe }};
+        seriesCum = {{ series.cum|safe }};
     {% endif %}
     let xAxis = {
         categories: {{ series.dates|safe }},

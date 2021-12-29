@@ -62,7 +62,6 @@ if (seriesCurrent !== null) {
     Highcharts.chart('chart-trend-current', chartCurrentTrend);
 }
 
-
 // cum chart
 let chartCumTrend = Object.assign({}, chartCommon);
 chartCumTrend.series = seriesCum
