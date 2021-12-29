@@ -5,40 +5,40 @@
          role="document">
         <div class="modal-content">
 
-            <div class="modal-header">
+            <div class="modal-header bg-dark text-light">
                 <h5 class="modal-title me-1">{{ _('&#128075; Welcome to COVIDash') }} </h5>
                 <img src="{{ url_for('static', filename="img/flag_it.png") }}" alt="flag-it" width="20"/>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body bg-dark text-light">
                 <p class="lead">
                     {{ _("A dashboard that displays the official COVID-19 Italian outbreak and vaccines data") }}
                 </p>
-                <p>
-                    <span class="badge badge-pill bg-danger me-2">{{ _("New!") }}</span>
-                    <i class="fas fa-plus me-2"></i>{{ _("Additional- and booster-dose daily trends;") }}
-                </p>
-                <p>
-                    <i class="fas fa-users me-2"></i>{{ _("Administrations-per-region chart enriched with regional/national population data (ISTAT);") }}
-                </p>
-                <p>
-                    <i class="bi bi-segmented-nav me-2"></i>{{ _("Data-type tabs at the top now refresh cards and charts simultaneously;") }}
-                </p>
-               <p>
-                    <i class="fas fa-syringe me-2"></i>{{ _("Daily administrations trend;") }}
-                </p>
-                <p>
-                    <i class="fas fa-chart-pie me-2"></i>{{ _("Administrations per provider;") }}
-                </p>
-                <p>
-                    <i class="fas fa-syringe me-2"></i>{{ _("Vaccine data <a href='/vaccines'><strong>here</strong></a>;") }}
-                </p>
-                <p>
-                    <i class="fas fa-mouse-pointer me-2"></i>{{ _("Use the navigation buttons on the navigation bar when in the regional/provincial views;") }}
-                </p>
-                <p>
+{#                <p>#}
+{#                    <span class="badge badge-pill bg-danger me-2">{{ _("New!") }}</span>#}
+{#                    <i class="fas fa-plus me-2"></i>{{ _("Additional- and booster-dose daily trends;") }}#}
+{#                </p>#}
+{#                <p>#}
+{#                    <i class="fas fa-users me-2"></i>{{ _("Administrations-per-region chart enriched with regional/national population data (ISTAT);") }}#}
+{#                </p>#}
+{#                <p>#}
+{#                    <i class="bi bi-segmented-nav me-2"></i>{{ _("Data-type tabs at the top now refresh cards and charts simultaneously;") }}#}
+{#                </p>#}
+{#               <p>#}
+{#                    <i class="fas fa-syringe me-2"></i>{{ _("Daily administrations trend;") }}#}
+{#                </p>#}
+{#                <p>#}
+{#                    <i class="fas fa-chart-pie me-2"></i>{{ _("Administrations per provider;") }}#}
+{#                </p>#}
+{#                <p>#}
+{#                    <i class="fas fa-syringe me-2"></i>{{ _("Vaccine data <a href='/vaccines'><strong>here</strong></a>;") }}#}
+{#                </p>#}
+{#                <p>#}
+{#                    <i class="fas fa-mouse-pointer me-2"></i>{{ _("Use the navigation buttons on the navigation bar when in the regional/provincial views;") }}#}
+{#                </p>#}
+{#                <p>#}
                     <i class="fas fa-search me-2"></i>{{ _("Use the search bar to jump to the pandemic dashboard of a desired area;") }}
                 </p>
                 <p>
@@ -55,7 +55,7 @@
                 </p>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer bg-dark text-light">
                 <button type="button" class="btn btn-primary"
                         onclick=" window.open('https://fabriziomiano.github.io','_blank')">
                     {{ _('Who made this?') }}
@@ -66,7 +66,7 @@
                 </button>
             </div>
 
-            <div class="container-fluid">
+            <div class="container-fluid bg-dark text-light">
                 <p class="mt-0 mb-0">
                     <small>
                         {{ _('Made with <span style="color: #e25555;">&#9829;</span> in
