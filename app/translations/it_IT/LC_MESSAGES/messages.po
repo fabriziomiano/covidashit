@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-12-28 15:23+0100\n"
-"PO-Revision-Date: 2021-12-28 15:25+0100\n"
+"POT-Creation-Date: 2021-12-29 15:30+0100\n"
+"PO-Revision-Date: 2021-12-29 15:31+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -17,62 +17,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.8.0\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.0\n"
 
-#: app/data_tools/__init__.py:366
+#: app/data_tools/__init__.py:369
 msgid "Admins per age"
 msgstr "Somministrazioni per età"
 
-#: app/data_tools/__init__.py:367 app/plotter/__init__.py:58
-#: app/templates/pandemic/cards-charts.html:386
+#: app/data_tools/__init__.py:370 app/plotter/__init__.py:58
+#: app/templates/pandemic/cards-charts.html:404
 msgid "Counts"
 msgstr "Conteggi"
 
-#: app/data_tools/__init__.py:371 app/data_tools/__init__.py:421
+#: app/data_tools/__init__.py:374 app/data_tools/__init__.py:424
 msgid "First Dose"
 msgstr "Prima Dose"
 
-#: app/data_tools/__init__.py:375 app/data_tools/__init__.py:425
+#: app/data_tools/__init__.py:378 app/data_tools/__init__.py:428
 msgid "Second Dose"
 msgstr "Seconda Dose"
 
-#: app/data_tools/__init__.py:379 app/data_tools/__init__.py:429
+#: app/data_tools/__init__.py:382 app/data_tools/__init__.py:432
 msgid "Booster Dose"
 msgstr "Dose Booster"
 
-#: app/data_tools/__init__.py:383 app/data_tools/__init__.py:433
+#: app/data_tools/__init__.py:386 app/data_tools/__init__.py:436
 msgid "Population"
 msgstr "Popolazione"
 
-#: app/data_tools/__init__.py:417
+#: app/data_tools/__init__.py:420
 msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
-#: app/data_tools/__init__.py:496
+#: app/data_tools/__init__.py:499
 msgid "Vaccination trend"
 msgstr "Andamento vaccinazioni"
 
-#: app/data_tools/__init__.py:497
+#: app/data_tools/__init__.py:500
 msgid "Pop. vaccinated (2nd dose) [%]"
 msgstr "Pop. vaccinata (2a dose) [%]"
 
-#: app/data_tools/__init__.py:529
+#: app/data_tools/__init__.py:532
 msgid "Admins per provider"
 msgstr "Somministrazioni per fornitore"
 
-#: app/data_tools/__init__.py:530
+#: app/data_tools/__init__.py:533
 msgid "Doses administered"
 msgstr "Dosi somministrate"
 
-#: app/templates/pandemic.html:31
+#: app/templates/pandemic.html:43
 msgid "Positive Rate: "
 msgstr "Indice positività: "
 
-#: app/templates/pandemic.html:58
+#: app/templates/pandemic.html:67
 msgid "Provinces"
 msgstr "Province"
 
-#: app/templates/pandemic.html:59 app/templates/vaccines.html:80
+#: app/templates/pandemic.html:68 app/templates/vaccines.html:86
 msgid "Regions"
 msgstr "Regioni"
 
@@ -93,19 +93,19 @@ msgstr "Bisogna fare attenzione e mettere la mascherina!"
 msgid "Back to COVIDash"
 msgstr "Torna alla Home"
 
-#: app/templates/vaccines.html:24
-msgid "Latest update: "
-msgstr "Ultimo aggiornamento: "
-
-#: app/templates/vaccines.html:30
-msgid "Pop. vaccinated "
-msgstr "Pop. vaccinata "
-
-#: app/templates/vaccines.html:66
+#: app/templates/vaccines.html:25
 msgid "Population:"
 msgstr "Popolazione:"
 
-#: app/templates/base/footer.html:13
+#: app/templates/vaccines.html:32
+msgid "Latest update: "
+msgstr "Ultimo aggiornamento: "
+
+#: app/templates/vaccines.html:38
+msgid "Pop. vaccinated "
+msgstr "Pop. vaccinata "
+
+#: app/templates/base/footer.html:6
 msgid ""
 "This project is <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> and it is hosted on <i class='fab fa-aws'></"
@@ -114,7 +114,7 @@ msgstr ""
 "Questo progetto è <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> e si trova su <i class='fab fa-aws'></i> "
 
-#: app/templates/base/footer.html:14
+#: app/templates/base/footer.html:7
 msgid " Thanks for donating &#128513;"
 msgstr " Le donazioni sono ben accette &#128513;"
 
@@ -259,71 +259,73 @@ msgstr "In alternativa, usa questo bottone per segnalare un bug"
 msgid "Contact admin"
 msgstr "Contatta l'admin"
 
-#: app/templates/pandemic/cards-charts.html:19
-#: app/templates/pandemic/cards-charts.html:79
-#: app/templates/pandemic/cards-charts.html:162
-#: app/templates/pandemic/cards-charts.html:245
+#: app/templates/pandemic/cards-charts.html:20
+#: app/templates/pandemic/cards-charts.html:88
+#: app/templates/pandemic/cards-charts.html:175
+#: app/templates/pandemic/cards-charts.html:262
 #: app/templates/vaccines/cards.html:17
 msgid "Yesterday: "
 msgstr "Ieri: "
 
-#: app/templates/pandemic/cards-charts.html:48
+#: app/templates/pandemic/cards-charts.html:51
 msgid "Daily"
 msgstr "Giornaliero"
 
-#: app/templates/pandemic/cards-charts.html:52
+#: app/templates/pandemic/cards-charts.html:57
 msgid "Current"
 msgstr "Corrente"
 
-#: app/templates/pandemic/cards-charts.html:56
+#: app/templates/pandemic/cards-charts.html:63
 msgid "Cumulative"
 msgstr "Cumulato"
 
-#: app/templates/pandemic/cards-charts.html:99
-#: app/templates/pandemic/cards-charts.html:182
-#: app/templates/pandemic/cards-charts.html:265
+#: app/templates/pandemic/cards-charts.html:109
+#: app/templates/pandemic/cards-charts.html:196
+#: app/templates/pandemic/cards-charts.html:283
 msgid "See more..."
 msgstr "Dettagli..."
 
-#: app/templates/pandemic/cards-charts.html:110
-#: app/templates/pandemic/cards-charts.html:193
-#: app/templates/pandemic/cards-charts.html:276
+#: app/templates/pandemic/cards-charts.html:120
+#: app/templates/pandemic/cards-charts.html:207
+#: app/templates/pandemic/cards-charts.html:294
 msgid "Area"
 msgstr "Area"
 
-#: app/templates/pandemic/cards-charts.html:111
-#: app/templates/pandemic/cards-charts.html:194
-#: app/templates/pandemic/cards-charts.html:277
+#: app/templates/pandemic/cards-charts.html:121
+#: app/templates/pandemic/cards-charts.html:208
+#: app/templates/pandemic/cards-charts.html:295
 msgid "Count"
 msgstr "Conteggi"
 
-#: app/templates/pandemic/cards-charts.html:332 settings/__init__.py:19
+#: app/templates/pandemic/cards-charts.html:345 settings/__init__.py:19
+#: settings/__init__.py:20
 msgid "Lockdown"
 msgstr "Lockdown"
 
-#: app/templates/pandemic/cards-charts.html:343 settings/__init__.py:27
+#: app/templates/pandemic/cards-charts.html:357 settings/__init__.py:27
 msgid "Phase 2"
 msgstr "Fase 2"
 
-#: app/templates/pandemic/cards-charts.html:354 settings/__init__.py:35
+#: app/templates/pandemic/cards-charts.html:369 settings/__init__.py:35
 msgid "Phase 3"
 msgstr "Fase 3"
 
-#: app/templates/pandemic/cards-charts.html:365
+#: app/templates/pandemic/cards-charts.html:381 settings/__init__.py:44
 msgid "Critical areas"
 msgstr "Aree di criticità"
 
-#: app/templates/pandemic/cards-charts.html:376 settings/__init__.py:51
+#: app/templates/pandemic/cards-charts.html:393 settings/__init__.py:51
+#: settings/__init__.py:52
 msgid "Vaccine day"
 msgstr "Vaccine day"
 
-#: app/templates/pandemic/cards-charts.html:393
-#: app/templates/vaccines/charts.html:102 app/ui/pandemic.py:47
+#: app/templates/pandemic/cards-charts.html:411
+#: app/templates/vaccines/charts.html:83 app/ui/pandemic.py:47
 #: app/ui/vaccines.py:23
 msgid "Italy"
 msgstr "Italia"
 
-#: app/templates/pandemic/cards-charts.html:398
+#: app/templates/pandemic/cards-charts.html:416
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection "
 "dataset</a>"
@@ -331,16 +333,16 @@ msgstr ""
 "Fonte: <a href='https://github.com/pcm-dpc/COVID-19'>Dati Protezione Civile</"
 "a>"
 
-#: app/templates/pandemic/cards-charts.html:403
-#: app/templates/vaccines/charts.html:111
+#: app/templates/pandemic/cards-charts.html:422
+#: app/templates/vaccines/charts.html:93
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
-#: app/templates/vaccines/charts.html:51
+#: app/templates/vaccines/charts.html:42
 msgid "Select one or more regions"
 msgstr "Seleziona una o più regioni"
 
-#: app/templates/vaccines/charts.html:107
+#: app/templates/vaccines/charts.html:89
 msgid ""
 "Source: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a> | <a href='https://www.istat.it'>ISTAT</a>"
@@ -348,7 +350,7 @@ msgstr ""
 "Fonte: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a> | <a href='https://istat.it'>ISTAT</a>"
 
-#: app/templates/vaccines/charts.html:114
+#: app/templates/vaccines/charts.html:96
 msgid "*Hover / tap on a bar to display the administered-dose data"
 msgstr ""
 "*Passa sopra col mouse o tocca una barra per visualizzare i dati sulle "
@@ -362,29 +364,17 @@ msgstr ""
 msgid "COVID-19 Italy"
 msgstr "COVID-19 Italia"
 
-#: settings/__init__.py:20
-msgid "Days in Lockdown"
-msgstr "Giorni in Lockdown"
-
 #: settings/__init__.py:28
-msgid "Days in \"Phase 2\""
-msgstr "Giorni in \"Fase 2\""
+msgid "\"Phase 2\""
+msgstr "\"Fase 2\""
 
 #: settings/__init__.py:36
-msgid "Days in \"Phase 3\""
-msgstr "Giorni in \"Fase 3\""
+msgid "\"Phase 3\""
+msgstr "\"Fase 3\""
 
 #: settings/__init__.py:43
 msgid "Critical Areas"
 msgstr "Aree di criticità"
-
-#: settings/__init__.py:44
-msgid "Days since \"Critical areas\""
-msgstr "Giorni in \"aree di criticità\""
-
-#: settings/__init__.py:52
-msgid "Days since \"Vaccine day\""
-msgstr "Giorni dal \"Vaccine day\""
 
 #: settings/vars.py:64
 msgid "Stable with respect to yesterday"
@@ -577,6 +567,21 @@ msgstr "Seconde somministrazioni giornaliere"
 #: settings/vars.py:309
 msgid "Daily Booster administrations"
 msgstr "Somministrazioni giornaliere dose booster"
+
+#~ msgid "Days in Lockdown"
+#~ msgstr "Giorni in Lockdown"
+
+#~ msgid "Days in \"Phase 2\""
+#~ msgstr "Giorni in \"Fase 2\""
+
+#~ msgid "Days in \"Phase 3\""
+#~ msgstr "Giorni in \"Fase 3\""
+
+#~ msgid "Days since \"Critical areas\""
+#~ msgstr "Giorni in \"aree di criticità\""
+
+#~ msgid "Days since \"Vaccine day\""
+#~ msgstr "Giorni dal \"Vaccine day\""
 
 #~ msgid "Breakdown"
 #~ msgstr "Dettaglio"
