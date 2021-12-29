@@ -17,7 +17,7 @@ KEY_PERIODS = OrderedDict()
 
 KEY_PERIODS["lockdown"] = {
     "title": gettext("Lockdown"),
-    "text": gettext('Days in Lockdown'),
+    "text": gettext('Lockdown'),
     "color": "red",
     "from": LOCKDOWN_DAY,
     "to": PHASE2_DAY,
@@ -25,7 +25,7 @@ KEY_PERIODS["lockdown"] = {
 }
 KEY_PERIODS["phase2"] = {
     "title": gettext("Phase 2"),
-    "text": gettext('Days in "Phase 2"'),
+    "text": gettext('"Phase 2"'),
     "color": "orange",
     "from": PHASE2_DAY,
     "to": PHASE3_DAY,
@@ -33,7 +33,7 @@ KEY_PERIODS["phase2"] = {
 }
 KEY_PERIODS["phase3"] = {
     "title": gettext("Phase 3"),
-    "text": gettext('Days in "Phase 3"'),
+    "text": gettext('"Phase 3"'),
     "color": "green",
     "from": PHASE3_DAY,
     "to": CRITICAL_AREAS_DAY,
@@ -41,7 +41,7 @@ KEY_PERIODS["phase3"] = {
 }
 KEY_PERIODS["critical_areas"] = {
     "title": gettext("Critical Areas"),
-    "text": gettext('Days since "Critical areas"'),
+    "text": gettext('Critical areas'),
     "color": "red",
     "from": CRITICAL_AREAS_DAY,
     "to": dt.datetime.today(),
@@ -49,7 +49,7 @@ KEY_PERIODS["critical_areas"] = {
 }
 KEY_PERIODS["vaccine_day"] = {
     "title": gettext("Vaccine day"),
-    "text": gettext('Days since "Vaccine day"'),
+    "text": gettext('Vaccine day'),
     "color": "blue",
     "from": VACCINE_DAY,
     "to": dt.datetime.today(),

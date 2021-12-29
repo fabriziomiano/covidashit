@@ -11,7 +11,8 @@
 
                         <div>
                             <span class="h6 text-gray-800 mb-0">{{ t.count }}</span>
-                            <span class="h6 text-gray-800 mb-0"><i class="{{ t.status_icon }}"></i></span>
+                            <span class="h6 text-gray-800 mb-0"><i
+                                    class="{{ t.status_icon }}"></i></span>
                             <span class="h6 text-gray-800 mb-0">{{ t.percentage_difference|safe }}</span>
                         </div>
 
@@ -24,14 +25,14 @@
         {% endfor %}
 
         <div class="col-md-6 col-xl-6 mb-2">
-            <div class="card shadow">
+            <div class="card shadow" style="border: none">
                 <div id="chart-trend-cum" class="container-fluid px-0"
                      style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
             </div>
         </div>
 
         <div class="col-md-6 col-xl-6">
-            <div class="card shadow">
+            <div class="card shadow" style="border: none">
                 <div id="chart-trend-daily" class="container-fluid px-0"
                      style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
             </div>
@@ -42,25 +43,32 @@
     <!-- National/Regional views -->
 {% else %}
     <!-- Tabs -->
-    <ul class="nav nav-pills nav-justified small mb-1" role="tablist">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="nav-daily-tab" data-bs-toggle="pill" href="#daily" role="tab"
-               aria-controls="nav-daily" aria-selected="true">{{ _("Daily") }}</a>
+    <ul class="nav nav-tabs bg-dark nav-justified small mb-1" role="tablist">
+        <li class="nav-item text-uppercase" role="presentation">
+            <a class="nav-link active" id="nav-daily-tab" data-bs-toggle="pill"
+               href="#daily" role="tab"
+               aria-controls="nav-daily"
+               aria-selected="true"><b>{{ _("Daily") }}</b></a>
         </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-item nav-link" id="nav-current-tab" data-bs-toggle="pill" href="#current" role="tab"
-               aria-controls="nav-current" aria-selected="false">{{ _("Current") }}</a>
+        <li class="nav-item text-uppercase" role="presentation">
+            <a class="nav-item nav-link" id="nav-current-tab"
+               data-bs-toggle="pill" href="#current" role="tab"
+               aria-controls="nav-current"
+               aria-selected="false"><b>{{ _("Current") }}</b></a>
         </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-item nav-link" id="nav-cum-tab" data-bs-toggle="pill" href="#cum" role="tab"
-               aria-controls="nav-cum" aria-selected="false">{{ _("Cumulative") }}</a>
+        <li class="nav-item text-uppercase" role="presentation">
+            <a class="nav-item nav-link" id="nav-cum-tab" data-bs-toggle="pill"
+               href="#cum" role="tab"
+               aria-controls="nav-cum"
+               aria-selected="false"><b>{{ _("Cumulative") }}</b></a>
         </li>
     </ul>
 
     <!-- Tabs Content -->
     <div class="tab-content" id="nav-tabContent">
 
-        <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="nav-daily-tab">
+        <div class="tab-pane fade show active" id="daily" role="tabpanel"
+             aria-labelledby="nav-daily-tab">
             <div class="row">
                 {% for t in trend_cards %}
                     {% if t.type == "daily" %}
@@ -73,7 +81,8 @@
                                     </div>
                                     <div>
                                         <span class="h6 text-gray-800">{{ t.count }}</span>
-                                        <span class="h6 text-gray-800"><i class="{{ t.status_icon }}"></i></span>
+                                        <span class="h6 text-gray-800"><i
+                                                class="{{ t.status_icon }}"></i></span>
                                         <span class="h6 text-gray-800">{{ t.percentage_difference|safe }}</span>
                                     </div>
                                     <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
@@ -95,7 +104,8 @@
                                                             data-bs-toggle="collapse"
                                                             data-bs-target="#flush-{{ t.id }}"
                                                             aria-expanded="false"
-                                                            aria-controls="flush-{{ t.id }}" style="height: 20px">
+                                                            aria-controls="flush-{{ t.id }}"
+                                                            style="height: 20px">
                                                         <small>{{ _("See more...") }}</small>
                                                     </button>
                                                 </h2>
@@ -103,9 +113,9 @@
                                                      class="accordion-collapse collapse"
                                                      aria-labelledby="flush-areas"
                                                      data-bs-parent="#areasAccordion">
-                                                    <div class="accordion-body">
-                                                        <table class="table table-sm table-striped table-responsive bg-light text-center small">
-                                                            <thead class="table-light">
+                                                    <div class="accordion-body bg-dark">
+                                                        <table class="table table-dark table-sm table-striped table-responsive text-center small">
+                                                            <thead>
                                                             <tr>
                                                                 <th scope="col"> {{ _("Area") }} </th>
                                                                 <th scope="col">{{ _("Count") }}</th>
@@ -135,15 +145,17 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="card shadow">
-                        <div id="chart-trend-daily" class="container-fluid px-0"
+                    <div class="card shadow" style="border: none">
+                        <div id="chart-trend-daily"
+                             class="container-fluid px-0"
                              style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="tab-pane fade" id="current" role="tabpanel" aria-labelledby="nav-current-tab">
+        <div class="tab-pane fade" id="current" role="tabpanel"
+             aria-labelledby="nav-current-tab">
             <div class="row">
                 {% for t in trend_cards %}
                     {% if t.type == "current" %}
@@ -156,7 +168,8 @@
                                     </div>
                                     <div>
                                         <span class="h6 text-gray-800">{{ t.count }}</span>
-                                        <span class="h6 text-gray-800"><i class="{{ t.status_icon }}"></i></span>
+                                        <span class="h6 text-gray-800"><i
+                                                class="{{ t.status_icon }}"></i></span>
                                         <span class="h6 text-gray-800">{{ t.percentage_difference|safe }}</span>
                                     </div>
                                     <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
@@ -178,7 +191,8 @@
                                                             data-bs-toggle="collapse"
                                                             data-bs-target="#flush-{{ t.id }}"
                                                             aria-expanded="false"
-                                                            aria-controls="flush-{{ t.id }}" style="height: 20px">
+                                                            aria-controls="flush-{{ t.id }}"
+                                                            style="height: 20px">
                                                         <small>{{ _("See more...") }}</small>
                                                     </button>
                                                 </h2>
@@ -218,15 +232,17 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="card shadow">
-                        <div id="chart-trend-current" class="container-fluid px-0"
+                    <div class="card shadow" style="border: none">
+                        <div id="chart-trend-current"
+                             class="container-fluid px-0"
                              style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="tab-pane fade" id="cum" role="tabpanel" aria-labelledby="nav-cum-tab">
+        <div class="tab-pane fade" id="cum" role="tabpanel"
+             aria-labelledby="nav-cum-tab">
             <div class="row">
                 {% for t in trend_cards %}
                     {% if t.type == "cum" %}
@@ -239,7 +255,8 @@
                                     </div>
                                     <div>
                                         <span class="h6 text-gray-800">{{ t.count }}</span>
-                                        <span class="h6 text-gray-800"><i class="{{ t.status_icon }}"></i></span>
+                                        <span class="h6 text-gray-800"><i
+                                                class="{{ t.status_icon }}"></i></span>
                                         <span class="h6 text-gray-800">{{ t.percentage_difference|safe }}</span>
                                     </div>
                                     <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
@@ -261,7 +278,8 @@
                                                             data-bs-toggle="collapse"
                                                             data-bs-target="#flush-{{ t.id }}"
                                                             aria-expanded="false"
-                                                            aria-controls="flush-{{ t.id }}" style="height: 20px">
+                                                            aria-controls="flush-{{ t.id }}"
+                                                            style="height: 20px">
                                                         <small>{{ _("See more...") }}</small>
                                                     </button>
                                                 </h2>
@@ -299,14 +317,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card shadow">
-                        <div id="chart-trend-cum" class="container-fluid px-0"
-                             style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
     </div>
@@ -319,8 +330,9 @@
     let seriesCurrent = null;
     {% if area not in provinces %}
         seriesCurrent = {{ series.current|safe }};
+    {% else %}
+        let seriesCum = {{ series.cum|safe }};
     {% endif %}
-    let seriesCum = {{ series.cum|safe }};
     let xAxis = {
         categories: {{ series.dates|safe }},
         plotLines: [
@@ -331,7 +343,8 @@
                 label: {
                     text: "{{ gettext("Lockdown") }}",
                     style: {
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        color: 'rgba(175, 175, 175)'
                     }
                 }
             },
@@ -342,7 +355,8 @@
                 label: {
                     text: "{{ gettext("Phase 2") }}",
                     style: {
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        color: 'rgba(175, 175, 175)'
                     }
                 }
             },
@@ -353,7 +367,8 @@
                 label: {
                     text: "{{ gettext("Phase 3") }}",
                     style: {
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        color: 'rgba(175, 175, 175)'
                     }
                 }
             },
@@ -364,7 +379,8 @@
                 label: {
                     text: "{{ gettext("Critical areas") }}",
                     style: {
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        color: 'rgba(175, 175, 175)'
                     }
                 }
             },
@@ -375,7 +391,8 @@
                 label: {
                     text: "{{ gettext("Vaccine day") }}",
                     style: {
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        color: 'rgba(175, 175, 175)'
                     }
                 }
             }
@@ -396,6 +413,7 @@
     {% endif %}
     let subtitle = {
         text: "{{ gettext("Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection dataset</a>") }}",
+        useHTML: true,
         align: "left"
     };
     let credits = {

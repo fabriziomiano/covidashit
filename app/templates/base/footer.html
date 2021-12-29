@@ -1,12 +1,27 @@
 <!-- Footers -->
-<footer class="py-4 bg-light mt-auto text-center">
+<footer class="py-4 bg-dark text-light mt-auto text-center">
+    <h5> Pandemic main key-period durations</h5>
+    <div class="container">
 
-    <p class="text-dark small">
-        {% for k in key_periods %}
-            {{ _(key_periods[k]['text']) }}:
-            {{ key_periods[k]['n_days'] }}<br>
-        {% endfor %}
-    </p>
+
+        <table class="table table-dark table-sm table-responsive">
+            <thead>
+            <tr>
+                <th>{{ _("Key period") }}</th>
+                <th>{{ _("# days") }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for k in key_periods %}
+                <tr>
+                    <td>{{ _(key_periods[k]['text']) }}</td>
+                    <td>{{ key_periods[k]['n_days'] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
 
     <hr class="mt-0">
 

@@ -10,7 +10,7 @@
         </a>
 
         <!-- Top-page data -->
-        <div class="container-fluid">
+        <div class="container-fluid bg-dark text-light">
 
             <div class="row align-items-center">
 
@@ -21,8 +21,17 @@
                         <i class="fas fa-head-side-mask me-2"></i>{{ dashboard_title }}
                     </h2>
 
+                    <!-- population -->
+                    <p class="small mb-0">
+                        <i class="fas fa-users me-2"></i>Pop:
+                        <strong>{{ population }}</strong>
+                    </p>
+
                     <!-- Latest update -->
-                    <p class="small mb-0 text-info"><strong>{{ latest_update }}</strong></p>
+                    <p class="small mb-0 text-info">
+                        <i class="fas fa-bullhorn me-2"></i>
+                        <strong>{{ latest_update }}</strong>
+                    </p>
 
 
                     <!-- Positive Rate -->
@@ -36,12 +45,6 @@
 
                 {% if area not in provinces %}
                     <div class="col-6 col-md-6 col-lg-6">
-
-                        <!-- population -->
-                        <p class="small mb-0 text-dark">
-                            <i class="fas fa-users me-2"></i>Pop:
-                            <strong>{{ population }}</strong>
-                        </p>
 
                         {% if not area or region_provinces | length > 0 %}
                             <!-- Area accordion -->
@@ -74,8 +77,11 @@
 
             <!-- Notes -->
             {% if notes %}
-                <div class="small alert alert-info mb-2">
+                <div class="small alert alert-info alert-dismissible fade show mb-2">
                     <i class="fas fa-info-circle"></i> {{ notes }}
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close"></button>
                 </div>
             {% endif %}
 
@@ -92,7 +98,7 @@
                             {% for r in regions %}
                                 <div class="btn-group me-1 mb-1"
                                      role="group">
-                                    <a class="btn btn-sm btn-light text-uppercase"
+                                    <a class="btn btn-sm btn-secondary text-uppercase"
                                        href="/regions/{{ r }}">{{ r }}</a>
                                 </div>
                             {% endfor %}
@@ -104,7 +110,7 @@
                             {% for p in region_provinces %}
                                 <div class="btn-group me-1 mb-1"
                                      role="group">
-                                    <a class="btn btn-sm btn-light text-uppercase"
+                                    <a class="btn btn-sm btn-secondary text-uppercase"
                                        href="/provinces/{{ p }}">{{ p }}
                                     </a>
                                 </div>
