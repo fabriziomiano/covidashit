@@ -9,19 +9,6 @@
         <!-- Navigation Buttons -->
         {% if area %}
             <div class="flex-fill d-block btn-group me-lg-2">
-                {% if area_index != 0 %}
-                    <!-- Icons -->
-                    <a class="btn btn-sm btn-primary"
-                       href="{{ previous_area_url }}">
-                        <i class="fas fa-chevron-left"></i>
-                    </a>
-                {% endif %}
-                {% if area_index < areas_length-1 %}
-                    <a class="btn btn-sm btn-primary"
-                       href="{{ next_area_url }}">
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                {% endif %}
                 {% if area in regions %}
                     {% if view_type == 'vaccines' %}
                         <a class="btn btn-sm btn-secondary"
@@ -79,7 +66,8 @@
             <!-- Nav search bar -->
             <form class="d-flex d-sm-flex">
                 <div class="input-group">
-                    <input id="searchInput" type="search" class="form-control form-control-sm"
+                    <input id="searchInput" type="search"
+                           class="form-control form-control-sm"
                            placeholder="{{ _("Search...") }}"
                            aria-label="search">
                     <div class="input-group-append">

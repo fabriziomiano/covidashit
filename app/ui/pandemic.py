@@ -76,13 +76,7 @@ def regional_view(region):
     latest_update = get_latest_update(data_type=data_type)
     positivity_idx = get_positivity_idx(area_type=data_type, area=region)
     provinces = ITALY_MAP[region]
-    region_index = REGIONS.index(region)
-    previous_url = f"{URL_REGIONS}/{REGIONS[region_index - 1]}"
     population = get_area_population(region)
-    try:
-        next_region_url = f"{URL_REGIONS}/{REGIONS[region_index + 1]}"
-    except IndexError:
-        next_region_url = f"{URL_REGIONS}/{REGIONS[-1]}"
     view_data = dict(
         ts=int(time.time()),
         page_title="{} | {}".format(region, PAGE_BASE_TITLE),
@@ -94,11 +88,7 @@ def regional_view(region):
         positivity_idx=positivity_idx,
         series=series,
         notes=notes,
-        previous_area_url=previous_url,
-        next_area_url=next_region_url,
         latest_update=latest_update,
-        areas_length=len(REGIONS),
-        area_index=region_index,
         data_type=data_type,
         cards=cards,
         population="{:,d}".format(population)
@@ -123,14 +113,6 @@ def provincial_view(province):
     notes = get_notes(notes_type=data_type, area=province)
     latest_update = get_latest_update(data_type=data_type)
     province_region = region_of_province(province)
-    n_provinces = len(ITALY_MAP[province_region])
-    provinces = ITALY_MAP[province_region]
-    province_index = ITALY_MAP[province_region].index(province)
-    previous_url = f"{URL_PROVINCES}/{provinces[province_index - 1]}"
-    try:
-        next_province_url = f"{URL_PROVINCES}/{provinces[province_index + 1]}"
-    except IndexError:
-        next_province_url = f"{URL_PROVINCES}/{provinces[-1]}"
     view_data = dict(
         ts=int(time.time()),
         page_title="{} | {}".format(province, PAGE_BASE_TITLE),
@@ -140,12 +122,8 @@ def provincial_view(province):
         trend_cards=cards,
         series=series,
         notes=notes,
-        previous_area_url=previous_url,
-        next_area_url=next_province_url,
         latest_update=latest_update,
-        areas_length=n_provinces,
-        data_type=data_type,
-        area_index=province_index,
+        data_type=data_type
     )
     dashboard_data = enrich_frontend_data(area=province, **view_data)
     return render_template("pandemic.html", **dashboard_data)
