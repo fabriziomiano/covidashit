@@ -4,7 +4,7 @@
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![Made with Pthon](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/mockup.png)
+![alt_text](previews/mockup.png)
 
 English Version [here](https://github.com/fabriziomiano/covidashit/blob/main/README.md)
 
@@ -138,7 +138,7 @@ curl --request GET \
 Il plot verrà salvato in `./plot.png`
 
 ## Anteprima plot
-![alt_text](https://raw.githubusercontent.com/fabriziomiano/covidashit/main/previews/plot.png) 
+![alt_text](previews/plot.png) 
 
 
 ## Donazione
