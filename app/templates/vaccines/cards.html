@@ -2,7 +2,7 @@
 <div class="row align-items-center">
     {% for t in trends %}
         <div class="col-12 col-lg-4 col-md-4 mb-2">
-            <div class="card bg-{{ t.colour.split('-')[1] }} shadow text-light text-center">
+                            <div class="card bg-dark border-left-{{ t.colour.split('-')[1] }} shadow text-{{ t.colour.split('-')[1] }} text-center">
                 <div class="card-body">
                     <div class="h5 mb-1 text-uppercase">
                         <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
