@@ -3,7 +3,7 @@
     <div class="row">
         {% for t in trend_cards %}
             <div class="col-6 col-lg-6 col-md-6 mb-2">
-                <div class="card bg-{{ t.colour.split('-')[1] }} shadow text-light text-center">
+                <div class="card bg-dark border-left-{{ t.colour.split('-')[1] }} shadow text-{{ t.colour.split('-')[1] }} text-center">
                     <div class="card-body">
                         <div class="h5 mb-1 text-uppercase">
                             <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
@@ -74,7 +74,7 @@
                     {% if t.type == "daily" %}
                         <div class="col-lg col-md- mb-2">
 
-                            <div class="card bg-{{ t.colour.split('-')[1] }} shadow text-light text-center">
+                            <div class="card bg-dark border-left-{{ t.colour.split('-')[1] }} shadow text-{{ t.colour.split('-')[1] }} text-center">
                                 <div class="card-body">
                                     <div class="h5 mb-1 text-uppercase">
                                         <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
@@ -125,7 +125,8 @@
                                                             {% for d in breakdown[t.id] %}
                                                                 <tr>
                                                                     <td>
-                                                                        <a href="{{ d.url }}" class="text-info"> {{ d.area }}</a>
+                                                                        <a href="{{ d.url }}"
+                                                                           class="text-info"> {{ d.area }}</a>
                                                                     </td>
                                                                     <td>{{ d.count }}</td>
                                                                 </tr>
@@ -161,94 +162,7 @@
                     {% if t.type == "current" %}
                         <div class="col-lg col-md- mb-2">
 
-                            <div class="card bg-{{ t.colour.split('-')[1] }} shadow text-light text-center">
-                                <div class="card-body">
-                                    <div class="h5 mb-1 text-uppercase">
-                                        <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
-                                    </div>
-                                    <div>
-                                        <span class="h6 text-gray-800">{{ t.count }}</span>
-                                        <span class="h6 text-gray-800"><i
-                                                class="{{ t.status_icon }}"></i></span>
-                                        <span class="h6 text-gray-800">{{ t.percentage_difference|safe }}</span>
-                                    </div>
-                                    <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
-                                </div>
-                            </div>
-
-                            {% if breakdown[t.id] %}
-                                {% set ns = namespace(found=false) %}
-                                {% for data_type, data in breakdown.items() %}
-                                    {% if data_type == t.id %}
-                                        {% set ns.found=true %}
-                                        <div class="accordion"
-                                             id="areasAccordion">
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header"
-                                                    id="flush-areas">
-                                                    <button class="accordion-button collapsed"
-                                                            type="button"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#flush-{{ t.id }}"
-                                                            aria-expanded="false"
-                                                            aria-controls="flush-{{ t.id }}"
-                                                            style="height: 20px">
-                                                        <small>{{ _("See more...") }}</small>
-                                                    </button>
-                                                </h2>
-                                                <div id="flush-{{ t.id }}"
-                                                     class="accordion-collapse collapse"
-                                                     aria-labelledby="flush-areas"
-                                                     data-bs-parent="#areasAccordion">
-                                                    <div class="accordion-body">
-                                                        <table class="table table-sm table-striped table-responsive text-center small">
-                                                            <thead class="table-dark">
-                                                            <tr>
-                                                                <th scope="col"> {{ _("Area") }} </th>
-                                                                <th scope="col">{{ _("Count") }}</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            {% for d in breakdown[t.id] %}
-                                                                <tr>
-                                                                    <td>
-                                                                        <a href="{{ d.url }}"> {{ d.area }}</a>
-                                                                    </td>
-                                                                    <td>{{ d.count }}</td>
-                                                                </tr>
-                                                            {% endfor %}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card shadow" style="border: none">
-                        <div id="chart-trend-current"
-                             class="container-fluid px-0"
-                             style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="cum" role="tabpanel"
-             aria-labelledby="nav-cum-tab">
-            <div class="row">
-                {% for t in trend_cards %}
-                    {% if t.type == "cum" %}
-                        <div class="col-lg col-md- mb-2">
-
-                            <div class="card bg-{{ t.colour.split('-')[1] }} shadow text-light text-center">
+                            <div class="card bg-dark border-left-{{ t.colour.split('-')[1] }} shadow text-{{ t.colour.split('-')[1] }} text-center">
                                 <div class="card-body">
                                     <div class="h5 mb-1 text-uppercase">
                                         <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
@@ -299,7 +213,94 @@
                                                             {% for d in breakdown[t.id] %}
                                                                 <tr>
                                                                     <td>
-                                                                        <a href="{{ d.url }}"> {{ d.area }}</a>
+                                                                        <a href="{{ d.url }}" class="text-info"> {{ d.area }}</a>
+                                                                    </td>
+                                                                    <td>{{ d.count }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow" style="border: none">
+                        <div id="chart-trend-current"
+                             class="container-fluid px-0"
+                             style="border: none; width:100%; height: 450px; margin: 0 auto"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="cum" role="tabpanel"
+             aria-labelledby="nav-cum-tab">
+            <div class="row">
+                {% for t in trend_cards %}
+                    {% if t.type == "cum" %}
+                        <div class="col-lg col-md- mb-2">
+
+                            <div class="card bg-dark border-left-{{ t.colour.split('-')[1] }} shadow text-{{ t.colour.split('-')[1] }} text-center">
+                                <div class="card-body">
+                                    <div class="h5 mb-1 text-uppercase">
+                                        <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
+                                    </div>
+                                    <div>
+                                        <span class="h6 text-gray-800">{{ t.count }}</span>
+                                        <span class="h6 text-gray-800"><i
+                                                class="{{ t.status_icon }}"></i></span>
+                                        <span class="h6 text-gray-800">{{ t.percentage_difference|safe }}</span>
+                                    </div>
+                                    <small class="font-weight-light">{{ _("Yesterday: ") }}&nbsp;{{ t.yesterday_count }}</small>
+                                </div>
+                            </div>
+
+                            {% if breakdown[t.id] %}
+                                {% set ns = namespace(found=false) %}
+                                {% for data_type, data in breakdown.items() %}
+                                    {% if data_type == t.id %}
+                                        {% set ns.found=true %}
+                                        <div class="accordion"
+                                             id="areasAccordion">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header"
+                                                    id="flush-areas">
+                                                    <button class="accordion-button collapsed"
+                                                            type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#flush-{{ t.id }}"
+                                                            aria-expanded="false"
+                                                            aria-controls="flush-{{ t.id }}"
+                                                            style="height: 20px">
+                                                        <small>{{ _("See more...") }}</small>
+                                                    </button>
+                                                </h2>
+                                                <div id="flush-{{ t.id }}"
+                                                     class="accordion-collapse collapse"
+                                                     aria-labelledby="flush-areas"
+                                                     data-bs-parent="#areasAccordion">
+                                                    <div class="accordion-body bg-dark">
+                                                        <table class="table table-dark table-sm table-striped table-responsive text-center small">
+                                                            <thead class="table-dark">
+                                                            <tr>
+                                                                <th scope="col"> {{ _("Area") }} </th>
+                                                                <th scope="col">{{ _("Count") }}</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for d in breakdown[t.id] %}
+                                                                <tr>
+                                                                    <td>
+                                                                        <a href="{{ d.url }}" class="text-info"> {{ d.area }}</a>
                                                                     </td>
                                                                     <td>{{ d.count }}</td>
                                                                 </tr>
