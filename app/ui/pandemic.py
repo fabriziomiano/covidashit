@@ -112,13 +112,15 @@ def provincial_view(province):
     series = get_provincial_series(province=province)
     notes = get_notes(notes_type=data_type, area=province)
     latest_update = get_latest_update(data_type=data_type)
-    province_region = region_of_province(province)
+    region = region_of_province(province)
+    region_provinces = ITALY_MAP[region]
     view_data = dict(
         ts=int(time.time()),
         page_title="{} | {}".format(province, PAGE_BASE_TITLE),
         dashboard_title=province,
         province=province,
-        region=province_region,
+        region=region,
+        region_provinces=region_provinces,
         trend_cards=cards,
         series=series,
         notes=notes,
