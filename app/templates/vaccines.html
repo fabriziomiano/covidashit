@@ -10,9 +10,29 @@
         <!-- Top-page data -->
         <div class="container-fluid bg-dark text-light">
 
+            <!-- area selectors -->
+            <div class="row mb-2">
+                <div class="col-12">
+                    <select class="form-select form-select-sm bg-dark text-light"
+                            aria-label=".form-select-sm region"
+                            onchange="location = this.value">
+                        {% if not area %}
+                            <option selected>{{ _("Select region...") }}</option>
+                        {% endif %}
+                        {% for r in regions %}
+                            {% if area and r == area %}
+                                <option selected value="/vaccines/{{ r }}">{{ r }}</option>
+                            {% else %}
+                                <option value="/vaccines/{{ r }}">{{ r }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
             <div class="row align-items-center">
 
-                <div class="col- col-md-6 col-lg-6">
+                <div class="col-12">
                     <div class="card bg-dark text-center shadow">
                         <div class="card-body">
                             <!-- Page heading -->
@@ -32,10 +52,16 @@
                                 <i class="fas fa-bullhorn me-2"></i>{{ _("Latest update: ") }}
                                 <strong>{{ latest_update }}</strong>
                             </p>
-                            <hr class="mt-0">
+
+{#                            <hr class="mt-1 mb-1">#}
+                        </div>
+                        <div class="card-footer">
                             <!-- progress bar -->
-                            <p class="small mb-0">
-                                <i class="fas fa-user-shield me-2"></i>{{ _("Pop. vaccinated ") }}(%)
+                            <p class="mb-0">
+                                <i class="fas fa-user-shield me-2"></i>{{ _("Population vaccinated") }}<br>
+                                <span class="small text-primary">{{ _("first") }}</span> |
+                                <span class="small text-success">{{ _("second") }}</span> |
+                                <span class="small text-danger">{{ _("booster") }}</span>
                             </p>
                             <div class="progress bg-light mb-1"
                                  style="height: 15px;">
@@ -70,50 +96,11 @@
                     </div>
                 </div>
 
-                <div class="col- col-md-6 col-lg-6">
-
-                    <!-- Area accordion -->
-                    <div class="accordion mb-2" id="areasAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header"
-                                id="flush-headingOne">
-                                <button class="accordion-button collapsed"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#flush-collapseOne"
-                                        aria-expanded="false"
-                                        aria-controls="flush-collapseOne">
-                                    {{ _("Regions") }}
-                                </button>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
             <hr class="mt-0 mb-2">
 
-            <!-- Accordion items -->
-            <div id="flush-collapseOne"
-                 class="accordion-collapse collapse"
-                 aria-labelledby="flush-headingOne"
-                 data-bs-parent="#areasAccordion">
-                <div class="accordion-body">
-                    <div class="btn-toolbar"
-                         role="toolbar"
-                         aria-label="Toolbar with button groups">
-                        {% for r in regions %}
-                            <div class="btn-group me-1 mb-1"
-                                 role="group">
-                                <a class="btn btn-sm btn-secondary text-uppercase"
-                                   href="/vaccines/{{ r }}">{{ r }}</a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
+            <h4 class="display">{{ _("Daily administrations") }}</h4>
             <!-- Cards -->
             {% include 'vaccines/cards.html' %}
 
