@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2021-12-29 15:30+0100\n"
-"PO-Revision-Date: 2021-12-29 15:31+0100\n"
+"POT-Creation-Date: 2022-01-07 13:09+0100\n"
+"PO-Revision-Date: 2022-01-07 13:13+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -17,22 +17,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.8.0\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: app/data_tools/__init__.py:369
 msgid "Admins per age"
 msgstr "Somministrazioni per età"
 
 #: app/data_tools/__init__.py:370 app/plotter/__init__.py:58
-#: app/templates/pandemic/cards-charts.html:404
+#: app/templates/pandemic/cards-charts.html:405
 msgid "Counts"
 msgstr "Conteggi"
 
 #: app/data_tools/__init__.py:374 app/data_tools/__init__.py:424
+#: settings/vars.py:293
 msgid "First Dose"
 msgstr "Prima Dose"
 
 #: app/data_tools/__init__.py:378 app/data_tools/__init__.py:428
+#: settings/vars.py:301
 msgid "Second Dose"
 msgstr "Seconda Dose"
 
@@ -64,17 +66,25 @@ msgstr "Somministrazioni per fornitore"
 msgid "Doses administered"
 msgstr "Dosi somministrate"
 
-#: app/templates/pandemic.html:43
+#: app/templates/pandemic.html:33 app/templates/vaccines.html:20
+msgid "Select region..."
+msgstr "Seleziona regione..."
+
+#: app/templates/pandemic.html:56
+msgid "Select province..."
+msgstr "Seleziona provincia..."
+
+#: app/templates/pandemic.html:82 app/templates/vaccines.html:45
+msgid "Population:"
+msgstr "Popolazione:"
+
+#: app/templates/pandemic.html:90
 msgid "Positive Rate: "
 msgstr "Indice positività: "
 
-#: app/templates/pandemic.html:67
-msgid "Provinces"
-msgstr "Province"
-
-#: app/templates/pandemic.html:68 app/templates/vaccines.html:86
-msgid "Regions"
-msgstr "Regioni"
+#: app/templates/pandemic.html:96 app/templates/vaccines.html:52
+msgid "Latest update: "
+msgstr "Ultimo aggiornamento: "
 
 #: app/templates/thanks.html:14
 msgid "Thank You!"
@@ -93,17 +103,25 @@ msgstr "Bisogna fare attenzione e mettere la mascherina!"
 msgid "Back to COVIDash"
 msgstr "Torna alla Home"
 
-#: app/templates/vaccines.html:25
-msgid "Population:"
-msgstr "Popolazione:"
+#: app/templates/vaccines.html:61
+msgid "Population vaccinated"
+msgstr "Popolazione vaccinata"
 
-#: app/templates/vaccines.html:32
-msgid "Latest update: "
-msgstr "Ultimo aggiornamento: "
+#: app/templates/vaccines.html:62
+msgid "first"
+msgstr "prima"
 
-#: app/templates/vaccines.html:38
-msgid "Pop. vaccinated "
-msgstr "Pop. vaccinata "
+#: app/templates/vaccines.html:63
+msgid "second"
+msgstr "seconda"
+
+#: app/templates/vaccines.html:64
+msgid "booster"
+msgstr "booster"
+
+#: app/templates/vaccines.html:103
+msgid "Daily administrations"
+msgstr "Somministrazioni giornaliere"
 
 #: app/templates/base/footer.html:6
 msgid ""
@@ -130,15 +148,15 @@ msgstr "Epidemia COVID-19 Italia"
 msgid "Data visualization of the COVID-19 outbreak in Italy"
 msgstr "Visualizzazione dei dati dell'epidemia COVID-19 in Italia"
 
-#: app/templates/base/navbar.html:59
+#: app/templates/base/navbar.html:46
 msgid "Pandemic"
 msgstr "Pandemia"
 
-#: app/templates/base/navbar.html:67
+#: app/templates/base/navbar.html:54
 msgid "Vaccines"
 msgstr "Vaccini"
 
-#: app/templates/base/navbar.html:83
+#: app/templates/base/navbar.html:71
 msgid "Search..."
 msgstr "Cerca..."
 
@@ -152,48 +170,6 @@ msgid ""
 "vaccines data"
 msgstr ""
 "Una dashboard che mostra i dati italiani ufficiali su pandemia e vaccini"
-
-#: app/templates/base/modals/welcome.html:20
-msgid "New!"
-msgstr "Novità!"
-
-#: app/templates/base/modals/welcome.html:21
-msgid "Additional- and booster-dose daily trends;"
-msgstr "Andamento giornalieri somministrazioni dosi aggiuntive e dosi booster;"
-
-#: app/templates/base/modals/welcome.html:24
-msgid ""
-"Administrations-per-region chart enriched with regional/national population "
-"data (ISTAT);"
-msgstr ""
-"Dati sulle somministrazioni per regione arricchite con popolazione per "
-"regione e fasce d'età (ISTAT)"
-
-#: app/templates/base/modals/welcome.html:27
-msgid "Data-type tabs at the top now refresh cards and charts simultaneously;"
-msgstr ""
-"I tab tipo di dato in cima alla pagina adesso aggiornano cards e grafici "
-"contemporaneamente;"
-
-#: app/templates/base/modals/welcome.html:30
-msgid "Daily administrations trend;"
-msgstr "Andamento somministrazioni giornaliere;"
-
-#: app/templates/base/modals/welcome.html:33
-msgid "Administrations per provider;"
-msgstr "Somministrazioni per fornitore;"
-
-#: app/templates/base/modals/welcome.html:36
-msgid "Vaccine data <a href='/vaccines'><strong>here</strong></a>;"
-msgstr "Dati sui vaccini <a href='/vaccines'><strong>qui</strong></a>;"
-
-#: app/templates/base/modals/welcome.html:39
-msgid ""
-"Use the navigation buttons on the navigation bar when in the regional/"
-"provincial views;"
-msgstr ""
-"Usa i bottoni sulla navigation bar per navigare tra le view regionali/"
-"provinciali;"
 
 #: app/templates/base/modals/welcome.html:42
 msgid "Use the search bar to jump to the pandemic dashboard of a desired area;"
@@ -261,8 +237,8 @@ msgstr "Contatta l'admin"
 
 #: app/templates/pandemic/cards-charts.html:20
 #: app/templates/pandemic/cards-charts.html:88
-#: app/templates/pandemic/cards-charts.html:175
-#: app/templates/pandemic/cards-charts.html:262
+#: app/templates/pandemic/cards-charts.html:176
+#: app/templates/pandemic/cards-charts.html:263
 #: app/templates/vaccines/cards.html:17
 msgid "Yesterday: "
 msgstr "Ieri: "
@@ -280,52 +256,52 @@ msgid "Cumulative"
 msgstr "Cumulato"
 
 #: app/templates/pandemic/cards-charts.html:109
-#: app/templates/pandemic/cards-charts.html:196
-#: app/templates/pandemic/cards-charts.html:283
+#: app/templates/pandemic/cards-charts.html:197
+#: app/templates/pandemic/cards-charts.html:284
 msgid "See more..."
 msgstr "Dettagli..."
 
 #: app/templates/pandemic/cards-charts.html:120
-#: app/templates/pandemic/cards-charts.html:207
-#: app/templates/pandemic/cards-charts.html:294
+#: app/templates/pandemic/cards-charts.html:208
+#: app/templates/pandemic/cards-charts.html:295
 msgid "Area"
 msgstr "Area"
 
 #: app/templates/pandemic/cards-charts.html:121
-#: app/templates/pandemic/cards-charts.html:208
-#: app/templates/pandemic/cards-charts.html:295
+#: app/templates/pandemic/cards-charts.html:209
+#: app/templates/pandemic/cards-charts.html:296
 msgid "Count"
 msgstr "Conteggi"
 
-#: app/templates/pandemic/cards-charts.html:345 settings/__init__.py:19
+#: app/templates/pandemic/cards-charts.html:346 settings/__init__.py:19
 #: settings/__init__.py:20
 msgid "Lockdown"
 msgstr "Lockdown"
 
-#: app/templates/pandemic/cards-charts.html:357 settings/__init__.py:27
+#: app/templates/pandemic/cards-charts.html:358 settings/__init__.py:27
 msgid "Phase 2"
 msgstr "Fase 2"
 
-#: app/templates/pandemic/cards-charts.html:369 settings/__init__.py:35
+#: app/templates/pandemic/cards-charts.html:370 settings/__init__.py:35
 msgid "Phase 3"
 msgstr "Fase 3"
 
-#: app/templates/pandemic/cards-charts.html:381 settings/__init__.py:44
+#: app/templates/pandemic/cards-charts.html:382 settings/__init__.py:44
 msgid "Critical areas"
 msgstr "Aree di criticità"
 
-#: app/templates/pandemic/cards-charts.html:393 settings/__init__.py:51
+#: app/templates/pandemic/cards-charts.html:394 settings/__init__.py:51
 #: settings/__init__.py:52
 msgid "Vaccine day"
 msgstr "Vaccine day"
 
-#: app/templates/pandemic/cards-charts.html:411
+#: app/templates/pandemic/cards-charts.html:412
 #: app/templates/vaccines/charts.html:83 app/ui/pandemic.py:47
 #: app/ui/vaccines.py:23
 msgid "Italy"
 msgstr "Italia"
 
-#: app/templates/pandemic/cards-charts.html:416
+#: app/templates/pandemic/cards-charts.html:417
 msgid ""
 "Source: <a href='https://github.com/pcm-dpc/COVID-19'>Civil Protection "
 "dataset</a>"
@@ -333,7 +309,7 @@ msgstr ""
 "Fonte: <a href='https://github.com/pcm-dpc/COVID-19'>Dati Protezione Civile</"
 "a>"
 
-#: app/templates/pandemic/cards-charts.html:422
+#: app/templates/pandemic/cards-charts.html:423
 #: app/templates/vaccines/charts.html:93
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
@@ -556,17 +532,57 @@ msgid "Total number of people healed since the beginning of the outbreak"
 msgstr ""
 "Totale cumulativo del numero di persone guarite dall'inizio dell'epidemia"
 
-#: settings/vars.py:293
-msgid "Daily First administrations"
-msgstr "Prime somministrazioni giornaliere"
-
-#: settings/vars.py:301
-msgid "Daily Second administrations"
-msgstr "Seconde somministrazioni giornaliere"
-
 #: settings/vars.py:309
-msgid "Daily Booster administrations"
-msgstr "Somministrazioni giornaliere dose booster"
+msgid "Booster dose"
+msgstr "Dose Booster"
+
+#~ msgid "Provinces"
+#~ msgstr "Province"
+
+#~ msgid "Regions"
+#~ msgstr "Regioni"
+
+#~ msgid "New!"
+#~ msgstr "Novità!"
+
+#~ msgid "Additional- and booster-dose daily trends;"
+#~ msgstr ""
+#~ "Andamento giornalieri somministrazioni dosi aggiuntive e dosi booster;"
+
+#~ msgid ""
+#~ "Administrations-per-region chart enriched with regional/national "
+#~ "population data (ISTAT);"
+#~ msgstr ""
+#~ "Dati sulle somministrazioni per regione arricchite con popolazione per "
+#~ "regione e fasce d'età (ISTAT)"
+
+#~ msgid ""
+#~ "Data-type tabs at the top now refresh cards and charts simultaneously;"
+#~ msgstr ""
+#~ "I tab tipo di dato in cima alla pagina adesso aggiornano cards e grafici "
+#~ "contemporaneamente;"
+
+#~ msgid "Daily administrations trend;"
+#~ msgstr "Andamento somministrazioni giornaliere;"
+
+#~ msgid "Administrations per provider;"
+#~ msgstr "Somministrazioni per fornitore;"
+
+#~ msgid "Vaccine data <a href='/vaccines'><strong>here</strong></a>;"
+#~ msgstr "Dati sui vaccini <a href='/vaccines'><strong>qui</strong></a>;"
+
+#~ msgid ""
+#~ "Use the navigation buttons on the navigation bar when in the regional/"
+#~ "provincial views;"
+#~ msgstr ""
+#~ "Usa i bottoni sulla navigation bar per navigare tra le view regionali/"
+#~ "provinciali;"
+
+#~ msgid "Daily Second administrations"
+#~ msgstr "Seconde somministrazioni giornaliere"
+
+#~ msgid "Daily Booster administrations"
+#~ msgstr "Somministrazioni giornaliere dose booster"
 
 #~ msgid "Days in Lockdown"
 #~ msgstr "Giorni in Lockdown"
