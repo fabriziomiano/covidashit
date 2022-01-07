@@ -5,7 +5,7 @@
             <div class="col-6 col-lg-6 col-md-6 mb-2">
                 <div class="card bg-dark border-left-{{ t.colour.split('-')[1] }} shadow text-{{ t.colour.split('-')[1] }} text-center">
                     <div class="card-body">
-                        <div class="h5 mb-1 text-uppercase">
+                        <div class="h6 mb-1 text-uppercase">
                             <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                         </div>
 
@@ -40,8 +40,8 @@
 
     </div>
 
-    <!-- National/Regional views -->
 {% else %}
+    <!-- National/Regional views -->
     <!-- Tabs -->
     <ul class="nav nav-tabs nav-justified text-uppercase mb-4" role="tablist">
         <li class="nav-item" role="presentation">
@@ -76,7 +76,7 @@
 
                             <div class="card bg-dark border-left-{{ t.colour.split('-')[1] }} shadow text-{{ t.colour.split('-')[1] }} text-center">
                                 <div class="card-body">
-                                    <div class="h5 mb-1 text-uppercase">
+                                    <div class="h6 mb-1 text-uppercase">
                                         <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                                     </div>
                                     <div>
@@ -164,7 +164,7 @@
 
                             <div class="card bg-dark border-left-{{ t.colour.split('-')[1] }} shadow text-{{ t.colour.split('-')[1] }} text-center">
                                 <div class="card-body">
-                                    <div class="h5 mb-1 text-uppercase">
+                                    <div class="h6 mb-1 text-uppercase">
                                         <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                                     </div>
                                     <div>
@@ -213,7 +213,8 @@
                                                             {% for d in breakdown[t.id] %}
                                                                 <tr>
                                                                     <td>
-                                                                        <a href="{{ d.url }}" class="text-info"> {{ d.area }}</a>
+                                                                        <a href="{{ d.url }}"
+                                                                           class="text-info"> {{ d.area }}</a>
                                                                     </td>
                                                                     <td>{{ d.count }}</td>
                                                                 </tr>
@@ -251,7 +252,7 @@
 
                             <div class="card bg-dark border-left-{{ t.colour.split('-')[1] }} shadow text-{{ t.colour.split('-')[1] }} text-center">
                                 <div class="card-body">
-                                    <div class="h5 mb-1 text-uppercase">
+                                    <div class="h6 mb-1 text-uppercase">
                                         <i class="{{ t.icon }} me-1"></i>{{ _(t.title) }}
                                     </div>
                                     <div>
@@ -300,7 +301,8 @@
                                                             {% for d in breakdown[t.id] %}
                                                                 <tr>
                                                                     <td>
-                                                                        <a href="{{ d.url }}" class="text-info"> {{ d.area }}</a>
+                                                                        <a href="{{ d.url }}"
+                                                                           class="text-info"> {{ d.area }}</a>
                                                                     </td>
                                                                     <td>{{ d.count }}</td>
                                                                 </tr>
