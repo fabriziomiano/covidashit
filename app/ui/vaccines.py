@@ -21,7 +21,7 @@ view_type = 'vaccines'
 def national_vax_view():
     """Render the vax report"""
     dashboard_title = gettext("Italy")
-    page_title = f'{gettext("Vaccines")} | {PAGE_BASE_TITLE}'
+    page_title = f'{PAGE_BASE_TITLE} | {gettext("Vaccines")}'
     population = get_area_population('Italia')
     perc_pop_vax = get_perc_pop_vax(population)
     report_data = enrich_frontend_data(
@@ -42,7 +42,7 @@ def national_vax_view():
 def regional_vax_view(region):
     """Render the vax regional view"""
     dashboard_title = region
-    page_title = f'{gettext("Vaccines")} | {region} | {PAGE_BASE_TITLE}'
+    page_title = f'{PAGE_BASE_TITLE} | {gettext("Vaccines")} | {region}'
     area = PC_TO_OD_MAP[region]
     population = get_area_population(region)
     perc_pop_vax = get_perc_pop_vax(population, area)
