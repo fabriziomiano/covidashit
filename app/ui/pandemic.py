@@ -79,7 +79,7 @@ def regional_view(region):
     population = get_area_population(region)
     view_data = dict(
         ts=int(time.time()),
-        page_title="{} | {}".format(region, PAGE_BASE_TITLE),
+        page_title="{} | {}".format(PAGE_BASE_TITLE, region),
         dashboard_title=region,
         region=region,
         region_provinces=provinces,
@@ -116,7 +116,7 @@ def provincial_view(province):
     region_provinces = ITALY_MAP[region]
     view_data = dict(
         ts=int(time.time()),
-        page_title="{} | {}".format(province, PAGE_BASE_TITLE),
+        page_title="{} | {}".format(PAGE_BASE_TITLE, province),
         dashboard_title=province,
         province=province,
         region=region,
