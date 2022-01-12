@@ -59,8 +59,8 @@ def add_percentages(df):
     """
     for col in VARS:
         try:
-            diff_df = df[col].diff()
-            df[col + "_perc"] = diff_df.div(df[col].shift(8).abs()) * 100
+            diff_df = df[col].diff(periods=7)
+            df[col + "_perc"] = diff_df.div(df[col].shift(7).abs()) * 100
         except KeyError:
             continue
     return df
@@ -152,12 +152,12 @@ def preprocess_provincial_df(df):
     for pc in df[PROVINCE_CODE].unique():
         dfp = df[df[PROVINCE_CODE] == pc].copy()
         dfp[NEW_POSITIVE_KEY] = dfp[TOTAL_CASES_KEY].diff()
-        df_new_pos_diff = dfp[NEW_POSITIVE_KEY].diff()
+        df_new_pos_diff = dfp[NEW_POSITIVE_KEY].diff(periods=7)
         dfp["nuovi_positivi_perc"] = df_new_pos_diff.div(
-            dfp[NEW_POSITIVE_KEY].shift(1).abs()) * 100
+            dfp[NEW_POSITIVE_KEY].shift(7).abs()) * 100
         dfp["totale_casi_perc"] = (
                 dfp[NEW_POSITIVE_KEY].div(
-                    dfp[TOTAL_CASES_KEY].shift(1).abs()) * 100)
+                    dfp[TOTAL_CASES_KEY].shift(7).abs()) * 100)
         dfp = add_moving_avg(dfp)
         dfs.append(dfp)
     out_df = pd.concat(dfs)
@@ -175,23 +175,19 @@ def build_trend(df, col):
     status = "stable"
     perc_col = col + "_perc"
     df[col] = df[col].astype('int')
-    count = df[col].to_numpy()[-1]
-    last_week_count = df[col].to_numpy()[-8]
+    count = df[col].to_numpy()[-1].item()
+    last_week_count = df[col].to_numpy()[-8].item()
     try:
         df[perc_col].dropna(inplace=True)
-        percentage = df[perc_col].to_numpy()[-1]
-        percentage_str = "{0:+}%".format(round(percentage))
+        percentage = f'{round(df[perc_col].to_numpy()[-1])}%'
     except (OverflowError, TypeError):
-        percentage_str = "n/a"
+        percentage = "n/a"
     if count < last_week_count:
         status = "decrease"
     if count > last_week_count:
         status = "increase"
     if count == last_week_count:
         status = "stable"
-    if VARS[col]["type"] in ("daily", "current", "cum"):
-        count = "{0:+,d}".format(count)
-        last_week_count = "{0:+,d}".format(last_week_count)
     trend = {
         "id": col,
         "type": VARS[col]["type"],
@@ -203,7 +199,7 @@ def build_trend(df, col):
         "icon": VARS[col]["icon"],
         "status_icon": VARS[col][status]["icon"],
         "tooltip": VARS[col][status]["tooltip"],
-        "percentage_difference": percentage_str,
+        "percentage_difference": percentage,
         "last_week_count": last_week_count
     }
     return trend
@@ -348,14 +344,6 @@ def build_series(df):
         }
         for col in DAILY_QUANTITIES
     ], key=lambda x: max(x[DATE_KEY]), reverse=True)
-    series_cum = sorted([
-        {
-            "id": col,
-            "name": VARS[col]["title"],
-            "data": df[col].tolist()
-        }
-        for col in CUM_QUANTITIES
-    ], key=lambda x: max(x[DATE_KEY]), reverse=True)
     series_current = sorted([
         {
             "id": col,
@@ -364,7 +352,7 @@ def build_series(df):
         }
         for col in NON_CUM_QUANTITIES
     ], key=lambda x: max(x[DATE_KEY]), reverse=True)
-    series = (dates, series_daily, series_current, series_cum)
+    series = (dates, series_daily, series_current)
     return series
 
 
@@ -379,7 +367,6 @@ def build_national_series(df):
         "dates": data_series[0],
         "daily": data_series[1],
         "current": data_series[2]
-        # "cum": data_series[3]
     }
     return series
 
@@ -398,8 +385,7 @@ def build_regional_series(df):
             REGION_KEY: df_area[REGION_KEY].to_numpy()[-1],
             "dates": series[0],
             "daily": series[1],
-            "current": series[2],
-            "cum": series[3]
+            "current": series[2]
         })
     return regional_series
 

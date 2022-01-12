@@ -4,10 +4,9 @@ Data tools module
 import datetime as dt
 
 import pandas as pd
-import pytz
 import requests
 from flask import current_app as app
-from flask_babel import gettext
+from flask_babel import gettext, format_datetime, format_number
 
 from app.db_tools import (
     nat_data_coll, reg_data_coll, prov_data_coll, nat_trends_coll,
@@ -23,8 +22,7 @@ from settings import (
 from settings.urls import URL_VAX_LATEST_UPDATE, URL_VAX_SUMMARY_DATA
 from settings.vars import (
     VARS, TOTAL_CASES_KEY, NEW_POSITIVE_KEY, REGION_KEY, PROVINCE_KEY,
-    DATE_KEY, NOTE_KEY, POSITIVITY_INDEX, UPDATE_FMT,
-    VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_UPDATE_FMT, VAX_FIRST_DOSE_KEY,
+    DATE_KEY, NOTE_KEY, POSITIVITY_INDEX, VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_FIRST_DOSE_KEY,
     VAX_SECOND_DOSE_KEY, VAX_TOT_ADMINS_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
     ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_ADMINS_PERC_KEY, VAX_DATE_KEY,
     CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, OD_POP_KEY,
@@ -99,12 +97,22 @@ def get_notes(notes_type="national", area=None):
     return notes if notes is not None and not rubbish_notes(notes) else ""
 
 
+def format_trends(trends):
+    """In-place format count and last week count"""
+    try:
+        for t in trends:
+            t['count'] = format_number(t['count'])
+            t['last_week_count'] = format_number(t['last_week_count'])
+    except Exception as e:
+        app.logger.error(f'While formatting trends: {e}')
+        pass
+    return trends
+
+
 def get_national_trends():
     """Return national trends from DB"""
-    return sorted(
-        list(nat_trends_coll.find({})),
-        key=lambda x: list(VARS.keys()).index(x['id'])
-    )
+    trends = format_trends(list(nat_trends_coll.find({})))
+    return trends
 
 
 def get_regional_trends(region):
@@ -116,7 +124,7 @@ def get_regional_trends(region):
     trends = []
     doc = reg_trends_coll.find_one({REGION_KEY: region})
     if doc:
-        trends = doc["trends"]
+        trends = format_trends(doc["trends"])
     return trends
 
 
@@ -126,8 +134,11 @@ def get_provincial_trends(province):
     :param province: str
     :return: list
     """
+    trends = []
     doc = prov_trends_coll.find_one({PROVINCE_KEY: province})
-    return doc["trends"]
+    if doc:
+        trends = format_trends(doc["trends"])
+    return trends
 
 
 def get_regional_breakdown():
@@ -193,7 +204,7 @@ def get_positivity_idx(area_type="national", area=None):
     collection = query_menu[area_type]["collection"]
     try:
         doc = next(collection.find(query).sort([(DATE_KEY, -1)]).limit(1))
-        idx = f"{doc[POSITIVITY_INDEX]}%"
+        idx = doc[POSITIVITY_INDEX]
     except StopIteration:
         app.logger.error("While getting positivity idx: no data")
         idx = "n/a"
@@ -238,7 +249,7 @@ def get_latest_update(data_type="national"):
     collection = query_menu[data_type]["collection"]
     try:
         doc = next(collection.find({}).sort([(DATE_KEY, -1)]).limit(1))
-        latest_update = doc[DATE_KEY].strftime(UPDATE_FMT)
+        latest_update = format_datetime(datetime=doc[DATE_KEY], format='short')
     except StopIteration:
         app.logger.error("While getting latest update: no data")
         latest_update = "n/a"
@@ -251,8 +262,7 @@ def get_latest_vax_update():
         response = requests.get(URL_VAX_LATEST_UPDATE).json()
         datestr = response[VAX_LATEST_UPDATE_KEY]
         date_dt = dt.datetime.strptime(datestr, VAX_DATE_FMT)
-        cet_dt = date_dt.astimezone(pytz.timezone('Europe/Rome'))
-        latest_update = cet_dt.strftime(VAX_UPDATE_FMT)
+        latest_update = format_datetime(datetime=date_dt, format='short')
     except Exception as e:
         app.logger.error(f"While getting latest vax update dt: {e}")
         latest_update = "n/a"
@@ -467,7 +477,7 @@ def get_admins_perc(area=None):
                  df[DELIVERED_DOSES_KEY].sum() * 100), 1)
         else:
             df = df[df[VAX_AREA_KEY] == area]
-            admins_perc = df[VAX_ADMINS_PERC_KEY].values[0]
+            admins_perc = df[VAX_ADMINS_PERC_KEY].item()
     except Exception as e:
         app.logger.error(f"While getting % administered doses: {e}")
     return admins_perc
@@ -538,7 +548,7 @@ def get_admins_per_provider_chart_data(area=None):
 
 def get_vax_trends_data(area=None):
     """
-    Return the first- and second-dose data in the last two days
+    Return first-, second-, and third-dose data in the last two days
     :param area: optional, str
     :return: list of dicts
     """
@@ -553,7 +563,7 @@ def get_vax_trends_data(area=None):
                 }
             },
             {"$sort": {"_id": -1}},
-            {'$limit': 2}
+            {'$limit': 7}
         ]
     else:
         pipe = [
@@ -567,7 +577,7 @@ def get_vax_trends_data(area=None):
                 }
             },
             {"$sort": {"_id": -1}},
-            {'$limit': 2}
+            {'$limit': 7}
         ]
     data = list(vax_admins_coll.aggregate(pipeline=pipe))
     return data
@@ -583,7 +593,7 @@ def get_vax_trends(area=None):
     trends = []
     for d in VAX_DOSES:
         count = data[0][d]
-        yesterday_count = data[1][d]
+        yesterday_count = data[-1][d]
         diff = count - yesterday_count
         if diff > 0:
             status = 'increase'
@@ -592,18 +602,18 @@ def get_vax_trends(area=None):
         else:
             status = 'stable'
         try:
-            perc = '{}%'.format(round(diff / data[1][d] * 100, 1))
+            perc = f'{round(diff / yesterday_count * 100, 1)}%'
         except (ValueError, ZeroDivisionError):
             perc = 'n/a'
         trends.append({
             'id': d,
-            'yesterday_count': "{:,d}".format(yesterday_count),
+            'yesterday_count': format_number(yesterday_count),
             'percentage': perc,
             'title': VARS[d]["title"],
             "colour": VARS[d][status]["colour"],
             "icon": VARS[d]["icon"],
             "status_icon": VARS[d][status]["icon"],
-            'count': "{:,d}".format(count)
+            'count': format_number(count)
         })
     return trends
 
