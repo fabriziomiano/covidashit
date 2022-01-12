@@ -1,10 +1,11 @@
 """
 Pandemic blueprint views
 """
+import datetime as dt
 import time
 
 from flask import render_template, redirect
-from flask_babel import gettext
+from flask_babel import gettext, format_datetime, format_number
 
 from app.data_tools import (
     get_notes, get_national_trends, get_regional_trends, get_provincial_trends,
@@ -20,6 +21,8 @@ from settings import (
 
 URL_REGIONS = "/regions"
 URL_PROVINCES = "/provinces"
+TODAY_LAST_WEEK = dt.datetime.today() - dt.timedelta(days=7)
+DOW_FMTY = 'EEE d MMM'
 
 
 @pandemic.get("/national")
@@ -53,7 +56,8 @@ def national_view():
         positivity_idx=positivity_idx,
         data_type=data_type,
         notes=notes,
-        population="{:,d}".format(population)
+        population=format_number(population),
+        today_last_week=format_datetime(TODAY_LAST_WEEK, format=DOW_FMTY)
     )
     return render_template("pandemic.html", **data)
 
@@ -79,7 +83,7 @@ def regional_view(region):
     population = get_area_population(region)
     view_data = dict(
         ts=int(time.time()),
-        page_title="{} | {}".format(PAGE_BASE_TITLE, region),
+        page_title=f"{PAGE_BASE_TITLE} | {region}",
         dashboard_title=region,
         region=region,
         region_provinces=provinces,
@@ -91,7 +95,8 @@ def regional_view(region):
         latest_update=latest_update,
         data_type=data_type,
         cards=cards,
-        population="{:,d}".format(population)
+        population=format_number(population),
+        today_last_week=format_datetime(TODAY_LAST_WEEK, format=DOW_FMTY)
     )
     dashboard_data = enrich_frontend_data(area=region, **view_data)
     return render_template("pandemic.html", **dashboard_data)
@@ -116,7 +121,7 @@ def provincial_view(province):
     region_provinces = ITALY_MAP[region]
     view_data = dict(
         ts=int(time.time()),
-        page_title="{} | {}".format(PAGE_BASE_TITLE, province),
+        page_title=f"{PAGE_BASE_TITLE} | {province}",
         dashboard_title=province,
         province=province,
         region=region,
@@ -125,7 +130,8 @@ def provincial_view(province):
         series=series,
         notes=notes,
         latest_update=latest_update,
-        data_type=data_type
+        data_type=data_type,
+        today_last_week=format_datetime(TODAY_LAST_WEEK, format=DOW_FMTY)
     )
     dashboard_data = enrich_frontend_data(area=province, **view_data)
     return render_template("pandemic.html", **dashboard_data)

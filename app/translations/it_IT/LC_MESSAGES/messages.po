@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2022-01-12 13:42+0100\n"
-"PO-Revision-Date: 2022-01-12 13:43+0100\n"
+"POT-Creation-Date: 2022-01-12 22:13+0100\n"
+"PO-Revision-Date: 2022-01-12 22:13+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -19,54 +19,54 @@ msgstr ""
 "Generated-By: Babel 2.8.0\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: app/data_tools/__init__.py:369
+#: app/data_tools/__init__.py:379
 msgid "Admins per age"
 msgstr "Somministrazioni per età"
 
-#: app/data_tools/__init__.py:370 app/plotter/__init__.py:58
+#: app/data_tools/__init__.py:380 app/plotter/__init__.py:58
 #: app/templates/pandemic/cards-charts.html:407
 msgid "Counts"
 msgstr "Conteggi"
 
-#: app/data_tools/__init__.py:374 app/data_tools/__init__.py:424
+#: app/data_tools/__init__.py:384 app/data_tools/__init__.py:434
 #: settings/vars.py:293
 msgid "First Dose"
 msgstr "Prima Dose"
 
-#: app/data_tools/__init__.py:378 app/data_tools/__init__.py:428
+#: app/data_tools/__init__.py:388 app/data_tools/__init__.py:438
 #: settings/vars.py:301
 msgid "Second Dose"
 msgstr "Seconda Dose"
 
-#: app/data_tools/__init__.py:382 app/data_tools/__init__.py:432
+#: app/data_tools/__init__.py:392 app/data_tools/__init__.py:442
 msgid "Booster Dose"
 msgstr "Dose Booster"
 
-#: app/data_tools/__init__.py:386 app/data_tools/__init__.py:436
+#: app/data_tools/__init__.py:396 app/data_tools/__init__.py:446
 msgid "Population"
 msgstr "Popolazione"
 
-#: app/data_tools/__init__.py:420
+#: app/data_tools/__init__.py:430
 msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
-#: app/data_tools/__init__.py:499
+#: app/data_tools/__init__.py:509
 msgid "Vaccination trend"
 msgstr "Andamento vaccinazioni"
 
-#: app/data_tools/__init__.py:500
+#: app/data_tools/__init__.py:510
 msgid "Pop. vaccinated (2nd dose) [%]"
 msgstr "Pop. vaccinata (2a dose) [%]"
 
-#: app/data_tools/__init__.py:532
+#: app/data_tools/__init__.py:542
 msgid "Admins per provider"
 msgstr "Somministrazioni per fornitore"
 
-#: app/data_tools/__init__.py:533
+#: app/data_tools/__init__.py:543
 msgid "Doses administered"
 msgstr "Dosi somministrate"
 
-#: app/templates/pandemic.html:33 app/templates/vaccines.html:20
+#: app/templates/pandemic.html:33 app/templates/vaccines.html:17
 msgid "Select region..."
 msgstr "Seleziona regione..."
 
@@ -74,7 +74,7 @@ msgstr "Seleziona regione..."
 msgid "Select province..."
 msgstr "Seleziona provincia..."
 
-#: app/templates/pandemic.html:82 app/templates/vaccines.html:45
+#: app/templates/pandemic.html:82 app/templates/vaccines.html:38
 msgid "Population:"
 msgstr "Popolazione:"
 
@@ -82,7 +82,7 @@ msgstr "Popolazione:"
 msgid "Positive Rate: "
 msgstr "Indice positività: "
 
-#: app/templates/pandemic.html:96 app/templates/vaccines.html:52
+#: app/templates/pandemic.html:96 app/templates/vaccines.html:44
 msgid "Latest update: "
 msgstr "Ultimo aggiornamento: "
 
@@ -103,25 +103,21 @@ msgstr "Bisogna fare attenzione e mettere la mascherina!"
 msgid "Back to COVIDash"
 msgstr "Torna alla Home"
 
-#: app/templates/vaccines.html:61
+#: app/templates/vaccines.html:58
 msgid "Population vaccinated"
 msgstr "Popolazione vaccinata"
 
-#: app/templates/vaccines.html:62
+#: app/templates/vaccines.html:59
 msgid "first"
 msgstr "prima"
 
-#: app/templates/vaccines.html:63
+#: app/templates/vaccines.html:60
 msgid "second"
 msgstr "seconda"
 
-#: app/templates/vaccines.html:64
+#: app/templates/vaccines.html:61
 msgid "booster"
 msgstr "booster"
-
-#: app/templates/vaccines.html:103
-msgid "Daily administrations"
-msgstr "Somministrazioni giornaliere"
 
 #: app/templates/base/footer.html:6
 msgid ""
@@ -230,24 +226,12 @@ msgstr ""
 "target=_blank> Fabrizio Miano</a>"
 
 #: app/templates/errors/generic.html:18
-msgid "OPS! Date could be being refreshed. Reload the page shortly"
-msgstr ""
-"OPS! I dati potrebbero essere in aggiornamento. Ricarica la pagina a breve"
+msgid "OPS! Please use this button to report any bug"
+msgstr "OPS! Usa questo bottone per segnalare un bug"
 
 #: app/templates/errors/generic.html:19
-msgid "Alternatively, please use this button to report any bug"
-msgstr "In alternativa, usa questo bottone per segnalare un bug"
-
-#: app/templates/errors/generic.html:20
 msgid "Contact admin"
 msgstr "Contatta l'admin"
-
-#: app/templates/pandemic/cards-charts.html:20
-#: app/templates/pandemic/cards-charts.html:88
-#: app/templates/pandemic/cards-charts.html:176
-#: app/templates/pandemic/cards-charts.html:264
-msgid "Previous Week: "
-msgstr "Settimana precedente: "
 
 #: app/templates/pandemic/cards-charts.html:51
 msgid "Daily"
@@ -302,7 +286,7 @@ msgid "Vaccine day"
 msgstr "Vaccine day"
 
 #: app/templates/pandemic/cards-charts.html:414
-#: app/templates/vaccines/charts.html:83 app/ui/pandemic.py:47
+#: app/templates/vaccines/charts.html:83 app/ui/pandemic.py:50
 #: app/ui/vaccines.py:23
 msgid "Italy"
 msgstr "Italia"
@@ -541,6 +525,16 @@ msgstr ""
 #: settings/vars.py:309
 msgid "Booster dose"
 msgstr "Dose Booster"
+
+#~ msgid "Daily administrations"
+#~ msgstr "Somministrazioni giornaliere"
+
+#~ msgid "OPS! Date could be being refreshed. Reload the page shortly"
+#~ msgstr ""
+#~ "OPS! I dati potrebbero essere in aggiornamento. Ricarica la pagina a breve"
+
+#~ msgid "Previous Week: "
+#~ msgstr "Settimana precedente: "
 
 #~ msgid " Thanks for donating &#128513;"
 #~ msgstr " Le donazioni sono ben accette &#128513;"

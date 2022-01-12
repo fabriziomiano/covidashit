@@ -4,7 +4,7 @@ Vaccines blueprint views
 import time
 
 from flask import render_template
-from flask_babel import gettext
+from flask_babel import gettext, format_number
 
 from app.data_tools import (
     get_latest_vax_update, get_perc_pop_vax, enrich_frontend_data,
@@ -14,7 +14,7 @@ from app.ui import vaccines
 from settings import PAGE_BASE_TITLE, REGIONS, PC_TO_OD_MAP
 
 URL_VACCINES = "/vaccines"
-view_type = 'vaccines'
+VIEW_TYPE = 'vaccines'
 
 
 @vaccines.get('/')
@@ -26,14 +26,14 @@ def national_vax_view():
     perc_pop_vax = get_perc_pop_vax(population)
     report_data = enrich_frontend_data(
         page_title=page_title,
-        view_type=view_type,
+        view_type=VIEW_TYPE,
         dashboard_title=dashboard_title,
         ts=int(time.time()),
         latest_update=get_latest_vax_update(),
         admins_perc=get_admins_perc(),
         perc_pop_vax=perc_pop_vax,
         trends=get_vax_trends(),
-        population="{:,d}".format(population)
+        population=format_number(population)
     )
     return render_template("vaccines.html", **report_data)
 
@@ -48,7 +48,7 @@ def regional_vax_view(region):
     perc_pop_vax = get_perc_pop_vax(population, area)
     report_data = enrich_frontend_data(
         page_title=page_title,
-        view_type=view_type,
+        view_type=VIEW_TYPE,
         dashboard_title=dashboard_title,
         ts=int(time.time()),
         latest_update=get_latest_vax_update(),
@@ -57,6 +57,6 @@ def regional_vax_view(region):
         areas_length=len(REGIONS),
         area=region,
         trends=get_vax_trends(area),
-        population="{:,d}".format(population)
+        population=format_number(population)
     )
     return render_template("vaccines.html", **report_data)
