@@ -6,7 +6,6 @@ import os
 
 import click
 from celery import Celery
-from celery.schedules import crontab
 from dotenv import load_dotenv
 from flask import Flask, request, render_template, send_from_directory
 from flask_babel import Babel
@@ -21,7 +20,7 @@ from settings import LANGUAGES, TRANSLATION_DIRNAME
 
 load_dotenv()
 mongo = PyMongo()
-babel = Babel()
+babel = Babel(default_timezone='Europe/Rome')
 sitemap = Sitemap()
 compress = Compress()
 celery = Celery(__name__)
@@ -93,12 +92,6 @@ def create_app():
     limiter.init_app(app)
     celery.config_from_object(app.config)
     celery.conf.update(app.config.get("CELERY_CONFIG", {}))
-    celery.conf.beat_schedule = {
-        'istat-population-update': {
-            'task': 'app.db_tools.tasks.update_istat_it_population_collection',
-            'schedule': crontab(hour=0, minute=0)
-        }
-    }
 
     @app.after_request
     def add_header(r):
