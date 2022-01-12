@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2022-01-08 03:33+0100\n"
-"PO-Revision-Date: 2022-01-08 03:34+0100\n"
+"POT-Creation-Date: 2022-01-12 13:42+0100\n"
+"PO-Revision-Date: 2022-01-12 13:43+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -125,22 +125,18 @@ msgstr "Somministrazioni giornaliere"
 
 #: app/templates/base/footer.html:6
 msgid ""
-"This project is <a href='https://github.com/fabriziomiano/covidashit' "
+"COVIDash.it is <a href='https://github.com/fabriziomiano/covidashit' "
 "target='_blank'>open source</a> and it is hosted on <i class='fab fa-aws'></"
 "i> "
 msgstr ""
-"Questo progetto è <a href='https://github.com/fabriziomiano/covidashit' "
-"target='_blank'>open source</a> e si trova su <i class='fab fa-aws'></i> "
+"COVIDash.it è <a href='https://github.com/fabriziomiano/covidashit' "
+"target='_blank'>open source</a> ed è ospitato su <i class='fab fa-aws'></i> "
 
 #: app/templates/base/footer.html:7
-msgid " Thanks for donating &#128513;"
-msgstr " Le donazioni sono ben accette &#128513;"
+msgid "Thanks for donating &#128513;"
+msgstr "Le donazioni sono ben accette &#128513;"
 
 #: app/templates/base/head.html:18
-#, fuzzy
-#| msgid ""
-#| "COVIDash.it | A COVID-19 dashboard of the Italian pandemic and "
-#| "vaccination data"
 msgid ""
 "COVIDash.it | A dashboard of the Italian COVID-19 pandemic and vaccination "
 "data"
@@ -175,18 +171,18 @@ msgstr "Cerca..."
 msgid "&#128075; Welcome to COVIDash"
 msgstr "&#128075; Benvenuti in COVIDash"
 
-#: app/templates/base/modals/welcome.html:17
+#: app/templates/base/modals/welcome.html:16
 msgid ""
 "A dashboard that displays the official COVID-19 Italian outbreak and "
 "vaccines data"
 msgstr ""
 "Una dashboard che mostra i dati italiani ufficiali su pandemia e vaccini"
 
-#: app/templates/base/modals/welcome.html:42
+#: app/templates/base/modals/welcome.html:18
 msgid "Use the search bar to jump to the pandemic dashboard of a desired area;"
 msgstr "Usa la barra di ricerca per saltare ai dati di un'area;"
 
-#: app/templates/base/modals/welcome.html:45
+#: app/templates/base/modals/welcome.html:21
 msgid ""
 "Some cards, where possible, can be expanded to visualize the breakdown of "
 "the sub-areas;"
@@ -194,7 +190,7 @@ msgstr ""
 "Alcune card possono essere espanse per mostrare il dettaglio delle aree "
 "rilevanti;"
 
-#: app/templates/base/modals/welcome.html:48
+#: app/templates/base/modals/welcome.html:24
 msgid ""
 "The data are divided in <code>Daily</code>, <code>Current</code>, and "
 "<code>Cumulative</code>;"
@@ -202,24 +198,24 @@ msgstr ""
 "Il dato è classificato in <code>Giornaliero</code> , <code>Corrente</code> e "
 "<code>Cumulato</code>;"
 
-#: app/templates/base/modals/welcome.html:51
+#: app/templates/base/modals/welcome.html:27
 msgid "The interactive charts allow to zoom in along the x- and y-axis;"
 msgstr "I grafici interattivi permettono di zoomare lungo l'asse x e y;"
 
-#: app/templates/base/modals/welcome.html:54
+#: app/templates/base/modals/welcome.html:30
 msgid "The chart legend can be used to toggle on/off the data series;"
 msgstr ""
 "La legenda può essere utilizzata per attivare/disattivare una serie di dati;"
 
-#: app/templates/base/modals/welcome.html:61
+#: app/templates/base/modals/welcome.html:37
 msgid "Who made this?"
 msgstr "Chi è l'autore?"
 
-#: app/templates/base/modals/welcome.html:65
+#: app/templates/base/modals/welcome.html:41
 msgid "Close"
 msgstr "Chiudi"
 
-#: app/templates/base/modals/welcome.html:72
+#: app/templates/base/modals/welcome.html:48
 msgid ""
 "Made with <span style=\"color: #e25555;\">&#9829;</span> in\n"
 "                        <a href=\"https://goo.gl/maps/rk3BGAvv1HmG3NSs8\" "
@@ -250,9 +246,8 @@ msgstr "Contatta l'admin"
 #: app/templates/pandemic/cards-charts.html:88
 #: app/templates/pandemic/cards-charts.html:176
 #: app/templates/pandemic/cards-charts.html:264
-#: app/templates/vaccines/cards.html:17
-msgid "Yesterday: "
-msgstr "Ieri: "
+msgid "Previous Week: "
+msgstr "Settimana precedente: "
 
 #: app/templates/pandemic/cards-charts.html:51
 msgid "Daily"
@@ -324,6 +319,10 @@ msgstr ""
 #: app/templates/vaccines/charts.html:93
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
+
+#: app/templates/vaccines/cards.html:17
+msgid "Yesterday: "
+msgstr "Ieri: "
 
 #: app/templates/vaccines/charts.html:42
 msgid "Select one or more regions"
@@ -543,6 +542,9 @@ msgstr ""
 msgid "Booster dose"
 msgstr "Dose Booster"
 
+#~ msgid " Thanks for donating &#128513;"
+#~ msgstr " Le donazioni sono ben accette &#128513;"
+
 #~ msgid "COVIDash.it | COVID-19 Italy outbreak"
 #~ msgstr "COVIDash.it | Pandemia COVID-19 Italia"
 
@@ -637,9 +639,6 @@ msgstr "Dose Booster"
 #~ "Questo progetto è <a href='https://github.com/fabriziomiano/covidashit' "
 #~ "target='_blank'>open source</a> ed utilizza un piano a pagamento su "
 #~ "Heroku."
-
-#~ msgid "Thanks for donating &#128513;"
-#~ msgstr "Le donazioni sono ben accette &#128513;"
 
 #~ msgid "Daily Additional administrations"
 #~ msgstr "Somministrazioni giornaliere dose aggiuntiva"

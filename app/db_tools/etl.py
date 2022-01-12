@@ -60,7 +60,7 @@ def add_percentages(df):
     for col in VARS:
         try:
             diff_df = df[col].diff()
-            df[col + "_perc"] = diff_df.div(df[col].shift(1).abs()) * 100
+            df[col + "_perc"] = diff_df.div(df[col].shift(8).abs()) * 100
         except KeyError:
             continue
     return df
@@ -176,22 +176,22 @@ def build_trend(df, col):
     perc_col = col + "_perc"
     df[col] = df[col].astype('int')
     count = df[col].to_numpy()[-1]
-    yesterday_count = df[col].to_numpy()[-2]
+    last_week_count = df[col].to_numpy()[-8]
     try:
         df[perc_col].dropna(inplace=True)
         percentage = df[perc_col].to_numpy()[-1]
         percentage_str = "{0:+}%".format(round(percentage))
     except (OverflowError, TypeError):
         percentage_str = "n/a"
-    if count < yesterday_count:
+    if count < last_week_count:
         status = "decrease"
-    if count > yesterday_count:
+    if count > last_week_count:
         status = "increase"
-    if count == yesterday_count:
+    if count == last_week_count:
         status = "stable"
     if VARS[col]["type"] in ("daily", "current", "cum"):
         count = "{0:+,d}".format(count)
-        yesterday_count = "{0:+,d}".format(yesterday_count)
+        last_week_count = "{0:+,d}".format(last_week_count)
     trend = {
         "id": col,
         "type": VARS[col]["type"],
@@ -204,7 +204,7 @@ def build_trend(df, col):
         "status_icon": VARS[col][status]["icon"],
         "tooltip": VARS[col][status]["tooltip"],
         "percentage_difference": percentage_str,
-        "yesterday_count": yesterday_count
+        "last_week_count": last_week_count
     }
     return trend
 
