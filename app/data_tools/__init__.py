@@ -17,7 +17,7 @@ from app.db_tools import (
 from app.utils import rubbish_notes, translate_series_lang
 from settings import (
     ITALY_MAP, VERSION, REGIONS, PROVINCES, KEY_PERIODS, PC_TO_OD_MAP,
-    OD_TO_PC_MAP
+    OD_TO_PC_MAP, DOW_FMTY, SERIES_DT_FMT
 )
 from settings.urls import URL_VAX_LATEST_UPDATE, URL_VAX_SUMMARY_DATA
 from settings.vars import (
@@ -25,7 +25,7 @@ from settings.vars import (
     DATE_KEY, NOTE_KEY, POSITIVITY_INDEX, VAX_LATEST_UPDATE_KEY, VAX_DATE_FMT, VAX_FIRST_DOSE_KEY,
     VAX_SECOND_DOSE_KEY, VAX_TOT_ADMINS_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
     ADMINS_DOSES_KEY, DELIVERED_DOSES_KEY, VAX_ADMINS_PERC_KEY, VAX_DATE_KEY,
-    CHART_DATE_FMT, POP_KEY, VAX_PROVIDER_KEY, OD_POP_KEY,
+    POP_KEY, VAX_PROVIDER_KEY, OD_POP_KEY,
     VAX_BOOSTER_DOSE_KEY
 )
 
@@ -53,7 +53,6 @@ PROV_TREND_CARDS = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY]
 VAX_DOSES = [
     VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY, VAX_BOOSTER_DOSE_KEY
 ]
-DOW_FMTY = 'EEE d MMM'
 
 
 def get_query_menu(area=None):
@@ -151,6 +150,10 @@ def get_regional_breakdown():
             key: sorted(doc[key], key=lambda x: x['count'], reverse=True)
             for key in doc
         }
+        for key in doc:
+            areas_breakdown = doc[key]
+            for ab in areas_breakdown:
+                ab['count'] = format_number(ab['count'])
     else:
         breakdown = {"err": "No data"}
     return breakdown
@@ -164,6 +167,9 @@ def get_provincial_breakdown(region):
         b = doc["breakdowns"]
         for key in b.keys():
             b[key] = sorted(b[key], key=lambda x: x['count'], reverse=True)
+            areas_breakdown = b[key]
+            for ab in areas_breakdown:
+                ab['count'] = format_number(ab['count'])
     return b
 
 
@@ -498,8 +504,9 @@ def get_admins_timeseries_chart_data():
         cursor = vax_admins_summary_coll.aggregate(pipeline=pipe)
         data = list(cursor)
         df = pd.DataFrame(data)
+
         dates = df[VAX_DATE_KEY].apply(
-            lambda x: x.strftime(CHART_DATE_FMT)).unique().tolist()
+            lambda x: format_datetime(x, SERIES_DT_FMT)).unique().tolist()
         data = [{
             'name': OD_TO_PC_MAP[r],
             'data': (
