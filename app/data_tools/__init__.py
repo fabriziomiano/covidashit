@@ -53,6 +53,7 @@ PROV_TREND_CARDS = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY]
 VAX_DOSES = [
     VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY, VAX_BOOSTER_DOSE_KEY
 ]
+DOW_FMTY = 'EEE d MMM'
 
 
 def get_query_menu(area=None):
@@ -103,6 +104,7 @@ def format_trends(trends):
         for t in trends:
             t['count'] = format_number(t['count'])
             t['last_week_count'] = format_number(t['last_week_count'])
+            t['last_week_dt'] = format_datetime(t['last_week_dt'], DOW_FMTY)
     except Exception as e:
         app.logger.error(f'While formatting trends: {e}')
         pass

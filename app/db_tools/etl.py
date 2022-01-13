@@ -200,7 +200,8 @@ def build_trend(df, col):
         "status_icon": VARS[col][status]["icon"],
         "tooltip": VARS[col][status]["tooltip"],
         "percentage_difference": percentage,
-        "last_week_count": last_week_count
+        "last_week_count": last_week_count,
+        "last_week_dt": df[DATE_KEY].iloc[-8]
     }
     return trend
 
