@@ -53,6 +53,7 @@ PROV_TREND_CARDS = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY]
 VAX_DOSES = [
     VAX_FIRST_DOSE_KEY, VAX_SECOND_DOSE_KEY, VAX_BOOSTER_DOSE_KEY
 ]
+DOW_FMTY = 'EEE d MMM'
 
 
 def get_query_menu(area=None):
@@ -103,6 +104,7 @@ def format_trends(trends):
         for t in trends:
             t['count'] = format_number(t['count'])
             t['last_week_count'] = format_number(t['last_week_count'])
+            t['last_week_dt'] = format_datetime(t['last_week_dt'], DOW_FMTY)
     except Exception as e:
         app.logger.error(f'While formatting trends: {e}')
         pass
@@ -592,9 +594,10 @@ def get_vax_trends(area=None):
     data = get_vax_trends_data(area)
     trends = []
     for d in VAX_DOSES:
+        last_week_dt = data[6]['_id']
         count = data[0][d]
-        yesterday_count = data[-1][d]
-        diff = count - yesterday_count
+        last_week_count = data[6][d]
+        diff = count - last_week_count
         if diff > 0:
             status = 'increase'
         elif diff < 0:
@@ -602,18 +605,19 @@ def get_vax_trends(area=None):
         else:
             status = 'stable'
         try:
-            perc = f'{round(diff / yesterday_count * 100, 1)}%'
+            perc = f'{round(diff / last_week_count * 100)}%'
         except (ValueError, ZeroDivisionError):
             perc = 'n/a'
         trends.append({
             'id': d,
-            'yesterday_count': format_number(yesterday_count),
+            'last_week_count': format_number(last_week_count),
             'percentage': perc,
-            'title': VARS[d]["title"],
-            "colour": VARS[d][status]["colour"],
-            "icon": VARS[d]["icon"],
-            "status_icon": VARS[d][status]["icon"],
-            'count': format_number(count)
+            'title': VARS[d]['title'],
+            'colour': VARS[d][status]['colour'],
+            "icon": VARS[d]['icon'],
+            'status_icon': VARS[d][status]['icon'],
+            'count': format_number(count),
+            'last_week_dt': format_datetime(last_week_dt, DOW_FMTY)
         })
     return trends
 
