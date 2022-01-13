@@ -3,9 +3,9 @@ Utilities module
 """
 import re
 
-from flask_babel import gettext
+from flask_babel import gettext, format_datetime
 
-from settings import ITALY_MAP
+from settings import ITALY_MAP, SERIES_DT_FMT
 from settings.vars import RUBBISH_NOTE_REGEX
 
 
@@ -40,6 +40,7 @@ def translate_series_lang(series):
     :param series: dict
     :return: dict
     """
+    dates_series = series.get("dates")
     daily_series = series.get("daily")
     current_series = series.get("current")
     cum_series = series.get("cum")
@@ -52,4 +53,6 @@ def translate_series_lang(series):
     if cum_series is not None:
         for s in cum_series:
             s["name"] = gettext(s["name"])
+    if dates_series is not None:
+        series["dates"] = [format_datetime(dt, SERIES_DT_FMT) for dt in dates_series]
     return series

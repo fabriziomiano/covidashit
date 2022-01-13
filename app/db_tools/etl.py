@@ -5,14 +5,14 @@ import pandas as pd
 from flask import current_app as app
 
 from app.data_tools import (
-    CUM_QUANTITIES, NON_CUM_QUANTITIES, DAILY_QUANTITIES, TREND_CARDS,
+    NON_CUM_QUANTITIES, DAILY_QUANTITIES, TREND_CARDS,
     PROV_TREND_CARDS, get_region_pop_dict
 )
 from settings import REGIONS, PROVINCES, OD_TO_PC_MAP
 from settings.vars import (
     NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY, TOTAL_CASES_KEY, DAILY_SWABS_KEY,
     POSITIVITY_INDEX, REGION_KEY, PROVINCE_KEY, REGION_CODE,
-    PROVINCE_CODE, VAX_DATE_FMT, CHART_DATE_FMT, DATE_KEY, STATE_KEY,
+    PROVINCE_CODE, VAX_DATE_FMT, DATE_KEY, STATE_KEY,
     VAX_DATE_KEY, VAX_AREA_KEY, VAX_TYPE_KEY, VAX_AGE_KEY, POP_KEY, F_SEX_KEY,
     M_SEX_KEY, VARS, OD_NUTS1_KEY, OD_NUTS2_KEY, OD_REGION_CODE
 )
@@ -336,7 +336,7 @@ def build_series(df):
     :param df: pd.DataFrame
     :return: tuple
     """
-    dates = df[DATE_KEY].apply(lambda x: x.strftime(CHART_DATE_FMT)).tolist()
+    dates = df[DATE_KEY].to_list()  # apply(lambda x: x.strftime(CHART_DATE_FMT)).tolist()
     series_daily = sorted([
         {
             "id": col,
@@ -400,8 +400,7 @@ def build_provincial_series(df):
     provincial_series = []
     for cp in df[PROVINCE_CODE].unique():
         df_area = df[df[PROVINCE_CODE] == cp].copy()
-        dates = df_area[DATE_KEY].apply(
-            lambda x: x.strftime(CHART_DATE_FMT)).tolist()
+        dates = df_area[DATE_KEY].to_list()
         series_daily = [
             {
                 "id": NEW_POSITIVE_MA_KEY,

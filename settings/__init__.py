@@ -14,6 +14,8 @@ PHASE3_DAY = dt.datetime(2020, 6, 15)
 CRITICAL_AREAS_DAY = dt.datetime(2020, 11, 6)
 VACCINE_DAY = dt.datetime(2020, 12, 27)
 KEY_PERIODS = OrderedDict()
+SERIES_DT_FMT = "d MMM yy"
+DOW_FMTY = 'EEE d MMM'
 
 KEY_PERIODS["lockdown"] = {
     "title": gettext("Lockdown"),
