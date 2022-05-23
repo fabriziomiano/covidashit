@@ -13,7 +13,7 @@ from settings.vars import (
     NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY, TOTAL_CASES_KEY, DAILY_SWABS_KEY,
     POSITIVITY_INDEX, REGION_KEY, PROVINCE_KEY, REGION_CODE,
     PROVINCE_CODE, VAX_DATE_FMT, DATE_KEY, STATE_KEY,
-    VAX_DATE_KEY, VAX_AREA_KEY, VAX_TYPE_KEY, VAX_AGE_KEY, POP_KEY, F_SEX_KEY,
+    VAX_DATE_KEY, VAX_AREA_KEY, VAX_PROVIDER_KEY, VAX_AGE_KEY, POP_KEY, F_SEX_KEY,
     M_SEX_KEY, VARS, OD_NUTS1_KEY, OD_NUTS2_KEY, OD_REGION_CODE
 )
 
@@ -429,7 +429,7 @@ def preprocess_vax_admins_df(df):
     Return a modified version of the input df.
     Add two columns '_id' and 'totale'.
     The former is computed as the concatenation of three strings
-    VAX_DATE_KEY + VAX_AGE_KEY + VAX_TYPE_KEY, and the latter as the sum of
+    VAX_DATE_KEY + VAX_AGE_KEY + VAX_PROVIDER_KEY, and the latter as the sum of
     the columns M_SEX_KEY + F_SEX_KEY
     :param df: pandas.DataFrame
     :return: pandas.DataFrame
@@ -439,14 +439,14 @@ def preprocess_vax_admins_df(df):
         lambda x: x.replace('80-89', '80+')).apply(
         lambda x: x.replace('90+', '80+'))
     df = df.groupby(by=[
-        VAX_DATE_KEY, VAX_TYPE_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
+        VAX_DATE_KEY, VAX_PROVIDER_KEY, VAX_AREA_KEY, VAX_AGE_KEY,
         OD_NUTS1_KEY, OD_NUTS2_KEY, OD_REGION_CODE]).sum().reset_index()
     df['totale'] = df[M_SEX_KEY] + df[F_SEX_KEY]
     df['_id'] = (
             df[VAX_DATE_KEY].apply(lambda x: x.strftime(VAX_DATE_FMT)) +
             df[VAX_AREA_KEY] +
             df[VAX_AGE_KEY] +
-            df[VAX_TYPE_KEY]
+            df[VAX_PROVIDER_KEY]
     )
     return df
 
