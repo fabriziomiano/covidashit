@@ -579,7 +579,7 @@ def get_vax_trends_data(area=None):
             {'$match': {VAX_AREA_KEY: area}},
             {
                 '$group': {
-                    '_id': f'$data_somministrazione',
+                    '_id': f'${VAX_DATE_KEY}',
                     VAX_FIRST_DOSE_KEY: {'$sum': f'${VAX_FIRST_DOSE_KEY}'},
                     VAX_SECOND_DOSE_KEY: {'$sum': f'${VAX_SECOND_DOSE_KEY}'},
                     VAX_BOOSTER_DOSE_KEY: {'$sum': f'${VAX_BOOSTER_DOSE_KEY}'}
