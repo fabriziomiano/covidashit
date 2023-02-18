@@ -6,7 +6,7 @@ from collections import OrderedDict
 
 from flask_babel import gettext
 
-VERSION = "5.12"
+VERSION = "5.12lr"
 PAGE_BASE_TITLE = gettext("COVIDash.it")
 LOCKDOWN_DAY = dt.datetime(2020, 3, 22)
 PHASE2_DAY = dt.datetime(2020, 5, 4)
