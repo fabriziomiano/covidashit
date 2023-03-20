@@ -17,7 +17,7 @@ Una semplice dashboard per la visualizzazione e il monitoraggio dei dati ufficia
 **Dati ufficiali sui vaccini: [repository ufficiale Developers Italia](https://github.com/italia/covid19-opendata-vaccini)**
 
 ## Per gli sviluppatori
-La WebApp gira su Python3.8+, legge i dati da mongoDB e usa un server 
+La WebApp gira su Python3.10, legge i dati da mongoDB e usa un server 
 Flask e `gunicorn` davanti.
 Viene usato Flask-babel per la traduzione italiana dell'app, poiché l'inglese è scelto come lingua di default. 
 Lo script `make_pot.sh` crea i file necessari a babel per le traduzioni.
