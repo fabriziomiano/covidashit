@@ -1,4 +1,5 @@
-let baseUrl = '/api/vax_charts/'
+let spinnerHTML = '<div class="spinner-grow text-primary" role="status"><span class="sr-only">Loading...</span></div>';
+let baseUrl = '/api/vax_charts/';
 if (!REGIONS.includes(area)) {
 
     // Administrations per region
@@ -6,7 +7,7 @@ if (!REGIONS.includes(area)) {
         dataType: 'json',
         cache: false,
         beforeSend: function () {
-            $('#vax-region-loading-spinner').show();
+            $('#chart-admins-per-region').html(spinnerHTML);
         },
         success: function (adminsPerRegion) {
             let firstAdminsPerRegionData = adminsPerRegion.first;
@@ -14,7 +15,6 @@ if (!REGIONS.includes(area)) {
             let boosterAdminsPerRegionData = adminsPerRegion.booster;
             let populationData = adminsPerRegion.population;
             let adminsPerRegionCategories = adminsPerRegion.categories;
-            $('#vax-region-loading-spinner').hide();
             $('#chart-admins-per-region').highcharts({
                 chart: {
                     type: 'bar',
@@ -83,10 +83,9 @@ if (!REGIONS.includes(area)) {
         dataType: 'json',
         cache: false,
         beforeSend: function () {
-            $('#vax-timeseries-loading-spinner').show();
+            $('#chart-admins-timeseries').html(spinnerHTML);
         },
         success: function (adminsTimeseriesData) {
-            $('#vax-timeseries-loading-spinner').hide();
             // Vax time series for a given area
             adminsTimeseriesData.data = adminsTimeseriesData.data.map(function (o, i) {
                 o.visible = i <= 2;
@@ -161,7 +160,7 @@ $.ajax(baseUrl + 'age', {
     dataType: 'json',
     cache: false,
     beforeSend: function () {
-        $('#vax-age-loading-spinner').show();
+        $('#chart-admins-per-age').html(spinnerHTML);
     },
     data: {
         area: area
@@ -173,7 +172,6 @@ $.ajax(baseUrl + 'age', {
         let populationData = adminsPerAge.population;
         let adminsPerAgeCategories = adminsPerAge.categories;
         let ageDict = adminsPerAge.age_dict;
-        $('#vax-age-loading-spinner').hide();
         $('#chart-admins-per-age').highcharts({
             chart: {
                 type: 'bar'
@@ -223,13 +221,12 @@ $.ajax(baseUrl + 'provider', {
     dataType: 'json',
     cache: false,
     beforeSend: function () {
-        $('#vax-provider-loading-spinner').show();
+        $('#chart-pie-providers').html(spinnerHTML);
     },
     data: {
         area: area
     },
     success: function (adminsPerProvider) {
-        $('#vax-provider-loading-spinner').hide();
         $('#chart-pie-providers').highcharts({
             chart: {
                 plotBackgroundColor: null,

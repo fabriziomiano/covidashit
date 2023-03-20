@@ -18,7 +18,7 @@ A simple dashboard to display and monitor the official data of the COVID-19 outb
 
 
 ## For developers
-The WebApp requires Python 3.8+ and reads the data from a mongoDB. It employs a Flask server with `gunicorn` in front of it.
+The WebApp requires Python 3.10 and reads the data from a mongoDB. It employs a Flask server with `gunicorn` in front of it.
 Furthermore, it employs Flask-babel for the italian translation, as English is set as primary language. 
 The script `make_pot.sh` creates the files needed by Babel for the translations.
 A `Batch` version of the script for Windows users is provided. 
