@@ -1,7 +1,7 @@
 celery==5.2.2
 click==8.0
 dnspython==2.1.0
-Flask==2.0.1
+Flask==2.3.2
 flask-github-signature==0.0.1
 Flask-Babel==2.0.0
 Flask-Compress==1.9.0
