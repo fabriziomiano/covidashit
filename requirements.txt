@@ -1,7 +1,7 @@
-celery==5.2.2
-click==8.0
+celery==5.3.4
+click==8.1.7
 dnspython==2.1.0
-Flask==2.0.1
+Flask==2.3.2
 flask-github-signature==0.0.1
 Flask-Babel==2.0.0
 Flask-Compress==1.9.0
@@ -14,5 +14,5 @@ pandas==1.2.4
 pymongo==3.11.4
 python-dotenv==0.17.1
 pytz==2021.1
-redis==3.5.3
+redis==4.4.4
 requests==2.31.0
