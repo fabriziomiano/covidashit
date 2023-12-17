@@ -1,19 +1,20 @@
 # Grab the latest alpine image
-FROM python:3.8
+FROM python:3.10
 
 # maintainer stuff
 LABEL maintainer='fabriziomiano@gmail.com'
 
-# Add requirements and install dependencies
-ADD ./requirements.txt /tmp/requirements.txt
-RUN pip3 install --upgrade pip && \
-    pip3 install --no-cache-dir -q -r /tmp/requirements.txt
+# Upgrade pip to the latest version
+RUN pip install --upgrade pip poetry
 
-# Add our code
-ADD . /opt/app/
-WORKDIR /opt/app
+# Install dependencies using poetry.lock file
+COPY ./pyproject.toml ./poetry.lock /app/
+WORKDIR /app
 
-# Run the app.  CMD is required to run on Heroku
-# crate the collections on DB before running the gunicorn server
-CMD python3 -m flask createdb && \
-    gunicorn --bind 0.0.0.0:$PORT wsgi:app
+RUN poetry install --no-root
+
+# Copy the project code into the container
+COPY . .
+
+# Start the application
+CMD python3 -m flask createdb && gunicorn --bind 0.0.0.0:$PORT wsgi:app
