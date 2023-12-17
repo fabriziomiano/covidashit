@@ -6,22 +6,44 @@ from flask import current_app as app
 
 from app import celery
 from app.db_tools import (
-    nat_data_coll, nat_trends_coll, nat_series_coll, reg_data_coll,
-    reg_trends_coll, reg_series_coll, reg_bdown_coll, prov_data_coll,
-    prov_trends_coll, prov_series_coll, prov_bdown_coll, vax_admins_coll,
-    vax_admins_summary_coll, pop_coll
+    nat_data_coll,
+    nat_series_coll,
+    nat_trends_coll,
+    pop_coll,
+    prov_bdown_coll,
+    prov_data_coll,
+    prov_series_coll,
+    prov_trends_coll,
+    reg_bdown_coll,
+    reg_data_coll,
+    reg_series_coll,
+    reg_trends_coll,
+    vax_admins_coll,
+    vax_admins_summary_coll,
 )
 from app.db_tools.etl import (
-    preprocess_national_df, preprocess_regional_df, preprocess_provincial_df,
-    build_national_trends, build_regional_trends, build_provincial_trends,
-    build_regional_breakdown, build_provincial_breakdowns,
-    build_national_series, build_regional_series, build_provincial_series,
-    COLUMNS_TO_DROP, preprocess_vax_admins_df,
-    preprocess_vax_admins_summary_df
+    COLUMNS_TO_DROP,
+    build_national_series,
+    build_national_trends,
+    build_provincial_breakdowns,
+    build_provincial_series,
+    build_provincial_trends,
+    build_regional_breakdown,
+    build_regional_series,
+    build_regional_trends,
+    preprocess_national_df,
+    preprocess_provincial_df,
+    preprocess_regional_df,
+    preprocess_vax_admins_df,
+    preprocess_vax_admins_summary_df,
 )
 from settings.urls import (
-    URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, URL_VAX_ADMINS_DATA,
-    URL_VAX_ADMINS_SUMMARY_DATA, URL_VAX_POP_DATA
+    URL_NATIONAL,
+    URL_PROVINCIAL,
+    URL_REGIONAL,
+    URL_VAX_ADMINS_DATA,
+    URL_VAX_ADMINS_SUMMARY_DATA,
+    URL_VAX_POP_DATA,
 )
 from settings.vars import DATE_KEY, VAX_DATE_KEY
 
@@ -36,7 +58,7 @@ class CollectionCreator:
         df = pd.read_csv(URL_NATIONAL, parse_dates=[DATE_KEY])
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_national_augmented = preprocess_national_df(df)
-        national_records = df_national_augmented.to_dict(orient='records')
+        national_records = df_national_augmented.to_dict(orient="records")
         try:
             app.logger.info("Creating national collection")
             nat_data_coll.drop()
@@ -81,7 +103,7 @@ class CollectionCreator:
         df = pd.read_csv(URL_REGIONAL, parse_dates=[DATE_KEY])
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_regional_augmented = preprocess_regional_df(df)
-        regional_records = df_regional_augmented.to_dict(orient='records')
+        regional_records = df_regional_augmented.to_dict(orient="records")
         try:
             app.logger.info("Creating regional collection")
             reg_data_coll.drop()
@@ -93,8 +115,7 @@ class CollectionCreator:
     @celery.task
     def create_regional_breakdown_collection():
         """Drop and recreate regional breakdown data collection"""
-        df = pd.read_csv(
-            URL_REGIONAL, parse_dates=[DATE_KEY], low_memory=False)
+        df = pd.read_csv(URL_REGIONAL, parse_dates=[DATE_KEY], low_memory=False)
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_regional_augmented = preprocess_regional_df(df)
         regional_breakdown = build_regional_breakdown(df_regional_augmented)
@@ -109,8 +130,7 @@ class CollectionCreator:
     @celery.task
     def create_regional_series_collection():
         """Drop and recreate regional series data collection"""
-        df = pd.read_csv(
-            URL_REGIONAL, parse_dates=[DATE_KEY], low_memory=False)
+        df = pd.read_csv(URL_REGIONAL, parse_dates=[DATE_KEY], low_memory=False)
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_regional_augmented = preprocess_regional_df(df)
         regional_series = build_regional_series(df_regional_augmented)
@@ -125,8 +145,7 @@ class CollectionCreator:
     @celery.task
     def create_regional_trends_collection():
         """Drop and recreate regional trends data collection"""
-        df = pd.read_csv(
-            URL_REGIONAL, parse_dates=[DATE_KEY], low_memory=False)
+        df = pd.read_csv(URL_REGIONAL, parse_dates=[DATE_KEY], low_memory=False)
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_regional_augmented = preprocess_regional_df(df)
         regional_trends = build_regional_trends(df_regional_augmented)
@@ -146,7 +165,7 @@ class CollectionCreator:
         df[DATE_KEY] = pd.to_datetime(df[DATE_KEY])
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_provincial_augmented = preprocess_provincial_df(df)
-        provincial_records = df_provincial_augmented.to_dict(orient='records')
+        provincial_records = df_provincial_augmented.to_dict(orient="records")
         try:
             app.logger.info("Creating provincial")
             prov_data_coll.drop()
@@ -163,8 +182,7 @@ class CollectionCreator:
         df[DATE_KEY] = pd.to_datetime(df[DATE_KEY])
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_provincial_augmented = preprocess_provincial_df(df)
-        provincial_breakdowns = build_provincial_breakdowns(
-            df_provincial_augmented)
+        provincial_breakdowns = build_provincial_breakdowns(df_provincial_augmented)
         try:
             app.logger.info("Creating provincial breakdowns collection")
             prov_bdown_coll.drop()
@@ -181,8 +199,7 @@ class CollectionCreator:
         df[DATE_KEY] = pd.to_datetime(df[DATE_KEY])
         df.drop(columns=COLUMNS_TO_DROP, inplace=True)
         df_provincial_augmented = preprocess_provincial_df(df)
-        provincial_series = build_provincial_series(
-            df_provincial_augmented)
+        provincial_series = build_provincial_series(df_provincial_augmented)
         try:
             app.logger.info("Creating provincial series collection")
             prov_series_coll.drop()
@@ -212,9 +229,10 @@ class CollectionCreator:
     def create_vax_admins_collection():
         """Create vaccine administrations colleciton"""
         df = pd.read_csv(
-            URL_VAX_ADMINS_DATA, parse_dates=[VAX_DATE_KEY], low_memory=False)
+            URL_VAX_ADMINS_DATA, parse_dates=[VAX_DATE_KEY], low_memory=False
+        )
         df = preprocess_vax_admins_df(df)
-        records = df.to_dict(orient='records')
+        records = df.to_dict(orient="records")
         try:
             app.logger.info("Creating vax admins collection")
             vax_admins_coll.drop()
@@ -226,17 +244,15 @@ class CollectionCreator:
     @celery.task
     def create_vax_admins_summary_collection():
         """Create vaccine administrations summary colleciton"""
-        df = pd.read_csv(
-            URL_VAX_ADMINS_SUMMARY_DATA, parse_dates=[VAX_DATE_KEY])
+        df = pd.read_csv(URL_VAX_ADMINS_SUMMARY_DATA, parse_dates=[VAX_DATE_KEY])
         df = preprocess_vax_admins_summary_df(df)
-        records = df.to_dict(orient='records')
+        records = df.to_dict(orient="records")
         try:
             app.logger.info("Creating vax admins summary collection")
             vax_admins_summary_coll.drop()
             vax_admins_summary_coll.insert_many(records, ordered=True)
         except Exception as e:
-            app.logger.error(
-                f"While creating vax admins summary collection: {e}")
+            app.logger.error(f"While creating vax admins summary collection: {e}")
 
     @staticmethod
     @celery.task
@@ -244,7 +260,7 @@ class CollectionCreator:
         """Create OD population collection"""
         try:
             pop_df = pd.read_csv(URL_VAX_POP_DATA)
-            records = pop_df.to_dict(orient='records')
+            records = pop_df.to_dict(orient="records")
             app.logger.info("Creating population collection")
             pop_coll.drop()
             pop_coll.insert_many(records)

@@ -7,7 +7,7 @@ import os
 import click
 from celery import Celery
 from dotenv import load_dotenv
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, render_template, request, send_from_directory
 from flask_babel import Babel
 from flask_compress import Compress
 from flask_limiter import Limiter
@@ -20,7 +20,7 @@ from settings import LANGUAGES, TRANSLATION_DIRNAME
 
 load_dotenv()
 mongo = PyMongo()
-babel = Babel(default_timezone='Europe/Rome')
+babel = Babel(default_timezone="Europe/Rome")
 sitemap = Sitemap()
 compress = Compress()
 celery = Celery(__name__)
@@ -66,12 +66,14 @@ def set_favicon_rule(app):
         """Serve the favicon.ico file"""
         return send_from_directory(
             os.path.join(app.root_path, "static"),
-            "favicon.ico", mimetype="image/vnd.microsoft.icon")
+            "favicon.ico",
+            mimetype="image/vnd.microsoft.icon",
+        )
 
 
 def get_environment():
     """Return app environment"""
-    return os.environ.get('APPLICATION_ENV') or 'development'
+    return os.environ.get("APPLICATION_ENV") or "development"
 
 
 def create_app():
@@ -81,7 +83,8 @@ def create_app():
     app.logger.setLevel(logging.INFO)
     app.config.from_object(app_config[env])
     app.config["BABEL_TRANSLATION_DIRECTORIES"] = os.path.join(
-        app.root_path, TRANSLATION_DIRNAME)
+        app.root_path, TRANSLATION_DIRNAME
+    )
     compress.init_app(app)
     mongo.init_app(app)
     babel.init_app(app)
@@ -106,13 +109,16 @@ def create_app():
         return r
 
     from .ui import pandemic, vaccines
+
     app.register_blueprint(pandemic)
     app.register_blueprint(vaccines)
 
     from .api import api
+
     app.register_blueprint(api)
 
     from app.db_tools.create import CollectionCreator
+
     cc = CollectionCreator()
 
     creation_menu = {  # functional dependency in data creation. order matters
@@ -129,7 +135,7 @@ def create_app():
         "regional-series": cc.create_regional_series_collection,
         "provincial-series": cc.create_provincial_series_collection,
         "vax-admins": cc.create_vax_admins_collection,
-        "vax-admins-summary": cc.create_vax_admins_summary_collection
+        "vax-admins-summary": cc.create_vax_admins_summary_collection,
     }
 
     @app.cli.command("createdb")
@@ -149,9 +155,9 @@ def create_app():
                 creation_menu[c]()
         except AssertionError:
             app.logger.error(
-                f"One or more collection names provided is invalid.\n" +
-                "Allowed types: [" +
-                ", ".join(a for a in allowed_types) +
-                "]")
+                "One or more collection names "
+                "provided is invalid.\n"
+                f"Allowed types: {[a for a in allowed_types]}"
+            )
 
     return app

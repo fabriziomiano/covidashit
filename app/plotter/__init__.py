@@ -8,21 +8,24 @@ import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 from flask_babel import gettext
 
-from app.data_tools import (
-    get_national_data, get_region_data, get_province_data
-)
-from settings import KEY_PERIODS, REGIONS, PROVINCES
+from app.data_tools import get_national_data, get_province_data, get_region_data
+from settings import KEY_PERIODS, PROVINCES, REGIONS
 from settings.vars import (
-    NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY, TOTAL_CASES_KEY, REGION_KEY,
-    PROVINCE_KEY, DATE_KEY, VARS
+    DATE_KEY,
+    NEW_POSITIVE_KEY,
+    NEW_POSITIVE_MA_KEY,
+    PROVINCE_KEY,
+    REGION_KEY,
+    TOTAL_CASES_KEY,
+    VARS,
 )
 
-plt.rcParams['ytick.labelsize'] = 16
-plt.rcParams['xtick.labelsize'] = 16
-plt.rcParams['font.size'] = 22
-plt.rcParams['axes.labelsize'] = 20
-plt.rcParams['figure.dpi'] = 96
-plt.rcParams['figure.figsize'] = [16, 8]
+plt.rcParams["ytick.labelsize"] = 16
+plt.rcParams["xtick.labelsize"] = 16
+plt.rcParams["font.size"] = 22
+plt.rcParams["axes.labelsize"] = 20
+plt.rcParams["figure.dpi"] = 96
+plt.rcParams["figure.figsize"] = [16, 8]
 
 
 class Plotter(object):
@@ -38,7 +41,7 @@ class Plotter(object):
         menu = {
             "national": get_national_data,
             "regional": get_region_data,
-            "provincial": get_province_data
+            "provincial": get_province_data,
         }
         self.varname = varname
         self.plot_title = f"{gettext(VARS[self.varname]['title'])}"
@@ -53,16 +56,16 @@ class Plotter(object):
         self.df = self.df.set_index(DATE_KEY)
 
         ax = self.df[self.varname].plot()
-        ax.grid(True, linestyle='--', linewidth=.25, color='k')
-        ax.set_xlabel('')
-        ax.set_ylabel(gettext("Counts"), labelpad=20, weight='bold')
+        ax.grid(True, linestyle="--", linewidth=0.25, color="k")
+        ax.set_xlabel("")
+        ax.set_ylabel(gettext("Counts"), labelpad=20, weight="bold")
         ax.set_title(self.plot_title)
         ax.get_xaxis().set_major_formatter(mdates.DateFormatter("%b %Y"))
 
         y_annotation = int(self.df[varname].max() * 0.8)
         if VARS[self.varname]["type"] == "cum":
             y_annotation = int(self.df[varname].max() * 0.1)
-            plt.yscale('log')
+            plt.yscale("log")
 
         ax.tick_params(
             axis="both",
@@ -72,21 +75,24 @@ class Plotter(object):
             labelbottom="on",
             left="off",
             right="off",
-            labelleft="on")
+            labelleft="on",
+        )
         for key in KEY_PERIODS:
             ax.axvspan(
                 KEY_PERIODS[key]["from"],
                 KEY_PERIODS[key]["to"],
                 alpha=0.5,
-                color=KEY_PERIODS[key]["color"])
+                color=KEY_PERIODS[key]["color"],
+            )
             ax.annotate(
                 KEY_PERIODS[key]["title"],
                 xy=(KEY_PERIODS[key]["from"], y_annotation),
-                xycoords='data',
+                xycoords="data",
                 xytext=(-10, 0),
-                textcoords='offset points',
+                textcoords="offset points",
                 rotation=90,
-                fontsize=14)
+                fontsize=14,
+            )
 
     @staticmethod
     def to_b64():
@@ -95,7 +101,7 @@ class Plotter(object):
         :return: str
         """
         _img = io.BytesIO()
-        plt.savefig(_img, format='png', bbox_inches="tight")
+        plt.savefig(_img, format="png", bbox_inches="tight")
         plt.close()
         b64_str = b64encode(_img.getvalue()).decode("utf-8").replace("\n", "")
         return b64_str
@@ -107,7 +113,7 @@ class Plotter(object):
         :return: str
         """
         _img = io.BytesIO()
-        plt.savefig(_img, format='png', bbox_inches="tight")
+        plt.savefig(_img, format="png", bbox_inches="tight")
         plt.close()
         return _img.getvalue()
 
@@ -122,12 +128,13 @@ def validate_plot_request(varname, data_type, area):
     """
     error = None
     is_valid = False
-    available_vars = [var for var in VARS if VARS[var]['type'] != 'vax']
+    available_vars = [var for var in VARS if VARS[var]["type"] != "vax"]
     if varname is None:
         error = (
             "Specify a varname; "
             "Accepted 'varname' for 'national' data_type: [{}]; ".format(
-                ", ".join(available_vars))
+                ", ".join(available_vars)
+            )
         )
     elif data_type is None:
         error = "Accepted 'data_type' ['national', 'regional', 'provincial'] "
@@ -143,9 +150,9 @@ def validate_plot_request(varname, data_type, area):
                         "from query string"
                     )
             else:
-                error = (
-                    "Accepted 'varname' for 'national' data_type: [{}]; "
-                    "".format(", ".join(available_vars)))
+                error = "Accepted 'varname' for 'national' data_type: [{}]; " "".format(
+                    ", ".join(available_vars)
+                )
         elif data_type == "regional":
             if not area:
                 error = "an area must be specified; "
@@ -156,11 +163,11 @@ def validate_plot_request(varname, data_type, area):
                     "Accepted 'varname' for 'regional' data_type: [{}]; "
                     "Accepted 'area' for 'regional' data_type [{}]; "
                     "".format(
-                        ", ".join(available_vars),
-                        ", ".join([r for r in REGIONS])))
+                        ", ".join(available_vars), ", ".join([r for r in REGIONS])
+                    )
+                )
         elif data_type == "provincial":
-            available_vars = [
-                TOTAL_CASES_KEY, NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY]
+            available_vars = [TOTAL_CASES_KEY, NEW_POSITIVE_KEY, NEW_POSITIVE_MA_KEY]
             if area in PROVINCES and varname in available_vars:
                 is_valid = True
             else:
@@ -168,9 +175,10 @@ def validate_plot_request(varname, data_type, area):
                     "Accepted 'varname' for 'provincial' data_type: [{}]; "
                     "Accepted 'area' for 'provincial' data_type [{}]".format(
                         ", ".join([var for var in available_vars]),
-                        ", ".join([p for p in PROVINCES])))
+                        ", ".join([p for p in PROVINCES]),
+                    )
+                )
         else:
             is_valid = False
-            error = (
-                "Accepted 'data_type' ['national', 'regional', 'provincial'] ")
+            error = "Accepted 'data_type' ['national', 'regional', 'provincial'] "
     return is_valid, error

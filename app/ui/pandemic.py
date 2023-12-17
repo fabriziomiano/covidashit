@@ -3,20 +3,27 @@ Pandemic blueprint views
 """
 import time
 
-from flask import render_template, redirect
-from flask_babel import gettext, format_number
+from flask import redirect, render_template
+from flask_babel import format_number, gettext
 
 from app.data_tools import (
-    get_notes, get_national_trends, get_regional_trends, get_provincial_trends,
-    get_regional_breakdown, get_provincial_breakdown, get_national_series,
-    get_regional_series, get_provincial_series, get_positivity_idx,
-    get_latest_update, enrich_frontend_data, get_area_population
+    enrich_frontend_data,
+    get_area_population,
+    get_latest_update,
+    get_national_series,
+    get_national_trends,
+    get_notes,
+    get_positivity_idx,
+    get_provincial_breakdown,
+    get_provincial_series,
+    get_provincial_trends,
+    get_regional_breakdown,
+    get_regional_series,
+    get_regional_trends,
 )
 from app.ui import pandemic
 from app.utils import region_of_province
-from settings import (
-    PAGE_BASE_TITLE, ITALY_MAP, REGIONS, PROVINCES
-)
+from settings import ITALY_MAP, PAGE_BASE_TITLE, PROVINCES, REGIONS
 
 URL_REGIONS = "/regions"
 URL_PROVINCES = "/provinces"
@@ -25,7 +32,7 @@ URL_PROVINCES = "/provinces"
 @pandemic.get("/national")
 def old_national_view():
     """Redirect old national view to home"""
-    return redirect('/')
+    return redirect("/")
 
 
 @pandemic.get("/")
@@ -53,7 +60,7 @@ def national_view():
         positivity_idx=positivity_idx,
         data_type=data_type,
         notes=notes,
-        population=format_number(population)
+        population=format_number(population),
     )
     return render_template("pandemic.html", **data)
 
@@ -67,7 +74,7 @@ def regional_view(region):
     """
     data_type = "regional"
     if region not in REGIONS:
-        error = f'Area {region} not found'
+        error = f"Area {region} not found"
         return render_template("errors/404.html", error=error)
     cards = get_regional_trends(region)
     breakdown = get_provincial_breakdown(region=region)
@@ -91,7 +98,7 @@ def regional_view(region):
         latest_update=latest_update,
         data_type=data_type,
         cards=cards,
-        population=format_number(population)
+        population=format_number(population),
     )
     dashboard_data = enrich_frontend_data(area=region, **view_data)
     return render_template("pandemic.html", **dashboard_data)
@@ -125,7 +132,7 @@ def provincial_view(province):
         series=series,
         notes=notes,
         latest_update=latest_update,
-        data_type=data_type
+        data_type=data_type,
     )
     dashboard_data = enrich_frontend_data(area=province, **view_data)
     return render_template("pandemic.html", **dashboard_data)

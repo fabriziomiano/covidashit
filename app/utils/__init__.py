@@ -3,7 +3,7 @@ Utilities module
 """
 import re
 
-from flask_babel import gettext, format_datetime
+from flask_babel import format_datetime, gettext
 
 from settings import ITALY_MAP, SERIES_DT_FMT
 from settings.vars import RUBBISH_NOTE_REGEX

@@ -3,32 +3,50 @@ Celery tasks
 """
 import pandas as pd
 from flask import current_app as app
-from pymongo import UpdateOne, InsertOne
+from pymongo import InsertOne, UpdateOne
 
 from app import celery
 from app.data_tools import TREND_CARDS
 from app.db_tools import (
-    nat_data_coll, nat_series_coll, nat_trends_coll, reg_data_coll,
-    reg_series_coll, reg_trends_coll, reg_bdown_coll, prov_data_coll,
-    prov_bdown_coll, prov_trends_coll, prov_series_coll, vax_admins_coll,
-    vax_admins_summary_coll
+    nat_data_coll,
+    nat_series_coll,
+    nat_trends_coll,
+    prov_bdown_coll,
+    prov_data_coll,
+    prov_series_coll,
+    prov_trends_coll,
+    reg_bdown_coll,
+    reg_data_coll,
+    reg_series_coll,
+    reg_trends_coll,
+    vax_admins_coll,
+    vax_admins_summary_coll,
 )
 from app.db_tools.etl import (
-    load_df, preprocess_national_df, build_national_series, build_trend,
-    preprocess_regional_df, build_series, build_national_trends,
-    build_regional_breakdown, preprocess_provincial_df,
-    build_provincial_breakdowns, build_provincial_trends,
-    build_provincial_series, preprocess_vax_admins_df,
-    preprocess_vax_admins_summary_df
+    build_national_series,
+    build_national_trends,
+    build_provincial_breakdowns,
+    build_provincial_series,
+    build_provincial_trends,
+    build_regional_breakdown,
+    build_series,
+    build_trend,
+    load_df,
+    preprocess_national_df,
+    preprocess_provincial_df,
+    preprocess_regional_df,
+    preprocess_vax_admins_df,
+    preprocess_vax_admins_summary_df,
 )
-from settings import REGIONS, PROVINCES
+from settings import PROVINCES, REGIONS
 from settings.urls import (
-    URL_NATIONAL, URL_REGIONAL, URL_PROVINCIAL, URL_VAX_ADMINS_DATA,
-    URL_VAX_ADMINS_SUMMARY_DATA
+    URL_NATIONAL,
+    URL_PROVINCIAL,
+    URL_REGIONAL,
+    URL_VAX_ADMINS_DATA,
+    URL_VAX_ADMINS_SUMMARY_DATA,
 )
-from settings.vars import (
-    REGION_KEY, PROVINCE_KEY, DATE_KEY, VAX_DATE_KEY
-)
+from settings.vars import DATE_KEY, PROVINCE_KEY, REGION_KEY, VAX_DATE_KEY
 
 
 @celery.task
@@ -38,7 +56,7 @@ def update_national_collection():
     try:
         df = load_df(URL_NATIONAL)
         df = preprocess_national_df(df)
-        df['_id'] = df[DATE_KEY]
+        df["_id"] = df[DATE_KEY]
         inserted_ids = []
         records_in_db = list(nat_data_coll.find())
         if records_in_db:
@@ -46,7 +64,7 @@ def update_national_collection():
             common = df.merge(df_mongo, on=[DATE_KEY])
             df_to_db = df[(~df[DATE_KEY].isin(common[DATE_KEY]))]
             if not df_to_db.empty:
-                new_records = df_to_db.to_dict(orient='records')
+                new_records = df_to_db.to_dict(orient="records")
                 r = nat_data_coll.insert_many(new_records, ordered=True)
                 inserted_ids.extend(r.inserted_ids)
                 response["n_inserted_docs"] = len(inserted_ids)
@@ -54,7 +72,7 @@ def update_national_collection():
         else:
             msg = f"Filling empty {nat_data_coll.name}"
             app.logger.warning(msg)
-            r = nat_data_coll.insert_many(df.to_dict(orient='records'))
+            r = nat_data_coll.insert_many(df.to_dict(orient="records"))
             inserted_ids.extend(r.inserted_ids)
             response["n_inserted_docs"] = len(inserted_ids)
             response["msg"] = msg
@@ -72,13 +90,13 @@ def update_national_series_collection():
     response = {"status": "ko", "updated": False, "errors": []}
     df = load_df(URL_NATIONAL)
     df = preprocess_national_df(df)
-    df['_id'] = df[DATE_KEY]
+    df["_id"] = df[DATE_KEY]
     national_series = build_national_series(df)
     cursor = nat_series_coll.find({})
     try:
         doc = cursor.next()
-        mongo_id = doc['_id']
-        _filter, update = {'_id': mongo_id}, {"$set": national_series}
+        mongo_id = doc["_id"]
+        _filter, update = {"_id": mongo_id}, {"$set": national_series}
         r = nat_series_coll.update_one(_filter, update, upsert=True)
         msg = f"Updated {nat_series_coll.name}"
         app.logger.warning(msg)
@@ -101,7 +119,7 @@ def update_national_trends_collection():
     for col in TREND_CARDS:
         response["status"] = "ok"
         try:
-            _filter = {'id': col}
+            _filter = {"id": col}
             trend = {"$set": build_trend(df, col)}
             results = nat_trends_coll.update_one(_filter, trend, upsert=True)
             if results.modified_count:
@@ -137,7 +155,7 @@ def update_regional_collection():
             df = df[df[DATE_KEY] > latest_dt_db]
             msg = f"Latest data missing in {reg_data_coll.name} ! Updating..."
             app.logger.warning(msg)
-            new_records = df.to_dict(orient='records')
+            new_records = df.to_dict(orient="records")
             r = reg_data_coll.insert_many(new_records, ordered=True)
             inserted_ids.extend(r.inserted_ids)
             msg = f"{len(inserted_ids)} docs updated in {reg_data_coll.name}"
@@ -170,7 +188,7 @@ def update_regional_series_collection():
                     "dates": r_series[0],
                     "daily": r_series[1],
                     "current": r_series[2],
-                    "cum": r_series[3]
+                    "cum": r_series[3],
                 }
             }
             results = reg_series_coll.update_one(_filter, update, upsert=True)
@@ -206,7 +224,7 @@ def update_regional_trends_collection():
             update = {
                 "$set": {
                     REGION_KEY: r,
-                    "trends": build_national_trends(df[df[REGION_KEY] == r])
+                    "trends": build_national_trends(df[df[REGION_KEY] == r]),
                 }
             }
             results = reg_trends_coll.update_one(_filter, update, upsert=True)
@@ -274,7 +292,7 @@ def update_provincial_collection():
             msg = f"Latest data missing in {prov_data_coll.name}! Updating..."
             app.logger.warning(msg)
             df = df[df[DATE_KEY] > latest_dt_db]
-            new_records = df.to_dict(orient='records')
+            new_records = df.to_dict(orient="records")
             r = prov_data_coll.insert_many(new_records, ordered=True)
             inserted_ids.extend(r.inserted_ids)
             msg = f"{len(inserted_ids)} docs updated in {prov_data_coll.name}"
@@ -383,20 +401,20 @@ def update_vax_collections(summary=False):
         df = preprocess_vax_admins_summary_df(df)
     try:
         for index, row in df.iterrows():
-            _id = row['_id']
-            cursor = collection.find({'_id': _id})
+            _id = row["_id"]
+            cursor = collection.find({"_id": _id})
             new_value = row.to_dict()
             try:
                 next(cursor)
-                operations.append(UpdateOne({'_id': _id}, {'$set': new_value}))
+                operations.append(UpdateOne({"_id": _id}, {"$set": new_value}))
             except StopIteration:
                 operations.append(InsertOne(new_value))
         r = collection.bulk_write(operations)
         bulk_result = r.bulk_api_result
-        response['bulk_update'] = bulk_result
+        response["bulk_update"] = bulk_result
         response["status"] = "ok"
-        n_inserted = bulk_result['nInserted']
-        n_modified = bulk_result['nModified']
+        n_inserted = bulk_result["nInserted"]
+        n_modified = bulk_result["nModified"]
         msg = f"{n_inserted} inserted and {n_modified} modified"
         app.logger.warning(msg)
     except Exception as e:

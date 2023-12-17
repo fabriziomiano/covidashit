@@ -1,10 +1,9 @@
-# notebook stuff
-.ipynb_checkpoints
-*.ipynb
-
 # python compiled
 *.pyc
 __pycache__
+
+# virtual env
+.venv*
 
 # ide stuff
 .idea
@@ -12,9 +11,6 @@ __pycache__
 
 # node modules
 node_modules/
-
-# data PCD
-dpc*.json
 
 # log files
 *.log

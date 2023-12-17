@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2023-02-18 18:08+0100\n"
-"PO-Revision-Date: 2023-02-18 18:10+0100\n"
+"POT-Creation-Date: 2023-12-18 00:18+0100\n"
+"PO-Revision-Date: 2023-12-18 00:21+0100\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -19,50 +19,50 @@ msgstr ""
 "Generated-By: Babel 2.8.0\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: app/data_tools/__init__.py:387
+#: app/data_tools/__init__.py:401
 msgid "Admins per age"
 msgstr "Somministrazioni per età"
 
-#: app/data_tools/__init__.py:388 app/plotter/__init__.py:58
+#: app/data_tools/__init__.py:402 app/plotter/__init__.py:61
 #: app/templates/pandemic/cards-charts.html:407
 msgid "Counts"
 msgstr "Conteggi"
 
-#: app/data_tools/__init__.py:392 app/data_tools/__init__.py:442
+#: app/data_tools/__init__.py:406 app/data_tools/__init__.py:456
 #: settings/vars.py:292
 msgid "First Dose"
 msgstr "Prima Dose"
 
-#: app/data_tools/__init__.py:396 app/data_tools/__init__.py:446
+#: app/data_tools/__init__.py:410 app/data_tools/__init__.py:460
 #: settings/vars.py:300
 msgid "Second Dose"
 msgstr "Seconda Dose"
 
-#: app/data_tools/__init__.py:400 app/data_tools/__init__.py:450
+#: app/data_tools/__init__.py:414 app/data_tools/__init__.py:464
 msgid "Booster Dose"
 msgstr "Dose Booster"
 
-#: app/data_tools/__init__.py:404 app/data_tools/__init__.py:454
+#: app/data_tools/__init__.py:418 app/data_tools/__init__.py:468
 msgid "Population"
 msgstr "Popolazione"
 
-#: app/data_tools/__init__.py:438
+#: app/data_tools/__init__.py:452
 msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
-#: app/data_tools/__init__.py:518
+#: app/data_tools/__init__.py:539
 msgid "Vaccination trend"
 msgstr "Andamento vaccinazioni"
 
-#: app/data_tools/__init__.py:519
+#: app/data_tools/__init__.py:540
 msgid "Pop. vaccinated (2nd dose) [%]"
 msgstr "Pop. vaccinata (2a dose) [%]"
 
-#: app/data_tools/__init__.py:551
+#: app/data_tools/__init__.py:570
 msgid "Admins per provider"
 msgstr "Somministrazioni per fornitore"
 
-#: app/data_tools/__init__.py:552
+#: app/data_tools/__init__.py:571
 msgid "Doses administered"
 msgstr "Dosi somministrate"
 
@@ -168,8 +168,11 @@ msgid "&#128075; Welcome to COVIDash"
 msgstr "&#128075; Benvenuti in COVIDash"
 
 #: app/templates/base/modals/welcome.html:17
-msgid "The application is no longer mantained. Latest data update: "
-msgstr "L'applicazione non è più mantenuta. Ultimo aggiornamento dati: "
+msgid ""
+"The application is no longer updated on a regular basis. Latest data update: "
+msgstr ""
+"L'applicazione non viene più aggiornata con regolarità. Ultimo "
+"aggiornamento: "
 
 #: app/templates/base/modals/welcome.html:21
 msgid ""
@@ -290,8 +293,8 @@ msgid "Vaccine day"
 msgstr "Vaccine day"
 
 #: app/templates/pandemic/cards-charts.html:414
-#: app/templates/vaccines/charts.html:83 app/ui/pandemic.py:47
-#: app/ui/vaccines.py:23
+#: app/templates/vaccines/charts.html:56 app/ui/pandemic.py:54
+#: app/ui/vaccines.py:27
 msgid "Italy"
 msgstr "Italia"
 
@@ -304,15 +307,15 @@ msgstr ""
 "a>"
 
 #: app/templates/pandemic/cards-charts.html:425
-#: app/templates/vaccines/charts.html:93
+#: app/templates/vaccines/charts.html:66
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
-#: app/templates/vaccines/charts.html:42
+#: app/templates/vaccines/charts.html:29
 msgid "Select one or more regions"
 msgstr "Seleziona una o più regioni"
 
-#: app/templates/vaccines/charts.html:89
+#: app/templates/vaccines/charts.html:62
 msgid ""
 "Source: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a> | <a href='https://www.istat.it'>ISTAT</a>"
@@ -320,7 +323,7 @@ msgstr ""
 "Fonte: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a> | <a href='https://istat.it'>ISTAT</a>"
 
-#: app/templates/vaccines/charts.html:96
+#: app/templates/vaccines/charts.html:69
 msgid "*Hover / tap on a bar to display the administered-dose data"
 msgstr ""
 "*Passa sopra col mouse o tocca una barra per visualizzare i dati sulle "
