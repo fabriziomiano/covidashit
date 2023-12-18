@@ -18,6 +18,45 @@ Flask-Limiter = "1.4"
 Flask-PyMongo = "2.3.0"
 Flask-Sitemap = "0.4.0"
 gunicorn = "20.1.0"
+matplotlib = "3.8.2"
+pandas = "2.1.4"
+pymongo = "3.11.4"
+python-dotenv = "0.17.1"
+pytz = "2021.1"
+redis = "4.4.4"
+requests = "2.31.0"
+black = "23.12.0"
+flake8 = "6.1.0"
+isort = "5.13.2"
+kiwisolver = "1.4.5"
+pre-commit = "3.6.0"
+pyflakes = "3.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "covidashit"
+version = "0.1.0"
+description = "A simple dashboard to display and monitor the official data of the COVID-19 outbreak in Italy released by the Civil Protection Dept. and updated on a daily basis."
+authors = ["Fabrizio Miano <fabriziomiano@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0.0"
+celery = "5.3.4"
+click = "8.1.7"
+dnspython = "2.1.0"
+Flask = "2.3.2"
+flask-github-signature = "0.0.1"
+Flask-Babel = "2.0.0"
+Flask-Compress = "1.9.0"
+Flask-Limiter = "1.4"
+Flask-PyMongo = "2.3.0"
+Flask-Sitemap = "0.4.0"
+gunicorn = "20.1.0"
 matplotlib = "3.4.2"
 pandas = "1.2.4"
 pymongo = "3.11.4"
