@@ -1,18 +1,14 @@
 """
 API endpoints
 """
-from flask import Response
-from flask import current_app as app
-from flask import jsonify, request
+from flask import jsonify, request, Response, current_app as app
 from flask_github_signature import verify_signature
 
 from app import limiter
 from app.api import api
 from app.data_tools import (
-    get_admins_per_provider_chart_data,
-    get_admins_per_region,
-    get_admins_timeseries_chart_data,
-    get_age_chart_data,
+    get_age_chart_data, get_admins_per_region,
+    get_admins_timeseries_chart_data, get_admins_per_provider_chart_data
 )
 from app.db_tools.create import CollectionCreator
 from app.plotter import Plotter, validate_plot_request
@@ -21,7 +17,7 @@ from settings import REGIONS
 cc = CollectionCreator()
 
 
-@api.get("/plot")
+@api.get('/plot')
 @limiter.limit("20 per second")
 def plot_trend():
     """
@@ -50,105 +46,105 @@ def plot_trend():
             'img': 'some_b64'
         }
     """
-    response = {"status": "ko", "errors": []}
+    response = {'status': 'ko', 'errors': []}
     status = 400
-    varname = request.args.get("varname")
-    data_type = request.args.get("data_type")
-    area = request.args.get("area")
-    download = request.args.get("download")
+    varname = request.args.get('varname')
+    data_type = request.args.get('data_type')
+    area = request.args.get('area')
+    download = request.args.get('download')
     is_valid, err = validate_plot_request(varname, data_type, area)
     if is_valid:
         try:
             p = Plotter(varname, data_type, area=area)
             if download:
                 img_bytes = p.to_bytes()
-                response = Response(img_bytes, mimetype="image/png")
+                response = Response(img_bytes, mimetype='image/png')
             else:
                 img = p.to_b64()
-                response["img"] = img
-                response["status"] = "ok"
+                response['img'] = img
+                response['status'] = 'ok'
                 response = jsonify(**response)
             status = 200
         except Exception as e:
-            app.logger.error(f"{e}")
-            response["errors"].extend([f"{e}"])
+            app.logger.error(f'{e}')
+            response['errors'].extend([f'{e}'])
             status = 400
     else:
-        response["errors"].append(err)
+        response['errors'].append(err)
     return response, status
 
 
 update_menu = {
-    "national": {
-        "root": {
-            "task": cc.create_national_collection,
+    'national': {
+        'root': {
+            'task': cc.create_national_collection,
         },
-        "series": {
-            "task": cc.create_national_series_collection,
+        'series': {
+            'task': cc.create_national_series_collection,
         },
-        "trends": {
-            "task": cc.create_national_trends_collection,
-        },
+        'trends': {
+            'task': cc.create_national_trends_collection,
+        }
     },
-    "regional": {
-        "root": {
-            "task": cc.create_regional_collection,
+    'regional': {
+        'root': {
+            'task': cc.create_regional_collection,
         },
-        "breakdown": {
-            "task": cc.create_regional_breakdown_collection,
+        'breakdown': {
+            'task': cc.create_regional_breakdown_collection,
         },
-        "series": {
-            "task": cc.create_regional_series_collection,
+        'series': {
+            'task': cc.create_regional_series_collection,
         },
-        "trends": {
-            "task": cc.create_regional_trends_collection,
-        },
+        'trends': {
+            'task': cc.create_regional_trends_collection,
+        }
     },
-    "provincial": {
-        "root": {
-            "task": cc.create_provincial_collection,
+    'provincial': {
+        'root': {
+            'task': cc.create_provincial_collection,
         },
-        "breakdown": {
-            "task": cc.create_provincial_breakdown_collection,
+        'breakdown': {
+            'task': cc.create_provincial_breakdown_collection,
         },
-        "series": {
-            "task": cc.create_provincial_series_collection,
+        'series': {
+            'task': cc.create_provincial_series_collection,
         },
-        "trends": {
-            "task": cc.create_provincial_trends_collection,
-        },
+        'trends': {
+            'task': cc.create_provincial_trends_collection,
+        }
     },
-    "vax": {
-        "root": {
-            "task": cc.create_vax_admins_collection,
+    'vax': {
+        'root': {
+            'task': cc.create_vax_admins_collection,
         },
-        "summary": {
-            "task": cc.create_vax_admins_summary_collection,
-        },
-    },
+        'summary': {
+            'task': cc.create_vax_admins_summary_collection,
+        }
+    }
 }
 
 
-@api.post("/update/<data_type>")
-@api.post("/update/<data_type>/<coll_type>")
+@api.post('/update/<data_type>')
+@api.post('/update/<data_type>/<coll_type>')
 @verify_signature
-def update_collection(data_type, coll_type="root"):
+def update_collection(data_type, coll_type='root'):
     """Trigger collection update task"""
-    app.logger.warning(f"Triggered {data_type} {coll_type} data update")
-    status = "ko"
+    app.logger.warning(f'Triggered {data_type} {coll_type} data update')
+    status = 'ko'
     try:
-        task_to_exec = update_menu[data_type][coll_type]["task"]
+        task_to_exec = update_menu[data_type][coll_type]['task']
         task = task_to_exec.delay()
-        msg = f"Task {task.id} submitted. Status {task.state}"
+        msg = f'Task {task.id} submitted. Status {task.state}'
         app.logger.warning(msg)
-        status = "ok"
+        status = 'ok'
     except Exception as e:
-        msg = f"While submitting {data_type} {coll_type} update task: {e}"
+        msg = f'While submitting {data_type} {coll_type} update task: {e}'
         app.logger.error(msg)
-    return {"status": status, "msg": msg}
+    return {'status': status, 'msg': msg}
 
 
-@api.get("vax_charts/<chart_id>")
+@api.get('vax_charts/<chart_id>')
 @limiter.limit("10 per second")
 def get_chart(chart_id):
     """
@@ -160,12 +156,12 @@ def get_chart(chart_id):
     :return: json-formatted string
     """
     args = request.args
-    area = args.get("area")
+    area = args.get('area')
     data_menu = {
-        "trend": get_admins_timeseries_chart_data,
-        "region": get_admins_per_region,
-        "age": get_age_chart_data,
-        "provider": get_admins_per_provider_chart_data,
+        'trend': get_admins_timeseries_chart_data,
+        'region': get_admins_per_region,
+        'age': get_age_chart_data,
+        'provider': get_admins_per_provider_chart_data
     }
     data = {}
     try:
