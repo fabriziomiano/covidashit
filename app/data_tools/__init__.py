@@ -218,8 +218,13 @@ def get_regional_series(region):
 
 def get_provincial_series(province):
     """Return provincial series from DB"""
-    series = prov_series_coll.find_one({PROVINCE_KEY: province}, {"_id": False})
-    return translate_series_lang(series)
+    translated_series = []
+    try:
+        series = prov_series_coll.find_one({PROVINCE_KEY: province}, {"_id": False})
+        translated_series = translate_series_lang(series)
+    except Exception as e:
+        app.logger.error(f"While getting provincial series data: {e}")
+    return translated_series
 
 
 def get_positivity_idx(area_type="national", area=None):
@@ -310,11 +315,16 @@ def get_perc_pop_vax(population, area=None):
     tot_1st_admins = get_tot_admins(dtype=VAX_FIRST_DOSE_KEY, area=area)
     tot_2nd_admins = get_tot_admins(dtype=VAX_SECOND_DOSE_KEY, area=area)
     tot_3rd_admins = get_tot_admins(dtype=VAX_BOOSTER_DOSE_KEY, area=area)
-    return {
-        "first": round(((int(tot_1st_admins) / population) * 100), 1),
-        "second": round(((int(tot_2nd_admins) / population) * 100), 1),
-        "booster": round(((int(tot_3rd_admins) / population) * 100), 1),
-    }
+    first = (
+        round(((int(tot_1st_admins) / population) * 100), 1) if population != 0 else 0
+    )
+    second = (
+        round(((int(tot_2nd_admins) / population) * 100), 1) if population != 0 else 0
+    )
+    third = (
+        round(((int(tot_3rd_admins) / population) * 100), 1) if population != 0 else 0
+    )
+    return {"first": first, "second": second, "booster": third}
 
 
 def enrich_frontend_data(area=None, **data):
@@ -390,12 +400,20 @@ def get_age_chart_data(area=None):
         pop_cursor = pop_coll.find()
         df_vax = pd.json_normalize(list(vax_cursor))
         df_pop = pd.json_normalize((list(pop_cursor)))
+        right_on_col1, right_on_col2 = "_id." + VAX_AREA_KEY, "_id." + VAX_AGE_KEY
         out_df = df_pop.merge(
             df_vax,
             left_on=[VAX_AREA_KEY, VAX_AGE_KEY],
-            right_on=["_id." + VAX_AREA_KEY, "_id." + VAX_AGE_KEY],
+            right_on=[right_on_col1, right_on_col2],
         )
-        out_df = out_df.groupby("_id." + VAX_AGE_KEY).sum()
+        col_to_group = "_id." + VAX_AGE_KEY
+        cols_to_sum = [
+            VAX_FIRST_DOSE_KEY,
+            VAX_SECOND_DOSE_KEY,
+            VAX_BOOSTER_DOSE_KEY,
+            OD_POP_KEY,
+        ]
+        out_df = out_df.groupby(by=[col_to_group]).sum(cols_to_sum)
         categories = df_vax[f"_id.{VAX_AGE_KEY}"].unique().tolist()
         chart_data = {
             "title": gettext("Admins per age"),
@@ -620,33 +638,36 @@ def get_vax_trends(area=None):
     data = get_vax_trends_data(area)
     trends = []
     for d in VAX_DOSES:
-        last_week_dt = data[6]["_id"]
-        count = data[0][d]
-        last_week_count = data[6][d]
-        diff = count - last_week_count
-        if diff > 0:
-            status = "increase"
-        elif diff < 0:
-            status = "decrease"
-        else:
-            status = "stable"
         try:
-            perc = f"{round(diff / last_week_count * 100)}%"
-        except (ValueError, ZeroDivisionError):
-            perc = "n/a"
-        trends.append(
-            {
-                "id": d,
-                "last_week_count": format_number(last_week_count),
-                "percentage": perc,
-                "title": VARS[d]["title"],
-                "colour": VARS[d][status]["colour"],
-                "icon": VARS[d]["icon"],
-                "status_icon": VARS[d][status]["icon"],
-                "count": format_number(count),
-                "last_week_dt": format_datetime(last_week_dt, DOW_FMTY),
-            }
-        )
+            last_week_dt = data[6]["_id"]
+            count = data[0][d]
+            last_week_count = data[6][d]
+            diff = count - last_week_count
+            if diff > 0:
+                status = "increase"
+            elif diff < 0:
+                status = "decrease"
+            else:
+                status = "stable"
+            try:
+                perc = f"{round(diff / last_week_count * 100)}%"
+            except (ValueError, ZeroDivisionError):
+                perc = "n/a"
+            trends.append(
+                {
+                    "id": d,
+                    "last_week_count": format_number(last_week_count),
+                    "percentage": perc,
+                    "title": VARS[d]["title"],
+                    "colour": VARS[d][status]["colour"],
+                    "icon": VARS[d]["icon"],
+                    "status_icon": VARS[d][status]["icon"],
+                    "count": format_number(count),
+                    "last_week_dt": format_datetime(last_week_dt, DOW_FMTY),
+                }
+            )
+        except Exception as e:
+            app.logger.error(f"While getting vax trends: {e}")
     return trends
 
 
