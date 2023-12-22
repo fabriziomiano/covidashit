@@ -7,7 +7,6 @@ User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/covidashit
 Environment="PATH=/home/ubuntu/.venvs/covidashit/bin"
-ExecStartPre=/home/ubuntu/.venvs/covidashit/bin/flask createdb
 ExecStart=/home/ubuntu/.venvs/covidashit/bin/gunicorn --bind unix:covidash.sock -m 007 wsgi:app
 Restart=on-failure
 

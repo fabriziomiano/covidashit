@@ -9,8 +9,9 @@ __pycache__
 .idea
 .vscode
 
-# node modules
-node_modules/
+# assets cache
+covidashit/static/.webassets-cache/
+covidashit/static/bundles
 
 # log files
 *.log
