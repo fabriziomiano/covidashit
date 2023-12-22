@@ -6,6 +6,8 @@ repos:
       args:
         - --max-line-length=88
         - --extend-ignore=E203
+        - --extend-ignore=F401
+        - --extend-ignore=E402
 
   - repo: https://github.com/ambv/black
     rev: 23.12.0

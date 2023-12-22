@@ -1,0 +1,117 @@
+{% extends "pandemic/layout.html" %}
+
+{% block content %}
+    <main class="mt-2 bg-dark text-light">
+
+        <!-- Back to top button -->
+        <a class="btn btn-primary" id="back2Top" title="Back to top"
+           href="#">
+            <i class="fas fa-chevron-up"></i>
+        </a>
+
+        <!-- Top-page data -->
+        <div class="container-fluid bg-dark text-light">
+
+            <!-- Notes -->
+            {% if notes %}
+                <div class="small alert alert-info alert-dismissible fade show mb-2">
+                    <i class="fas fa-info-circle"></i> {{ notes }}
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                </div>
+            {% endif %}
+
+
+            <!-- area selectors -->
+            <div class="row mb-2">
+                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                    <select class="form-select form-select-sm bg-dark text-light"
+                            aria-label=".form-select-sm region"
+                            onchange="location = this.value">
+                        {% if not area %}
+                            <option selected>{{ _("Select region...") }}</option>
+                        {% endif %}
+                        {% for r in regions %}
+                            {% if area and r == area or r == region %}
+                                <option selected value="/regions/{{ r }}">{{ r }}</option>
+                            {% else %}
+                                <option value="/regions/{{ r }}">{{ r }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
+                {% if area %}
+                    {% set provs = region_provinces %}
+                {% else %}
+                    {% set provs = provinces|sort %}
+                {% endif %}
+                {% if region_provinces or not area %}
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                        <select class="form-select form-select-sm bg-dark text-light"
+                                aria-label=".form-select-sm province"
+                                onchange="location = this.value">
+                            {% if area not in province %}
+                                <option selected>{{ _("Select province...") }}</option>
+                            {% endif %}
+                            {% for p in provs %}
+                                {% if p == area %}
+                                    <option selected value="/provinces/{{ p }}">{{ p }}</option>
+                                {% else %}
+                                    <option value="/provinces/{{ p }}">{{ p }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="row align-items-center">
+                <div class="col">
+                    <!-- Main card -->
+                    <div class="card bg-dark text-center shadow">
+                        <div class="card-body">
+                            <!-- Page heading -->
+                            <h2><i class="fas fa-head-side-mask me-2"></i>{{ dashboard_title }}</h2>
+
+                            <!-- population -->
+                            {% if area not in provinces %}
+                                <p class="small mb-0">
+                                    <i class="fas fa-users me-2"></i>{{ _("Population:") }}
+                                    <strong>{{ population }}</strong>
+                                </p>
+                            {% endif %}
+
+                            <!-- Positive Rate -->
+                            {% if positivity_idx %}
+                                <p class="small mb-0">
+                                    <i class="fas fa-vial me-2"></i>{{ _("Positive Rate: ") }}<strong>{{ positivity_idx }}%</strong>
+                                </p>
+                            {% endif %}
+
+                            <!-- Latest update -->
+                            <p class="small mb-0 text-info">
+                                <i class="fas fa-bullhorn me-2"></i>{{ _("Latest update: ") }}
+                                <strong>{{ latest_update }}</strong>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-1 mb-1">
+
+        </div>
+
+        <!-- Cards and Charts -->
+        <div class="container-fluid bg-dark text-light">
+            {% include 'pandemic/cards-charts.html' %}
+        </div>
+
+        {% include 'base/footer.html' %}
+
+    </main>
+{% endblock %}

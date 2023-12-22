@@ -6,9 +6,7 @@
 
 ![alt_text](previews/mockup.png)
 
-Versione Italiana [qui](https://github.com/fabriziomiano/covidashit/blob/main/README_IT.md)
-
-A simple dashboard to display and monitor the official data of the COVID-19 outbreak in Italy released by the [Civil Protection Dept.](https://github.com/pcm-dpc/COVID-19) and updated on a daily basis.
+A simple dashboard to display and monitor the official data of the COVID-19 outbreak in Italy, released by the [Italian Civil Protection Dept.](https://github.com/pcm-dpc/COVID-19), and the vaccination-status data, released by [Italia Open Data](https://github.com/italia/covid19-opendata-vaccini/).
 
 **The app is deployed on an AWS EC2 instance [here](https://www.covidash.it/)**
 
@@ -29,41 +27,19 @@ which is built using [HighCharts](https://www.highcharts.com/).
 
 In order for the app to be operational, a mongoDB must be populated 
 ([see here](https://docs.atlas.mongodb.com/tutorial/create-new-cluster) for the creation of an Atlas mongoDB free cluster).
-Additionally, mongo collections must be updated on a daily basis. The Flask contains a number of API whose purpose is to 
-update the DB every time the `master` branch of the CP Dept repository is updated, via a GitHub webhook (see the GitHub workflow [here](https://github.com/fabriziomiano/COVID-19/blob/master/.github/workflows/merge-upstream.yml)).
-Ultimately, the webhooks for the following APIs must be set on the CP forked repository:
+The backend is populated by [covidashflow](https://github.com/fabriziomiano/covidashflow) - an Apache-Airflow ETL - which reads the pandemic data from the `master` branch of the [PCM-DPC repository](https://github.com/pcm-dpc/COVID-19/), and the vaccines data from the `master` branch of the [Italia Open Data repository](https://github.com/italia/covid19-opendata-vaccini/)
 
- * `POST /update/<data_type>`
- * `POST /update/<data_type>/<coll_type>`
-
-| data_type  | coll_type                   |
-|------------|-----------------------------|
-| national   | [series, trends]            |
-| regional   | [breakdown, series, trends] |
-| provincial | [breakdown, series, trends] |
-| vax        | [summary]                   |
 
 ### Local deployment (DEV)
-* create and activate a virtual environment [(follow this)](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
-* install the requirements in `requirements.txt`
+* create and activate a virtual environment [(follow this)](https://python-poetry.org/docs/managing-environments/)
+* install the requirements via poetry `pip install --upgrade pip poetry && poetry install`
 
 The `.env` file contains all the env vars needed by the webapp. 
 In particular, the `MONGO_URI` and the various collection names string must be set.
-Before the Flask server is started, but after the virtual environment has been activated, 
-the DB must be populated.
-For this purpose a Flask CLI, that populates the various collections, is included.
-This, with a very basic ETL procedure, will populate the various collections on 
-the DB with the official data released by the Civil Protection Dept.
+The values of these variables should match those  in [covidashflow](https://github.com/fabriziomiano/covidashflow)
+The WebApp should start without errors even if the backend is empty; no data will be visualized.
 
-Clone the repo, `cd` into it, activate the virtual environment, and run the procedure
-```shell
-flask createdb
-```
-then run the worker 
-```shell
-celery -A celery_worker.celery worker
-```
-and, in a new shell, run the application server
+Clone the repo, `cd` into it, activate the virtual environment, run the application server
 ```shell
 gunicorn wsgi:app
 ```
@@ -83,7 +59,7 @@ docker-compose down
 ```
 
 ## Plots API
-The app provides an API to produce a server-side plot with `matplotlib`.
+The app provides an API to produce plots with `matplotlib`.
 The API can return a JSON response with the base64-encoded image, or 
 the bytes content to be saved as a file.
 

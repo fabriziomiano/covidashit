@@ -1,23 +1,9 @@
 version: '3'
+
 services:
-  mongo:
-    image: mongo
-
-  redis:
-    image: redis
-
-  app:
+  covidashit:
     build: .
     env_file:
       - .env
     ports:
       - "${PORT}:${PORT}"
-    links:
-      - redis
-
-  worker:
-    build:
-      context: "."
-    command: celery -A celery_worker.celery worker --concurrency 4
-    depends_on:
-      - redis

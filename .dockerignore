@@ -19,7 +19,8 @@ node_modules/
 .git/
 .github/
 .gitignore
-*.md
+.gitattributes
+# *.md
 LICENSE
 docs/
 previews/
@@ -29,3 +30,6 @@ scripts/
 *.log
 *.json
 *.bat
+
+# env
+.venv/
