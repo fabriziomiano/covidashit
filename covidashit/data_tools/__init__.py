@@ -276,7 +276,7 @@ def get_province_data(province):
     return df
 
 
-def get_latest_update(data_type="national"):
+def get_latest_dpc_update_date(data_type="national"):
     """
     Return the value of the key PCM_DATE_KEY of the last dict in data
     :return: str
@@ -292,7 +292,7 @@ def get_latest_update(data_type="national"):
     return latest_update
 
 
-def get_latest_vax_update():
+def get_latest_od_update_date():
     """Return the lastest update dt"""
     try:
         response = requests.get(URL_VAX_LATEST_UPDATE).json()

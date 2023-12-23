@@ -9,7 +9,7 @@ from flask_babel import format_number, gettext
 from covidashit.data_tools import (
     enrich_frontend_data,
     get_area_population,
-    get_latest_update,
+    get_latest_dpc_update_date,
     get_national_series,
     get_national_trends,
     get_notes,
@@ -46,7 +46,7 @@ def national_view():
     breakdown = get_regional_breakdown()
     series = get_national_series()
     notes = get_notes(notes_type=data_type)
-    updated_at = get_latest_update(data_type=data_type)
+    latest_update = get_latest_dpc_update_date(data_type=data_type)
     positivity_idx = get_positivity_idx(area_type=data_type)
     population = get_area_population()
     data = enrich_frontend_data(
@@ -55,7 +55,7 @@ def national_view():
         ts=int(time.time()),
         trend_cards=cards,
         series=series,
-        latest_update=updated_at,
+        latest_update=latest_update,
         breakdown=breakdown,
         positivity_idx=positivity_idx,
         data_type=data_type,
@@ -80,7 +80,7 @@ def regional_view(region):
     breakdown = get_provincial_breakdown(region=region)
     series = get_regional_series(region=region)
     notes = get_notes(notes_type=data_type, area=region)
-    latest_update = get_latest_update(data_type=data_type)
+    latest_update = get_latest_dpc_update_date(data_type=data_type)
     positivity_idx = get_positivity_idx(area_type=data_type, area=region)
     provinces = ITALY_MAP[region]
     population = get_area_population(region)
@@ -118,7 +118,7 @@ def provincial_view(province):
     cards = get_provincial_trends(province=province)
     series = get_provincial_series(province=province)
     notes = get_notes(notes_type=data_type, area=province)
-    latest_update = get_latest_update(data_type=data_type)
+    latest_update = get_latest_dpc_update_date(data_type=data_type)
     region = region_of_province(province)
     region_provinces = ITALY_MAP[region]
     view_data = dict(

@@ -12,28 +12,15 @@
             </div>
 
             <div class="modal-body bg-dark text-light">
-                <div class="alert alert-warning" role="alert">
-                    <i class="fas fa-bullhorn me-2"></i>{{
-                        _("The application is no longer updated on a regular basis. Latest data update: ")
-                        }}{{ latest_update }}
-                </div>
-                <p class="lead">
-                    {{ _("A dashboard that displays the official COVID-19 Italian outbreak and vaccines data") }}
-                </p>
-                <i class="fas fa-search me-2"></i>{{ _("Use the search bar to jump to the pandemic dashboard of a desired area;") }}
-                </p>
-                <p>
-                    <i class="fas fa-list-ul me-2"></i>{{ _("Some cards, where possible, can be expanded to visualize the breakdown of the sub-areas;") }}
-                </p>
-                <p>
-                    <i class="fas fa-table me-2"></i>{{ _("The data are divided in <code>Daily</code>, <code>Current</code>, and <code>Cumulative</code>;") }}
-                </p>
-                <p>
-                    <i class="fas fa-search-plus me-2"></i>{{ _("The interactive charts allow to zoom in along the x- and y-axis;") }}
-                </p>
-                <p>
-                    <i class="fas fa-toggle-on me-2"></i>{{ _("The chart legend can be used to toggle on/off the data series;") }}
-                </p>
+                <p class="lead">{{ _(
+                    "Data visualization dashboard of the official pandemic and vaccine data in Italy"
+                ) }}</p>
+                
+                <p><i class="fas fa-search me-2"></i>{{ _("Use the search bar to jump to the pandemic dashboard of a desired area e.g. 'Sicilia';") }}</p>
+                <p><i class="fas fa-list-ul me-2"></i>{{ _("Some cards, where possible, can be expanded to visualize the breakdown of the sub-areas;") }}</p>
+                <p><i class="fas fa-table me-2"></i>{{ _("The data are divided in <code>Daily</code>, <code>Current</code>, and <code>Cumulative</code>;") }}</p>
+                <p><i class="fas fa-search-plus me-2"></i>{{ _("The interactive charts allow to zoom in along the x- and y-axis;") }}</p>
+                <p><i class="fas fa-toggle-on me-2"></i>{{ _("The chart legend can be used to toggle on/off the data series;") }}<p>
             </div>
 
             <div class="modal-footer bg-dark text-light" style="border: none">
@@ -51,12 +38,21 @@
                 <p class="mt-0 mb-0">
                     <small>
                         {{ _('Made with <span style="color: #e25555;">&#9829;</span> in
-                        <a href="https://goo.gl/maps/rk3BGAvv1HmG3NSs8" target="_blank">Catania</a>
+                        <a href="https://goo.gl/maps/rk3BGAvv1HmG3NSs8" target="_blank">Catania, Sicily</a>
+                        during the pandemic hard time
                         by <a href=https://fabriziomiano.github.io target=_blank> Fabrizio Miano</a>') }}
                         &nbsp;|&nbsp;
                         <a href='https://github.com/fabriziomiano/covidashit'
                            target='_blank'>v{{ VERSION }}</a>
                     </small>
+                </p>
+                <p class="mt-0 mb-0">
+                    <small>
+                        {{ _("sources:") }} 
+                        <a href='https://github.com/pcm-dpc/COVID-19/'>{{ _("Civil Protection") }}</a>
+                        |
+                        <a href='https://github.com/italia/covid19-opendata-vaccini/'>{{ _("Italia OpenData") }}</a>
+                    </small>                    
                 </p>
             </div>
         </div>

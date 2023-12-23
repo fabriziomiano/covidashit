@@ -46,13 +46,16 @@ def translate_series_lang(series):
     cum_series = series.get("cum")
     if daily_series is not None:
         for s in daily_series:
-            s["name"] = gettext(s["name"])
+            _name = s["name"]
+            s["name"] = gettext(_name)
     if current_series is not None:
         for s in current_series:
-            s["name"] = gettext(s["name"])
+            _name = s["name"]
+            s["name"] = gettext(_name)
     if cum_series is not None:
         for s in cum_series:
-            s["name"] = gettext(s["name"])
+            _name = s["name"]
+            s["name"] = gettext(_name)
     if dates_series is not None:
         series["dates"] = [format_datetime(dt, SERIES_DT_FMT) for dt in dates_series]
     return series
