@@ -290,7 +290,7 @@ VARS[TOTAL_HEALED_KEY] = {
 # Vax variables
 VARS[VAX_FIRST_DOSE_KEY] = {
     "title": gettext("First Dose"),
-    "icon": "fas fa-battery-half",
+    "icon": "fas fa-vial",
     "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
     "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
@@ -298,7 +298,7 @@ VARS[VAX_FIRST_DOSE_KEY] = {
 }
 VARS[VAX_SECOND_DOSE_KEY] = {
     "title": gettext("Second Dose"),
-    "icon": "fas fa-battery-full",
+    "icon": "fas fa-vials",
     "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
     "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
@@ -306,7 +306,7 @@ VARS[VAX_SECOND_DOSE_KEY] = {
 }
 VARS[VAX_BOOSTER_DOSE_KEY] = {
     "title": gettext("Booster dose"),
-    "icon": "fas fa-plug",
+    "icon": "fas fa-rocket",
     "increase": TREND_SYMBOL_LOGIC["increase_inverted"],
     "decrease": TREND_SYMBOL_LOGIC["decrease_inverted"],
     "stable": TREND_SYMBOL_LOGIC["stable"],
