@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2024-05-29 14:42+0200\n"
-"PO-Revision-Date: 2024-05-29 14:44+0200\n"
+"POT-Creation-Date: 2024-05-29 15:38+0200\n"
+"PO-Revision-Date: 2024-05-29 15:39+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -284,7 +284,7 @@ msgid "Vaccine day"
 msgstr "Vaccine day"
 
 #: covidashit/templates/pandemic/cards-charts.html:414
-#: covidashit/templates/vaccines/charts.html:60 covidashit/ui/pandemic.py:54
+#: covidashit/templates/vaccines/charts.html:59 covidashit/ui/pandemic.py:54
 #: covidashit/ui/vaccines.py:27
 msgid "Italy"
 msgstr "Italia"
@@ -298,15 +298,15 @@ msgstr ""
 "a>"
 
 #: covidashit/templates/pandemic/cards-charts.html:425
-#: covidashit/templates/vaccines/charts.html:70
+#: covidashit/templates/vaccines/charts.html:69
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
-#: covidashit/templates/vaccines/charts.html:12
-msgid "Select regions (max 3)"
-msgstr "Seleziona regioni (max 3)"
+#: covidashit/templates/vaccines/charts.html:31
+msgid "Select max 3 regions (default Sicilia)"
+msgstr "Seleziona max 3 regioni (default Sicilia)"
 
-#: covidashit/templates/vaccines/charts.html:66
+#: covidashit/templates/vaccines/charts.html:65
 msgid ""
 "Source: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a> | <a href='https://www.istat.it'>ISTAT</a>"
@@ -314,7 +314,7 @@ msgstr ""
 "Fonte: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a> | <a href='https://istat.it'>ISTAT</a>"
 
-#: covidashit/templates/vaccines/charts.html:73
+#: covidashit/templates/vaccines/charts.html:72
 msgid "*Hover / tap on a bar to display the administered-dose data"
 msgstr ""
 "*Passa sopra col mouse o tocca una barra per visualizzare i dati sulle "
