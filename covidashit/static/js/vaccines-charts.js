@@ -86,9 +86,9 @@ if (!REGIONS.includes(area)) {
             $('#chart-admins-timeseries').html(spinnerHTML);
         },
         success: function (adminsTimeseriesData) {
-            // Vax time series for a given area
-            adminsTimeseriesData.data = adminsTimeseriesData.data.map(function (o, i) {
-                o.visible = i <= 2;
+            // Show only Sicilia by default
+            adminsTimeseriesData.data = adminsTimeseriesData.data.map(function (o) {
+                o.visible = o.name === "Sicilia";
                 return o;
             })
             $('#chart-admins-timeseries').highcharts({
