@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabriziomiano@gmail.com\n"
-"POT-Creation-Date: 2023-12-23 18:19+0100\n"
-"PO-Revision-Date: 2023-12-23 18:19+0100\n"
+"POT-Creation-Date: 2024-05-29 14:42+0200\n"
+"PO-Revision-Date: 2024-05-29 14:44+0200\n"
 "Last-Translator: Fabrizio Miano <fabriziomiano@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -19,50 +19,50 @@ msgstr ""
 "Generated-By: Babel 2.8.0\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: covidashit/data_tools/__init__.py:419
+#: covidashit/data_tools/__init__.py:423
 msgid "Admins per age"
 msgstr "Somministrazioni per età"
 
-#: covidashit/data_tools/__init__.py:420 covidashit/plotter/__init__.py:61
+#: covidashit/data_tools/__init__.py:424 covidashit/plotter/__init__.py:61
 #: covidashit/templates/pandemic/cards-charts.html:407
 msgid "Counts"
 msgstr "Conteggi"
 
-#: covidashit/data_tools/__init__.py:424 covidashit/data_tools/__init__.py:474
+#: covidashit/data_tools/__init__.py:428 covidashit/data_tools/__init__.py:478
 #: settings/vars.py:292
 msgid "First Dose"
 msgstr "Prima Dose"
 
-#: covidashit/data_tools/__init__.py:428 covidashit/data_tools/__init__.py:478
+#: covidashit/data_tools/__init__.py:432 covidashit/data_tools/__init__.py:482
 #: settings/vars.py:300
 msgid "Second Dose"
 msgstr "Seconda Dose"
 
-#: covidashit/data_tools/__init__.py:432 covidashit/data_tools/__init__.py:482
+#: covidashit/data_tools/__init__.py:436 covidashit/data_tools/__init__.py:486
 msgid "Booster Dose"
 msgstr "Dose Booster"
 
-#: covidashit/data_tools/__init__.py:436 covidashit/data_tools/__init__.py:486
+#: covidashit/data_tools/__init__.py:440 covidashit/data_tools/__init__.py:490
 msgid "Population"
 msgstr "Popolazione"
 
-#: covidashit/data_tools/__init__.py:470
+#: covidashit/data_tools/__init__.py:474
 msgid "Admins per region"
 msgstr "Somministrazioni per regione"
 
-#: covidashit/data_tools/__init__.py:557
+#: covidashit/data_tools/__init__.py:561
 msgid "Vaccination trend"
 msgstr "Andamento vaccinazioni"
 
-#: covidashit/data_tools/__init__.py:558
+#: covidashit/data_tools/__init__.py:562
 msgid "Pop. vaccinated (2nd dose) [%]"
 msgstr "Pop. vaccinata (2a dose) [%]"
 
-#: covidashit/data_tools/__init__.py:588
+#: covidashit/data_tools/__init__.py:592
 msgid "Admins per provider"
 msgstr "Somministrazioni per fornitore"
 
-#: covidashit/data_tools/__init__.py:589
+#: covidashit/data_tools/__init__.py:593
 msgid "Doses administered"
 msgstr "Dosi somministrate"
 
@@ -108,16 +108,16 @@ msgid "Population vaccinated"
 msgstr "Popolazione vaccinata"
 
 #: covidashit/templates/vaccines.html:52
-msgid "first"
-msgstr "prima"
+msgid "booster"
+msgstr "booster"
 
 #: covidashit/templates/vaccines.html:53
 msgid "second"
 msgstr "seconda"
 
 #: covidashit/templates/vaccines.html:54
-msgid "booster"
-msgstr "booster"
+msgid "first"
+msgstr "prima"
 
 #: covidashit/templates/base/footer.html:6
 msgid ""
@@ -284,7 +284,7 @@ msgid "Vaccine day"
 msgstr "Vaccine day"
 
 #: covidashit/templates/pandemic/cards-charts.html:414
-#: covidashit/templates/vaccines/charts.html:56 covidashit/ui/pandemic.py:54
+#: covidashit/templates/vaccines/charts.html:60 covidashit/ui/pandemic.py:54
 #: covidashit/ui/vaccines.py:27
 msgid "Italy"
 msgstr "Italia"
@@ -298,15 +298,15 @@ msgstr ""
 "a>"
 
 #: covidashit/templates/pandemic/cards-charts.html:425
-#: covidashit/templates/vaccines/charts.html:66
+#: covidashit/templates/vaccines/charts.html:70
 msgid "by Fabrizio Miano | Made with Highcharts.com"
 msgstr "by Fabrizio Miano | Realizzato con Highcharts.com"
 
-#: covidashit/templates/vaccines/charts.html:29
-msgid "Select one or more regions"
-msgstr "Seleziona una o più regioni"
+#: covidashit/templates/vaccines/charts.html:12
+msgid "Select regions (max 3)"
+msgstr "Seleziona regioni (max 3)"
 
-#: covidashit/templates/vaccines/charts.html:62
+#: covidashit/templates/vaccines/charts.html:66
 msgid ""
 "Source: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a> | <a href='https://www.istat.it'>ISTAT</a>"
@@ -314,7 +314,7 @@ msgstr ""
 "Fonte: <a href='https://github.com/italia/covid19-opendata-vaccini'>Italia "
 "Open Data</a> | <a href='https://istat.it'>ISTAT</a>"
 
-#: covidashit/templates/vaccines/charts.html:69
+#: covidashit/templates/vaccines/charts.html:73
 msgid "*Hover / tap on a bar to display the administered-dose data"
 msgstr ""
 "*Passa sopra col mouse o tocca una barra per visualizzare i dati sulle "
@@ -519,6 +519,9 @@ msgstr ""
 #: settings/vars.py:308
 msgid "Booster dose"
 msgstr "Dose Booster"
+
+#~ msgid "Select one or more regions"
+#~ msgstr "Seleziona una o più regioni"
 
 #~ msgid "DPC pandemic data"
 #~ msgstr "Dati Protezione Civile"
