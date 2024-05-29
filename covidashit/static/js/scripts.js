@@ -39,7 +39,8 @@ let URL_PROVINCES = '/provinces/';
 (function ($) {
     "use strict";
 
-    const path = window.location.href; // because the 'href' property of the DOM element is the absolute path
+    // highlight the currently active UI
+    const path = window.location.href;
     $("#topNav a.nav-link").each(function () {
         if (this.href === path) {
             $(this).addClass("active");
@@ -52,12 +53,6 @@ let URL_PROVINCES = '/provinces/';
         }
     });
 
-    // activate tooltips
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    })
-
-
     $(function () {
         if ((window.location.href.includes("provinces")) || (window.location.href.includes("regions"))) {
             $("#areasCollapse").addClass('active');
@@ -68,6 +63,7 @@ let URL_PROVINCES = '/provinces/';
         }
     })
 
+    // search-input autocomplete
     $(function () {
         $('#searchInput').autocomplete({
             source: AREAS,
@@ -82,6 +78,7 @@ let URL_PROVINCES = '/provinces/';
         });
     });
 
+    // search-input functionality
     $(function () {
         $("#searchInput").on('submit', function (e) {
             e.preventDefault();
@@ -90,6 +87,7 @@ let URL_PROVINCES = '/provinces/';
         })
     })
 
+    // validate search input
     function validateSearchInput(searchInput) {
         let url = "";
         console.log(searchInput)
@@ -104,7 +102,7 @@ let URL_PROVINCES = '/provinces/';
         return url;
     }
 
-    /*Scroll to top when arrow up clicked*/
+    // back-to-top functionality
     $(window).scroll(function () {
         let height = $(window).scrollTop();
         if (height > 100) {
@@ -115,16 +113,15 @@ let URL_PROVINCES = '/provinces/';
     });
 
     $(document).ready(function () {
+
+        // back-to-top button
         $("#back2Top").click(function (event) {
             event.preventDefault();
-            $("html, body").animate({scrollTop: 0}, "slow");
+            $("html, body").animate({ scrollTop: 0 }, "slow");
             return false;
         });
 
-    });
-
-    // check if new user
-    $(document).ready(function () {
+        // check if new user
         let hasVisited = localStorage.getItem("hasVisited");
         let localVersion = localStorage.getItem("version");
         if (hasVisited === null || localVersion !== VERSION) {
@@ -133,17 +130,13 @@ let URL_PROVINCES = '/provinces/';
             localStorage.setItem("hasVisited", hasVisited);
             localStorage.setItem("version", VERSION);
         }
+
+        // enable chosen
+        $('[class="chosen"]').chosen();
+        $(".chosen-select").chosen({ max_selected_options: 3 });
+
+        // enable BS tooltips
+        $('[data-toggle="tooltip"]').tooltip()
     });
 
-    // activate chosen
-    $(function () {
-        $('[class="chosen"]').chosen();
-        $(".chosen-select").chosen({max_selected_options: 3});
-    })
-
-
-    // enable BS tooltips
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
 })(jQuery);
