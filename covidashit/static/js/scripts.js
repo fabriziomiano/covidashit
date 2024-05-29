@@ -138,6 +138,7 @@ let URL_PROVINCES = '/provinces/';
     // activate chosen
     $(function () {
         $('[class="chosen"]').chosen();
+        $(".chosen-select").chosen({max_selected_options: 3});
     })
 
 

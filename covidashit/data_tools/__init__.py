@@ -307,24 +307,28 @@ def get_latest_od_update_date():
 
 def get_perc_pop_vax(population, area=None):
     """
-    Return the ratio tot administrations / population rounded to 2 figs
+    Return the percentages of population vaccinated
+    for the first, second, and booster dose
     :param population: int
     :param area: str
     :return: float
     """
-    tot_1st_admins = get_tot_admins(dtype=VAX_FIRST_DOSE_KEY, area=area)
-    tot_2nd_admins = get_tot_admins(dtype=VAX_SECOND_DOSE_KEY, area=area)
-    tot_3rd_admins = get_tot_admins(dtype=VAX_BOOSTER_DOSE_KEY, area=area)
-    first = (
-        round(((int(tot_1st_admins) / population) * 100), 1) if population != 0 else 0
-    )
-    second = (
-        round(((int(tot_2nd_admins) / population) * 100), 1) if population != 0 else 0
-    )
-    third = (
-        round(((int(tot_3rd_admins) / population) * 100), 1) if population != 0 else 0
-    )
-    return {"first": first, "second": second, "booster": third}
+    perc_pop_vax = {
+        "first": None,
+        "second": None,
+        "booster": None
+    }
+    first_count = get_tot_admins(dtype=VAX_FIRST_DOSE_KEY, area=area)
+    second_count = get_tot_admins(dtype=VAX_SECOND_DOSE_KEY, area=area)
+    booster_count = get_tot_admins(dtype=VAX_BOOSTER_DOSE_KEY, area=area)
+    if population != 0:
+        perc_pop_vax["first"] = round(
+            (first_count / population) * 100, 1)
+        perc_pop_vax["second"] = round(
+            (second_count / population) * 100, 1)
+        perc_pop_vax["booster"] = round(
+            (booster_count / population) * 100, 1)
+    return perc_pop_vax
 
 
 def enrich_frontend_data(area=None, **data):
