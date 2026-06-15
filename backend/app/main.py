@@ -11,6 +11,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
+from pymongo.errors import PyMongoError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from backend.app.api.routes import router
@@ -112,6 +113,19 @@ def create_app() -> FastAPI:
         title = "Page not found" if exc.status_code == 404 else "Request error"
         message = "The dashboard route or asset you requested does not exist." if exc.status_code == 404 else str(exc.detail)
         return error_page(exc.status_code, title, message)
+
+    @app.exception_handler(PyMongoError)
+    async def mongo_exception_handler(request: Request, exc: PyMongoError):
+        """Report unavailable covidashflow data without hanging behind the proxy."""
+
+        logger.exception("Mongo request error on %s", request.url.path, exc_info=exc)
+        if request.url.path.startswith("/api") or not wants_html(request):
+            return JSONResponse({"detail": "MongoDB unavailable"}, status_code=503)
+        return error_page(
+            503,
+            "Data temporarily unavailable",
+            "COVIDash.it is running, but it cannot reach the MongoDB data store right now.",
+        )
 
     @app.exception_handler(Exception)
     async def unhandled_exception_handler(request: Request, exc: Exception):

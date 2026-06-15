@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from fastapi.testclient import TestClient
+from pymongo.errors import ServerSelectionTimeoutError
 
 from backend.app.core.settings import get_settings
 from backend.app.main import create_app
@@ -67,6 +68,31 @@ def test_api_exception_returns_clean_json_500(tmp_path, monkeypatch) -> None:
 
     assert response.status_code == 500
     assert response.json() == {"detail": "Internal server error"}
+
+
+def test_health_returns_503_when_mongo_is_unavailable(tmp_path, monkeypatch) -> None:
+    """Mongo outages should fail quickly and clearly for proxy health checks."""
+
+    class FailingStore:
+        """Small stand-in for a MongoStore that cannot reach MongoDB."""
+
+        def ping(self) -> bool:
+            raise ServerSelectionTimeoutError("mongo unavailable")
+
+    dist = tmp_path / "dist"
+    dist.mkdir()
+    (dist / "index.html").write_text("<!doctype html><title>SPA</title>", encoding="utf-8")
+
+    monkeypatch.setenv("FRONTEND_DIST", str(dist))
+    get_settings.cache_clear()
+    app = create_app()
+    client = TestClient(app, raise_server_exceptions=False)
+    app.state.mongo_store = FailingStore()
+
+    response = client.get("/api/health", headers={"accept": "application/json"})
+
+    assert response.status_code == 503
+    assert response.json() == {"detail": "MongoDB unavailable"}
 
 
 def test_reverse_proxy_500_page_is_branded(tmp_path, monkeypatch) -> None:

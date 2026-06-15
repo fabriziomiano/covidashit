@@ -22,6 +22,7 @@ class Settings:
     """
 
     mongo_uri: str = field(default_factory=lambda: os.getenv("MONGO_URI", "mongodb://localhost:27017/covid"))
+    mongo_timeout_ms: int = field(default_factory=lambda: int(os.getenv("MONGO_TIMEOUT_MS", "3000")))
     cors_origins: tuple[str, ...] = field(default_factory=_cors_origins)
     app_host: str = field(default_factory=lambda: os.getenv("HOST", "0.0.0.0"))
     app_port: int = field(default_factory=lambda: int(os.getenv("PORT", "5050")))

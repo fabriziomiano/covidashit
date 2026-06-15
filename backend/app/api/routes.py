@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from typing import Annotated, Literal
 
-from fastapi import APIRouter, Depends, Query, Request
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
+from pymongo.errors import PyMongoError
 
 from backend.app.core.db import MongoStore
 from backend.app.services.dashboard import DashboardService
@@ -24,7 +25,10 @@ def health(request: Request) -> dict[str, str]:
     """Return application and database health."""
 
     store: MongoStore = request.app.state.mongo_store
-    store.ping()
+    try:
+        store.ping()
+    except PyMongoError as exc:
+        raise HTTPException(status_code=503, detail="MongoDB unavailable") from exc
     return {"status": "ok"}
 
 

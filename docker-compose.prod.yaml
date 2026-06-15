@@ -1,0 +1,10 @@
+services:
+  app:
+    networks:
+      - default
+      - covidashflow
+
+networks:
+  covidashflow:
+    external: true
+    name: ${COVIDASHFLOW_NETWORK:-covidashflow_default}

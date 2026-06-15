@@ -37,7 +37,12 @@ class MongoStore:
 
     def __init__(self, settings: Settings | None = None) -> None:
         self.settings = settings or get_settings()
-        self.client: MongoClient[Any] = MongoClient(self.settings.mongo_uri)
+        self.client: MongoClient[Any] = MongoClient(
+            self.settings.mongo_uri,
+            serverSelectionTimeoutMS=self.settings.mongo_timeout_ms,
+            connectTimeoutMS=self.settings.mongo_timeout_ms,
+            socketTimeoutMS=self.settings.mongo_timeout_ms,
+        )
         self.db: Database[Any] = self.client.get_default_database()
         self.collections = MongoCollections(
             national_data=self.db[self.settings.national_data_collection],

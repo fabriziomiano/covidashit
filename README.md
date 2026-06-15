@@ -38,6 +38,8 @@ Important variables:
 | Variable | Purpose |
 | --- | --- |
 | `MONGO_URI` | Mongo database populated by `covidashflow`. |
+| `MONGO_TIMEOUT_MS` | Mongo connection/query timeout in milliseconds. Defaults to `3000` to avoid proxy timeouts when Mongo is unreachable. |
+| `COVIDASHFLOW_NETWORK` | External Docker network used by `covidashflow` in production. Defaults to `covidashflow_default`. |
 | `PORT` | FastAPI/production HTTP port. Defaults to `5050` because macOS Control Center may reserve `5000`. |
 | `CORS_ORIGINS` | Allowed local frontend/API origins. |
 | `FRONTEND_DIST` | Built frontend directory served by FastAPI in production. |
@@ -122,9 +124,17 @@ A pragmatic private-server deployment is:
 
 1. Build the Docker image on the server or in CI.
 2. Provide `.env` with the production `MONGO_URI`, `PORT`, CORS origins, and collection names.
-3. Run `docker compose --env-file .env up -d`.
-4. Put Nginx/Caddy in front of the container for TLS, gzip/brotli, and canonical host redirects.
-5. Keep `covidashflow` scheduled separately so MongoDB stays populated before dashboards are read.
+3. If MongoDB is the `mongo` service from the `covidashflow` compose stack, set `MONGO_URI=mongodb://mongo/covid`.
+4. Attach `covidashit` to the `covidashflow` Docker network:
+
+```shell
+docker compose -f docker-compose.yaml -f docker-compose.prod.yaml --env-file .env up -d
+```
+
+5. If your compose project name is not `covidashflow`, set `COVIDASHFLOW_NETWORK` to the real network name from `docker network ls`.
+6. Run `curl --fail https://covidash.it/api/health`; it should return `{"status":"ok"}` once Mongo is reachable.
+7. Put Nginx/Caddy in front of the container for TLS, gzip/brotli, and canonical host redirects.
+8. Keep `covidashflow` scheduled separately so MongoDB stays populated before dashboards are read.
 
 The Docker command enables Uvicorn proxy headers, so deployments behind Nginx,
 Caddy, or Cloudflare can pass `X-Forwarded-Proto` and `X-Forwarded-For`
@@ -136,6 +146,12 @@ Example reverse proxy flow:
 ```text
 https://www.covidash.it -> Nginx/Caddy -> covidashit app container -> MongoDB populated by covidashflow
 ```
+
+When both projects run as separate Docker Compose stacks on the same host, the
+`covidashit` app container must share the `covidashflow` network. Inside that
+network the Mongo host is `mongo`, not `localhost` and not `mongodb`. A
+`localhost` Mongo URI from inside the app container points back to the app
+container itself, so it will never reach the Airflow/covidashflow database.
 
 ## Tests and checks
 
