@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom';
+import type { ReactNode } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { getVaccinesSnapshot, getVaccineChart } from '../api/client';
 import { useAsync } from '../api/useAsync';
 import { AgeDoseChart, ProviderPieChart, RegionCoverageChart, VaccinationTrendChart } from '../components/Charts';
@@ -10,14 +11,21 @@ interface VaccinesPageProps {
   config: DashboardConfig;
 }
 
+function chartContent<T>(state: { data: T | null; error: Error | null; loading: boolean }, title: string, render: (payload: T) => ReactNode) {
+  if (state.data) return render(state.data);
+  if (state.error) return <ErrorState title={`${title} unavailable`} message={state.error.message} compact />;
+  if (state.loading) return <LoadingState title={title} compact />;
+  return <EmptyState title={title} message="No data returned by the API." compact />;
+}
+
 export function VaccinesPage({ config }: VaccinesPageProps) {
   const { area } = useParams();
   const decodedArea = area ? decodeURIComponent(area) : undefined;
-  const snapshot = useAsync(() => getVaccinesSnapshot(decodedArea), [decodedArea]);
-  const regionChart = useAsync(() => getVaccineChart<CategoryChartPayload>('region'), []);
-  const trendChart = useAsync(() => getVaccineChart<TrendChartPayload>('trend'), []);
-  const ageChart = useAsync(() => getVaccineChart<CategoryChartPayload>('age', decodedArea), [decodedArea]);
-  const providerChart = useAsync(() => getVaccineChart<PieChartPayload>('provider', decodedArea), [decodedArea]);
+  const snapshot = useAsync((signal) => getVaccinesSnapshot(decodedArea, signal), [decodedArea]);
+  const regionChart = useAsync((signal) => getVaccineChart<CategoryChartPayload>('region', undefined, signal), []);
+  const trendChart = useAsync((signal) => getVaccineChart<TrendChartPayload>('trend', undefined, signal), []);
+  const ageChart = useAsync((signal) => getVaccineChart<CategoryChartPayload>('age', decodedArea, signal), [decodedArea]);
+  const providerChart = useAsync((signal) => getVaccineChart<PieChartPayload>('provider', decodedArea, signal), [decodedArea]);
 
   if (snapshot.loading) return <LoadingState title="Vaccines" />;
   if (snapshot.error) return <ErrorState title="Vaccine data unavailable" message={snapshot.error.message} />;
@@ -51,19 +59,19 @@ export function VaccinesPage({ config }: VaccinesPageProps) {
 
       {!decodedArea ? (
         <div className="charts-grid">
-          <section className="chart-panel">{regionChart.data ? <RegionCoverageChart payload={regionChart.data} /> : <LoadingState title="Admins per region" />}</section>
-          <section className="chart-panel">{trendChart.data ? <VaccinationTrendChart payload={trendChart.data} /> : <LoadingState title="Vaccination trend" />}</section>
+          <section className="chart-panel">{chartContent(regionChart, "Admins per region", (payload) => <RegionCoverageChart payload={payload} />)}</section>
+          <section className="chart-panel">{chartContent(trendChart, "Vaccination trend", (payload) => <VaccinationTrendChart payload={payload} />)}</section>
         </div>
       ) : null}
 
       <div className="charts-grid">
-        <section className="chart-panel">{ageChart.data ? <AgeDoseChart payload={ageChart.data} titleSuffix={decodedArea ?? 'Italy'} /> : <LoadingState title="Admins per age" />}</section>
-        <section className="chart-panel">{providerChart.data ? <ProviderPieChart payload={providerChart.data} titleSuffix={decodedArea ?? 'Italy'} /> : <LoadingState title="Admins per provider" />}</section>
+        <section className="chart-panel">{chartContent(ageChart, "Admins per age", (payload) => <AgeDoseChart payload={payload} titleSuffix={decodedArea ?? 'Italy'} />)}</section>
+        <section className="chart-panel">{chartContent(providerChart, "Admins per provider", (payload) => <ProviderPieChart payload={payload} titleSuffix={decodedArea ?? 'Italy'} />)}</section>
       </div>
 
       <section className="area-section">
         <h2>Regional vaccines</h2>
-        <div className="area-grid">{config.regions.map((region) => <a key={region} href={`/vaccines/${encodeURIComponent(region)}`}>{region}</a>)}</div>
+        <div className="area-grid">{config.regions.map((region) => <Link key={region} to={`/vaccines/${encodeURIComponent(region)}`}>{region}</Link>)}</div>
       </section>
     </section>
   );

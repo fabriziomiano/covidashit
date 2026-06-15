@@ -1,10 +1,9 @@
 services:
-  app:
-    networks:
-      - default
-      - covidashflow
+  postgres:
+    restart: unless-stopped
 
-networks:
-  covidashflow:
-    external: true
-    name: ${COVIDASHFLOW_NETWORK:-covidashflow_default}
+  prefect-server:
+    restart: unless-stopped
+
+  app:
+    restart: unless-stopped

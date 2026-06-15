@@ -54,8 +54,15 @@ h2 { font-size: 1.15rem; margin: 0 0 14px; }
 .coverage-cards strong { display: block; color: #f5f7fb; font-size: 1.35rem; margin-top: 4px; }
 .notes-panel, .status-panel { border: 1px solid #354258; border-radius: 8px; background: #151b24; padding: 16px; margin-bottom: 18px; color: #d8e1ef; }
 .status-panel { min-height: 160px; display: grid; place-items: center; text-align: center; gap: 8px; }
+.status-panel--compact { min-height: 300px; margin-bottom: 0; }
 .status-panel span { color: #aeb7c6; }
 .status-panel--error { border-color: #c44a57; background: #24171b; }
+.spinner {
+  width: 28px; height: 28px; border-radius: 999px; border: 3px solid #354258; border-top-color: #4db6ac;
+  animation: spin 0.8s linear infinite; display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 1.8s; } }
 .tabs { display: flex; gap: 8px; margin: 0 0 18px; overflow-x: auto; }
 .tabs button { cursor: pointer; }
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 18px; }

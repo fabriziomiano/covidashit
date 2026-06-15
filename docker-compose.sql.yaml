@@ -1,0 +1,4 @@
+# Compatibility entrypoint for the SQL migration stack.
+# Prefer docker-compose.yaml for the full monorepo deployment.
+include:
+  - docker-compose.yaml

@@ -5,18 +5,15 @@ from __future__ import annotations
 from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
-from pymongo.errors import PyMongoError
-
-from backend.app.core.db import MongoStore
 from backend.app.services.dashboard import DashboardService
 
 router = APIRouter(prefix="/api")
 
 
 def get_service(request: Request) -> DashboardService:
-    """Return a request-scoped dashboard service backed by the app Mongo store."""
+    """Return a request-scoped dashboard service backed by the configured data store."""
 
-    store: MongoStore = request.app.state.mongo_store
+    store = request.app.state.data_store
     return DashboardService(store.collections)
 
 
@@ -24,11 +21,11 @@ def get_service(request: Request) -> DashboardService:
 def health(request: Request) -> dict[str, str]:
     """Return application and database health."""
 
-    store: MongoStore = request.app.state.mongo_store
+    store = request.app.state.data_store
     try:
         store.ping()
-    except PyMongoError as exc:
-        raise HTTPException(status_code=503, detail="MongoDB unavailable") from exc
+    except Exception as exc:
+        raise HTTPException(status_code=503, detail="Database unavailable") from exc
     return {"status": "ok"}
 
 
@@ -66,6 +63,6 @@ def vaccine_chart(
     service: Annotated[DashboardService, Depends(get_service)],
     area: Annotated[str | None, Query(description="Optional region name")] = None,
 ) -> dict:
-    """Return a legacy-compatible vaccine chart payload."""
+    """Return a vaccine chart payload."""
 
     return service.vaccine_chart(chart_id=chart_id, area=area)

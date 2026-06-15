@@ -1,9 +1,83 @@
 services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-covidash}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-covidash}
+      POSTGRES_DB: ${POSTGRES_DB:-covidash}
+    ports:
+      - "${COVIDASH_SQL_PORT:-5433}:5432"
+    volumes:
+      - covidash-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-covidash} -d ${POSTGRES_DB:-covidash}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  prefect-server:
+    image: prefecthq/prefect:3-python3.12
+    command: prefect server start --host 0.0.0.0
+    environment:
+      PREFECT_API_DATABASE_CONNECTION_URL: postgresql+asyncpg://${POSTGRES_USER:-covidash}:${POSTGRES_PASSWORD:-covidash}@postgres:5432/${POSTGRES_DB:-covidash}
+      PREFECT_UI_API_URL: ${PREFECT_UI_API_URL:-https://prefect.covidash.it/api}
+    ports:
+      - "${PREFECT_UI_PORT:-8080}:4200"
+    volumes:
+      - prefect-data:/root/.prefect
+
+  etl:
+    build:
+      context: .
+      dockerfile: Dockerfile.etl
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-covidash}:${POSTGRES_PASSWORD:-covidash}@postgres:5432/${POSTGRES_DB:-covidash}
+      PREFECT_API_URL: http://prefect-server:4200/api
+    volumes:
+      - ./etl/src:/app/etl/src:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      prefect-server:
+        condition: service_started
+    profiles: ["etl"]
+
+  prefect-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.etl
+    command: >
+      sh -c "until prefect work-pool create covidash-etl --type process --overwrite; do
+      echo 'Waiting for Prefect API to create work pool...'; sleep 5; done &&
+      until python -m covidashflow.deployments; do
+      echo 'Waiting for Prefect API to register deployments...'; sleep 5; done &&
+      exec prefect worker start --pool covidash-etl --type process"
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-covidash}:${POSTGRES_PASSWORD:-covidash}@postgres:5432/${POSTGRES_DB:-covidash}
+      PREFECT_API_URL: http://prefect-server:4200/api
+    volumes:
+      - ./etl/src:/app/etl/src:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      prefect-server:
+        condition: service_started
+    restart: unless-stopped
+
   app:
     build: .
-    env_file:
-      - .env
-    ports:
-      - "${PORT:-5050}:${PORT:-5050}"
     environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-covidash}:${POSTGRES_PASSWORD:-covidash}@postgres:5432/${POSTGRES_DB:-covidash}
       FRONTEND_DIST: /app/frontend/dist
+      PORT: ${COVIDASHIT_PORT:-5050}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:${COVIDASHIT_PORT:-5050},http://localhost:5173,http://covidash.it}
+    ports:
+      - "${COVIDASHIT_PORT:-5050}:${COVIDASHIT_PORT:-5050}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  covidash-postgres-data:
+  prefect-data:
