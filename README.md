@@ -1,125 +1,173 @@
-# COVID-19 Italy Monitor | [\#StayAtHome](https://twitter.com/hashtag/StayAtHome)
+# COVIDash.it
 
-[![Awesome](https://awesome.re/badge.svg)](https://github.com/soroushchehresa/awesome-coronavirus#applications-and-bots)
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
-[![Made with Pthon](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+Modern COVID analytics dashboard for Italy. This rewrite preserves the original COVIDash.it product meaning while moving the application toward a maintainable FastAPI + React architecture.
 
-![alt_text](previews/mockup.png)
+The data contract is intentionally unchanged: MongoDB is populated by [`covidashflow`](https://github.com/fabriziomiano/covidashflow), and this app reads those existing collections.
 
-A simple dashboard to display and monitor the official data of the COVID-19 outbreak in Italy, released by the [Italian Civil Protection Dept.](https://github.com/pcm-dpc/COVID-19), and the vaccination-status data, released by [Italia Open Data](https://github.com/italia/covid19-opendata-vaccini/).
+## Architecture
 
-**The app is deployed on an AWS EC2 instance [here](https://www.covidash.it/)**
+- `backend/`: FastAPI API layer over the existing MongoDB collections.
+- `frontend/`: React + TypeScript + Vite single-page app with D3 charts.
+- `covidashit/`: legacy Flask implementation kept in-tree as a behavioural reference during the migration.
+- `settings/`: legacy constants retained for compatibility and comparison.
 
-**Pandemic data from the [official CP Dept repository](https://github.com/pcm-dpc/COVID-19/)**
+## Preserved dashboard semantics
 
-**Vaccine data from the [official open-data repository](https://github.com/italia/covid19-opendata-vaccini)**
+The modern app keeps the original dashboard structure:
 
+- Pandemic national dashboard at `/`.
+- Regional pandemic dashboards at `/regions/:area`.
+- Provincial pandemic dashboards at `/provinces/:area`.
+- Vaccination dashboard at `/vaccines` and `/vaccines/:area`.
+- Same major KPI groups: daily, current, cumulative, and vaccine dose trends.
+- Same area hierarchy: Italy, regions, provinces.
+- Same vaccine charts: administrations by region, vaccination trend, administrations by age, and provider pie chart.
+- Same historical reference periods on pandemic time-series charts, including lockdown and vaccine-day markers.
+- Same Mongo collection contract produced by `covidashflow`.
 
-## For developers
-The WebApp requires Python 3.10 and reads the data from a mongoDB. It employs a Flask server with `gunicorn` in front of it.
-Furthermore, it employs Flask-babel for the italian translation, as English is set as primary language. 
-The script `make_pot.sh` creates the files needed by Babel for the translations.
-A `Batch` version of the script for Windows users is provided. 
-The app language is decided upon the client request (browser / OS).
+D3 is used for the modern charts. The goal is not a pixel-for-pixel copy of the legacy Highcharts setup: the charts preserve the original analytical meaning while adding richer tooltips, responsive axes, key-period legends, compact value formatting, and time drill controls where useful.
 
-The front-end lives under `covidashit/templates` and it uses JS to create the chart object, 
-which is built using [HighCharts](https://www.highcharts.com/).
+## Configuration
 
-In order for the app to be operational, a mongoDB must be populated 
-([see here](https://docs.atlas.mongodb.com/tutorial/create-new-cluster) for the creation of an Atlas mongoDB free cluster).
-The backend is populated by [covidashflow](https://github.com/fabriziomiano/covidashflow) - an Apache-Airflow ETL - which reads the pandemic data from the `master` branch of the [PCM-DPC repository](https://github.com/pcm-dpc/COVID-19/), and the vaccines data from the `master` branch of the [Italia Open Data repository](https://github.com/italia/covid19-opendata-vaccini/)
+Create a local environment file:
 
-
-### Local deployment (DEV)
-* create and activate a virtual environment [(follow this)](https://python-poetry.org/docs/managing-environments/)
-* install the requirements via poetry `pip install --upgrade pip poetry && poetry install`
-
-The `.env` file contains all the env vars needed by the webapp. 
-In particular, the `MONGO_URI` and the various collection names string must be set.
-The values of these variables should match those  in [covidashflow](https://github.com/fabriziomiano/covidashflow)
-The WebApp should start without errors even if the backend is empty; no data will be visualized.
-
-Clone the repo, `cd` into it, activate the virtual environment, run the application server
 ```shell
-gunicorn wsgi:app
+cp .env.example .env
 ```
 
-#### Docker
-To test the containerization locally spawn the container with:
+Important variables:
+
+| Variable | Purpose |
+| --- | --- |
+| `MONGO_URI` | Mongo database populated by `covidashflow`. |
+| `PORT` | FastAPI/production HTTP port. Defaults to `5050` because macOS Control Center may reserve `5000`. |
+| `CORS_ORIGINS` | Allowed local frontend/API origins. |
+| `FRONTEND_DIST` | Built frontend directory served by FastAPI in production. |
+| `*_COLLECTION` | Existing covidashflow output collection names. |
+
+The defaults match the historical collection names: `National`, `NationalTrends`, `NationalSeries`, `Regional`, `RegionalTrends`, `RegionalSeries`, `RegionalBreakdown`, `Provincial`, `ProvincialTrends`, `ProvincialSeries`, `ProvincialBreakdown`, `VaxAdmins`, `VaxAdminsSummary`, and `Population`.
+
+## Run locally
+
+Backend:
+
 ```shell
-docker-compose up -d
+python -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
+uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 5050
 ```
 
-The docker container will be listening at `http://127.0.0.1:PORT` with `PORT`
-being set in the `.env` file
+Frontend:
 
-Stop it with 
 ```shell
-docker-compose down
+cd frontend
+npm install
+npm run dev
 ```
 
-## Plots API
-The app provides an API to produce plots with `matplotlib`.
-The API can return a JSON response with the base64-encoded image, or 
-the bytes content to be saved as a file.
+Open `http://localhost:5173`. Vite proxies `/api` to `http://localhost:5050`; production Docker serves the built app on `PORT`, normally `5050`.
 
-### Resource URL
+## Build
 
-`https://www.covidash.it/api/plot`
+Frontend only:
 
-### Query parameters
-
-| data_type  | var_name                                                                                                                                                                                                                                                                                                                                                            | area                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| national   | [nuovi_positivi, ingressi_terapia_intensiva,  deceduti_g, tamponi_g,totale_ospedalizzati_g,  nuovi_positivi_ma, deceduti_g_ma,  ingressi_terapia_intensiva_ma, tamponi_g_ma, totale_ospedalizzati_g_ma, totale_positivi, terapia_intensiva, ricoverati_con_sintomi, totale_ospedalizzati, isolamento_domiciliare, totale_casi, deceduti,  tamponi, dimessi_guariti] | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| regional   | [nuovi_positivi, ingressi_terapia_intensiva,  deceduti_g, tamponi_g,totale_ospedalizzati_g,  nuovi_positivi_ma, deceduti_g_ma,  ingressi_terapia_intensiva_ma, tamponi_g_ma, totale_ospedalizzati_g_ma, totale_positivi, terapia_intensiva, ricoverati_con_sintomi, totale_ospedalizzati, isolamento_domiciliare, totale_casi, deceduti,  tamponi, dimessi_guariti] | [Abruzzo, Basilicata, Calabria, Campania, Emilia-Romagna, Friuli Venezia Giulia, Lazio, Liguria, Lombardia, Marche, Molise, Piemonte, Puglia, Sardegna, Sicilia, Toscana, P.A. Bolzano, P.A. Trento, Umbria, Valle d'Aosta, Veneto]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| provincial | [nuovi_positivi, nuovi_positivi_ma, totale_casi]                                                                                                                                                                                                                                                                                                                    | [Chieti, L'Aquila, Pescara, Teramo,  Matera, Potenza, Catanzaro, Cosenza, Crotone, Reggio di Calabria, Vibo Valentia,  Avellino, Benevento, Caserta,  Napoli, Salerno, Bologna, Ferrara,  Forlì-Cesena, Modena, Parma, Piacenza,  Ravenna, Reggio nell'Emilia, Rimini,  Gorizia, Pordenone, Trieste, Udine,  Frosinone, Latina, Rieti, Roma, Viterbo,  Genova, Imperia, La Spezia, Savona,  Bergamo, Brescia, Como, Cremona, Lecco,  Lodi, Mantova, Milano,  Monza e della Brianza, Pavia, Sondrio,  Varese, Ancona, Ascoli Piceno, Fermo,  Macerata, Pesaro e Urbino, Campobasso,  Isernia, Alessandria, Asti, Biella,  Cuneo, Novara, Torino, Verbano-Cusio-Ossola,  Vercelli, Bari, Barletta-Andria-Trani,  Brindisi, Lecce, Foggia, Taranto, Cagliari,  Nuoro, Sassari, Sud Sardegna, Agrigento,  Caltanissetta, Catania, Enna, Messina,  Palermo, Ragusa, Siracusa, Trapani, Arezzo,  Firenze, Grosseto, Livorno, Lucca, Massa Carrara, Pisa, Pistoia, Prato, Siena,  Perugia, Terni, Aosta, Belluno,  Padova, Rovigo, Treviso, Venezia, Verona, Vicenza] |
-
-
-### Examples
-#### National plot
-`GET /api/plot?data_type=national&varname=<varname>`
-
-#### Regional plot 
-`GET /api/plot?data_type=regional&area=<region>&varname=<varname>`
-
-#### Provincial plot
-`GET /api/plot?data_type=provincial&area=<province>&varname=[nuovi_positivi,nuovi_positivi_ma,totale_casi]>`
-
-
-#### To get the base64-encoded image in a JSON response
-#### JSON
-
-#### Request
-```
-curl --request GET \ 
-     --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi'
-```
-
-#### Response
-```json
-{
-    "errors":[],
-    "img":"iVBORw0KGgoAA...",
-    "status":"ok"
-}
-```
-
-#### To download the file
-#### Request 
 ```shell
-curl --request GET \
-     --url 'https://www.covidash.it/api/plot?data_type=national&varname=totale_casi&download=true' \
-     --output plot.png
+cd frontend
+npm run build
 ```
 
-The plot will be saved in `./plot.png`
+Docker production image:
 
-## Plot preview
-![alt_text](previews/plot.png) 
+```shell
+docker compose --env-file .env build
+docker compose --env-file .env up -d
+```
 
+The container builds the React app, installs the FastAPI backend, and serves the SPA through FastAPI on `PORT`.
 
-## Donation
-If you liked this project or if I saved you some time, feel free to buy me a beer. Cheers!
+## Frontend behaviour
 
-[![paypal](https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PMW6C23XTQDWG)
+- Pandemic tabs preserve the legacy daily, current, and cumulative views.
+- KPI cards show the current value, the previous comparison value, the comparison date, and percentage change where the baseline allows it.
+- Large values use compact formatting in the UI while preserving full labels in API payloads.
+- Pandemic time-series charts include D3 tooltips, dynamic x-axis ticks, time drill controls, and key-period markers.
+- Vaccine coverage is shown as summary cards for first dose, second dose, and booster coverage.
+- Vaccine charts use D3-native views for regional coverage, age-band doses, vaccination trend by selected regions, and provider share.
+- Region/province navigation uses compact autocomplete instead of a large native dropdown.
+
+## API
+
+Modern endpoints:
+
+- `GET /api/health`
+- `GET /api/config`
+- `GET /api/pandemic/national`
+- `GET /api/pandemic/regional?area=Sicilia`
+- `GET /api/pandemic/provincial?area=Catania`
+- `GET /api/vaccines`
+- `GET /api/vaccines?area=Sicilia`
+
+Backward-compatible vaccine chart endpoints:
+
+- `GET /api/vax_charts/region`
+- `GET /api/vax_charts/trend`
+- `GET /api/vax_charts/age?area=Sicilia`
+- `GET /api/vax_charts/provider?area=Sicilia`
+
+The legacy `/api/plot` Flask endpoint is not part of the new FastAPI surface yet; the legacy code remains available as reference while the migration is validated.
+
+## Deploy on a private server
+
+A pragmatic private-server deployment is:
+
+1. Build the Docker image on the server or in CI.
+2. Provide `.env` with the production `MONGO_URI`, `PORT`, CORS origins, and collection names.
+3. Run `docker compose --env-file .env up -d`.
+4. Put Nginx/Caddy in front of the container for TLS, gzip/brotli, and canonical host redirects.
+5. Keep `covidashflow` scheduled separately so MongoDB stays populated before dashboards are read.
+
+Example reverse proxy flow:
+
+```text
+https://www.covidash.it -> Nginx/Caddy -> covidashit app container -> MongoDB populated by covidashflow
+```
+
+## Tests and checks
+
+Backend tests:
+
+```shell
+pytest
+```
+
+Frontend checks:
+
+```shell
+cd frontend
+npm run build
+npm run lint
+```
+
+Docker smoke check:
+
+```shell
+docker compose --env-file .env build
+docker compose --env-file .env up -d
+curl --fail http://localhost:${PORT:-5050}/api/health
+docker compose --env-file .env down
+```
+
+## Assumptions
+
+- MongoDB contains the same collection names and document shapes generated by `covidashflow`.
+- The FastAPI layer reads the existing covidashflow collections directly and rebuilds some chart series from canonical raw rows where this prevents known legacy artifacts from duplicated/corrected cumulative data.
+- Vaccine summary and administration collections can have different latest dates; the dashboard uses the latest available vaccine date and labels trend-card comparison samples explicitly.
+- The first production validation should compare the modern pages against the legacy Flask pages using the same Mongo database.
+
+## Remaining manual checks
+
+- Compare each KPI card count, trend direction, and percentage against the current production dashboard.
+- Compare D3 series visibility, time drill behaviour, key-period markers, and date labels for national, regional, and provincial pages.
+- Validate vaccine percentage calculations and regional chart selections against the live dashboard after connecting to production Mongo.
+- Decide whether to port the legacy `/api/plot` matplotlib endpoint to FastAPI or retire it with a documented compatibility window.

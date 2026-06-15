@@ -33,3 +33,7 @@ scripts/
 
 # env
 .venv/
+
+# modern frontend build inputs
+!frontend/**/*.json
+!frontend/public/static/img/*.png
