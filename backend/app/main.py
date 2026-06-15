@@ -48,15 +48,14 @@ def create_app() -> FastAPI:
     )
     app.include_router(router)
 
-    static_path = Path("covidashit/static")
-    if static_path.exists():
-        app.mount("/static", StaticFiles(directory=static_path), name="static")
-
     dist_path = Path(settings.frontend_dist)
     if dist_path.exists():
         assets_path = dist_path / "assets"
         if assets_path.exists():
             app.mount("/assets", StaticFiles(directory=assets_path), name="assets")
+        static_path = dist_path / "static"
+        if static_path.exists():
+            app.mount("/static", StaticFiles(directory=static_path), name="static")
 
         @app.get("/{path:path}", include_in_schema=False)
         def spa_fallback(path: str) -> FileResponse:

@@ -6,4 +6,4 @@ services:
     ports:
       - "${PORT:-5050}:${PORT:-5050}"
     environment:
-      FRONTEND_DIST: /covidashit/frontend/dist
+      FRONTEND_DIST: /app/frontend/dist

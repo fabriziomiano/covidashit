@@ -4,7 +4,7 @@ version = "7.0.0"
 description = "Modern COVIDash.it dashboard with FastAPI and React, preserving the original COVID analytics contract."
 authors = ["Fabrizio Miano <fabriziomiano@gmail.com>"]
 readme = "README.md"
-packages = [{ include = "backend" }, { include = "covidashit" }]
+packages = [{ include = "backend" }]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0.0"
@@ -14,19 +14,6 @@ pymongo = "4.10.1"
 python-dotenv = "1.0.1"
 pydantic = "2.10.4"
 httpx = "0.28.1"
-Flask = "3.1.3"
-Flask-Assets = "2.1.0"
-Flask-Babel = "2.0.0"
-Flask-Compress = "1.9.0"
-Flask-Limiter = "1.4"
-Flask-PyMongo = "2.3.0"
-Flask-Sitemap = "0.4.0"
-gunicorn = "22.0.0"
-matplotlib = "3.8.2"
-pandas = "2.1.4"
-requests = "2.33.0"
-cssmin = "0.2.0"
-jsmin = "3.0.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.3.4"

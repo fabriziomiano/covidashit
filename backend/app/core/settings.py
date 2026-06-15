@@ -11,7 +11,7 @@ from functools import lru_cache
 class Settings:
     """Environment-driven application settings.
 
-    Collection names intentionally match the legacy Flask app and the
+    Collection names intentionally match the historical dashboard and the
     covidashflow output collections, preserving the existing data contract.
     """
 
