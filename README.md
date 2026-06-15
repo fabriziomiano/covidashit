@@ -41,6 +41,7 @@ Important variables:
 | `PORT` | FastAPI/production HTTP port. Defaults to `5050` because macOS Control Center may reserve `5000`. |
 | `CORS_ORIGINS` | Allowed local frontend/API origins. |
 | `FRONTEND_DIST` | Built frontend directory served by FastAPI in production. |
+| `FORWARDED_ALLOW_IPS` | Uvicorn trusted proxy IP list for `X-Forwarded-*` headers. Defaults to `*` in Docker for reverse-proxy/Cloudflare deployments. |
 | `*_COLLECTION` | Existing covidashflow output collection names. |
 
 The defaults match the historical collection names: `National`, `NationalTrends`, `NationalSeries`, `Regional`, `RegionalTrends`, `RegionalSeries`, `RegionalBreakdown`, `Provincial`, `ProvincialTrends`, `ProvincialSeries`, `ProvincialBreakdown`, `VaxAdmins`, `VaxAdminsSummary`, and `Population`.
@@ -124,6 +125,11 @@ A pragmatic private-server deployment is:
 3. Run `docker compose --env-file .env up -d`.
 4. Put Nginx/Caddy in front of the container for TLS, gzip/brotli, and canonical host redirects.
 5. Keep `covidashflow` scheduled separately so MongoDB stays populated before dashboards are read.
+
+The Docker command enables Uvicorn proxy headers, so deployments behind Nginx,
+Caddy, or Cloudflare can pass `X-Forwarded-Proto` and `X-Forwarded-For`
+correctly. The app also serves `/favicon.ico` and `/robots.txt` explicitly and
+renders a branded 500 page for browser errors while keeping API errors JSON.
 
 Example reverse proxy flow:
 

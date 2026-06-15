@@ -15,4 +15,4 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt
 COPY backend ./backend
 COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
-CMD ["sh", "-c", "uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT:-5050}"]
+CMD ["sh", "-c", "uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT:-5050} --proxy-headers --forwarded-allow-ips '${FORWARDED_ALLOW_IPS:-*}'"]
