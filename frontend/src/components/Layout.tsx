@@ -106,10 +106,13 @@ export function Layout({ config }: LayoutProps) {
         <Outlet />
       </main>
       <footer className="footer">
-        <span>COVIDash.it</span>
-        <span>Data contract powered by <a href="https://github.com/fabriziomiano/covidashflow" target="_blank" rel="noreferrer">covidashflow</a></span>
+        <span>
+          COVIDash.it &middot; Re-Made with ❤ in Catania by{' '}
+          <a href="https://github.com/FabrizioMiano" target="_blank" rel="noreferrer">FabrizioMiano</a>{' '}
+          with the help of Code
+        </span>
         <span>Version {config.version}</span>
-        <Link to="/thanks">Thanks</Link>
+        <Link to="/thanks">Acknowledgements</Link>
       </footer>
     </div>
   );

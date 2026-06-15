@@ -1,4 +1,4 @@
-"""Dashboard data service backed by covidashflow Mongo collections."""
+"""Dashboard data service backed by COVIDash warehouse collections."""
 
 from __future__ import annotations
 
@@ -6,8 +6,6 @@ import datetime as dt
 from typing import Any, Literal
 
 from fastapi import HTTPException, status
-from pymongo.collection import Collection
-
 from backend.app.core.constants import (
     DATE_KEY,
     ITALY_MAP,
@@ -36,7 +34,7 @@ from backend.app.core.constants import (
     VAX_TOT_ADMINS_KEY,
     VERSION,
 )
-from backend.app.core.db import MongoCollections
+from backend.app.core.sql_db import SqlCollections
 from backend.app.services.serializers import chart_date, clean_document, display_date, number
 
 Scope = Literal["national", "regional", "provincial"]
@@ -54,7 +52,7 @@ CUMULATIVE_SERIES_KEYS = [TOTAL_CASES_KEY, "deceduti", "tamponi", "dimessi_guari
 class DashboardService:
     """Read and shape analytics documents without changing their meaning."""
 
-    def __init__(self, collections: MongoCollections) -> None:
+    def __init__(self, collections: SqlCollections) -> None:
         self.collections = collections
 
     def config(self) -> dict[str, Any]:
@@ -112,7 +110,7 @@ class DashboardService:
         }
 
     def vaccine_chart(self, chart_id: str, area: str | None = None) -> dict[str, Any]:
-        """Return one of the legacy vaccine chart payloads."""
+        """Return one vaccine chart payload."""
 
         menu = {
             "trend": self.vaccine_trend_chart,
@@ -208,7 +206,7 @@ class DashboardService:
         if scope == "provincial" and area not in PROVINCES:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Area {area} not found")
 
-    def _data_query(self, scope: Scope, area: str | None) -> tuple[Collection[Any], dict[str, Any]]:
+    def _data_query(self, scope: Scope, area: str | None) -> tuple[Any, dict[str, Any]]:
         if scope == "regional":
             return self.collections.regional_data, {REGION_KEY: area}
         if scope == "provincial":
@@ -227,10 +225,9 @@ class DashboardService:
     def _pandemic_series(self, scope: Scope, area: str | None) -> dict[str, Any]:
         """Return chart series rebuilt from canonical rows.
 
-        Some legacy ``*Series`` documents were generated from duplicated rows
-        or from cumulative corrections that briefly moved backwards.  Rebuilding
-        here keeps the public API compatible while preventing visual artifacts
-        such as multi-million daily swab spikes.
+        Source cumulative corrections can briefly move backwards. Rebuilding
+        here keeps the chart output stable and prevents visual artifacts such
+        as multi-million daily swab spikes.
         """
 
         rows = self._pandemic_rows(scope, area)
@@ -243,7 +240,7 @@ class DashboardService:
         }
 
     def _cumulative_series(self, scope: Scope, area: str | None) -> list[dict[str, Any]]:
-        """Build cumulative chart series when covidashflow stores only daily/current series."""
+        """Build cumulative chart series from chronological fact rows."""
 
         collection, query = self._data_query(scope, area)
         keys = [TOTAL_CASES_KEY, "deceduti", "tamponi", "dimessi_guariti"]
@@ -309,12 +306,12 @@ class DashboardService:
         )
 
     def _series_item(self, key: str, data: list[float]) -> dict[str, Any]:
-        """Return one typed chart-series item with the legacy display label."""
+        """Return one typed chart-series item with the configured display label."""
 
         return {"id": key, "name": VARS.get(key, {}).get("title", key), "data": data}
 
     def _sort_series(self, series: list[dict[str, Any]]) -> list[dict[str, Any]]:
-        """Sort series by their visible maximum, matching the legacy emphasis."""
+        """Sort series by their visible maximum."""
 
         return sorted(series, key=lambda item: max(item["data"]) if item["data"] else 0, reverse=True)
 
@@ -359,7 +356,7 @@ class DashboardService:
         return averages
 
     def _number(self, value: Any) -> float:
-        """Coerce Mongo numeric values to finite floats for chart math."""
+        """Coerce numeric values to finite floats for chart math."""
 
         try:
             numeric = float(value or 0)
@@ -385,7 +382,7 @@ class DashboardService:
         return str(value)
 
     def _coerce_datetime(self, value: Any) -> dt.datetime | None:
-        """Normalize date-like Mongo values for cross-collection comparisons."""
+        """Normalize date-like values for cross-table comparisons."""
 
         if isinstance(value, dt.datetime):
             return value
@@ -447,9 +444,8 @@ class DashboardService:
         if population:
             return population
 
-        # Some covidashflow deployments keep population on VaxAdminsSummary
-        # rather than in a dedicated Population collection. Use the latest
-        # maximum population by area, preserving the same area-level meaning.
+        # Fall back to the latest summary population by area when the
+        # dedicated population table has not been loaded yet.
         fallback_pipe = [
             {"$match": {VAX_AREA_KEY: {"$ne": "ITA"}}},
             {"$group": {"_id": f"${VAX_AREA_KEY}", VAX_POP_KEY: {"$max": f"${VAX_POP_KEY}"}}},
@@ -460,13 +456,11 @@ class DashboardService:
         }
 
     def _summary_population(self, row: dict[str, Any]) -> int:
-        """Return population from VaxAdminsSummary normalized to people.
+        """Return population from vaccine summary rows normalized to people.
 
-        The current covidashflow-backed Atlas dataset stores ``popolazione`` in
-        ``VaxAdminsSummary`` as a doubled value.  The legacy app preferred the
-        dedicated Population collection; when that collection is absent, this
-        fallback halves the summary value to keep population-based KPIs in the
-        same semantic range.
+        Some source summaries store ``popolazione`` as a doubled value. When
+        the dedicated population table is absent, this fallback halves the
+        summary value to keep population-based KPIs in the expected range.
         """
 
         return int((row.get(VAX_POP_KEY, 0) or 0) / 2)

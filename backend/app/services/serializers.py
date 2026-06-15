@@ -6,14 +6,8 @@ import datetime as dt
 from decimal import Decimal
 from typing import Any
 
-try:
-    from bson import ObjectId
-except Exception:  # pragma: no cover - bson is present with pymongo in production.
-    ObjectId = None  # type: ignore[assignment]
-
-
 def number(value: Any) -> str:
-    """Format a count like the legacy dashboard cards."""
+    """Format a count for dashboard cards."""
 
     try:
         return f"{int(value):,}".replace(",", ".")
@@ -47,10 +41,8 @@ def chart_date(value: Any) -> str:
 
 
 def clean_document(value: Any) -> Any:
-    """Recursively convert Mongo/Python values into JSON-safe objects."""
+    """Recursively convert Python values into JSON-safe objects."""
 
-    if ObjectId is not None and isinstance(value, ObjectId):
-        return str(value)
     if isinstance(value, (dt.datetime, dt.date)):
         return value.isoformat()
     if isinstance(value, Decimal):

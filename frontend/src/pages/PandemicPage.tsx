@@ -40,7 +40,7 @@ export function PandemicPage({ config, scope }: PandemicPageProps) {
   const { area } = useParams();
   const decodedArea = area ? decodeURIComponent(area) : undefined;
   const [activeTab, setActiveTab] = useState<'daily' | 'current' | 'cum'>('daily');
-  const { data, error, loading } = useAsync(() => getPandemicSnapshot(scope, decodedArea), [scope, decodedArea]);
+  const { data, error, loading } = useAsync((signal) => getPandemicSnapshot(scope, decodedArea, signal), [scope, decodedArea]);
   const tabs = useMemo(() => [
     { id: 'daily' as const, label: 'Daily' },
     { id: 'current' as const, label: 'Current' },

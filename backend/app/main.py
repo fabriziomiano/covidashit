@@ -11,11 +11,10 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
-from pymongo.errors import PyMongoError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from backend.app.api.routes import router
-from backend.app.core.db import MongoStore
+from backend.app.core.sql_db import SqlDashboardStore
 from backend.app.core.settings import get_settings
 
 load_dotenv()
@@ -76,13 +75,13 @@ def error_page(status_code: int, title: str, message: str) -> HTMLResponse:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Create and close the Mongo client with the application lifecycle."""
+    """Create and close the SQL dashboard data store."""
 
-    app.state.mongo_store = MongoStore(get_settings())
+    app.state.data_store = SqlDashboardStore(get_settings())
     try:
         yield
     finally:
-        app.state.mongo_store.close()
+        app.state.data_store.close()
 
 
 def create_app() -> FastAPI:
@@ -91,7 +90,7 @@ def create_app() -> FastAPI:
     settings = get_settings()
     app = FastAPI(
         title="COVIDash.it API",
-        description="Modern API facade over the covidashflow MongoDB analytics contract.",
+        description="Modern API facade over the COVIDash PostgreSQL analytics warehouse.",
         version="7.0.0",
         lifespan=lifespan,
     )
@@ -113,19 +112,6 @@ def create_app() -> FastAPI:
         title = "Page not found" if exc.status_code == 404 else "Request error"
         message = "The dashboard route or asset you requested does not exist." if exc.status_code == 404 else str(exc.detail)
         return error_page(exc.status_code, title, message)
-
-    @app.exception_handler(PyMongoError)
-    async def mongo_exception_handler(request: Request, exc: PyMongoError):
-        """Report unavailable covidashflow data without hanging behind the proxy."""
-
-        logger.exception("Mongo request error on %s", request.url.path, exc_info=exc)
-        if request.url.path.startswith("/api") or not wants_html(request):
-            return JSONResponse({"detail": "MongoDB unavailable"}, status_code=503)
-        return error_page(
-            503,
-            "Data temporarily unavailable",
-            "COVIDash.it is running, but it cannot reach the MongoDB data store right now.",
-        )
 
     @app.exception_handler(Exception)
     async def unhandled_exception_handler(request: Request, exc: Exception):

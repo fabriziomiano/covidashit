@@ -1,105 +1,95 @@
 # COVIDash.it
 
-Modern COVID analytics dashboard for Italy. This rewrite preserves the original COVIDash.it product meaning while moving the application toward a maintainable FastAPI + React architecture.
-
-The data contract is intentionally unchanged: MongoDB is populated by [`covidashflow`](https://github.com/fabriziomiano/covidashflow), and this app reads those existing collections.
+COVIDash.it is now the monorepo for the Italian COVID-19 dashboard and its ETL. The dashboard keeps the existing React visuals and FastAPI routes, while the data path has moved to Prefect 3 and PostgreSQL.
 
 ## Architecture
 
-- `backend/`: FastAPI API layer over the existing MongoDB collections.
-- `frontend/`: React + TypeScript + Vite single-page app with D3 charts.
+- `etl/`: Prefect flows and loaders that extract DPC and Italian vaccine open data, normalize it, and write typed PostgreSQL warehouse tables plus dashboard artifacts.
+- `backend/`: FastAPI API layer. In the default Compose stack it reads PostgreSQL through the SQL dashboard store.
+- `frontend/`: React + TypeScript + Vite dashboard with D3 charts.
+- `docker-compose.yaml`: unified local stack for PostgreSQL, Prefect, ETL, and the dashboard app.
 
-## Preserved dashboard semantics
+## Data Loading
 
-The modern app keeps the original dashboard structure:
+The ETL supports both initial full loads and incremental delta loads. Full loads replace warehouse tables and refresh dashboard artifacts. Delta loads compare source dates with the latest loaded PostgreSQL dates and append only new rows. Each pipeline writes an `etl_run_log` entry with status, row count, skipped state, and failure message when applicable. Reusing the exact same run id is treated as already handled and does not replay the load.
 
-- Pandemic national dashboard at `/`.
-- Regional pandemic dashboards at `/regions/:area`.
-- Provincial pandemic dashboards at `/provinces/:area`.
-- Vaccination dashboard at `/vaccines` and `/vaccines/:area`.
-- Same major KPI groups: daily, current, cumulative, and vaccine dose trends.
-- Same area hierarchy: Italy, regions, provinces.
-- Same vaccine charts: administrations by region, vaccination trend, administrations by age, and provider pie chart.
-- Same historical reference periods on pandemic time-series charts, including lockdown and vaccine-day markers.
-- Same Mongo collection contract produced by `covidashflow`.
+Run a full initial load:
 
-D3 is used for the modern charts. The goal is not a pixel-for-pixel copy of the legacy Highcharts setup: the charts preserve the original analytical meaning while adding richer tooltips, responsive axes, key-period legends, compact value formatting, and time drill controls where useful.
+```shell
+docker compose --profile etl run --rm etl python -m covidashflow all --mode full --run-id initial-full-001
+```
+
+Run a delta load:
+
+```shell
+docker compose --profile etl run --rm etl python -m covidashflow all --mode delta --run-id delta-$(date +%Y%m%d%H%M%S)
+```
+
+Load individual pipelines by replacing `all` with `dpc` or `vaccines`.
+
+## Run Locally
+
+Start the database, Prefect UI, and worker:
+
+```shell
+docker compose up -d postgres prefect-server prefect-worker
+```
+
+Load data, then start the dashboard:
+
+```shell
+docker compose --profile etl run --rm etl python -m covidashflow all --mode full --run-id local-full-001
+docker compose up -d app
+```
+
+Open:
+
+- Dashboard: `http://localhost:5050`
+- Dashboard health: `http://localhost:5050/api/health`
+- Prefect UI: `http://localhost:8080`
+- Prefect API health: `http://localhost:8080/api/health` locally, or `https://prefect.covidash.it/api/health` through NGINX
+
+Default local ports can be overridden with `COVIDASHIT_PORT`, `COVIDASH_SQL_PORT`, and `PREFECT_UI_PORT`. Set `PREFECT_UI_API_URL` to the browser-reachable Prefect API URL. The deployment default is `https://prefect.covidash.it/api`; for direct localhost access override it with `http://localhost:8080/api`.
+
+## Prefect Runs
+
+`prefect-worker` registers these deployments when it starts:
+
+- `covidash-full-etl/manual-delta` for an on-demand all-pipeline delta run.
+- `covidash-full-etl/manual-full` for an on-demand full warehouse rebuild.
+- `covidash-dpc-etl/manual-dpc-delta` for an on-demand pandemic-only delta run.
+- `covidash-vaccines-etl/manual-vaccines-delta` for an on-demand vaccines-only delta run.
+- `covidash-full-etl/scheduled-daily-delta` for the daily scheduled delta run at 05:00 Europe/Rome.
+
+In the Prefect UI, open a deployment and click **Run** to trigger it immediately. The same run can be triggered from the CLI:
+
+```shell
+docker compose exec prefect-worker prefect deployment run covidash-full-etl/manual-delta
+```
 
 ## Configuration
 
-Create a local environment file:
-
-```shell
-cp .env.example .env
-```
-
 Important variables:
 
-| Variable | Purpose |
-| --- | --- |
-| `MONGO_URI` | Mongo database populated by `covidashflow`. |
-| `MONGO_TIMEOUT_MS` | Mongo connection/query timeout in milliseconds. Defaults to `3000` to avoid proxy timeouts when Mongo is unreachable. |
-| `COVIDASHFLOW_NETWORK` | External Docker network used by `covidashflow` in production. Defaults to `covidashflow_default`. |
-| `PORT` | FastAPI/production HTTP port. Defaults to `5050` because macOS Control Center may reserve `5000`. |
-| `CORS_ORIGINS` | Allowed local frontend/API origins. |
-| `FRONTEND_DIST` | Built frontend directory served by FastAPI in production. |
-| `FORWARDED_ALLOW_IPS` | Uvicorn trusted proxy IP list for `X-Forwarded-*` headers. Defaults to `*` in Docker for reverse-proxy/Cloudflare deployments. |
-| `*_COLLECTION` | Existing covidashflow output collection names. |
+| Variable | Purpose | Default |
+| --- | --- | --- |
+| `DATABASE_URL` | PostgreSQL URL for ETL and SQL dashboard reads. | Compose service URL |
+| `COVIDASHIT_PORT` | Dashboard HTTP port. | `5050` |
+| `COVIDASH_SQL_PORT` | Host PostgreSQL port. | `5433` |
+| `PREFECT_UI_PORT` | Host Prefect UI/API port. | `8080` |
+| `PREFECT_UI_API_URL` | Public API URL used by the Prefect browser UI. Use the browser-reachable hostname. | `https://prefect.covidash.it/api` |
+| `PREFECT_API_DATABASE_CONNECTION_URL` | Prefect Server metadata database. Uses Postgres in Compose to avoid SQLite lock contention. | Compose service URL |
+| `CORS_ORIGINS` | Allowed frontend/API origins. | local dashboard/dev origins plus `http://covidash.it` |
+| `FRONTEND_DIST` | Built frontend directory served by FastAPI. | `/app/frontend/dist` in Docker |
 
-The defaults match the historical collection names: `National`, `NationalTrends`, `NationalSeries`, `Regional`, `RegionalTrends`, `RegionalSeries`, `RegionalBreakdown`, `Provincial`, `ProvincialTrends`, `ProvincialSeries`, `ProvincialBreakdown`, `VaxAdmins`, `VaxAdminsSummary`, and `Population`.
+## Dashboard Routes
 
-## Run locally
+- `/` for the national pandemic dashboard.
+- `/regions/:area` for regional pandemic dashboards.
+- `/provinces/:area` for provincial pandemic dashboards.
+- `/vaccines` and `/vaccines/:area` for vaccination dashboards.
 
-Backend:
-
-```shell
-python -m venv .venv
-. .venv/bin/activate
-pip install -r requirements.txt
-uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 5050
-```
-
-Frontend:
-
-```shell
-cd frontend
-npm install
-npm run dev
-```
-
-Open `http://localhost:5173`. Vite proxies `/api` to `http://localhost:5050`; production Docker serves the built app on `PORT`, normally `5050`.
-
-## Build
-
-Frontend only:
-
-```shell
-cd frontend
-npm run build
-```
-
-Docker production image:
-
-```shell
-docker compose --env-file .env build
-docker compose --env-file .env up -d
-```
-
-The container builds the React app, installs the FastAPI backend, and serves the SPA through FastAPI on `PORT`.
-
-## Frontend behaviour
-
-- Pandemic tabs preserve the legacy daily, current, and cumulative views.
-- KPI cards show the current value, the previous comparison value, the comparison date, and percentage change where the baseline allows it.
-- Large values use compact formatting in the UI while preserving full labels in API payloads.
-- Pandemic time-series charts include D3 tooltips, dynamic x-axis ticks, time drill controls, and key-period markers.
-- Vaccine coverage is shown as summary cards for first dose, second dose, and booster coverage.
-- Vaccine charts use D3-native views for regional coverage, age-band doses, vaccination trend by selected regions, and provider share.
-- Region/province navigation uses compact autocomplete instead of a large native dropdown.
-
-## API
-
-Modern endpoints:
+API endpoints:
 
 - `GET /api/health`
 - `GET /api/config`
@@ -108,84 +98,46 @@ Modern endpoints:
 - `GET /api/pandemic/provincial?area=Catania`
 - `GET /api/vaccines`
 - `GET /api/vaccines?area=Sicilia`
-
-Backward-compatible vaccine chart endpoints:
-
 - `GET /api/vax_charts/region`
 - `GET /api/vax_charts/trend`
 - `GET /api/vax_charts/age?area=Sicilia`
 - `GET /api/vax_charts/provider?area=Sicilia`
 
-The legacy Flask app and its `/api/plot` matplotlib endpoint were removed in v7.0.0. The supported runtime surface is the FastAPI API plus the React dashboard.
+## Build And Test
 
-## Deploy on a private server
-
-A pragmatic private-server deployment is:
-
-1. Build the Docker image on the server or in CI.
-2. Provide `.env` with the production `MONGO_URI`, `PORT`, CORS origins, and collection names.
-3. If MongoDB is the `mongo` service from the `covidashflow` compose stack, set `MONGO_URI=mongodb://mongo/covid`.
-4. Attach `covidashit` to the `covidashflow` Docker network:
+Backend tests inside the app container:
 
 ```shell
-docker compose -f docker-compose.yaml -f docker-compose.prod.yaml --env-file .env up -d
+docker compose exec app sh -c 'PYTHONPATH=/app pytest backend/tests'
 ```
 
-5. If your compose project name is not `covidashflow`, set `COVIDASHFLOW_NETWORK` to the real network name from `docker network ls`.
-6. Run `curl --fail https://covidash.it/api/health`; it should return `{"status":"ok"}` once Mongo is reachable.
-7. Put Nginx/Caddy in front of the container for TLS, gzip/brotli, and canonical host redirects.
-8. Keep `covidashflow` scheduled separately so MongoDB stays populated before dashboards are read.
+Docker build and frontend production build are covered by:
 
-The Docker command enables Uvicorn proxy headers, so deployments behind Nginx,
-Caddy, or Cloudflare can pass `X-Forwarded-Proto` and `X-Forwarded-For`
-correctly. The app also serves `/favicon.ico` and `/robots.txt` explicitly and
-renders a branded 500 page for browser errors while keeping API errors JSON.
+```shell
+docker compose build app
+```
 
-Example reverse proxy flow:
+Validate Compose files:
+
+```shell
+docker compose -f docker-compose.yaml config --quiet
+docker compose -f docker-compose.sql.yaml config --quiet
+```
+
+## Deployment
+
+A single-host deployment can run the unified stack directly:
+
+```shell
+docker compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d postgres prefect-server app
+docker compose --profile etl run --rm etl python -m covidashflow all --mode delta --run-id production-delta-$(date +%Y%m%d%H%M%S)
+```
+
+Put nginx in front of the dashboard and Prefect UI. The intended hosts are:
 
 ```text
-https://www.covidash.it -> Nginx/Caddy -> covidashit app container -> MongoDB populated by covidashflow
+https://covidash.it -> app on localhost:5050
+https://prefect.covidash.it -> prefect-server on localhost:8080
 ```
 
-When both projects run as separate Docker Compose stacks on the same host, the
-`covidashit` app container must share the `covidashflow` network. Inside that
-network the Mongo host is `mongo`, not `localhost` and not `mongodb`. A
-`localhost` Mongo URI from inside the app container points back to the app
-container itself, so it will never reach the Airflow/covidashflow database.
-
-## Tests and checks
-
-Backend tests:
-
-```shell
-pytest
-```
-
-Frontend checks:
-
-```shell
-cd frontend
-npm run build
-npm run lint
-```
-
-Docker smoke check:
-
-```shell
-docker compose --env-file .env build
-docker compose --env-file .env up -d
-curl --fail http://localhost:${PORT:-5050}/api/health
-docker compose --env-file .env down
-```
-
-## Assumptions
-
-- MongoDB contains the same collection names and document shapes generated by `covidashflow`.
-- The FastAPI layer reads the existing covidashflow collections directly and rebuilds some chart series from canonical raw rows where this prevents known legacy artifacts from duplicated/corrected cumulative data.
-- Vaccine summary and administration collections can have different latest dates; the dashboard uses the latest available vaccine date and labels trend-card comparison samples explicitly.
-
-## Remaining manual checks
-
-- Compare each KPI card count, trend direction, and percentage against the current production dashboard.
-- Compare D3 series visibility, time drill behaviour, key-period markers, and date labels for national, regional, and provincial pages.
-- Validate vaccine percentage calculations and regional chart selections against the live dashboard after connecting to production Mongo.
+The app image enables Uvicorn proxy headers so nginx can pass `X-Forwarded-*` headers for TLS-aware redirects and links.

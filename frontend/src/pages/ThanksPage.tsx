@@ -14,11 +14,6 @@ export function ThanksPage() {
       name: 'ISTAT',
       href: 'https://www.istat.it/',
       text: 'Population reference data used for coverage and per-area comparisons.'
-    },
-    {
-      name: 'covidashflow',
-      href: 'https://github.com/fabriziomiano/covidashflow',
-      text: 'The ETL pipeline that prepares and publishes the Mongo collections consumed by COVIDash.it.'
     }
   ];
 
@@ -31,7 +26,7 @@ export function ThanksPage() {
           <p className="meta-line">COVIDash.it exists thanks to open data, public health datasets, and the original project contributors.</p>
         </div>
       </div>
-      <p className="body-copy">The modernized application preserves the original dashboard intent: make Italian COVID-19 pandemic and vaccination trends easy to inspect, compare, and share.</p>
+      <p className="body-copy">COVIDash.it makes Italian COVID-19 pandemic and vaccination trends easy to inspect, compare, and share.</p>
       <section className="thanks-section">
         <h2>Data sources</h2>
         <div className="thanks-list">
