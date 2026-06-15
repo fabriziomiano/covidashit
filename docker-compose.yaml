@@ -20,7 +20,7 @@ services:
     command: prefect server start --host 0.0.0.0
     environment:
       PREFECT_API_DATABASE_CONNECTION_URL: postgresql+asyncpg://${POSTGRES_USER:-covidash}:${POSTGRES_PASSWORD:-covidash}@postgres:5432/${POSTGRES_DB:-covidash}
-      PREFECT_UI_API_URL: ${PREFECT_UI_API_URL:-https://prefect.covidash.it/api}
+      PREFECT_UI_API_URL: ${PREFECT_UI_API_URL:-http://localhost:8080/api}
     ports:
       - "${PREFECT_UI_PORT:-8080}:4200"
     volumes:

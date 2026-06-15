@@ -49,7 +49,7 @@ Open:
 - Prefect UI: `http://localhost:8080`
 - Prefect API health: `http://localhost:8080/api/health` locally, or `https://prefect.covidash.it/api/health` through NGINX
 
-Default local ports can be overridden with `COVIDASHIT_PORT`, `COVIDASH_SQL_PORT`, and `PREFECT_UI_PORT`. Set `PREFECT_UI_API_URL` to the browser-reachable Prefect API URL. The deployment default is `https://prefect.covidash.it/api`; for direct localhost access override it with `http://localhost:8080/api`.
+Default local ports can be overridden with `COVIDASHIT_PORT`, `COVIDASH_SQL_PORT`, and `PREFECT_UI_PORT`. Set `PREFECT_UI_API_URL` to the browser-reachable Prefect API URL. The local default is `http://localhost:8080/api`; for the public NGINX route override it with `https://prefect.covidash.it/api`.
 
 ## Prefect Runs
 
@@ -77,7 +77,7 @@ Important variables:
 | `COVIDASHIT_PORT` | Dashboard HTTP port. | `5050` |
 | `COVIDASH_SQL_PORT` | Host PostgreSQL port. | `5433` |
 | `PREFECT_UI_PORT` | Host Prefect UI/API port. | `8080` |
-| `PREFECT_UI_API_URL` | Public API URL used by the Prefect browser UI. Use the browser-reachable hostname. | `https://prefect.covidash.it/api` |
+| `PREFECT_UI_API_URL` | API URL used by the Prefect browser UI. Use the browser-reachable hostname. | `http://localhost:8080/api` |
 | `PREFECT_API_DATABASE_CONNECTION_URL` | Prefect Server metadata database. Uses Postgres in Compose to avoid SQLite lock contention. | Compose service URL |
 | `CORS_ORIGINS` | Allowed frontend/API origins. | local dashboard/dev origins plus `http://covidash.it` |
 | `FRONTEND_DIST` | Built frontend directory served by FastAPI. | `/app/frontend/dist` in Docker |
