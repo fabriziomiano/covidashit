@@ -10,7 +10,7 @@ packages = [{ include = "backend" }, { include = "covidashit" }]
 python = ">=3.10,<4.0.0"
 fastapi = "0.115.6"
 uvicorn = {extras = ["standard"], version = "0.34.0"}
-pymongo = "4.10.1"
+pymongo = "4.6.3"
 python-dotenv = "1.0.1"
 pydantic = "2.10.4"
 httpx = "0.28.1"
