@@ -60,14 +60,29 @@ h2 { font-size: 1.15rem; margin: 0 0 14px; }
 .tabs button { cursor: pointer; }
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 18px; }
 .metric-card { border: 1px solid #354258; border-left-width: 4px; border-radius: 8px; background: #151b24; padding: 14px; min-height: 126px; }
-.metric-card__title { color: #c9d3e3; text-transform: uppercase; font-size: 0.76rem; font-weight: 800; min-height: 34px; }
-.metric-card__value { font-size: clamp(1.55rem, 3vw, 2.25rem); font-weight: 800; margin-top: 8px; white-space: nowrap; }
+.metric-card__head { display: grid; grid-template-columns: 32px 1fr; gap: 10px; align-items: center; min-height: 34px; }
+.metric-card__icon {
+  width: 32px; height: 32px; display: grid; place-items: center; border-radius: 8px;
+  background: rgba(77, 182, 172, 0.11); color: #4db6ac; border: 1px solid rgba(77, 182, 172, 0.32);
+}
+.metric-card__icon svg, .metric-card__trend svg { width: 18px; height: 18px; stroke-width: 2.2; }
+.metric-card__title { color: #c9d3e3; text-transform: uppercase; font-size: 0.76rem; font-weight: 800; }
+.metric-card__value-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; }
+.metric-card__value { font-size: clamp(1.55rem, 3vw, 2.25rem); font-weight: 800; white-space: nowrap; }
+.metric-card__trend {
+  flex: 0 0 auto; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 999px;
+  color: #aeb7c6; background: #10161f; border: 1px solid #2f3a4d;
+}
 .metric-card__delta { color: #d8e1ef; min-height: 22px; font-weight: 700; }
 .metric-card__meta { color: #8e9aad; font-size: 0.82rem; margin-top: 6px; display: grid; gap: 2px; line-height: 1.35; }
 .card-success { border-left-color: #40c980; }
+.card-success .metric-card__icon, .card-success .metric-card__trend { color: #40c980; border-color: rgba(64, 201, 128, 0.36); background: rgba(64, 201, 128, 0.11); }
 .card-danger { border-left-color: #f05d6a; }
+.card-danger .metric-card__icon, .card-danger .metric-card__trend { color: #f05d6a; border-color: rgba(240, 93, 106, 0.38); background: rgba(240, 93, 106, 0.1); }
 .card-info { border-left-color: #45b7e8; }
+.card-info .metric-card__icon, .card-info .metric-card__trend { color: #45b7e8; border-color: rgba(69, 183, 232, 0.36); background: rgba(69, 183, 232, 0.1); }
 .card-neutral { border-left-color: #8090aa; }
+.card-neutral .metric-card__icon, .card-neutral .metric-card__trend { color: #aeb7c6; border-color: #354258; background: #10161f; }
 .chart-panel { border: 1px solid #283244; border-radius: 8px; background: #171b22; min-height: 420px; padding: 12px; margin-bottom: 18px; overflow: hidden; }
 .charts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .d3-chart { width: 100%; color: #d8e1ef; position: relative; }

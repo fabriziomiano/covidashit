@@ -12,14 +12,15 @@
   "dependencies": {
     "@vitejs/plugin-react": "latest",
     "d3": "latest",
+    "lucide-react": "^1.18.0",
     "react": "latest",
     "react-dom": "latest",
     "react-router-dom": "latest"
   },
   "devDependencies": {
     "@eslint/js": "latest",
-    "@types/node": "latest",
     "@types/d3": "latest",
+    "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "eslint": "latest",
