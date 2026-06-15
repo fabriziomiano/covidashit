@@ -115,6 +115,31 @@ def test_reverse_proxy_500_page_is_branded(tmp_path, monkeypatch) -> None:
     assert head_response.status_code == 500
 
 
+def test_sitemap_exposes_dashboard_routes(tmp_path, monkeypatch) -> None:
+    """Search crawlers should discover static and area dashboard routes."""
+
+    dist = tmp_path / "dist"
+    static = dist / "static"
+    static.mkdir(parents=True)
+    (dist / "index.html").write_text("<!doctype html><title>SPA</title>", encoding="utf-8")
+    (static / "favicon.ico").write_bytes(b"ico")
+
+    monkeypatch.setenv("FRONTEND_DIST", str(dist))
+    get_settings.cache_clear()
+    client = TestClient(create_app())
+
+    response = client.get("/sitemap.xml")
+    openapi = client.get("/openapi.json")
+
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("application/xml")
+    assert "<loc>https://covidash.it/</loc>" in response.text
+    assert "<loc>https://covidash.it/vaccines</loc>" in response.text
+    assert "<loc>https://covidash.it/regions/Lombardia</loc>" in response.text
+    assert "<loc>https://covidash.it/provinces/Milano</loc>" in response.text
+    assert openapi.json()["info"]["version"] == "8.0.0"
+
+
 def teardown_module() -> None:
     """Avoid leaking environment-derived settings into later tests."""
 

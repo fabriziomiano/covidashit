@@ -5,6 +5,7 @@ from __future__ import annotations
 from contextlib import asynccontextmanager
 import logging
 from pathlib import Path
+from urllib.parse import quote
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
@@ -14,11 +15,13 @@ from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from backend.app.api.routes import router
+from backend.app.core.constants import ITALY_MAP, VERSION
 from backend.app.core.sql_db import SqlDashboardStore
 from backend.app.core.settings import get_settings
 
 load_dotenv()
 logger = logging.getLogger(__name__)
+SITE_URL = "https://covidash.it"
 
 
 def wants_html(request: Request) -> bool:
@@ -73,6 +76,23 @@ def error_page(status_code: int, title: str, message: str) -> HTMLResponse:
     return HTMLResponse(html, status_code=status_code)
 
 
+def build_sitemap() -> str:
+    """Return a sitemap covering static dashboards and known Italian areas."""
+
+    paths = ["/", "/vaccines", "/thanks"]
+    regions = list(ITALY_MAP)
+    provinces = [province for province_list in ITALY_MAP.values() for province in province_list]
+    paths.extend(f"/regions/{quote(region)}" for region in regions)
+    paths.extend(f"/vaccines/{quote(region)}" for region in regions)
+    paths.extend(f"/provinces/{quote(province)}" for province in provinces)
+    urls = "\n".join(f"  <url><loc>{SITE_URL}{path}</loc></url>" for path in paths)
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{urls}
+</urlset>
+"""
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Create and close the SQL dashboard data store."""
@@ -91,7 +111,7 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title="COVIDash.it API",
         description="Modern API facade over the COVIDash PostgreSQL analytics warehouse.",
-        version="7.0.0",
+        version=VERSION,
         lifespan=lifespan,
     )
     app.add_middleware(
@@ -148,7 +168,13 @@ def create_app() -> FastAPI:
             robots_path = static_path / "robots.txt"
             if robots_path.exists():
                 return FileResponse(robots_path, media_type="text/plain")
-            return PlainTextResponse("User-agent: *\nAllow: /\n")
+            return PlainTextResponse(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
+
+        @app.api_route("/sitemap.xml", methods=["GET", "HEAD"], include_in_schema=False)
+        def sitemap() -> PlainTextResponse:
+            """Expose known dashboard routes for search crawlers."""
+
+            return PlainTextResponse(build_sitemap(), media_type="application/xml")
 
         @app.api_route("/500.html", methods=["GET", "HEAD"], include_in_schema=False)
         @app.api_route("/50x.html", methods=["GET", "HEAD"], include_in_schema=False)
