@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "covidashit"
-version = "0.7.0"
+version = "7.0.0"
 description = "Modern COVIDash.it dashboard with FastAPI and React, preserving the original COVID analytics contract."
 authors = ["Fabrizio Miano <fabriziomiano@gmail.com>"]
 readme = "README.md"

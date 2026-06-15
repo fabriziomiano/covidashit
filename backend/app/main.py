@@ -36,7 +36,7 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title="COVIDash.it API",
         description="Modern API facade over the covidashflow MongoDB analytics contract.",
-        version="7.0-modern",
+        version="7.0.0",
         lifespan=lifespan,
     )
     app.add_middleware(
