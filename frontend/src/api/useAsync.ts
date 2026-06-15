@@ -11,7 +11,11 @@ export function useAsync<T>(factory: (signal?: AbortSignal) => Promise<T>, deps:
 
   useEffect(() => {
     const controller = new AbortController();
-    setState((current) => ({ data: current.data, error: null, loading: true }));
+    queueMicrotask(() => {
+      if (!controller.signal.aborted) {
+        setState((current) => ({ data: current.data, error: null, loading: true }));
+      }
+    });
 
     factory(controller.signal)
       .then((data) => {

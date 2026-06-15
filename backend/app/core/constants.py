@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections import OrderedDict
 from typing import Any
 
-VERSION = "8.0.0"
+VERSION = "8.0.1"
 PAGE_BASE_TITLE = "COVIDash.it"
 DATE_KEY = "data"
 NOTE_KEY = "note"

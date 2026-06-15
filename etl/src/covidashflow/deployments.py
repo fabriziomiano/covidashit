@@ -2,12 +2,23 @@
 
 from __future__ import annotations
 
+import asyncio
+
+from prefect.client.orchestration import get_client
 from prefect.client.schemas.schedules import CronSchedule
+from prefect.events.actions import RunDeployment
+from prefect.events.schemas.automations import AutomationCore, EventTrigger
 
 from covidashflow.flows import dpc_flow, full_flow, vaccines_flow
 
 WORK_POOL_NAME = "covidash-etl"
 TIMEZONE = "Europe/Rome"
+SOURCE_COMMIT_AUTOMATION_NAME = "Run COVIDash delta ETL on source data commit"
+SOURCE_COMMIT_EVENT = "covidash.source.commit"
+SOURCE_REPOSITORIES = [
+    "pcm-dpc/COVID-19",
+    "italia/covid19-opendata-vaccini",
+]
 
 
 def register_deployments(work_pool_name: str = WORK_POOL_NAME) -> list[str]:
@@ -59,9 +70,55 @@ def register_deployments(work_pool_name: str = WORK_POOL_NAME) -> list[str]:
     return registered
 
 
+async def register_source_commit_automation() -> str:
+    """Create or update the event automation for upstream data commits.
+
+    The automation is triggered by events emitted with:
+    - event: covidash.source.commit
+    - resource.prefect.resource.id: github.repository.<owner>/<repo>
+
+    GitHub webhooks or a small bridge service can emit these events to Prefect
+    when the upstream data repositories publish new commits.
+    """
+
+    async with get_client() as client:
+        deployment = await client.read_deployment_by_name("covidash-full-etl/manual-delta")
+        automation = AutomationCore(
+            name=SOURCE_COMMIT_AUTOMATION_NAME,
+            description=(
+                "Run the all-pipeline delta ETL when PCM-DPC or Italia Open Data "
+                "source repositories emit a new data commit event."
+            ),
+            enabled=True,
+            tags=["source-trigger", "delta", "github"],
+            trigger=EventTrigger(
+                expect={SOURCE_COMMIT_EVENT},
+                match={
+                    "prefect.resource.id": [f"github.repository.{repo}" for repo in SOURCE_REPOSITORIES],
+                },
+                posture="Reactive",
+                threshold=1,
+                within=0,
+            ),
+            actions=[
+                RunDeployment(
+                    deployment_id=deployment.id,
+                    parameters={"mode": "delta"},
+                )
+            ],
+        )
+        existing = await client.read_automations_by_name(SOURCE_COMMIT_AUTOMATION_NAME)
+        if existing:
+            await client.update_automation(existing[0].id, automation)
+            return f"Updated Prefect automation: {SOURCE_COMMIT_AUTOMATION_NAME}"
+        await client.create_automation(automation)
+        return f"Registered Prefect automation: {SOURCE_COMMIT_AUTOMATION_NAME}"
+
+
 def main() -> None:
     for name in register_deployments():
         print(f"Registered Prefect deployment: {name}")
+    print(asyncio.run(register_source_commit_automation()))
 
 
 if __name__ == "__main__":

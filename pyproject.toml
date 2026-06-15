@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "covidashit"
-version = "8.0.0"
+version = "8.0.1"
 description = "COVIDash.it dashboard monorepo with FastAPI, React, Prefect, and PostgreSQL."
 requires-python = ">=3.12"
 dependencies = [

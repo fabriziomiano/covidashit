@@ -137,7 +137,7 @@ def test_sitemap_exposes_dashboard_routes(tmp_path, monkeypatch) -> None:
     assert "<loc>https://covidash.it/vaccines</loc>" in response.text
     assert "<loc>https://covidash.it/regions/Lombardia</loc>" in response.text
     assert "<loc>https://covidash.it/provinces/Milano</loc>" in response.text
-    assert openapi.json()["info"]["version"] == "8.0.0"
+    assert openapi.json()["info"]["version"] == "8.0.1"
 
 
 def teardown_module() -> None:

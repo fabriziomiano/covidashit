@@ -67,6 +67,18 @@ In the Prefect UI, open a deployment and click **Run** to trigger it immediately
 docker compose exec prefect-worker prefect deployment run covidash-full-etl/manual-delta
 ```
 
+The worker also creates the automation `Run COVIDash delta ETL on source data commit`. It runs `covidash-full-etl/manual-delta` when Prefect receives this event for either upstream data repository:
+
+- event name: `covidash.source.commit`
+- resource id: `github.repository.pcm-dpc/COVID-19`
+- resource id: `github.repository.italia/covid19-opendata-vaccini`
+
+A GitHub webhook bridge, Cloudflare Worker, or other event sender can emit the event to Prefect when the source repositories publish commits. A local smoke event can be emitted with:
+
+```shell
+docker compose exec prefect-worker prefect events emit covidash.source.commit   --resource-id github.repository.pcm-dpc/COVID-19   --payload '{"repository":"pcm-dpc/COVID-19","reason":"manual-smoke"}'
+```
+
 ## Configuration
 
 Important variables:

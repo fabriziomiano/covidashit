@@ -1,3 +1,4 @@
+import { useLanguage } from '../i18n';
 import type { TrendCard } from '../types/covidash';
 import { formatCompactNumber } from '../utils/format';
 import {
@@ -49,11 +50,11 @@ function numericValue(value: number | string | undefined) {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
-function changeLabel(card: TrendCard, comparisonLabel: string) {
+function changeLabel(card: TrendCard, comparisonLabel: string, translate: (message: string) => string) {
   const current = numericValue(card.count);
   const previous = numericValue(card.last_week_count);
-  const label = card.comparisonLabel ?? comparisonLabel;
-  if (current === null || previous === null || previous === 0) return `n/a ${label}`;
+  const label = translate(card.comparisonLabel ?? comparisonLabel);
+  if (current === null || previous === null || previous === 0) return `${translate('n/a')} ${label}`;
   const percentage = ((current - previous) / Math.abs(previous)) * 100;
   const sign = percentage > 0 ? '+' : '';
   const rounded = Math.round(Math.abs(percentage)) * Math.sign(percentage);
@@ -76,6 +77,7 @@ interface CardsProps {
 }
 
 export function TrendCards({ cards, comparisonLabel = 'vs 7d ago' }: CardsProps) {
+  const { t } = useLanguage();
   return (
     <div className="cards-grid">
       {cards.map((card) => {
@@ -83,22 +85,22 @@ export function TrendCards({ cards, comparisonLabel = 'vs 7d ago' }: CardsProps)
         return (
           <article className={`metric-card ${toneClass(card.colour)}`} key={card.id}>
             <div className="metric-card__head">
-              <span className="metric-card__icon" title={card.title}>
+              <span className="metric-card__icon" title={t(card.title)}>
                 <Icon aria-hidden="true" />
               </span>
-              <div className="metric-card__title">{card.title}</div>
+              <div className="metric-card__title">{t(card.title)}</div>
             </div>
             <div className="metric-card__value-row">
               <div className="metric-card__value" title={card.countLabel ?? String(card.count ?? 'n/a')}>
                 {formatCompactNumber(card.count ?? card.countLabel)}
               </div>
-              <span className="metric-card__trend" title={changeLabel(card, comparisonLabel)}>
+              <span className="metric-card__trend" title={changeLabel(card, comparisonLabel, t)}>
                 <StatusIcon statusIcon={card.status_icon} />
               </span>
             </div>
-            <div className="metric-card__delta">{changeLabel(card, comparisonLabel)}</div>
+            <div className="metric-card__delta">{changeLabel(card, comparisonLabel, t)}</div>
             <div className="metric-card__meta">
-              <span>{card.lastWeekDateLabel ?? card.last_week_dt ?? 'Previous'}</span>
+              <span>{card.lastWeekDateLabel ?? card.last_week_dt ?? t('Previous')}</span>
               <span>{formatCompactNumber(card.last_week_count ?? card.lastWeekCountLabel)}</span>
             </div>
           </article>
