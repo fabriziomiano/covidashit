@@ -38,10 +38,8 @@ export function Layout({ config }: LayoutProps) {
         <span>
           COVIDash.it &middot; Re-Made with ❤ in Catania by{' '}
           <a href="https://github.com/FabrizioMiano" target="_blank" rel="noreferrer">FabrizioMiano</a>{' '}
-          with the help of Code
+          with the help of Codex &middot; <Link to="/thanks">Acknowledgements</Link>
         </span>
-        <span>{t('Version')} {config.version}</span>
-        <Link to="/thanks">{t('Acknowledgements')}</Link>
       </footer>
     </div>
   );
