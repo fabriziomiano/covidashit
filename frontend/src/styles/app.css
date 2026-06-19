@@ -31,6 +31,15 @@ button, input { font: inherit; }
 .main-nav a.active, .main-nav a:hover, .quick-links a:hover, .area-grid a:hover, .area-search button:hover, .tabs button.active {
   border-color: #4db6ac; color: #ffffff; background: #18302f;
 }
+.archive-banner {
+  display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+  padding: 8px clamp(16px, 3vw, 42px); border-bottom: 1px solid #354258; background: #171d27;
+  color: #c9d3e3; font-size: 0.88rem; text-align: center;
+}
+.archive-banner span {
+  color: #4db6ac; font-size: 0.76rem; font-weight: 800; text-transform: uppercase;
+}
+.archive-banner strong { color: #f5f7fb; font-weight: 700; }
 .area-search { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; position: relative; }
 .area-search--panel { grid-template-columns: minmax(0, 1fr) auto; border: 1px solid #283244; border-radius: 8px; background: #151b24; padding: 12px; }
 .area-search__intro { grid-column: 1 / -1; display: grid; gap: 3px; margin-bottom: 2px; }
@@ -188,6 +197,7 @@ h2 { font-size: 1.15rem; margin: 0 0 14px; }
   .top-actions { justify-content: end; }
   .desktop-search { display: none; }
   .mobile-search { display: block; }
+  .archive-banner { align-items: flex-start; justify-content: flex-start; text-align: left; }
   .page-heading, .charts-grid { grid-template-columns: 1fr; display: grid; }
   .quick-links { justify-content: flex-start; }
   .coverage-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); min-width: 0; width: 100%; }

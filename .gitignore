@@ -4,6 +4,7 @@ __pycache__
 
 # virtual env
 .venv*
+.tools/
 
 # ide stuff
 .idea
@@ -21,3 +22,7 @@ covidashit/static/bundles
 
 # translations
 *.pot
+
+# frontend generated output
+frontend/node_modules/
+frontend/dist/
