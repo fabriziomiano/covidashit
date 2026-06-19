@@ -31,6 +31,10 @@ export function Layout({ config }: LayoutProps) {
           </div>
         </div>
       </header>
+      <div className="archive-banner" role="status">
+        <span>{t('Historical COVID-19 archive')}</span>
+        <strong>{t('Data is preserved for inspection and is no longer a live public-health feed.')}</strong>
+      </div>
       <main>
         <Outlet context={{ config }} />
       </main>

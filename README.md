@@ -1,6 +1,16 @@
 # COVIDash.it
 
-COVIDash.it is now the monorepo for the Italian COVID-19 dashboard and its ETL. The dashboard keeps the existing React visuals and FastAPI routes, while the data path has moved to Prefect 3 and PostgreSQL.
+COVIDash.it is an archival showcase of an Italian COVID-19 analytics dashboard. The public data sources are no longer meaningfully updated, so the project is kept as a reproducible full-stack data product: React/D3 frontend, FastAPI API, PostgreSQL warehouse, and Prefect 3 ETL.
+
+The live-style ETL remains in the repo because it demonstrates how the original dashboard data path was modernized. For portfolio review, the important story is deterministic historical replay and dashboard inspection, not ongoing epidemiological freshness.
+
+## Showcase
+
+- Product: `https://covidash.it`
+- Documentation: `docs/`
+- Architecture: React + TypeScript + D3, FastAPI, PostgreSQL, Prefect 3, Docker Compose
+- Demonstrates: dashboard modernization, open-data ETL, typed warehouse tables, API facade design, containerized local deployment, SEO/error handling, and CI-ready validation
+- Historical scope: pandemic and vaccination datasets are treated as archived public data
 
 ## Architecture
 
@@ -12,6 +22,8 @@ COVIDash.it is now the monorepo for the Italian COVID-19 dashboard and its ETL. 
 ## Data Loading
 
 The ETL supports both initial full loads and incremental delta loads. Full loads replace warehouse tables and refresh dashboard artifacts. Delta loads compare source dates with the latest loaded PostgreSQL dates and append only new rows. Each pipeline writes an `etl_run_log` entry with status, row count, skipped state, and failure message when applicable. Reusing the exact same run id is treated as already handled and does not replay the load.
+
+For showcase and review use, prefer a full load with an explicit run id. If long-term reproducibility is required, pin the source URLs in `etl/src/covidashflow/common/urls.py` to immutable GitHub commit URLs or import a saved PostgreSQL dump before starting the app.
 
 Run a full initial load:
 
@@ -53,13 +65,13 @@ Default local ports can be overridden with `COVIDASHIT_PORT`, `COVIDASH_SQL_PORT
 
 ## Prefect Runs
 
-`prefect-worker` registers these deployments when it starts:
+`prefect-worker` registers these deployments when it starts. The manual deployments are the useful ones for this archived showcase; the scheduled/event-triggered paths are retained to document the production-style design:
 
 - `covidash-full-etl/manual-delta` for an on-demand all-pipeline delta run.
 - `covidash-full-etl/manual-full` for an on-demand full warehouse rebuild.
 - `covidash-dpc-etl/manual-dpc-delta` for an on-demand pandemic-only delta run.
 - `covidash-vaccines-etl/manual-vaccines-delta` for an on-demand vaccines-only delta run.
-- `covidash-full-etl/scheduled-daily-delta` for the daily scheduled delta run at 05:00 Europe/Rome.
+- `covidash-full-etl/scheduled-daily-delta` for the daily scheduled delta run at 05:00 Europe/Rome. This is demo infrastructure now that upstream data is historical.
 
 In the Prefect UI, open a deployment and click **Run** to trigger it immediately. The same run can be triggered from the CLI:
 
@@ -134,6 +146,15 @@ Validate Compose files:
 ```shell
 docker compose -f docker-compose.yaml config --quiet
 docker compose -f docker-compose.sql.yaml config --quiet
+```
+
+Frontend validation:
+
+```shell
+cd frontend
+npm ci
+npm run lint
+npm run build
 ```
 
 ## Deployment

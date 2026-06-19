@@ -79,6 +79,8 @@ const MESSAGES: Record<Locale, Record<string, string>> = {
     'Area search': 'Cerca area',
     'Find regional or provincial dashboards': 'Trova dashboard regionali o provinciali',
     'Use the search after the first metrics when you need to jump to a specific area.': 'Usa la ricerca dopo i primi indicatori quando vuoi saltare a un\'area specifica.',
+    'Historical COVID-19 archive': 'Archivio storico COVID-19',
+    'Data is preserved for inspection and is no longer a live public-health feed.': 'I dati sono conservati per consultazione e non sono piu un flusso sanitario in tempo reale.',
     Explore: 'Esplora',
     Track: 'Monitora',
     'COVID-19 vaccination data and dose trends': 'dati vaccinali COVID-19 e andamento delle dosi',
